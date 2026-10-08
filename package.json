@@ -1,0 +1,19 @@
+{
+  "name": "clipforge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hand it a folder of talking-head clips; get back a trimmed, captioned, social-ready vertical video.",
+  "type": "module",
+  "bin": { "clipforge": "./bin/clipforge.mjs" },
+  "scripts": {
+    "setup": "npx hyperframes browser ensure && npx hyperframes models install parakeet",
+    "doctor": "npx hyperframes doctor",
+    "build": "node bin/clipforge.mjs build",
+    "test:fixtures": "node test/make-fixtures.mjs",
+    "test:e2e": "node test/make-fixtures.mjs && node bin/clipforge.mjs build test/fixtures --name fixture-run --hook \"The one thing nobody tells you\" --lower \"Kyle Melvin|Mortgage Lender\" --quality draft --force && node test/verify.mjs"
+  },
+  "dependencies": {
+    "hyperframes": "0.8.142"
+  },
+  "engines": { "node": ">=22" }
+}

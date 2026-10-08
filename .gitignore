@@ -1,0 +1,11 @@
+node_modules/
+videos/
+renders/
+.tts/
+.scratch/
+test/fixtures/
+*.mp4
+*.mov
+*.wav
+*.mp3
+.DS_Store
