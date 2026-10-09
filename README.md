@@ -83,8 +83,12 @@ per machine:
 2. Select **logo-dev**, then **Authenticate**.
 3. Sign in to Logo.dev in the browser window that opens.
 
-To add it outside this project instead, run
-`claude mcp add --transport http logo-dev https://mcp.logo.dev/mcp`.
+To make it available in every project on your machine, not just this one, register it at user
+scope instead:
+
+```bash
+claude mcp add --transport http --scope user logo-dev https://mcp.logo.dev/mcp
+```
 
 ## Testing
 
