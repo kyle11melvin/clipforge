@@ -73,6 +73,19 @@ Drop the clips in a Google Drive folder (or anywhere the session can fetch them)
 order, and say what hook and lower-third you want. The pipeline runs the same way in a cloud
 session. A 30-second video renders in a couple of minutes on a 4-core box.
 
+## Logo.dev MCP server
+
+`.mcp.json` registers the [Logo.dev](https://logo.dev) MCP server (`logo-dev`) at project scope,
+so Claude Code picks it up automatically when opened in this folder. It needs a one-time sign-in
+per machine:
+
+1. Start Claude Code in this folder and run `/mcp`.
+2. Select **logo-dev**, then **Authenticate**.
+3. Sign in to Logo.dev in the browser window that opens.
+
+To add it outside this project instead, run
+`claude mcp add --transport http logo-dev https://mcp.logo.dev/mcp`.
+
 ## Testing
 
 `npm run test:e2e` generates five synthetic clips with deliberate dead air (mixed portrait and
