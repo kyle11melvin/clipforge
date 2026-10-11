@@ -1,5 +1,5 @@
 {
-  "footage": "../../clips/siri-post/01-take.mov",
+  "footage": "../../IMG_8106.mov",
   "graphics": "final-graphics.mp4",
   "cues": [
     { "at": 1.7, "from": 3.4, "to": 5.3, "mode": "cut", "says": "and I built six apps" },
