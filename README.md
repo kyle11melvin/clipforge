@@ -73,6 +73,36 @@ Drop the clips in a Google Drive folder (or anywhere the session can fetch them)
 order, and say what hook and lower-third you want. The pipeline runs the same way in a cloud
 session. A 30-second video renders in a couple of minutes on a 4-core box.
 
+## Motion graphics
+
+`src/graphics/render.mjs` turns an HTML composition into an MP4, frame by frame, through headless
+Chromium. A composition is one HTML file that draws itself for any time `t` when `window.seek(t)`
+is called, with no CSS transitions or animations of its own. Every frame is therefore deterministic,
+which is what makes the render exact and lets you probe single moments before committing to a
+40-second full render.
+
+```bash
+# one still per time, side by side, for a quick look
+node src/graphics/render.mjs graphics/siri-post/comp.html /tmp/probe.png --probe 1.5,6.9,9.6,15.6,18.9
+
+# the full 20-second render
+node src/graphics/render.mjs graphics/siri-post/comp.html videos/siri-post/final-graphics.mp4 --duration 20
+```
+
+`graphics/siri-post/` is the reference composition: word-by-word title, app icons popping in with a
+counter, a website screenshot with a stamp, an iMessage-style dictation-fail chat with a typewriter
+effect, and a Siri-style orb punchline. Copy it to start a new one. The conventions it uses:
+
+- Scenes are absolutely positioned `div.scene` blocks; `seek(t)` sets each scene's opacity from a
+  `[start, end]` window with a short cross-fade, then positions every element from `t`.
+- Easing helpers (`easeOut`, `easeInOut`, `back` for overshoot) and `p(t, start, dur)` for a 0..1
+  progress value are the whole animation toolkit.
+- Fonts come from the system (Inter is installed by the setup) so the browser never fetches anything.
+- Images live next to the composition and are referenced relatively.
+
+The output has no audio. For a talking-head video, render the graphics, then cut them in over the
+captioned footage as b-roll in a second FFmpeg pass.
+
 ## Logo.dev MCP server
 
 `.mcp.json` registers the [Logo.dev](https://logo.dev) MCP server (`logo-dev`) at project scope,
