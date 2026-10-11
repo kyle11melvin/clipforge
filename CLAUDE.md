@@ -153,8 +153,8 @@ render. A brief that arrives here starting "send this to clipforge" came from it
 brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual. The first one (2026-10-11, VA entitlement
 hook) arrived with times, fonts, sizes and colours per element; follow such a brief literally and spell out
 only the calls it leaves open (safe-zone offsets, line breaks, the caption).
-- Story hooks: keep the headline below Instagram's story header (240 px from the top worked) and say so in
-  the report, since it departs from the guide's 72 px margin.
+- Story hooks: use the guide's 72 px top margin for the headline. Kyle asked for it after a first pass sat
+  the headline at 240 px to clear Instagram's story header; he would rather keep the brand margin.
 
 ## Next planned step
 

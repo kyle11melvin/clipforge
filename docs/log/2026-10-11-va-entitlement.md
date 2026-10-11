@@ -19,9 +19,9 @@ no scene fades because there is one scene and the frame holds). Output `videos/v
 
 ## Calls made without asking
 
-- Headline top at 240 px rather than the guide's 72 px margin, so the Instagram story header does not sit
-  on the first line. Continuation line at the 72 px bottom margin as the guide says; on a reel the caption
-  overlay may cover it, on a story it is clear. Both noted on the page; one word moves either.
+- First pass put the headline 240 px from the top to clear the Instagram story header. Kyle: "Move the
+  headline up to the 72 margin." Moved to the guide's 72 px; he takes the story header overlap. Continuation
+  line at the 72 px bottom margin as the guide says.
 - Line breaks fixed by hand ("Used your VA / loan once?" and "You can use / it again.") so the wrap is
   the same on every frame.
 - Caption written in Kyle's voice with the DM "VA" ask and the handbook source (M26-7, Ch. 3). Claims kept
@@ -36,6 +36,6 @@ stills also attached in chat.
 
 ## Open items
 
-- Kyle's reaction to the hook, and whether the 240 px top offset is right for how he posts stories.
+- Kyle's reaction to the hook beyond the margin fix.
 - Whether he wants a sound bed on story posts.
 - Save MP4 on his phone still unconfirmed from earlier sessions.
