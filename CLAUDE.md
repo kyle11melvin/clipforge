@@ -156,6 +156,28 @@ only the calls it leaves open (safe-zone offsets, line breaks, the caption).
 - Story hooks: use the guide's 72 px top margin for the headline. Kyle asked for it after a first pass sat
   the headline at 240 px to clear Instagram's story header; he would rather keep the brand margin.
 
+## What Kyle likes, in his words (keep this current)
+
+- Siri post graphics: "lol at your graphics in this!!" The joke lands; keep the comedy and the real evidence.
+- Wait-or-buy math post: "Wow. Good work." The shape is approved (see Tone and content rules).
+- Coastal Money hook from a Project brief, same day: "I'm just proud. I think we broke to next level."
+  Following a ready brief literally, delivering a finished cut with stills, and taking a one-line fix
+  ("Move the headline up to the 72 margin") without discussion is the working rhythm he wants.
+- He wants Claude to remember his preferences and the plan, not to re-ask. This file is that memory;
+  fold every reaction in here the session it happens.
+- Rendered MP4s do not survive between sessions (gitignored, fresh container each time). Every delivered
+  video stays on its artifact page; when he asks for an old one, re-render it from its `graphics/<post>/`
+  composition (a minute) and send it, rather than saying it is gone. Pages so far: Siri Post Video,
+  Wait or Buy (both cuts), VA Entitlement Hook.
+
+## Way forward
+
+1. Monday: the Siri talking-head footage (plan below). First real talking-head + b-roll cut.
+2. More Coastal Money Project briefs like the VA hook: one-slide hooks and five-slide carousels, built
+   literally, delivered with stills and a caption. Three seconds to thirty.
+3. His verdict on the two wait-or-buy cuts (Coastal Money vs flyer look) decides which look the math
+   posts use going forward. Until then, Instagram = Coastal Money.
+
 ## Next planned step
 
 Monday: Kyle shoots the five lines ("Listen, I have zero code experience" / "and I built six apps" / "and an

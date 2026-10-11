@@ -34,6 +34,13 @@ Private artifact page with the player, Save MP4 (`downloads` capability, file se
 open-in-new-tab link, the five stills, the caption with a copy button, and the still-open list. MP4 and
 stills also attached in chat.
 
+## Kyle, after the margin fix
+
+Asked for the two wait-or-buy videos; they were re-rendered from the compositions and sent (MP4s do not
+persist between sessions). He found his copy of the Siri graphics render himself: "lol at your graphics in
+this!!" Then: "I just want you to remember what I like and way forward" and "I'm just proud. I think we
+broke to next level." Both folded into CLAUDE.md as a standing section.
+
 ## Open items
 
 - Kyle's reaction to the hook beyond the margin fix.
