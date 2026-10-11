@@ -57,6 +57,12 @@ his standing brief. Read it before touching anything.
 - Keep replies short. He said "You're getting a little smarter" when the work matched the point of the post,
   and "you nailed that" when the shooting plan was concrete: five short lines, one take each, a reaction shot.
 
+## Project log
+
+`docs/log/` holds one note per working session: what was built, what Kyle asked for, what he reacted to.
+Read the latest one at the start of a session. Add a new one at the end of any session that produced a
+video or changed the pipeline, and fold any new standing preference into this file.
+
 ## Next planned step
 
 Monday: Kyle shoots five short talking-head lines plus a three-second reaction shot. The job is to trim and
