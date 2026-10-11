@@ -10,7 +10,15 @@ his standing brief. Read it before touching anything.
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
-- `.claude/skills/motion-graphics/` — the step-by-step workflow for a new graphics video.
+- `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
+- `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
+  `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
+  cards over a clip that plays untouched, synced to the transcript, which is exactly the b-roll job),
+  `embedded-captions` (35 caption identities, captions composited behind the subject), `motion-graphics`
+  (HyperFrames' own version of a short graphic piece), `hyperframes-animation` / `hyperframes-keyframes`
+  (GSAP timeline recipes). They route through `/hyperframes`. Use them for structure and caption styles,
+  but Kyle's look and tone in this file win over any skill's defaults. HyperFrames skills want to update
+  themselves on first use; ask before letting them.
 
 ## The look Kyle approved (use it unless he asks for something else)
 
@@ -67,7 +75,9 @@ his standing brief. Read it before touching anything.
 - Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). Caption
   style: Inter ExtraBold, uppercase, white with a dark outline, centred at 70% of frame height.
 - Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
-  `clipforge broll videos/<name>/cues.json --output ...` to cut them together. A cue is
+  `clipforge broll videos/<name>/cues.json --output ...` to cut them together. The HyperFrames
+  `talking-head-recut` skill is the more complete version of the broll step (cards written per moment,
+  transcript-synced); try it on the Monday footage and keep whichever gives the better result. A cue is
   `{at, from, to, mode, says}`; `says` is the phrase the cue sits on, so timings can be re-derived from the
   transcript once audio exists.
 - Getting footage in: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
