@@ -75,6 +75,10 @@ his standing brief. Read it before touching anything.
 - For a mortgage explainer with b-roll: when he says a number or a trend ("housing prices in 2008 went
   down"), cut to a chart of that exact thing with real data and a visible source. Full-screen cutaway for
   charts, picture-in-picture for small stat callouts. He asked Claude to make that call per graphic.
+- Math posts (approved 2026-10-11, "Wow. Good work."): hook question → assumption cards with counters and
+  a visible source (Freddie Mac for rates) → to-scale chart → buy-now vs wait table → stamp → punchline →
+  a question back to the audience ("Still waiting?"). Round example price ($1,000,000), P&I only, with an
+  on-screen "example, not a quote" footer. Spell out any assumption made from a garbled brief in the report.
 
 ## How to work with him
 

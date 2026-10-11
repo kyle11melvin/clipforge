@@ -39,6 +39,12 @@ most likely a Claude Project whose instructions this session cannot read. Ask hi
 project's instructions. His Instagram handle is known to the session but is kept out of this public
 repo on purpose.
 
+## Kyle's verdict on the delivered cut
+
+"Wow. Good work. Make note." So the math-post format landed on the first pass: a hook question, three
+assumption cards with a visible source, a to-scale chart, a two-column comparison, a stamp, a punchline
+and a question back to the audience. Keep that shape for future number posts.
+
 ## Open items
 
 - Get the other project's instructions and fold them into CLAUDE.md (brand, voice, posting cadence,
