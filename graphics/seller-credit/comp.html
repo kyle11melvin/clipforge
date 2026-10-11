@@ -1,0 +1,272 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens (graphics/brand/coastal-money/GUIDELINES.md) */
+  :root { --navy:#173F4F; --navy-deep:#102C38; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sand-deep:#E4DBCB; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; opacity: 0; padding: 72px 64px; background: var(--navy); overflow: hidden; }
+  .scene.sand { background: var(--sand); color: var(--ink); }
+  .scene.sand::after { content: ""; position: absolute; right: -200px; top: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(215,123,82,.10) 0, rgba(215,123,82,0) 70%); }
+  .scene.terra { background: var(--terra); color: var(--sand); }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 36px; line-height: 1.5; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; color: var(--terra); }
+  .c-terra { color: var(--terra); } .c-sand { color: var(--sand); } .c-sage-lift { color: var(--sage-lift); } .c-sage { color: var(--sage); } .c-ink { color: var(--ink); }
+  .mute-navy { color: rgba(239,233,222,.72); } .mute-sand { color: rgba(14,42,53,.72); } .mute-terra { color: rgba(239,233,222,.78); }
+  .rule-navy { height: 1px; background: rgba(239,233,222,.20); } .rule-sand { height: 1px; background: rgba(14,42,53,.16); }
+  .w { display: inline-block; opacity: 0; transform: translateY(26px); }
+  .ln { display: block; }
+  .bottom { position: absolute; left: 64px; right: 64px; bottom: 72px; }
+  .scribble { position: absolute; overflow: visible; }
+  .scribble path { fill: none; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+  /* s1 hook: photo under a navy scrim, then the claim and the number */
+  #s1 { padding: 0; }
+  #s1 .photo { position: absolute; left: -60px; top: -60px; width: 1200px; height: 2040px; object-fit: cover; transform-origin: 50% 40%; }
+  #s1 .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,63,79,.38) 0%, rgba(23,63,79,.78) 45%, rgba(23,63,79,.97) 100%); }
+  #s1 .head { position: absolute; left: 64px; right: 64px; top: 500px; font-size: 100px; }
+  #s1 .big { position: absolute; left: 64px; right: 64px; top: 1040px; font-size: 240px; white-space: nowrap; opacity: 0; transform-origin: 0 100%; }
+  #s1 .scribble { left: 60px; top: 1270px; width: 760px; height: 60px; }
+  #s1 .scribble path { stroke: var(--terra); }
+  #s1 .cont { font-size: 34px; opacity: 0; }
+
+  /* s2 terracotta field, wipes up over the hook */
+  #s2 { clip-path: inset(100% 0 0 0); }
+  #s2 .head { position: absolute; left: 64px; right: 64px; top: 300px; font-size: 96px; }
+  #s2 .ask { position: absolute; left: 64px; right: 64px; top: 1160px; font-size: 76px; font-family: "Manrope", sans-serif; font-weight: 500; letter-spacing: -0.01em; text-align: center; opacity: 0; }
+  #s2 .scribble { left: 240px; top: 1270px; width: 600px; height: 50px; }
+  #s2 .scribble path { stroke: var(--navy); }
+
+  /* s3 sand setup */
+  #s3 .eyebrow { position: absolute; left: 64px; top: 220px; opacity: 0; }
+  #s3 .head { position: absolute; left: 64px; right: 64px; top: 290px; font-size: 84px; }
+  #s3 .src { position: absolute; left: 64px; right: 64px; top: 690px; font-size: 26px; opacity: 0; }
+  #s3 .note { position: absolute; left: 64px; right: 64px; top: 860px; font-size: 80px; line-height: 1.1; opacity: 0; transform-origin: 0 50%; }
+  #s3 .cap { position: absolute; left: 64px; right: 64px; top: 1120px; font-size: 200px; white-space: nowrap; opacity: 0; transform-origin: 0 100%; }
+  #s3 .body { position: absolute; left: 64px; width: 800px; bottom: 72px; opacity: 0; }
+
+  /* s4 numerals: two ways to spend it */
+  #s4 .head { position: absolute; left: 64px; right: 64px; top: 180px; font-size: 72px; }
+  #s4 .rows { position: absolute; left: 64px; right: 64px; top: 500px; display: grid; gap: 56px; }
+  #s4 .row { display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; opacity: 0; transform: translateY(22px); }
+  #s4 .row .n { font-size: 230px; }
+  #s4 .row .eyebrow { margin-top: 26px; }
+  #s4 .row .body { margin-top: 14px; }
+  #s4 .rule-navy { margin: 0; }
+  #s4 .foot { font-size: 24px; color: rgba(239,233,222,.42); opacity: 0; }
+
+  /* s5 to-scale bars: monthly savings */
+  #s5 .eyebrow { position: absolute; left: 64px; top: 200px; opacity: 0; }
+  #s5 .head { position: absolute; left: 64px; right: 64px; top: 270px; font-size: 84px; }
+  #s5 .bars { position: absolute; left: 64px; right: 64px; top: 760px; display: grid; gap: 64px; }
+  #s5 .bar { opacity: 0; }
+  #s5 .bar .lbl { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  #s5 .bar .lbl .eyebrow { font-size: 26px; }
+  #s5 .bar .lbl .v { font-family: "Sora", sans-serif; font-weight: 700; font-size: 64px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  #s5 .bar .track { height: 36px; position: relative; }
+  #s5 .bar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; }
+  #s5 .bar .fill.a { background: var(--sand-deep); opacity: .45; }
+  #s5 .bar .fill.b { background: var(--terra); }
+  #s5 .note { position: absolute; left: 64px; right: 64px; top: 1180px; font-size: 64px; line-height: 1.1; opacity: 0; transform-origin: 0 50%; }
+  #s5 .body { position: absolute; left: 64px; width: 820px; bottom: 72px; opacity: 0; }
+
+  /* s6 big number */
+  #s6 .eyebrow { position: absolute; left: 64px; top: 320px; opacity: 0; }
+  #s6 .big { position: absolute; left: 64px; right: 64px; top: 440px; font-size: 230px; white-space: nowrap; opacity: 0; transform-origin: 0 100%; }
+  #s6 .sub { position: absolute; left: 64px; right: 64px; top: 720px; font-size: 72px; opacity: 0; }
+  #s6 .same { position: absolute; left: 64px; right: 64px; top: 1000px; font-size: 84px; opacity: 0; }
+  #s6 .body { position: absolute; left: 64px; width: 820px; bottom: 72px; opacity: 0; }
+
+  /* s7 cta */
+  #s7 .dm { position: absolute; left: 64px; top: 200px; font-size: 300px; opacity: 0; transform-origin: 0 100%; }
+  #s7 .head { position: absolute; left: 64px; right: 64px; top: 520px; font-size: 72px; opacity: 0; }
+  #s7 .ask { position: absolute; left: 64px; width: 860px; top: 720px; opacity: 0; }
+  #s7 .sign { position: absolute; left: 64px; right: 64px; bottom: 72px; opacity: 0; }
+  #s7 .who { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: center; padding-top: 40px; }
+  #s7 .who img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; }
+  #s7 .name { font-family: "Sora", sans-serif; font-weight: 700; font-size: 42px; letter-spacing: -0.02em; }
+  #s7 .nmls { font-size: 28px; margin-top: 6px; }
+  #s7 .disc { font-size: 24px; line-height: 1.5; color: rgba(239,233,222,.42); margin-top: 36px; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <img class="photo" id="photo" src="hook.jpg" onerror="this.style.display='none'">
+  <div class="scrim"></div>
+  <div class="head h">
+    <span class="ln c-sand"><span class="w">Stop</span> <span class="w">negotiating</span></span>
+    <span class="ln c-sand"><span class="w">the</span> <span class="w">price.</span></span>
+    <span class="ln c-terra"><span class="w">Negotiate</span> <span class="w">this:</span></span>
+  </div>
+  <div class="big num c-sand" id="s1big">$<span id="s1n">0</span></div>
+  <svg class="scribble" viewBox="0 0 760 60"><path id="sc1" pathLength="1" d="M 14 34 C 160 18, 420 8, 740 20 C 560 26, 300 34, 90 48 C 260 40, 470 36, 600 34"/></svg>
+  <div class="bottom cont mute-navy" id="s1cont">Seller credits, explained &rarr;</div>
+</div>
+
+<div class="scene terra" id="s2">
+  <div class="head h">
+    <span class="ln"><span class="w">Price</span> <span class="w">is</span> <span class="w">only</span> <span class="w">part</span></span>
+    <span class="ln"><span class="w">of</span> <span class="w">the</span> <span class="w">negotiation.</span></span>
+  </div>
+  <div class="ask" id="s2ask">Ask for a seller credit.</div>
+  <svg class="scribble" viewBox="0 0 600 50"><path id="sc2" pathLength="1" d="M 10 30 C 140 14, 340 6, 590 16 C 440 22, 240 28, 70 40 C 200 34, 360 30, 470 28"/></svg>
+</div>
+
+<div class="scene sand" id="s3">
+  <div class="eyebrow c-sage" id="s3eye">The setup</div>
+  <div class="head h c-ink" id="s3head">
+    <span class="ln"><span class="w">An</span> <span class="w">$800,000</span> <span class="w">home.</span></span>
+    <span class="ln"><span class="w">20%</span> <span class="w">down.</span></span>
+    <span class="ln"><span class="w">Rates</span> <span class="w">7.40%</span> <span class="w">today.</span></span>
+  </div>
+  <div class="src mute-sand" id="s3src">30-year average, Freddie Mac, Oct 8 2026</div>
+  <div class="note" id="s3note">The seller can credit up to 6% of the price.</div>
+  <div class="cap num c-terra" id="s3cap">$<span id="s3n">0</span></div>
+  <div class="body mute-sand" id="s3body">That's $48,000 on the table. Where you put it decides what it's worth.</div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="head h c-sand">Two ways to spend<br>the same $48,000.</div>
+  <div class="rows">
+    <div class="row" id="r1">
+      <div class="n num c-sage-lift">01</div>
+      <div><div class="eyebrow c-sage-lift">Off the price</div><div class="body c-sand">You pay $752,000. Same rate. Your payment drops $266 a month.</div></div>
+    </div>
+    <div class="rule-navy" id="rl"></div>
+    <div class="row" id="r2">
+      <div class="n num c-terra">02</div>
+      <div><div class="eyebrow c-sage-lift">Toward your rate</div><div class="body c-sand">Closing costs covered. Rate bought down to <span id="rate">7.40</span>%. Your payment drops $594 a month.</div></div>
+    </div>
+  </div>
+  <div class="bottom foot" id="s4foot">Example, not a quote. Principal and interest only. Say each point buys 0.25%.</div>
+</div>
+
+<div class="scene" id="s5">
+  <div class="eyebrow c-sage-lift" id="s5eye">Monthly savings</div>
+  <div class="head h c-sand">
+    <span class="ln"><span class="w">Same</span> <span class="w">$48,000.</span></span>
+    <span class="ln c-terra"><span class="w">More</span> <span class="w">than</span> <span class="w">twice</span></span>
+    <span class="ln c-terra"><span class="w">the</span> <span class="w">savings.</span></span>
+  </div>
+  <div class="bars">
+    <div class="bar" id="b1">
+      <div class="lbl"><div class="eyebrow c-sage-lift">Off the price</div><div class="v c-sand">$<span id="b1n">0</span><span class="mute-navy" style="font-size:32px;font-family:Manrope;font-weight:400"> /mo</span></div></div>
+      <div class="track"><div class="fill a" id="b1f"></div></div>
+    </div>
+    <div class="bar" id="b2">
+      <div class="lbl"><div class="eyebrow c-sage-lift">Toward your rate</div><div class="v c-terra">$<span id="b2n">0</span><span class="mute-navy" style="font-size:32px;font-family:Manrope;font-weight:400"> /mo</span></div></div>
+      <div class="track"><div class="fill b" id="b2f"></div></div>
+    </div>
+  </div>
+  <div class="note" id="s5note">And the closing costs? Already paid.</div>
+  <div class="body mute-navy" id="s5body">A price cut shrinks the loan a little. A credit on the rate shrinks every payment for thirty years.</div>
+</div>
+
+<div class="scene" id="s6">
+  <div class="eyebrow c-sage-lift" id="s6eye">Over five years</div>
+  <div class="big num c-terra" id="s6big">$<span id="s6n">0</span></div>
+  <div class="sub h c-sand" id="s6sub">more in your pocket<br>than the price cut.</div>
+  <div class="same h c-sand" id="s6same">Same house.<br>Same $48,000.<br>Different ask.</div>
+  <div class="body mute-navy" id="s6body">$328 a month for 60 months, plus the $12,000 in closing costs you never brought.</div>
+</div>
+
+<div class="scene" id="s7">
+  <div class="dm num c-terra" id="dm">DM</div>
+  <div class="head h c-sand" id="s7head">Making an offer this year?</div>
+  <div class="body ask c-sand" id="s7ask">Send me <span class="c-terra" style="font-weight:700">"BUYDOWN"</span> and I'll show you what to ask for &mdash; no cost, no obligation.</div>
+  <div class="sign" id="s7sign">
+    <div class="rule-navy"></div>
+    <div class="who"><img src="portrait.png"><div><div class="name c-sand">Kyle Melvin</div><div class="nmls mute-navy">NMLS #1486450</div></div></div>
+    <div class="disc">Estimates only. Subject to underwriting approval. Not a rate lock or commitment. Equal Housing Opportunity.</div>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  // scene windows (seconds)
+  const S = { s1:[0,6.0], s2:[5.6,10.0], s3:[10.0,16.4], s4:[16.4,23.4], s5:[23.4,30.2], s6:[30.2,35.0], s7:[35.0,40.5] };
+  const FADE = 0.25;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b) ? 0 : Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE));
+  const rise = (el, q) => { el.style.opacity = q; el.style.transform = `translateY(${26*(1-q)}px)`; };
+  const pop = (el, q, from = 0.9) => { el.style.opacity = clamp(q*2); el.style.transform = `scale(${from + (1-from)*back(q)})`; };
+  const noteIn = (el, q) => { el.style.opacity = clamp(q*2); el.style.transform = `rotate(${-2 + 2*easeOut(q)}deg) scale(${0.9 + 0.1*back(q)})`; };
+  const draw = (path, q) => { path.style.strokeDashoffset = 1 - easeInOut(q); };
+  const words = sel => Array.from(document.querySelectorAll(sel));
+  const w1 = words('#s1 .w'), w2 = words('#s2 .w'), w3 = words('#s3 .w'), w5 = words('#s5 .w');
+
+  window.seek = function (t) {
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+
+    // s1 hook: slow push-in on the photo, words rise, the turn after a beat, then the number slams in
+    $('photo').style.transform = `scale(${1 + 0.06*p(t, 0, 6)})`;
+    w1.forEach((w, i) => rise(w, easeOut(p(t, 0.3 + i*0.11 + (i >= 4 ? 0.5 : 0), 0.45))));
+    const nq = p(t, 2.3, 0.45); pop($('s1big'), nq, 1.5);
+    $('s1n').textContent = fmt(48000 * easeOut(p(t, 2.3, 1.0)));
+    draw($('sc1'), p(t, 3.0, 0.8));
+    rise($('s1cont'), easeOut(p(t, 4.0, 0.45)));
+
+    // s2 terracotta wipe up over the hook, no cross-fade
+    const wq = easeInOut(p(t, 5.6, 0.45));
+    $('s2').style.clipPath = `inset(${(1-wq)*100}% 0 0 0)`;
+    $('s2').style.opacity = (t < 5.6 || t > S.s2[1]) ? 0 : 1 - p(t, S.s2[1] - FADE, FADE);
+    w2.forEach((w, i) => rise(w, easeOut(p(t, 6.1 + i*0.1, 0.45))));
+    rise($('s2ask'), easeOut(p(t, 7.3, 0.45)));
+    draw($('sc2'), p(t, 7.7, 0.7));
+
+    // s3 sand setup: assumptions, source, the 6% note, then $48,000 counts up
+    $('s3eye').style.opacity = p(t, 10.3, 0.3);
+    w3.forEach((w, i) => rise(w, easeOut(p(t, 10.5 + i*0.1, 0.45))));
+    rise($('s3src'), easeOut(p(t, 11.8, 0.4)));
+    noteIn($('s3note'), p(t, 12.5, 0.4));
+    pop($('s3cap'), p(t, 13.5, 0.4));
+    $('s3n').textContent = fmt(48000 * easeOut(p(t, 13.5, 1.2)));
+    rise($('s3body'), easeOut(p(t, 14.6, 0.5)));
+
+    // s4 numerals: row 1, hairline, row 2 with the rate counting down, footer
+    rise($('r1'), easeOut(p(t, 16.9, 0.5)));
+    $('rl').style.opacity = p(t, 18.2, 0.3);
+    rise($('r2'), easeOut(p(t, 18.5, 0.5)));
+    $('rate').textContent = (7.40 - 1.40*easeOut(p(t, 19.2, 1.2))).toFixed(2);
+    $('s4foot').style.opacity = p(t, 20.4, 0.4);
+
+    // s5 bars grow to scale with counters, then the note and the line
+    $('s5eye').style.opacity = p(t, 23.7, 0.3);
+    w5.forEach((w, i) => rise(w, easeOut(p(t, 23.9 + i*0.1 + (i >= 2 ? 0.4 : 0), 0.45))));
+    const MAXW = 952, MAXV = 594;
+    rise($('b1'), easeOut(p(t, 25.4, 0.4)));
+    const q1 = easeOut(p(t, 25.6, 1.0)); $('b1f').style.width = `${MAXW*266/MAXV*q1}px`; $('b1n').textContent = fmt(266*q1);
+    rise($('b2'), easeOut(p(t, 26.3, 0.4)));
+    const q2 = easeOut(p(t, 26.5, 1.3)); $('b2f').style.width = `${MAXW*q2}px`; $('b2n').textContent = fmt(594*q2);
+    noteIn($('s5note'), p(t, 28.0, 0.4));
+    rise($('s5body'), easeOut(p(t, 28.7, 0.5)));
+
+    // s6 big number
+    $('s6eye').style.opacity = p(t, 30.5, 0.3);
+    pop($('s6big'), p(t, 30.7, 0.4));
+    $('s6n').textContent = fmt(31680 * easeOut(p(t, 30.7, 1.4)));
+    rise($('s6sub'), easeOut(p(t, 31.6, 0.5)));
+    rise($('s6same'), easeOut(p(t, 32.6, 0.5)));
+    rise($('s6body'), easeOut(p(t, 33.3, 0.5)));
+
+    // s7 cta
+    pop($('dm'), p(t, 35.3, 0.4), 0.8);
+    rise($('s7head'), easeOut(p(t, 35.9, 0.45)));
+    rise($('s7ask'), easeOut(p(t, 36.5, 0.45)));
+    rise($('s7sign'), easeOut(p(t, 37.3, 0.5)));
+  };
+  window.seek(0);
+</script>
+</body></html>

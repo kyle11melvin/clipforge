@@ -62,6 +62,10 @@ his standing brief. Read it before touching anything.
   errors. Never staged examples. When a URL matters, show it as a gold pill on screen and also put it in the
   caption, since video posts have no clickable links.
 - No invented handles, taglines or sources. If a tag line is needed, ask or leave it out.
+- Photos: Unsplash (Kyle: "greatest site if you need pics"). `images.unsplash.com` is reachable from the
+  session; find ids with WebFetch on an `unsplash.com/s/photos/<terms>` page, then fetch
+  `https://images.unsplash.com/photo-<id>?w=1080&h=1920&fit=crop`. Canva image generation runs but its
+  full-size files cannot be downloaded here. Note the photographer in the log.
 
 ## Tone and content rules
 
@@ -138,6 +142,12 @@ stay. The short version:
 - Hook: two-tone headline, sand line then the terracotta turn, a muted continuation line at the bottom.
 - CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN), hairline, circle portrait, name,
   NMLS #1486450, disclosure line. `graphics/wait-or-buy-cm/` is the reference composition.
+- A carousel he already has can be turned into a video: slide one becomes the hook (photo under a navy scrim,
+  slow push-in, the scribble underline drawn as an SVG stroke), the turn slide becomes a terracotta field that
+  wipes up, and the "read the caption" payoff is shown in the video itself. `graphics/seller-credit/` is the
+  reference for this; it also has the wipe, the scribble and a rate counting down inside a sentence.
+- Seller-credit math (2026-10-11): 6% cap on a conventional loan with 10–25% down, $12,000 closing costs,
+  0.25% per point; the five-year number is the monthly gap times 60 plus the closing costs not brought.
 - **Kyle's call (2026-10-11): ignore the guide's compliance section.** Rates and payments may appear on
   screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.
 - This repo is public: do not write anything private from his email into it.
