@@ -1,0 +1,161 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens (graphics/brand/coastal-money/GUIDELINES.md) */
+  :root { --navy:#173F4F; --navy-deep:#102C38; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sand-deep:#E4DBCB; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; opacity: 0; padding: 72px 64px; background: var(--navy); }
+  .scene.sand { background: var(--sand); color: var(--ink); }
+  .scene.sand::after { content: ""; position: absolute; right: -200px; top: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(215,123,82,.10) 0, rgba(215,123,82,0) 70%); }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 36px; line-height: 1.5; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; color: var(--terra); }
+  .terra { color: var(--terra); } .sand { color: var(--sand); } .sage-lift { color: var(--sage-lift); } .sage { color: var(--sage); }
+  .mute-navy { color: rgba(239,233,222,.72); } .mute-sand { color: rgba(14,42,53,.72); }
+  .rule-navy { height: 1px; background: rgba(239,233,222,.20); } .rule-sand { height: 1px; background: rgba(14,42,53,.16); }
+  .w { display: inline-block; opacity: 0; transform: translateY(26px); }
+  .ln { display: block; }
+  .bottom { position: absolute; left: 64px; right: 64px; bottom: 72px; }
+
+  /* s1 hook */
+  #s1 .head { position: absolute; left: 64px; right: 64px; top: 560px; font-size: 96px; }
+  #s1 .cont { font-size: 34px; opacity: 0; }
+
+  /* s2 editorial */
+  #s2 .eyebrow { position: absolute; left: 64px; top: 240px; opacity: 0; }
+  #s2 .head { position: absolute; left: 64px; right: 64px; top: 310px; font-size: 84px; }
+  #s2 .src { position: absolute; left: 64px; right: 64px; top: 620px; font-size: 26px; opacity: 0; }
+  #s2 .note { position: absolute; left: 64px; right: 64px; top: 820px; font-size: 76px; line-height: 1.1; opacity: 0; transform-origin: 0 50%; }
+  #s2 .body { position: absolute; left: 64px; width: 760px; bottom: 72px; opacity: 0; }
+
+  /* s3 numerals */
+  #s3 .head { position: absolute; left: 64px; right: 64px; top: 180px; font-size: 72px; }
+  #s3 .rows { position: absolute; left: 64px; right: 64px; top: 520px; display: grid; gap: 56px; }
+  #s3 .row { display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; opacity: 0; transform: translateY(22px); }
+  #s3 .row .n { font-size: 230px; }
+  #s3 .row .eyebrow { margin-top: 26px; }
+  #s3 .row .body { margin-top: 14px; }
+  #s3 .rule-navy { margin: 0; }
+
+  /* s4 big number */
+  #s4 .eyebrow { position: absolute; left: 64px; top: 320px; opacity: 0; }
+  #s4 .big { position: absolute; left: 64px; right: 64px; top: 420px; font-size: 196px; white-space: nowrap; opacity: 0; }
+  #s4 .same { position: absolute; left: 64px; right: 64px; top: 700px; font-size: 72px; opacity: 0; }
+  #s4 .body { position: absolute; left: 64px; width: 780px; bottom: 72px; opacity: 0; }
+
+  /* s5 cta */
+  #s5 .dm { position: absolute; left: 64px; top: 200px; font-size: 300px; opacity: 0; transform-origin: 0 100%; }
+  #s5 .head { position: absolute; left: 64px; right: 64px; top: 520px; font-size: 72px; opacity: 0; }
+  #s5 .ask { position: absolute; left: 64px; width: 820px; top: 720px; opacity: 0; }
+  #s5 .sign { position: absolute; left: 64px; right: 64px; bottom: 72px; opacity: 0; }
+  #s5 .who { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: center; padding-top: 40px; }
+  #s5 .who img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; }
+  #s5 .name { font-family: "Sora", sans-serif; font-weight: 700; font-size: 42px; letter-spacing: -0.02em; }
+  #s5 .nmls { font-size: 28px; margin-top: 6px; }
+  #s5 .disc { font-size: 24px; line-height: 1.5; color: rgba(239,233,222,.42); margin-top: 36px; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="head h">
+    <span class="ln sand"><span class="w">Waiting</span> <span class="w">for</span></span>
+    <span class="ln sand"><span class="w">rates</span> <span class="w">to</span> <span class="w">drop?</span></span>
+    <span class="ln terra"><span class="w">The</span> <span class="w">house</span> <span class="w">isn't.</span></span>
+  </div>
+  <div class="bottom cont mute-navy" id="s1cont">Buy now vs. wait five years, in dollars &rarr;</div>
+</div>
+
+<div class="scene sand" id="s2">
+  <div class="eyebrow sage" id="s2eye">The setup</div>
+  <div class="head h" id="s2head">
+    <span class="ln"><span class="w">A</span> <span class="w">$1,000,000</span> <span class="w">home.</span></span>
+    <span class="ln"><span class="w">Prices</span> <span class="w">up</span> <span class="w">3%</span> <span class="w">a</span> <span class="w">year.</span></span>
+    <span class="ln"><span class="w">Rates</span> <span class="w">7.40%</span> <span class="w">today.</span></span>
+  </div>
+  <div class="src mute-sand" id="s2src">30-year average, Freddie Mac, Oct 8 2026</div>
+  <div class="note" id="s2note">Say they drop to 4.40%.</div>
+  <div class="body mute-sand" id="s2body">Five years from now you both have 4.40%. One of you bought today.</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="head h sand">Two ways<br>to year five.</div>
+  <div class="rows">
+    <div class="row" id="r1">
+      <div class="n num terra">01</div>
+      <div><div class="eyebrow sage-lift">Buy today</div><div class="body sand">You pay $1,000,000 at 7.40%. Refinance to 4.40% in year five: $3,787 a month.</div></div>
+    </div>
+    <div class="rule-navy" id="rl"></div>
+    <div class="row" id="r2">
+      <div class="n num sage-lift">02</div>
+      <div><div class="eyebrow sage-lift">Wait five years</div><div class="body sand">You pay $1,159,274 at 4.40%: $4,644 a month, for the same house.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="eyebrow sage-lift" id="s4eye">The gap in year five</div>
+  <div class="big num terra" id="s4big">$<span id="gap">0</span></div>
+  <div class="same h sand" id="s4same">Same rate.<br>Not the same year five.</div>
+  <div class="body mute-navy" id="s4body">Appreciation plus the principal you paid down. The one who waited has neither.</div>
+</div>
+
+<div class="scene" id="s5">
+  <div class="dm num terra" id="dm">DM</div>
+  <div class="head h sand" id="s5head">Thinking about waiting?</div>
+  <div class="body ask sand" id="s5ask">Send me <span class="terra" style="font-weight:700">"WAIT"</span> and I'll run your scenario &mdash; no cost, no obligation.</div>
+  <div class="sign" id="s5sign">
+    <div class="rule-navy"></div>
+    <div class="who"><img src="portrait.png"><div><div class="name sand">Kyle Melvin</div><div class="nmls mute-navy">NMLS #1486450</div></div></div>
+    <div class="disc">Estimates only. Subject to underwriting approval. Not a rate lock or commitment. Equal Housing Opportunity.</div>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const S = { s1:[0,4.2], s2:[4.2,10.0], s3:[10.0,16.0], s4:[16.0,21.6], s5:[21.6,27.0] };
+  const FADE = 0.25;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b) ? 0 : Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE));
+  const rise = (el, q) => { el.style.opacity = q; el.style.transform = `translateY(${26*(1-q)}px)`; };
+  const words = sel => Array.from(document.querySelectorAll(sel));
+  const w1 = words('#s1 .w'), w2 = words('#s2 .w');
+
+  window.seek = function (t) {
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    // s1 hook: words rise, the terracotta turn lands after a beat
+    w1.forEach((w, i) => rise(w, easeOut(p(t, 0.3 + i*0.11 + (i >= 5 ? 0.5 : 0), 0.45))));
+    rise($('s1cont'), easeOut(p(t, 2.4, 0.45)));
+    // s2 editorial
+    $('s2eye').style.opacity = p(t, 4.5, 0.3);
+    w2.forEach((w, i) => rise(w, easeOut(p(t, 4.7 + i*0.1, 0.45))));
+    rise($('s2src'), easeOut(p(t, 6.1, 0.4)));
+    const nq = p(t, 6.9, 0.4); $('s2note').style.opacity = clamp(nq*2); $('s2note').style.transform = `rotate(${-2 + 2*easeOut(nq)}deg) scale(${0.9 + 0.1*back(nq)})`;
+    rise($('s2body'), easeOut(p(t, 7.9, 0.5)));
+    // s3 numerals
+    rise($('r1'), easeOut(p(t, 10.5, 0.5))); $('rl').style.opacity = p(t, 11.6, 0.3); rise($('r2'), easeOut(p(t, 11.9, 0.5)));
+    // s4 big number counts up, then the line
+    $('s4eye').style.opacity = p(t, 16.3, 0.3);
+    const bq = p(t, 16.5, 0.4); $('s4big').style.opacity = clamp(bq*2); $('s4big').style.transform = `scale(${0.9 + 0.1*back(bq)})`;
+    $('gap').textContent = fmt(203090 * easeOut(p(t, 16.5, 1.4)));
+    rise($('s4same'), easeOut(p(t, 18.4, 0.5)));
+    rise($('s4body'), easeOut(p(t, 19.2, 0.5)));
+    // s5 cta
+    const dq = p(t, 21.9, 0.4); $('dm').style.opacity = clamp(dq*2); $('dm').style.transform = `scale(${0.8 + 0.2*back(dq)})`;
+    rise($('s5head'), easeOut(p(t, 22.5, 0.45)));
+    rise($('s5ask'), easeOut(p(t, 23.1, 0.45)));
+    rise($('s5sign'), easeOut(p(t, 23.9, 0.5)));
+  };
+  window.seek(0);
+</script>
+</body></html>

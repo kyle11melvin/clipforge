@@ -32,8 +32,10 @@ his standing brief. Read it before touching anything.
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
   If Playwright's own browser is missing it falls back to `CLIPFORGE_CHROMIUM` or `/opt/pw-browsers/chromium`,
   so `npm run doctor` complaining about Chrome does not block graphics renders.
-- `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years): stat cards with
-  counters, a to-scale bar chart, a two-column comparison table, a stamp. Start chart or table posts from it.
+- `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
+  stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
+- `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
+  01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
@@ -119,12 +121,26 @@ his standing brief. Read it before touching anything.
 Read the latest one at the start of a session. Add a new one at the end of any session that produced a
 video or changed the pipeline, and fold any new standing preference into this file.
 
-## Combining with the Instagram project (2026-10-11)
+## The Instagram brand: Coastal Money (2026-10-11)
 
-Kyle runs an Instagram account for his lending content with another Claude project and wants clipforge
-to carry that project's instructions too. That project is not a GitHub repo; ask him to paste or attach
-its instructions, then merge them into this file and note any conflicts with the look and tone above.
-This repo is public: do not write his personal handles or anything from his email into it.
+Kyle's Instagram posts use his personal design system, **Coastal Money** (dictated as "Costa money" or
+"coastal money guy"). The full guide is `graphics/brand/coastal-money/GUIDELINES.md`, with his portraits
+beside it and the fonts in `graphics/fonts/` (Sora, Manrope, Caveat; load them with `@font-face`, never
+substitute). Read the guide before any Instagram post. For Instagram, Coastal Money wins over the Rev
+Mortgage flyer look above; the motion rules (word-by-word rises, back-eased pops, a beat before the turn)
+stay. The short version:
+
+- Personal brand, never Rev Mortgage. No logo, no icons, no emoji, no cards, shadows, stamps or gradients.
+- Pacific navy `#173F4F` and warm sand `#EFE9DE` grounds; terracotta `#D77B52` only for the thing read
+  first; sea glass `#A9C0B9` (on navy) / `#7E9A93` (on sand) for labels only; ink `#0E2A35` text on sand.
+- Sora Bold headlines (sentence case, never all-caps), Manrope body and tracked uppercase eyebrows, one
+  Caveat line per slide. Oversized numerals (`01`, `02`, `$203,090`, `DM`) are the signature device.
+- Hook: two-tone headline, sand line then the terracotta turn, a muted continuation line at the bottom.
+- CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN), hairline, circle portrait, name,
+  NMLS #1486450, disclosure line. `graphics/wait-or-buy-cm/` is the reference composition.
+- **Kyle's call (2026-10-11): ignore the guide's compliance section.** Rates and payments may appear on
+  screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.
+- This repo is public: do not write anything private from his email into it.
 
 ## Next planned step
 
