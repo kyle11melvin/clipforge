@@ -4,6 +4,27 @@ Kyle Melvin (mortgage lender, Rev Mortgage, Orange County CA) uses this repo to 
 screenshots into social videos. He does not write code and usually works from his phone. Treat this file as
 his standing brief. Read it before touching anything.
 
+## Start here, every session
+
+1. Read this file, then the newest note in `docs/log/`.
+2. Run `npm install` and `npm run doctor`. If doctor reports a missing browser or speech model, run
+   `npm run setup` (downloads about 700 MB once). Nothing renders or transcribes until this passes.
+3. Ask Kyle for the footage or screenshots as chat attachments. Not Drive.
+4. Deliver on a private artifact page with a Save MP4 button and a contact sheet of stills, then list what
+   is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
+
+## The standard job: a talking-head post with graphics
+
+1. `node bin/clipforge.mjs build <clips folder> --name <post>` → `videos/<post>/final.mp4` (trimmed,
+   captioned) and `transcript.json` (word timings).
+2. Write the graphics composition at `graphics/<post>/comp.html`, starting from `graphics/siri-post/`.
+   Probe stills, then `node src/graphics/render.mjs graphics/<post>/comp.html videos/<post>/final-graphics.mp4`.
+3. Write `videos/<post>/cues.json`: for each phrase that calls for a visual, the footage time from the
+   transcript, the graphics slice, `cut` or `pip`, and the phrase itself under `says`.
+4. `node bin/clipforge.mjs broll videos/<post>/cues.json --output videos/<post>/final-broll.mp4`.
+5. Contact sheet, artifact page, short report. Compare with the HyperFrames `talking-head-recut` route when
+   time allows and note in the log which came out better.
+
 ## What exists
 
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
@@ -92,6 +113,10 @@ video or changed the pipeline, and fold any new standing preference into this fi
 
 ## Next planned step
 
-Monday: Kyle shoots five short talking-head lines plus a three-second reaction shot. The job is to trim and
-caption his clips with `clipforge build`, then cut the `siri-post` graphics in between his lines as b-roll.
-That second pass (footage + composition → one video) is not built yet and is the next feature.
+Monday: Kyle shoots the five lines ("Listen, I have zero code experience" / "and I built six apps" / "and an
+entire website" / "How can Siri not understand my text messages?" / "Does anyone else have this?") plus a
+three-second reaction shot, saved to Files and uploaded with audio. Run the standard job above with the
+existing `graphics/siri-post` composition: the cues are already sketched in `videos/siri-post/cues.json` and
+only need their `at` times re-derived from the real transcript. The experiment on the silent take is
+`videos/siri-post/talking-head-demo.mp4` in the log; known flaw there was a caption overlapping the
+picture-in-picture box, so keep captions off while a pip is on screen.
