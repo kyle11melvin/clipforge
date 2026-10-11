@@ -30,6 +30,10 @@ his standing brief. Read it before touching anything.
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
+  If Playwright's own browser is missing it falls back to `CLIPFORGE_CHROMIUM` or `/opt/pw-browsers/chromium`,
+  so `npm run doctor` complaining about Chrome does not block graphics renders.
+- `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years): stat cards with
+  counters, a to-scale bar chart, a two-column comparison table, a stamp. Start chart or table posts from it.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
@@ -110,6 +114,13 @@ his standing brief. Read it before touching anything.
 `docs/log/` holds one note per working session: what was built, what Kyle asked for, what he reacted to.
 Read the latest one at the start of a session. Add a new one at the end of any session that produced a
 video or changed the pipeline, and fold any new standing preference into this file.
+
+## Combining with the Instagram project (2026-10-11)
+
+Kyle runs an Instagram account for his lending content with another Claude project and wants clipforge
+to carry that project's instructions too. That project is not a GitHub repo; ask him to paste or attach
+its instructions, then merge them into this file and note any conflicts with the look and tone above.
+This repo is public: do not write his personal handles or anything from his email into it.
 
 ## Next planned step
 

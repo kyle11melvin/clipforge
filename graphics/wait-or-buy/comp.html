@@ -1,0 +1,177 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0E1A2B; }
+  body { font-family: "Inter Display", "Inter", system-ui, sans-serif; color: #F3EFE6; }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  .h { font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; }
+  .gold { color: #C9A96A; }
+  .grey { color: #9AA4B4; }
+  .w { display: inline-block; opacity: 0; transform: translateY(30px); will-change: transform, opacity; }
+  .num { font-variant-numeric: tabular-nums; }
+  .foot { position: absolute; left: 80px; right: 80px; bottom: 120px; font-family: "Inter", system-ui, sans-serif; font-size: 28px; line-height: 1.4; color: #9AA4B4; opacity: 0; }
+
+  /* s1: hook */
+  #s1 .lines { position: absolute; left: 80px; right: 80px; top: 50%; transform: translateY(-50%); font-size: 100px; }
+  #s1 .lines .ln { display: block; }
+
+  /* s2: the assumptions */
+  #s2 .head { position: absolute; left: 80px; right: 80px; top: 180px; font-size: 92px; }
+  #s2 .cards { position: absolute; left: 80px; right: 80px; top: 420px; display: grid; gap: 36px; }
+  #s2 .card { background: rgba(255,255,255,.05); border: 2px solid rgba(201,169,106,.35); border-radius: 36px; padding: 40px 48px; opacity: 0; transform: scale(.85); transform-origin: 0 50%; }
+  #s2 .lbl { font-family: "Inter", system-ui, sans-serif; font-size: 32px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #9AA4B4; }
+  #s2 .val { font-size: 112px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-top: 10px; white-space: nowrap; }
+  #s2 .val small { font-size: 52px; font-weight: 700; color: #9AA4B4; letter-spacing: -0.01em; margin-left: 12px; }
+  #s2 .src { font-family: "Inter", system-ui, sans-serif; font-size: 28px; color: #9AA4B4; margin-top: 10px; }
+  #s2 .sub { position: absolute; left: 80px; right: 80px; top: 1480px; font-size: 80px; opacity: 0; white-space: nowrap; }
+
+  /* s3: the chart */
+  #s3 .head { position: absolute; left: 80px; right: 80px; top: 160px; font-size: 92px; }
+  #s3 .chart { position: absolute; left: 80px; right: 80px; top: 560px; height: 760px; }
+  #s3 .bars { position: absolute; left: 0; right: 0; bottom: 70px; height: 640px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; align-items: end; }
+  #s3 .bar { position: relative; background: #C9A96A; border-radius: 14px 14px 6px 6px; height: 0; }
+  #s3 .bar.today { background: #9AA4B4; }
+  #s3 .bar .v { position: absolute; left: 50%; bottom: calc(100% + 14px); transform: translateX(-50%); font-size: 32px; font-weight: 800; white-space: nowrap; color: #F3EFE6; }
+  #s3 .x { position: absolute; left: 0; right: 0; bottom: 0; height: 50px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; font-family: "Inter", system-ui, sans-serif; font-size: 30px; font-weight: 600; color: #9AA4B4; text-align: center; border-top: 3px solid rgba(255,255,255,.18); padding-top: 14px; }
+  #s3 .delta { position: absolute; left: 80px; right: 80px; top: 1380px; font-size: 104px; white-space: nowrap; opacity: 0; }
+  #s3 .delta small { display: block; font-size: 44px; font-weight: 700; color: #F3EFE6; margin-top: 8px; letter-spacing: -0.01em; }
+
+  /* s4: the comparison table */
+  #s4 .head { position: absolute; left: 80px; right: 80px; top: 150px; font-size: 92px; }
+  #s4 .tbl { position: absolute; left: 80px; right: 80px; top: 420px; display: grid; gap: 30px; }
+  #s4 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-family: "Inter", system-ui, sans-serif; font-size: 34px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  #s4 .cols div { padding-bottom: 16px; border-bottom: 4px solid; }
+  #s4 .cols .a { color: #C9A96A; border-color: #C9A96A; }
+  #s4 .cols .b { color: #9AA4B4; border-color: rgba(154,164,180,.5); }
+  #s4 .row { opacity: 0; transform: translateY(22px); }
+  #s4 .row .lbl { font-family: "Inter", system-ui, sans-serif; font-size: 30px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #9AA4B4; margin-bottom: 8px; }
+  #s4 .row .vals { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: 60px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+  #s4 .row .vals .a { color: #F3EFE6; }
+  #s4 .row .vals .b { color: #9AA4B4; }
+  #s4 .row .vals span small { font-size: 30px; font-weight: 600; color: #9AA4B4; margin-left: 10px; letter-spacing: 0; }
+  #s4 .row.hot .vals .a { color: #C9A96A; }
+  #s4 .stamp { position: absolute; left: 50%; top: 1330px; transform: translate(-50%, 0) rotate(-10deg) scale(3); opacity: 0; border: 10px solid #C9A96A; color: #C9A96A; border-radius: 24px; padding: 14px 40px; font-size: 104px; font-weight: 900; letter-spacing: 0.04em; white-space: nowrap; background: rgba(14,26,43,.88); }
+
+  /* s5: punchline */
+  #s5 .same { position: absolute; left: 80px; right: 80px; top: 520px; text-align: center; font-size: 110px; opacity: 0; white-space: nowrap; }
+  #s5 .apart { position: absolute; left: 80px; right: 80px; top: 680px; text-align: center; font-size: 118px; line-height: 1.05; opacity: 0; white-space: nowrap; }
+  #s5 .still { position: absolute; left: 80px; right: 80px; top: 1060px; text-align: center; font-size: 136px; line-height: 1; white-space: nowrap; opacity: 0; }
+  #s5 .ask { position: absolute; left: 80px; right: 80px; top: 1290px; text-align: center; font-size: 56px; line-height: 1.2; opacity: 0; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="lines h">
+    <span class="ln"><span class="w">Waiting</span> <span class="w">for</span></span>
+    <span class="ln gold"><span class="w">rates</span> <span class="w">to</span> <span class="w">drop</span></span>
+    <span class="ln"><span class="w">before</span> <span class="w">you</span> <span class="w">buy?</span></span>
+  </div>
+</div>
+
+<div class="scene" id="s2">
+  <div class="head h">Let's do the math.</div>
+  <div class="cards">
+    <div class="card" id="c1"><div class="lbl">Home prices</div><div class="val gold num">+<span id="v1">0</span>%<small>a year</small></div></div>
+    <div class="card" id="c2"><div class="lbl">Rates today</div><div class="val num"><span id="v2">0.00</span>%</div><div class="src">30-yr fixed · Freddie Mac, Oct 8 2026</div></div>
+    <div class="card" id="c3"><div class="lbl">Say rates drop to</div><div class="val gold num"><span id="v3">7.40</span>%<small>3 points lower</small></div></div>
+  </div>
+  <div class="sub h" id="s2sub">On a <span class="gold">$1,000,000</span> home.</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="head h">The house<br><span class="gold">doesn't wait.</span></div>
+  <div class="chart">
+    <div class="bars" id="bars">
+      <div class="bar today"><div class="v">$1.00M</div></div>
+      <div class="bar"><div class="v">$1.03M</div></div>
+      <div class="bar"><div class="v">$1.06M</div></div>
+      <div class="bar"><div class="v">$1.09M</div></div>
+      <div class="bar"><div class="v">$1.13M</div></div>
+      <div class="bar"><div class="v">$1.16M</div></div>
+    </div>
+    <div class="x"><div>Today</div><div>Yr 1</div><div>Yr 2</div><div>Yr 3</div><div>Yr 4</div><div>Yr 5</div></div>
+  </div>
+  <div class="delta h gold num" id="delta">+$<span id="dv">0</span><small>more for the same house in 5 years</small></div>
+  <div class="foot" id="s3foot">Example: $1,000,000 home, prices up 3% a year.</div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="head h">Buy now <span class="grey">vs.</span><br>wait 5 years</div>
+  <div class="tbl">
+    <div class="cols"><div class="a">Buy now</div><div class="b">Wait 5 years</div></div>
+    <div class="row" id="r1"><div class="lbl">You pay</div><div class="vals"><span class="a">$1,000,000</span><span class="b">$1,159,274</span></div></div>
+    <div class="row" id="r2"><div class="lbl">20% down</div><div class="vals"><span class="a">$200,000</span><span class="b">$231,855</span></div></div>
+    <div class="row" id="r3"><div class="lbl">Rate in year 5</div><div class="vals"><span class="a">4.40%<small>refinanced</small></span><span class="b">4.40%</span></div></div>
+    <div class="row" id="r4"><div class="lbl">Payment in year 5</div><div class="vals"><span class="a">$3,787<small>/mo</small></span><span class="b">$4,644<small>/mo</small></span></div></div>
+    <div class="row hot" id="r5"><div class="lbl">Equity gained</div><div class="vals"><span class="a">$203,090</span><span class="b">$0</span></div></div>
+  </div>
+  <div class="stamp" id="stamp">SAME RATE</div>
+  <div class="foot" id="s4foot">Principal &amp; interest only, before taxes, insurance and rent. An example, not a quote.</div>
+</div>
+
+<div class="scene" id="s5">
+  <div class="same h" id="same">Same rate.</div>
+  <div class="apart h gold" id="apart">$203,090 apart.</div>
+  <div class="still h" id="still">Still waiting?</div>
+  <div class="ask h" id="ask">Comment your price range<br>and I'll run your numbers.</div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+
+  // scene windows [start, end]
+  const S = { s1:[0,3.2], s2:[3.2,8.8], s3:[8.8,14.0], s4:[14.0,20.2], s5:[20.2,24.0] };
+  const FADE = 0.25;
+  function sceneOpacity(t, [a, b]) {
+    if (t < a || t > b) return 0;
+    return Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE));
+  }
+  const words1 = Array.from(document.querySelectorAll('#s1 .w'));
+  const bars = Array.from(document.querySelectorAll('#s3 .bar'));
+  const PRICES = [1000000, 1030000, 1060900, 1092727, 1125509, 1159274];
+  const MAXH = 640, MAXV = 1200000;
+
+  window.seek = function (t) {
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+
+    // s1: word-by-word rise
+    words1.forEach((w, i) => { const q = easeOut(p(t, 0.3 + i*0.11, 0.45)); w.style.opacity = q; w.style.transform = `translateY(${30*(1-q)}px)`; });
+
+    // s2: three cards pop with counters
+    const card = (id, s) => { const q = p(t, s, 0.45); const el = $(id); el.style.opacity = clamp(q*3); el.style.transform = `scale(${0.85 + 0.15*back(q)})`; return q; };
+    card('c1', 3.7); $('v1').textContent = Math.round(3*easeOut(p(t, 3.8, 0.6)));
+    card('c2', 4.9); $('v2').textContent = (7.40*easeOut(p(t, 5.0, 0.7))).toFixed(2);
+    card('c3', 6.3); $('v3').textContent = (7.40 - 3.00*easeOut(p(t, 6.4, 0.8))).toFixed(2);
+    const sq = easeOut(p(t, 7.6, 0.45)); $('s2sub').style.opacity = sq; $('s2sub').style.transform = `translateY(${24*(1-sq)}px)`;
+
+    // s3: bars grow one by one, delta counts up
+    let shown = 0;
+    bars.forEach((b, i) => { const q = easeOut(p(t, 9.3 + i*0.42, 0.55)); if (q > 0) shown = PRICES[i];
+      b.style.height = `${MAXH * PRICES[i] / MAXV * q}px`; b.querySelector('.v').style.opacity = clamp(q*2); });
+    const dq = easeOut(p(t, 11.6, 0.6)); $('delta').style.opacity = dq; $('delta').style.transform = `translateY(${24*(1-dq)}px)`;
+    $('dv').textContent = fmt(159274 * easeOut(p(t, 11.7, 1.0)));
+    $('s3foot').style.opacity = p(t, 12.0, 0.3);
+
+    // s4: rows land one by one, then the stamp
+    const row = (id, s) => { const q = easeOut(p(t, s, 0.4)); const el = $(id); el.style.opacity = q; el.style.transform = `translateY(${22*(1-q)}px)`; };
+    row('r1', 14.5); row('r2', 15.1); row('r3', 15.7); row('r4', 16.4); row('r5', 17.4);
+    const stq = p(t, 18.5, 0.28); $('stamp').style.opacity = clamp(stq*2);
+    $('stamp').style.transform = `translate(-50%,0) rotate(-10deg) scale(${3 - 2*easeInOut(stq)})`;
+    $('s4foot').style.opacity = p(t, 17.8, 0.3);
+
+    // s5: punchline, a beat, then the question
+    const mq = easeOut(p(t, 20.4, 0.45)); $('same').style.opacity = mq; $('same').style.transform = `translateY(${20*(1-mq)}px)`;
+    const aq = p(t, 21.0, 0.35); $('apart').style.opacity = clamp(aq*2); $('apart').style.transform = `scale(${1.5 - 0.5*back(aq)})`;
+    const wq = p(t, 22.2, 0.35); $('still').style.opacity = clamp(wq*2); $('still').style.transform = `scale(${1.6 - 0.6*back(wq)})`;
+    const kq = easeOut(p(t, 22.9, 0.4)); $('ask').style.opacity = kq; $('ask').style.transform = `translateY(${24*(1-kq)}px)`;
+  };
+  window.seek(0);
+</script>
+</body></html>

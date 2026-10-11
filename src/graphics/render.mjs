@@ -43,6 +43,22 @@ function parseArgs(argv) {
   return opts;
 }
 
+// Launch Chromium. Playwright wants the exact browser build it was installed with; when that build is
+// missing (a pre-installed browser of another version, as in cloud sessions), fall back to
+// CLIPFORGE_CHROMIUM or the pre-installed /opt/pw-browsers/chromium.
+async function launchChromium(chromium) {
+  const { existsSync } = await import("node:fs");
+  const candidates = [process.env.CLIPFORGE_CHROMIUM, "/opt/pw-browsers/chromium"].filter(Boolean);
+  try {
+    return await chromium.launch();
+  } catch (err) {
+    for (const executablePath of candidates) {
+      if (existsSync(executablePath)) return chromium.launch({ executablePath });
+    }
+    throw err;
+  }
+}
+
 export async function render({ comp, out, duration, fps, width, height, probe }) {
   const { chromium } = loadPlaywright();
   const frames = join(tmpdir(), `clipforge-frames-${process.pid}`);
@@ -50,7 +66,7 @@ export async function render({ comp, out, duration, fps, width, height, probe })
   await mkdir(frames, { recursive: true });
   await mkdir(dirname(resolve(out)), { recursive: true });
 
-  const browser = await chromium.launch();
+  const browser = await launchChromium(chromium);
   const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
   await page.goto("file://" + resolve(comp));
   await page.evaluate(() => document.fonts.ready);
