@@ -37,6 +37,8 @@ his standing brief. Read it before touching anything.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
   01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
+- `graphics/va-entitlement/` — a one-slide, 3 s Coastal Money story hook ("You can use your VA loan again").
+  The smallest possible post: hook scene only, no fades, final frame held. Start single-slide hooks from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
@@ -148,7 +150,11 @@ Kyle also has (or is creating) a claude.ai Project named "Coastal Money" for pla
 phone. Its instructions are `docs/claude-project-instructions.md`; keep that file in step with this one
 when a brand or tone rule changes. The Project writes scripts, captions and carousel handoffs; it cannot
 render. A brief that arrives here starting "send this to clipforge" came from it: build the video from the
-brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual.
+brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual. The first one (2026-10-11, VA entitlement
+hook) arrived with times, fonts, sizes and colours per element; follow such a brief literally and spell out
+only the calls it leaves open (safe-zone offsets, line breaks, the caption).
+- Story hooks: keep the headline below Instagram's story header (240 px from the top worked) and say so in
+  the report, since it departs from the guide's 72 px margin.
 
 ## Next planned step
 

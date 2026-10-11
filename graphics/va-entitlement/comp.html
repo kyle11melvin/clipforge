@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  /* Coastal Money tokens (graphics/brand/coastal-money/GUIDELINES.md). One flat navy hook slide, 3 s. */
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; padding: 72px 64px; background: var(--navy); }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; font-size: 104px; }
+  .terra { color: var(--terra); } .sand { color: var(--sand); }
+  .mute-navy { color: rgba(239,233,222,.72); }
+  .w { display: inline-block; opacity: 0; transform: translateY(26px); }
+  .ln { display: block; white-space: nowrap; }
+  /* Headline anchored top (below the Instagram story header), continuation anchored bottom, empty middle. */
+  .head { position: absolute; left: 64px; right: 64px; top: 240px; }
+  .cont { position: absolute; left: 64px; right: 64px; bottom: 72px; font-size: 34px; opacity: 0; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="head h">
+    <span class="ln sand"><span class="w">Used</span> <span class="w">your</span> <span class="w">VA</span></span>
+    <span class="ln sand"><span class="w">loan</span> <span class="w">once?</span></span>
+    <span class="ln terra"><span class="w">You</span> <span class="w">can</span> <span class="w">use</span></span>
+    <span class="ln terra"><span class="w">it</span> <span class="w">again.</span></span>
+  </div>
+  <div class="cont mute-navy" id="cont">How VA entitlement comes back &rarr;</div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const p = (t, s, d) => clamp((t - s) / d);
+  const rise = (el, q) => { el.style.opacity = q; el.style.transform = `translateY(${26*(1-q)}px)`; };
+  const w1 = Array.from(document.querySelectorAll('#s1 .ln.sand .w'));   // 0.0–1.2 s, sand question
+  const w2 = Array.from(document.querySelectorAll('#s1 .ln.terra .w'));  // 1.2–2.2 s, terracotta turn
+  // Brief: 0.0–1.2 s line one, 1.2–2.2 s line two, 2.2–3.0 s continuation, hold the final frame to 3.0 s.
+  window.seek = function (t) {
+    w1.forEach((w, i) => rise(w, easeOut(p(t, 0.10 + i*0.11, 0.45))));   // last word lands at 1.0 s
+    w2.forEach((w, i) => rise(w, easeOut(p(t, 1.20 + i*0.11, 0.45))));   // last word lands at 2.09 s
+    rise($('cont'), easeOut(p(t, 2.20, 0.45)));                           // lands at 2.65 s, holds
+  };
+  window.seek(0);
+</script>
+</body></html>
