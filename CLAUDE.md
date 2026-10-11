@@ -57,6 +57,23 @@ his standing brief. Read it before touching anything.
 - Keep replies short. He said "You're getting a little smarter" when the work matched the point of the post,
   and "you nailed that" when the shooting plan was concrete: five short lines, one take each, a reaction shot.
 
+## Talking-head + graphics rules (from the first experiment, 2026-10-11)
+
+- Kyle's spoken script for the Siri post: "Listen, I have zero code experience and I built six apps and an
+  entire website. How can Siri not understand my text messages? Does anyone else have this?"
+- The graphics follow the words: icons popping while he says "six apps", the website while he says
+  "entire website", the Morgan chat while he asks about Siri. Full-frame cut for a graphic that carries its
+  own text; picture-in-picture (lower half, gold border, he stays visible) for a reaction moment.
+- Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). Caption
+  style: Inter ExtraBold, uppercase, white with a dark outline, centred at 70% of frame height.
+- Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
+  `clipforge broll videos/<name>/cues.json --output ...` to cut them together. A cue is
+  `{at, from, to, mode, says}`; `says` is the phrase the cue sits on, so timings can be re-derived from the
+  transcript once audio exists.
+- Getting footage in: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
+  upload works but Safari's Photo Library picker re-encodes and strips the audio; he must Save to Files
+  first and upload from Files. A clip with no audio track cannot be captioned; say so immediately.
+
 ## Project log
 
 `docs/log/` holds one note per working session: what was built, what Kyle asked for, what he reacted to.

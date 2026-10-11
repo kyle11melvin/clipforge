@@ -1,13 +1,20 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
 import { build } from "../src/pipeline.mjs";
+import { broll } from "../src/broll.mjs";
 
 const HELP = `clipforge — folder of clips in, social-ready video out
 
 USAGE
   clipforge build <folder-or-files...> [options]
+  clipforge broll <cues.json> --output <file.mp4>
 
-OPTIONS
+BROLL
+  Cuts rendered graphics (src/graphics/render.mjs) into footage at the times listed in cues.json,
+  full-frame ("cut") or picture-in-picture ("pip"). The footage audio is left untouched.
+  See src/broll.mjs for the cues.json format.
+
+BUILD OPTIONS
   --name <name>        Project name; output goes to videos/<name>/final.mp4 (default: folder name)
   --aspect <ratio>     9:16 (default), 4:5, 1:1, 16:9
   --fit <mode>         cover (crop to fill, default) or contain (letterbox)
@@ -32,12 +39,24 @@ const { values, positionals } = parseArgs({
     hook: { type: "string" }, lower: { type: "string" }, trim: { type: "boolean", default: true },
     "silence-db": { type: "string" }, "min-silence": { type: "string" }, pad: { type: "string" },
     quality: { type: "string", default: "looks" }, out: { type: "string" }, force: { type: "boolean", default: false },
+    output: { type: "string" },
     help: { type: "boolean", short: "h", default: false },
   },
 });
 
 const [cmd, ...inputs] = positionals;
-if (values.help || cmd !== "build" || !inputs.length) { console.log(HELP); process.exit(values.help ? 0 : 1); }
+if (values.help || !["build", "broll"].includes(cmd) || !inputs.length) { console.log(HELP); process.exit(values.help ? 0 : 1); }
+
+if (cmd === "broll") {
+  if (!values.output) { console.error("clipforge broll needs --output <file.mp4>"); process.exit(1); }
+  try {
+    await broll({ cuesFile: inputs[0], output: values.output });
+  } catch (err) {
+    console.error(`\nclipforge failed: ${err.message}`);
+    process.exit(1);
+  }
+  process.exit(0);
+}
 
 const name = values.name ?? inputs[0].replace(/[\\/]+$/, "").split(/[\\/]/).pop().replace(/\.[^.]+$/, "");
 try {

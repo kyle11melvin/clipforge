@@ -1,0 +1,9 @@
+{
+  "footage": "../../clips/siri-post/01-take.mov",
+  "graphics": "final-graphics.mp4",
+  "cues": [
+    { "at": 1.7, "from": 3.4, "to": 5.3, "mode": "cut", "says": "and I built six apps" },
+    { "at": 3.6, "from": 7.9, "to": 9.9, "mode": "cut", "says": "and an entire website" },
+    { "at": 6.0, "from": 12.5, "to": 14.3, "mode": "pip", "says": "how can Siri not understand my text messages" }
+  ]
+}
