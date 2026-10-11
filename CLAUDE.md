@@ -142,6 +142,14 @@ stay. The short version:
   screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.
 - This repo is public: do not write anything private from his email into it.
 
+## The Coastal Money Claude Project
+
+Kyle also has (or is creating) a claude.ai Project named "Coastal Money" for planning posts from his
+phone. Its instructions are `docs/claude-project-instructions.md`; keep that file in step with this one
+when a brand or tone rule changes. The Project writes scripts, captions and carousel handoffs; it cannot
+render. A brief that arrives here starting "send this to clipforge" came from it: build the video from the
+brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual.
+
 ## Next planned step
 
 Monday: Kyle shoots the five lines ("Listen, I have zero code experience" / "and I built six apps" / "and an
