@@ -29,13 +29,19 @@ his standing brief. Read it before touching anything.
 
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
-  frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
+  frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills;
+  add `--stills <dir>` to keep each still at full size (carousel PNGs), `--mode <name>` to load the
+  composition as `comp.html#<name>` for an alternate layout.
   If Playwright's own browser is missing it falls back to `CLIPFORGE_CHROMIUM` or `/opt/pw-browsers/chromium`,
   so `npm run doctor` complaining about Chrome does not block graphics renders.
 - `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
   stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
-  01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
+  01/02 numeral rows, oversized counter, DM sign-off with portrait.
+- `graphics/buydown-cm/` — the 1-0 buydown post (2026-10-12), built from a Project brief. One composition
+  renders three things: the Reel (type kept out of Instagram's top 250 px and bottom 340 px), the five
+  1080x1350 carousel slides (`--mode carousel --size 1080x1350 --probe ... --stills <dir>`) and a story
+  CTA frame with an empty band for the link sticker (`--mode story`). Start Instagram posts from this one.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
@@ -139,7 +145,12 @@ stay. The short version:
 - CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN), hairline, circle portrait, name,
   NMLS #1486450, disclosure line. `graphics/wait-or-buy-cm/` is the reference composition.
 - **Kyle's call (2026-10-11): ignore the guide's compliance section.** Rates and payments may appear on
-  screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.
+  screen; he decides what he posts. Keep the sign-off and the small disclosure line unless the brief says
+  otherwise. The buydown brief (2026-10-12) asked for no NMLS, disclosure, company name or URL anywhere,
+  and name plus portrait only in the sign-off; follow the brief when it says so.
+- Reels: keep all type between y 250 and y 1580 of the 1080x1920 frame (Instagram's UI covers the rest).
+  Briefs from the Project may also ask for the five scenes as 1080x1350 carousel PNGs and a story CTA frame
+  with an empty 1080x300 band for the link sticker; `graphics/buydown-cm/` shows how one composition does all three.
 - This repo is public: do not write anything private from his email into it.
 
 ## The Coastal Money Claude Project

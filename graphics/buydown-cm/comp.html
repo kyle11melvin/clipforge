@@ -1,0 +1,196 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens (graphics/brand/coastal-money/GUIDELINES.md) */
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; opacity: 0; background: var(--navy); }
+  .scene.sand { background: var(--sand); color: var(--ink); }
+  /* Three canvases, one layout. The Reel keeps type out of Instagram's top 250px and bottom 340px;
+     the 1080x1350 carousel uses the guide's 72px margins. Everything hangs off .safe's top or bottom edge. */
+  .safe { position: absolute; left: 64px; right: 64px; top: 250px; bottom: 340px; }
+  body.carousel .safe { top: 72px; bottom: 72px; }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 36px; line-height: 1.5; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; color: var(--terra); }
+  .terra { color: var(--terra); } .sand { color: var(--sand); } .sage-lift { color: var(--sage-lift); } .sage { color: var(--sage); } .ink { color: var(--ink); }
+  .mute-navy { color: rgba(239,233,222,.72); } .mute-sand { color: rgba(14,42,53,.72); }
+  .rule-navy { height: 1px; background: rgba(239,233,222,.20); } .rule-sand { height: 1px; background: rgba(14,42,53,.16); }
+  .w { display: inline-block; opacity: 0; transform: translateY(26px); }
+  .ln { display: block; }
+  .abs { position: absolute; left: 0; right: 0; }
+
+  /* s1 hook */
+  #s1 .head { top: 300px; font-size: 100px; }
+  body.carousel #s1 .head { top: 240px; }
+  #s1 .cont { bottom: 0; font-size: 34px; opacity: 0; }
+
+  /* s2 setup (sand) */
+  #s2 .eyebrow { top: 0; opacity: 0; }
+  #s2 .head { top: 66px; font-size: 84px; }
+  #s2 .body { top: 300px; width: 780px; opacity: 0; }
+  #s2 .src { top: 500px; font-size: 26px; opacity: 0; }
+  #s2 .note { bottom: 0; font-size: 80px; line-height: 1.1; opacity: 0; transform-origin: 0 50%; }
+
+  /* s3 two ways */
+  #s3 .head { top: 0; font-size: 76px; }
+  #s3 .rows { top: 300px; display: grid; gap: 52px; }
+  #s3 .row { display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; opacity: 0; transform: translateY(22px); }
+  #s3 .row .n { font-size: 230px; }
+  #s3 .row .eyebrow { margin-top: 26px; }
+  #s3 .row .body { margin-top: 14px; }
+  #s3 .rule-navy { margin: 0; }
+
+  /* s4 the gap */
+  #s4 .eyebrow { top: 0; opacity: 0; }
+  #s4 .big { top: 70px; font-size: 220px; white-space: nowrap; opacity: 0; transform-origin: 0 50%; }
+  #s4 .head { top: 320px; font-size: 72px; opacity: 0; }
+  #s4 .month { top: 520px; opacity: 0; }
+  #s4 .rule { bottom: 0; width: 820px; opacity: 0; }
+
+  /* s5 cta */
+  #s5 .dm { top: 0; font-size: 300px; opacity: 0; transform-origin: 0 50%; }
+  #s5 .head { top: 300px; font-size: 72px; opacity: 0; }
+  #s5 .ask { top: 580px; width: 820px; opacity: 0; }
+  .sign { bottom: 0; opacity: 0; }
+  .who { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: center; padding-top: 36px; }
+  .who img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; }
+  .name { font-family: "Sora", sans-serif; font-weight: 700; font-size: 42px; letter-spacing: -0.02em; }
+
+  /* s6 story CTA frame (story mode only). Absolute 1080x1920 coordinates: the sticker zone is y 1100-1400. */
+  #s6 { display: none; }
+  body.story #s6 { display: block; }
+  #s6 .big { top: 250px; left: 64px; right: 64px; font-size: 300px; }
+  #s6 .head { top: 560px; left: 64px; right: 64px; font-size: 72px; }
+  #s6 .ask { top: 760px; left: 64px; width: 820px; }
+  #s6 .sign { left: 64px; right: 64px; bottom: 340px; opacity: 1; }
+  #s6 .who { padding-top: 24px; grid-template-columns: 140px 1fr; }
+  #s6 .who img { width: 140px; height: 140px; }
+</style></head>
+<body>
+
+<div class="scene" id="s1"><div class="safe">
+  <div class="head h abs">
+    <span class="ln sand"><span class="w">Payment</span> <span class="w">too</span> <span class="w">high</span></span>
+    <span class="ln sand"><span class="w">at</span> <span class="w">7.40%?</span></span>
+    <span class="ln terra"><span class="w">Make</span> <span class="w">year</span> <span class="w">one</span></span>
+    <span class="ln terra"><span class="w">cheaper.</span></span>
+  </div>
+  <div class="cont abs mute-navy" id="s1cont">The 1-0 buydown, in dollars &rarr;</div>
+</div></div>
+
+<div class="scene sand" id="s2"><div class="safe">
+  <div class="eyebrow abs sage" id="s2eye">The setup</div>
+  <div class="head h abs ink">
+    <span class="ln"><span class="w">A</span> <span class="w">$1,000,000</span> <span class="w">home.</span></span>
+    <span class="ln"><span class="w">20%</span> <span class="w">down.</span></span>
+  </div>
+  <div class="body abs ink" id="s2body">Rates are 7.40% today. That's the 30-year average from Freddie Mac, Oct 8.</div>
+  <div class="src abs mute-sand" id="s2src">Source: Freddie Mac PMMS, 30-year fixed, Oct 8 2026</div>
+  <div class="note abs" id="s2note">Now cut year one by 1%.</div>
+</div></div>
+
+<div class="scene" id="s3"><div class="safe">
+  <div class="head h abs sand">
+    <span class="ln"><span class="w">Two</span> <span class="w">ways</span></span>
+    <span class="ln"><span class="w">to</span> <span class="w">year</span> <span class="w">one.</span></span>
+  </div>
+  <div class="rows abs">
+    <div class="row" id="r1">
+      <div class="n num terra">01</div>
+      <div><div class="eyebrow sage-lift">With a 1-0 buydown</div><div class="body sand">6.40% in year one, 7.40% after. $5,004 a month in year one.</div></div>
+    </div>
+    <div class="rule-navy" id="rl"></div>
+    <div class="row" id="r2">
+      <div class="n num sage-lift">02</div>
+      <div><div class="eyebrow sage-lift">Without one</div><div class="body sand">7.40% from day one. $5,539 a month.</div></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="scene" id="s4"><div class="safe">
+  <div class="eyebrow abs sage-lift" id="s4eye">Year one</div>
+  <div class="big num abs terra" id="s4big">$<span id="gap">0</span></div>
+  <div class="head h abs sand" id="s4head">Back in your pocket<br>while you settle in.</div>
+  <div class="body month abs mute-navy" id="s4month">$535 a month for twelve months.</div>
+  <div class="body rule abs sand" id="s4rule">Rule of thumb: about $67 a month for every $100,000 you borrow.</div>
+</div></div>
+
+<div class="scene" id="s5"><div class="safe">
+  <div class="dm num abs terra" id="dm">DM</div>
+  <div class="head h abs sand" id="s5head">Would $535 a month<br>change your first year?</div>
+  <div class="body ask abs sand" id="s5ask">Send me <span class="terra" style="font-weight:700">"BUYDOWN"</span> and I'll send you my 2&#8209;minute purchase quiz.</div>
+  <div class="sign abs" id="s5sign">
+    <div class="rule-navy"></div>
+    <div class="who"><img src="portrait.png"><div class="name sand">Kyle Melvin</div></div>
+  </div>
+</div></div>
+
+<!-- Story CTA frame: a separate 1080x1920 PNG, not in the Reel. Empty navy band y 1100-1400 for the link sticker. -->
+<div class="scene" id="s6">
+  <div class="big num abs terra">$535</div>
+  <div class="head h abs sand">Would that change<br>your first year?</div>
+  <div class="body ask abs sand">Tap the link for my 2&#8209;minute purchase quiz.</div>
+  <div class="sign abs">
+    <div class="rule-navy"></div>
+    <div class="who"><img src="portrait.png"><div class="name sand">Kyle Melvin</div></div>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  // Mode comes from the URL fragment: "" (Reel), "carousel" (1080x1350 stills), "story" (the CTA frame).
+  const mode = location.hash.replace('#', '');
+  if (mode) document.body.classList.add(mode);
+  const STILL = mode !== '';
+  const S = { s1:[0,4.0], s2:[4.0,10.0], s3:[10.0,16.0], s4:[16.0,23.0], s5:[23.0,28.0] };
+  const FADE = 0.25;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b) ? 0 : STILL ? 1 : Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE));
+  const rise = (el, q) => { el.style.opacity = q; el.style.transform = `translateY(${26*(1-q)}px)`; };
+  const pop = (el, q, from = 0.9) => { el.style.opacity = clamp(q*2); el.style.transform = `scale(${from + (1-from)*back(q)})`; };
+  const words = sel => Array.from(document.querySelectorAll(sel));
+  const w1 = words('#s1 .w'), w2 = words('#s2 .w'), w3 = words('#s3 .w');
+
+  window.seek = function (t) {
+    if (mode === 'story') { $('s6').style.opacity = 1; return; }
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    // s1 hook: sand words rise, one beat, then the terracotta turn
+    w1.forEach((w, i) => rise(w, easeOut(p(t, 0.3 + i*0.11 + (i >= 5 ? 0.5 : 0), 0.45))));
+    rise($('s1cont'), easeOut(p(t, 2.5, 0.45)));
+    // s2 setup
+    $('s2eye').style.opacity = p(t, 4.3, 0.3);
+    w2.forEach((w, i) => rise(w, easeOut(p(t, 4.5 + i*0.1, 0.45))));
+    rise($('s2body'), easeOut(p(t, 5.4, 0.5)));
+    rise($('s2src'), easeOut(p(t, 6.0, 0.4)));
+    const nq = p(t, 7.0, 0.4); $('s2note').style.opacity = clamp(nq*2); $('s2note').style.transform = `rotate(${-2 + 2*easeOut(nq)}deg) scale(${0.9 + 0.1*back(nq)})`;
+    // s3 two ways: headline, row 1, hairline, row 2
+    w3.forEach((w, i) => rise(w, easeOut(p(t, 10.3 + i*0.1, 0.45))));
+    rise($('r1'), easeOut(p(t, 10.9, 0.5))); $('rl').style.opacity = p(t, 12.3, 0.3); rise($('r2'), easeOut(p(t, 12.6, 0.5)));
+    // s4 the gap: $6,420 counts up, then the lines; the rule of thumb holds from 19.6 to 23
+    $('s4eye').style.opacity = p(t, 16.3, 0.3);
+    pop($('s4big'), p(t, 16.5, 0.4));
+    $('gap').textContent = fmt(6420 * easeOut(p(t, 16.5, 1.4)));
+    rise($('s4head'), easeOut(p(t, 18.3, 0.5)));
+    rise($('s4month'), easeOut(p(t, 19.1, 0.5)));
+    rise($('s4rule'), easeOut(p(t, 19.6, 0.5)));
+    // s5 cta
+    pop($('dm'), p(t, 23.3, 0.4), 0.8);
+    rise($('s5head'), easeOut(p(t, 23.9, 0.45)));
+    rise($('s5ask'), easeOut(p(t, 24.5, 0.45)));
+    rise($('s5sign'), easeOut(p(t, 25.2, 0.5)));
+  };
+  window.seek(0);
+</script>
+</body></html>
