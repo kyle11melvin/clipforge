@@ -1,0 +1,100 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Bank statements carousel</title>
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens (graphics/brand/coastal-money/GUIDELINES.md). Feed post 1080x1350, 64px sides, 72px top/bottom. */
+  :root { --navy:#173F4F; --navy-deep:#102C38; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sand-deep:#E4DBCB; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); display: flex; flex-direction: column; gap: 40px; width: 1080px; }
+  .slide { position: relative; width: 1080px; height: 1350px; overflow: hidden; padding: 72px 64px; background: var(--navy); flex: none; }
+  .slide.sand { background: var(--sand); color: var(--ink); }
+  .slide.sand::after { content: ""; position: absolute; right: -220px; top: -220px; width: 760px; height: 760px; border-radius: 50%; background: radial-gradient(circle, rgba(215,123,82,.10) 0, rgba(215,123,82,0) 70%); }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.06; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 38px; line-height: 1.5; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; color: var(--terra); }
+  .terra { color: var(--terra); } .sand-t { color: var(--sand); } .sage-lift { color: var(--sage-lift); } .sage { color: var(--sage); } .ink { color: var(--ink); }
+  .mute-navy { color: rgba(239,233,222,.72); } .mute-sand { color: rgba(14,42,53,.72); }
+  .rule-navy { height: 1px; background: rgba(239,233,222,.20); } .rule-sand { height: 1px; background: rgba(14,42,53,.16); }
+  .top { position: absolute; left: 64px; right: 64px; top: 72px; }
+  .bottom { position: absolute; left: 64px; right: 64px; bottom: 72px; }
+
+  /* 1 hook */
+  #s1 .head { position: absolute; left: 64px; right: 64px; top: 300px; font-size: 98px; }
+  #s1 .cont { font-size: 34px; }
+
+  /* 2 editorial */
+  #s2 .head { position: absolute; left: 64px; right: 64px; top: 150px; font-size: 84px; }
+  #s2 .body { position: absolute; left: 64px; width: 720px; top: 540px; }
+  #s2 .note { position: absolute; left: 64px; right: 64px; bottom: 72px; font-size: 84px; line-height: 1.1; transform: rotate(-2deg); transform-origin: 0 100%; }
+
+  /* 3 numerals */
+  #s3 .head { font-size: 84px; }
+  #s3 .rows { position: absolute; left: 64px; right: 64px; bottom: 72px; display: grid; gap: 40px; }
+  #s3 .row { display: grid; grid-template-columns: 250px 1fr; gap: 28px; align-items: center; }
+  #s3 .row .n { font-size: 190px; }
+  #s3 .row .body { font-size: 40px; line-height: 1.4; }
+
+  /* 4 big number */
+  #s4 .big { position: absolute; left: 64px; right: 64px; top: 300px; font-size: 280px; white-space: nowrap; }
+  #s4 .body { position: absolute; left: 64px; width: 860px; bottom: 72px; }
+
+  /* 5 cta */
+  #s5 .head { font-size: 84px; }
+  #s5 .ask { position: absolute; left: 64px; width: 820px; top: 340px; }
+  #s5 .who { display: grid; grid-template-columns: 170px 1fr; gap: 32px; align-items: center; padding-top: 44px; }
+  #s5 .who img { width: 170px; height: 170px; border-radius: 50%; object-fit: cover; display: block; }
+  #s5 .name { font-family: "Sora", sans-serif; font-weight: 700; font-size: 48px; letter-spacing: -0.02em; }
+  #s5 .nmls { font-size: 28px; margin-top: 6px; }
+  #s5 .disc { font-size: 24px; line-height: 1.5; color: rgba(239,233,222,.42); margin-top: 40px; }
+</style></head>
+<body>
+
+<section class="slide" id="s1">
+  <div class="head h">
+    <span class="sand-t">Moving money before you&nbsp;buy?</span><br>
+    <span class="terra" style="white-space:nowrap">Your lender will ask.</span>
+  </div>
+  <div class="bottom cont mute-navy">What your bank statements show &rarr;</div>
+</section>
+
+<section class="slide sand" id="s2">
+  <div class="top eyebrow sage">What they review</div>
+  <div class="head h ink">Your last two months of statements.</div>
+  <div class="body mute-sand">Big or unexplained deposits get a closer look.</div>
+  <div class="note">Keep the paper trail.</div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="top head h sand-t">Before you apply.</div>
+  <div class="rows">
+    <div class="row"><div class="n num terra">01</div><div class="body sand-t">Keep transfer records.</div></div>
+    <div class="rule-navy"></div>
+    <div class="row"><div class="n num sage-lift">02</div><div class="body sand-t">Tell your lender about gifts.</div></div>
+    <div class="rule-navy"></div>
+    <div class="row"><div class="n num sage-lift">03</div><div class="body sand-t">Ask before depositing cash.</div></div>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="top eyebrow sage-lift">The line</div>
+  <div class="big num terra">$6,000</div>
+  <div class="body sand-t">Earn $12,000 a month? A deposit over $6,000 needs a source if you&rsquo;re using it to buy.</div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="top head h sand-t">Not sure where you&rsquo;re&nbsp;at?</div>
+  <div class="body ask sand-t">Take my 3-minute readiness quiz. Link in my Story and bio.</div>
+  <div class="bottom">
+    <div class="rule-navy"></div>
+    <div class="who"><img src="portrait.jpeg" alt=""><div><div class="name sand-t">Kyle Melvin</div><div class="nmls mute-navy">NMLS #1486450</div></div></div>
+    <div class="disc">For education only. Every file is different. Equal Housing Opportunity.</div>
+  </div>
+</section>
+
+</body></html>

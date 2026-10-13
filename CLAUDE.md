@@ -37,6 +37,9 @@ his standing brief. Read it before touching anything.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
   01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
+- `src/graphics/slides.mjs` — carousel stills: one `section.slide` per slide in an HTML file, each
+  screenshotted at its own size (1080x1350 for Instagram feed) plus a contact sheet. `graphics/bank-statements/`
+  is the reference carousel in the Coastal Money brand; start Instagram carousels from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
@@ -138,6 +141,9 @@ stay. The short version:
 - Hook: two-tone headline, sand line then the terracotta turn, a muted continuation line at the bottom.
 - CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN), hairline, circle portrait, name,
   NMLS #1486450, disclosure line. `graphics/wait-or-buy-cm/` is the reference composition.
+- **Carousels are stills, not video** (2026-10-13). When Kyle says "slides for a carousel", render five
+  1080x1350 PNGs with `src/graphics/slides.mjs` and deliver each with its own Save button. His briefs for
+  these arrive line by line with the font and colour per line; build them as written.
 - **Kyle's call (2026-10-11): ignore the guide's compliance section.** Rates and payments may appear on
   screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.
 - This repo is public: do not write anything private from his email into it.
