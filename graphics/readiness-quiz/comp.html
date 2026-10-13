@@ -1,0 +1,172 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens (graphics/brand/coastal-money/GUIDELINES.md) */
+  :root { --navy:#173F4F; --navy-deep:#102C38; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sand-deep:#E4DBCB; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; opacity: 0; padding: 72px 64px; background: var(--navy); }
+  .scene.sand { background: var(--sand); color: var(--ink); }
+  .scene.sand::after { content: ""; position: absolute; right: -200px; top: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(215,123,82,.10) 0, rgba(215,123,82,0) 70%); }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-family: "Manrope", sans-serif; font-weight: 400; font-size: 36px; line-height: 1.5; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; color: var(--terra); }
+  .terra { color: var(--terra); } .sand { color: var(--sand); } .sage-lift { color: var(--sage-lift); } .sage { color: var(--sage); }
+  .mute-navy { color: rgba(239,233,222,.72); } .mute-sand { color: rgba(14,42,53,.72); }
+  .rule-navy { height: 1px; background: rgba(239,233,222,.20); } .rule-sand { height: 1px; background: rgba(14,42,53,.16); }
+  .w { display: inline-block; opacity: 0; transform: translateY(26px); }
+  .ln { display: block; }
+  .bottom { position: absolute; left: 64px; right: 64px; bottom: 72px; }
+
+  /* s1 hook */
+  #s1 .head { position: absolute; left: 64px; right: 64px; top: 560px; font-size: 96px; }
+  #s1 .cont { font-size: 34px; opacity: 0; }
+
+  /* s2 editorial */
+  #s2 .eyebrow { position: absolute; left: 64px; top: 240px; opacity: 0; }
+  #s2 .head { position: absolute; left: 64px; right: 64px; top: 310px; font-size: 84px; }
+  #s2 .body { position: absolute; left: 64px; width: 800px; top: 920px; opacity: 0; }
+  #s2 .note { position: absolute; left: 64px; right: 64px; bottom: 72px; font-size: 80px; line-height: 1.1; opacity: 0; transform-origin: 0 50%; }
+
+  /* s3 numerals */
+  #s3 .head { position: absolute; left: 64px; right: 64px; top: 160px; font-size: 72px; }
+  #s3 .rows { position: absolute; left: 64px; right: 64px; top: 460px; bottom: 72px; display: grid; align-content: space-between; }
+  #s3 .row { display: grid; grid-template-columns: 290px 1fr; gap: 28px; align-items: start; opacity: 0; transform: translateY(22px); }
+  #s3 .row .n { font-size: 220px; }
+  #s3 .row .eyebrow { margin-top: 24px; }
+  #s3 .row .body { margin-top: 12px; font-size: 35px; }
+  #s3 .row .body b { font-weight: 700; white-space: nowrap; }
+  #s3 .rule-navy { margin: 0; opacity: 0; }
+
+  /* s4 big number */
+  #s4 .big { position: absolute; left: 64px; top: 300px; font-size: 560px; opacity: 0; transform-origin: 0 100%; }
+  #s4 .eyebrow { position: absolute; left: 64px; top: 790px; opacity: 0; }
+  #s4 .head { position: absolute; left: 64px; right: 64px; top: 1000px; font-size: 84px; }
+  #s4 .body { position: absolute; left: 64px; width: 800px; bottom: 72px; opacity: 0; }
+
+  /* s5 cta */
+  #s5 .head { position: absolute; left: 64px; right: 64px; top: 260px; font-size: 88px; }
+  #s5 .ask { position: absolute; left: 64px; width: 860px; top: 580px; opacity: 0; }
+  #s5 .ask .kw { font-family: "Sora", sans-serif; font-weight: 700; color: var(--terra); }
+  #s5 .sign { position: absolute; left: 64px; right: 64px; bottom: 72px; opacity: 0; }
+  #s5 .who { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: center; padding-top: 40px; }
+  #s5 .who img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; }
+  #s5 .name { font-family: "Sora", sans-serif; font-weight: 700; font-size: 42px; letter-spacing: -0.02em; }
+  #s5 .nmls { font-size: 28px; margin-top: 6px; }
+  #s5 .disc { font-size: 24px; line-height: 1.5; color: rgba(239,233,222,.42); margin-top: 36px; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="head h">
+    <span class="ln sand"><span class="w">Thinking</span> <span class="w">about</span> <span class="w">buying?</span></span>
+    <span class="ln terra"><span class="w">Start</span> <span class="w">with</span> <span class="w">where</span></span>
+    <span class="ln terra"><span class="w">you&rsquo;re</span> <span class="w">at.</span></span>
+  </div>
+  <div class="bottom cont mute-navy" id="s1cont">Your 3-minute readiness check &rarr;</div>
+</div>
+
+<div class="scene sand" id="s2">
+  <div class="eyebrow sage" id="s2eye">The real question</div>
+  <div class="head h" id="s2head">
+    <span class="ln"><span class="w">&ldquo;Am</span> <span class="w">I</span> <span class="w">ready?&rdquo;</span></span>
+    <span class="ln"><span class="w">is</span> <span class="w">a</span> <span class="w">feeling.</span></span>
+    <span class="ln"><span class="w">Where</span> <span class="w">you</span> <span class="w">stand</span></span>
+    <span class="ln"><span class="w">is</span> <span class="w">a</span> <span class="w">list.</span></span>
+  </div>
+  <div class="body mute-sand" id="s2body">Credit, cash, payment, timeline. Most people are guessing on at least one.</div>
+  <div class="note" id="s2note">Guessing costs you time.</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="head h sand">
+    <span class="ln"><span class="w">Three</span> <span class="w">things</span> <span class="w">to</span></span>
+    <span class="ln"><span class="w">check</span> <span class="w">tonight.</span></span>
+  </div>
+  <div class="rows">
+    <div class="row" id="r1">
+      <div class="n num terra">01</div>
+      <div><div class="eyebrow sage-lift">Credit</div><div class="body sand">Pull your free reports at <b>annualcreditreport.com</b>. Look for errors first.</div></div>
+    </div>
+    <div class="rule-navy" id="rl1"></div>
+    <div class="row" id="r2">
+      <div class="n num sage-lift">02</div>
+      <div><div class="eyebrow sage-lift">Cash</div><div class="body sand">Down payment, plus closing costs, plus a cushion after you move in.</div></div>
+    </div>
+    <div class="rule-navy" id="rl2"></div>
+    <div class="row" id="r3">
+      <div class="n num sage-lift">03</div>
+      <div><div class="eyebrow sage-lift">Payment</div><div class="body sand">Pick the monthly number you&rsquo;re comfortable with, not the one you qualify for.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="big num terra" id="s4big">3</div>
+  <div class="eyebrow sage-lift" id="s4eye">Minutes</div>
+  <div class="head h sand" id="s4head">
+    <span class="ln"><span class="w">Get</span> <span class="w">your</span> <span class="w">snapshot.</span></span>
+  </div>
+  <div class="body mute-navy" id="s4body">My Homebuyer Readiness Quiz shows you where you are in the process, and what comes next.</div>
+</div>
+
+<div class="scene" id="s5">
+  <div class="head h sand" id="s5head">
+    <span class="ln"><span class="w">Find</span> <span class="w">out</span> <span class="w">where</span></span>
+    <span class="ln"><span class="w">you&rsquo;re</span> <span class="w">at.</span></span>
+  </div>
+  <div class="body ask sand" id="s5ask">Comment <span class="kw">&ldquo;QUIZ&rdquo;</span> and I&rsquo;ll send you the link. Or tap the link in my bio.</div>
+  <div class="sign" id="s5sign">
+    <div class="rule-navy"></div>
+    <div class="who"><img src="portrait.png"><div><div class="name sand">Kyle Melvin</div><div class="nmls mute-navy">NMLS #1486450</div></div></div>
+    <div class="disc">Equal Housing Opportunity.</div>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const S = { s1:[0,4.6], s2:[4.6,11.2], s3:[11.2,20.0], s4:[20.0,25.6], s5:[25.6,31.0] };
+  const FADE = 0.25;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b) ? 0 : Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE));
+  const rise = (el, q) => { el.style.opacity = q; el.style.transform = `translateY(${26*(1-q)}px)`; };
+  const words = sel => Array.from(document.querySelectorAll(sel));
+  const w1 = words('#s1 .w'), w2 = words('#s2 .w'), w3 = words('#s3 .head .w'), w4 = words('#s4 .head .w'), w5 = words('#s5 .head .w');
+
+  window.seek = function (t) {
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    // s1 hook: sand line rises, a beat, then the terracotta turn
+    w1.forEach((w, i) => rise(w, easeOut(p(t, 0.3 + i*0.11 + (i >= 3 ? 0.55 : 0), 0.45))));
+    rise($('s1cont'), easeOut(p(t, 2.6, 0.45)));
+    // s2 editorial
+    $('s2eye').style.opacity = p(t, 4.9, 0.3);
+    w2.forEach((w, i) => rise(w, easeOut(p(t, 5.1 + i*0.1 + (i >= 6 ? 0.35 : 0), 0.45))));
+    rise($('s2body'), easeOut(p(t, 7.6, 0.5)));
+    const nq = p(t, 9.0, 0.4); $('s2note').style.opacity = clamp(nq*2); $('s2note').style.transform = `rotate(${-2 + 2*easeOut(nq)}deg) scale(${0.9 + 0.1*back(nq)})`;
+    // s3 numerals: headline, then rows land one by one
+    w3.forEach((w, i) => rise(w, easeOut(p(t, 11.5 + i*0.1, 0.45))));
+    rise($('r1'), easeOut(p(t, 12.6, 0.5)));
+    $('rl1').style.opacity = p(t, 14.1, 0.3); rise($('r2'), easeOut(p(t, 14.3, 0.5)));
+    $('rl2').style.opacity = p(t, 15.9, 0.3); rise($('r3'), easeOut(p(t, 16.1, 0.5)));
+    // s4 big number pops, label, headline, body
+    const bq = p(t, 20.3, 0.45); $('s4big').style.opacity = clamp(bq*2); $('s4big').style.transform = `scale(${0.8 + 0.2*back(bq)})`;
+    $('s4eye').style.opacity = p(t, 20.9, 0.3);
+    w4.forEach((w, i) => rise(w, easeOut(p(t, 21.4 + i*0.1, 0.45))));
+    rise($('s4body'), easeOut(p(t, 22.4, 0.5)));
+    // s5 cta
+    w5.forEach((w, i) => rise(w, easeOut(p(t, 25.9 + i*0.1, 0.45))));
+    rise($('s5ask'), easeOut(p(t, 26.9, 0.45)));
+    rise($('s5sign'), easeOut(p(t, 27.7, 0.5)));
+  };
+  window.seek(0);
+</script>
+</body></html>

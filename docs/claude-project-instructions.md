@@ -38,7 +38,7 @@ kit, the fonts and the render pipeline.
   a muted continuation line at the bottom ("The 1-0 buydown, explained →").
 - Carousel shape: hook (navy) → editorial (sand) → numerals (navy, 01/02 rows) → big number (navy) →
   CTA (navy: DM keyword, hairline, portrait, name, NMLS, disclosure line).
-- The ask is always a DM keyword. In use: CONV, VA, DSCR, WAIT, BUYDOWN.
+- The ask is always a DM keyword. In use: CONV, VA, DSCR, WAIT, BUYDOWN. QUIZ is in use as a comment keyword.
 - Content pillars: Mortgage IQ, OC Real Estate, Beyond the Mortgage, Life.
 
 ## Voice

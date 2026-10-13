@@ -136,7 +136,7 @@ stay. The short version:
 - Sora Bold headlines (sentence case, never all-caps), Manrope body and tracked uppercase eyebrows, one
   Caveat line per slide. Oversized numerals (`01`, `02`, `$203,090`, `DM`) are the signature device.
 - Hook: two-tone headline, sand line then the terracotta turn, a muted continuation line at the bottom.
-- CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN), hairline, circle portrait, name,
+- CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN, QUIZ as a comment keyword), hairline, circle portrait, name,
   NMLS #1486450, disclosure line. `graphics/wait-or-buy-cm/` is the reference composition.
 - **Kyle's call (2026-10-11): ignore the guide's compliance section.** Rates and payments may appear on
   screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.
@@ -147,8 +147,13 @@ stay. The short version:
 Kyle also has (or is creating) a claude.ai Project named "Coastal Money" for planning posts from his
 phone. Its instructions are `docs/claude-project-instructions.md`; keep that file in step with this one
 when a brand or tone rule changes. The Project writes scripts, captions and carousel handoffs; it cannot
-render. A brief that arrives here starting "send this to clipforge" came from it: build the video from the
-brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual.
+render. A brief that arrives here starting "send this to clipforge", or one laid out as a five-slide carousel
+(`Lane: ... Bridge: ... Ask: ...` header, then `Slide 1 — Hook (navy)` with `[font, colour] copy` lines), came
+from it: build the video from the brief, slide for slide, in `graphics/wait-or-buy-cm/` style, and deliver as
+usual. `graphics/readiness-quiz/` is the first one built that way (2026-10-13). When the brief names no dollar
+figure, the sign-off carries NMLS and "Equal Housing Opportunity." only; the full estimates disclosure is for
+posts with numbers. A URL in the copy is set in Manrope Bold (no pill, the brand has no pills) and repeated
+in the caption. When the ask is a comment keyword plus "link in bio", the CTA has no DM numeral.
 
 ## Next planned step
 
