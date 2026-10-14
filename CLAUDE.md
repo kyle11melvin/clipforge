@@ -105,7 +105,10 @@ his standing brief. Read it before touching anything.
   "entire website", the Morgan chat while he asks about Siri. Full-frame cut for a graphic that carries its
   own text; picture-in-picture (lower half, gold border, he stays visible) for a reaction moment.
 - Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). Caption
-  style: Inter ExtraBold, uppercase, white with a dark outline, centred at 70% of frame height.
+  style (updated 2026-10-14 to match his existing Instagram reels): Figtree Bold (Proxima Nova look),
+  sentence case, white with a thick black outline (`paint-order: stroke fill; -webkit-text-stroke: 9px #000`),
+  about 88 px, centred at 70% of frame height. The font is in `videos/<post>/assets/fonts/Figtree-700.woff2`
+  (from the npm package `@fontsource/figtree`). The old Inter uppercase style is retired.
 - Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
   `clipforge broll videos/<name>/cues.json --output ...` to cut them together. The HyperFrames
   `talking-head-recut` skill is the more complete version of the broll step (cards written per moment,
