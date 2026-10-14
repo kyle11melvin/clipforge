@@ -92,6 +92,9 @@ his standing brief. Read it before touching anything.
   problems fast from stills.
 - His messages are dictated and often garbled. Read for intent ("Whew see we at on this" = "Where are we at
   on this?"). Confirm the intended wording when it will appear on screen.
+- Talking-head reels (2026-10-14, quiz reel): end on his last word, no end card and no hold; "link in bio"
+  goes in the caption. Cut each line as soon as the word ends, before he turns away or smiles (use an RMS
+  trace of the audio and 0.1 s face crops to find the frame). A look at his son Asher mid-line can stay.
 - Ship the whole edit, then list what is still missing. He prefers seeing a finished cut and reacting.
 - Keep replies short. When he is stuck on a setup step, one tap per line, nothing else; long replies
   made him angry (2026-10-14). He said "You're getting a little smarter" when the work matched the point of the post,
