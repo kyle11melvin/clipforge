@@ -93,7 +93,8 @@ his standing brief. Read it before touching anything.
 - His messages are dictated and often garbled. Read for intent ("Whew see we at on this" = "Where are we at
   on this?"). Confirm the intended wording when it will appear on screen.
 - Ship the whole edit, then list what is still missing. He prefers seeing a finished cut and reacting.
-- Keep replies short. He said "You're getting a little smarter" when the work matched the point of the post,
+- Keep replies short. When he is stuck on a setup step, one tap per line, nothing else; long replies
+  made him angry (2026-10-14). He said "You're getting a little smarter" when the work matched the point of the post,
   and "you nailed that" when the shooting plan was concrete: five short lines, one take each, a reaction shot.
 
 ## Talking-head + graphics rules (from the first experiment, 2026-10-11)
@@ -111,7 +112,16 @@ his standing brief. Read it before touching anything.
   transcript-synced); try it on the Monday footage and keep whichever gives the better result. A cue is
   `{at, from, to, mode, says}`; `says` is the phrase the cue sits on, so timings can be re-derived from the
   transcript once audio exists.
-- Getting footage in: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
+- Getting footage in (fixed 2026-10-14, see that log): Google Drive works once the connector has full
+  permission (Settings → Connectors → disconnect and reconnect Google Drive, tick every box on Google's
+  screen) **and** the environment allows `drive.google.com` and `drive.usercontent.google.com` (Network
+  access → Custom → Allowed domains). The connector itself cannot download files over 10 MB, so fetch the
+  share link with curl: `https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t`.
+  Captions need `huggingface.co` and `*.hf.co` allowed too; if the Parakeet install still says "fetch
+  failed", curl the four model files into `~/.cache/hyperframes/parakeet/parakeet-tdt-0.6b-v3-int8/`.
+  Shrink 4K phone clips to 1080x1920 one at a time before `clipforge build` (three 4K inputs at once
+  get FFmpeg OOM-killed) and tone-map HLG to SDR there, then render with `--sdr` for H.264 output.
+  Old notes: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
   upload works but Safari's Photo Library picker re-encodes and strips the audio; he must Save to Files
   first and upload from Files. A clip with no audio track cannot be captioned; say so immediately.
 
