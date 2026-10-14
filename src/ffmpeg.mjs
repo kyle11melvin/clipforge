@@ -109,7 +109,7 @@ export async function assemble({ clips, width, height, fps = 30, fit = "cover", 
     });
   });
   filters.push(`${labels.join("")}concat=n=${labels.length}:v=1:a=1[vcat][acat]`);
-  filters.push(`[acat]loudnorm=I=-16:TP=-1.5:LRA=11[aout]`);
+  filters.push(`[acat]loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[aout]`);
 
   args.push(
     "-filter_complex", filters.join(";"),

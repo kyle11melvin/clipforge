@@ -9,3 +9,5 @@ test/fixtures/
 *.wav
 *.mp3
 .DS_Store
+*.MOV
+clips/
