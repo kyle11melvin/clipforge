@@ -9,3 +9,4 @@ test/fixtures/
 *.wav
 *.mp3
 .DS_Store
+graphics/switchboard/up/

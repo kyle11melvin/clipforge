@@ -36,6 +36,12 @@ his standing brief. Read it before touching anything.
   stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
   01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
+- `graphics/switchboard/` — the first commercial built from a storyboard image (2026-10-20): ten panels cut
+  apart, labels and baked headlines inpainted out (`tools/clean_panels.py`), upscaled 4× with Real-ESRGAN
+  over ONNX (`tools/upscale.py`, model from Hugging Face, output folder git-ignored), blurred backgrounds and
+  cutouts (`tools/layers.py`), a synthesised score and effects (`tools/audio.py`), Kokoro voiceover through
+  `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable).
+  Start the next storyboard-driven spot from here. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
@@ -90,6 +96,8 @@ his standing brief. Read it before touching anything.
   to attach videos directly in chat instead.
 - Show a contact sheet of 4–5 frames before the full render and after every change. He catches layout
   problems fast from stills.
+- A written brief with a storyboard attachment (the Switchboard spot) is the other way jobs arrive: follow its
+  scene timings and copy exactly, remove the storyboard's numbers and labels, add no claims it did not make.
 - His messages are dictated and often garbled. Read for intent ("Whew see we at on this" = "Where are we at
   on this?"). Confirm the intended wording when it will appear on screen.
 - Ship the whole edit, then list what is still missing. He prefers seeing a finished cut and reacting.

@@ -1,0 +1,297 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Fraunces"; src: url("../fonts/Fraunces-Bold.woff2") format("woff2"); font-weight: 700; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070D19; }
+  body { font-family: "Inter", system-ui, sans-serif; color: #F4EFE8; }
+  .scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+  .bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+  .art { position: absolute; transform-origin: 50% 50%; }
+  .art img { display: block; width: 100%; }
+  .h { font-family: "Fraunces", "Inter Display", serif; font-weight: 700; font-size: 104px; line-height: 1.04; letter-spacing: -0.01em; }
+  .copy { position: absolute; left: 90px; width: 840px; }
+  .w { display: inline-block; opacity: 0; transform: translateY(34px); }
+  .copper { color: #EBA47A; } .blue { color: #8EA6FF; } .teal { color: #5FD6C9; } .mint { color: #3DDC97; }
+  .eyebrow { font-size: 30px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #9AA7B8; }
+  .glow { position: absolute; border-radius: 50%; mix-blend-mode: screen; opacity: 0; pointer-events: none; }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(3,6,12,.55) 100%); pointer-events: none; z-index: 50; }
+  #sweep { position: absolute; top: -200px; left: 0; width: 700px; height: 2400px; opacity: 0; z-index: 60; mix-blend-mode: screen; pointer-events: none;
+    background: linear-gradient(90deg, rgba(255,225,195,0) 0%, rgba(255,225,195,.28) 50%, rgba(255,225,195,0) 100%); transform: rotate(14deg); }
+  #black { position: absolute; inset: 0; background: #070D19; z-index: 70; pointer-events: none; }
+
+  /* cards shared */
+  .card { position: absolute; left: 90px; width: 900px; border-radius: 34px; padding: 44px; background: rgba(12,20,36,.92);
+    border: 2px solid rgba(95,214,201,.55); box-shadow: 0 0 60px rgba(79,209,197,.28), 0 40px 90px rgba(0,0,0,.55); }
+  .card .hd { display: flex; align-items: center; gap: 22px; font-size: 44px; font-weight: 700; }
+  .chk { width: 64px; height: 64px; border-radius: 50%; background: #2FC48A; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .chk svg { width: 34px; height: 34px; }
+  .box { margin-top: 24px; border-radius: 22px; background: rgba(28,40,62,.85); padding: 26px 30px; opacity: 0; position: relative; overflow: hidden; }
+  .box .lb { font-size: 26px; color: #93A3B8; margin-bottom: 8px; }
+  .box .tx { font-size: 34px; line-height: 1.32; font-weight: 500; }
+  .cur { display: inline-block; width: 4px; height: 36px; background: #5FD6C9; vertical-align: -6px; margin-left: 3px; }
+  .hl { position: absolute; top: 0; bottom: 0; width: 260px; left: -300px; background: linear-gradient(90deg, rgba(79,209,197,0), rgba(79,209,197,.35), rgba(79,209,197,0)); }
+  .row { display: flex; align-items: center; gap: 24px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,.08); font-size: 33px; line-height: 1.25; opacity: 0; }
+  .row .ic { width: 58px; height: 58px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 36px; color: #fff; transform: scale(.3); }
+  .ic.red { background: #E5484D; } .ic.amber { background: #F2A93B; color: #1A1206; border-radius: 14px; } .ic.mint { background: #2FC48A; }
+
+  /* s2 prompt bar */
+  #bar { position: absolute; left: 90px; top: 770px; width: 900px; height: 124px; border-radius: 62px; background: rgba(9,16,30,.94); border: 2px solid rgba(235,164,122,.75);
+    box-shadow: 0 0 40px rgba(235,164,122,.35), 0 0 120px rgba(235,164,122,.12); display: flex; align-items: center; padding: 0 28px 0 46px; opacity: 0; }
+  #bar .q { flex: 1; font-size: 38px; font-weight: 500; white-space: nowrap; }
+  #btn { width: 86px; height: 86px; border-radius: 50%; background: #EBA47A; display: flex; align-items: center; justify-content: center; flex: none; position: relative; }
+  #btn svg { width: 40px; height: 40px; }
+  #ring { position: absolute; left: -2px; top: -2px; width: 90px; height: 90px; border-radius: 50%; border: 4px solid #EBA47A; opacity: 0; }
+
+  /* s7 pills */
+  .pills { position: absolute; left: 90px; top: 935px; width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .pill { height: 92px; border-radius: 20px; background: rgba(12,20,36,.9); border: 2px solid rgba(235,164,122,.5); display: flex; align-items: center; gap: 18px; padding: 0 26px; font-size: 32px; font-weight: 600; opacity: 0; }
+  .pill .chk { width: 48px; height: 48px; transform: scale(.3); } .pill .chk svg { width: 26px; height: 26px; }
+
+  /* s10 */
+  #logo { position: absolute; left: 50%; top: 520px; width: 720px; margin-left: -360px; opacity: 0; }
+  #logo img { width: 100%; display: block; }
+  #tag { position: absolute; left: 0; right: 0; top: 880px; text-align: center; font-size: 34px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0; white-space: nowrap; }
+  #cta { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font-size: 42px; font-weight: 500; color: #EBA47A; opacity: 0; }
+  #orbit { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+</style></head>
+<body>
+
+<!-- 1 THE PROBLEM -->
+<div class="scene" id="s1">
+  <img class="bg" src="bg/bg01.jpg">
+  <div class="art" id="a1" style="left:-80px; top:250px; width:1240px"><img src="up/up01.png"></div>
+  <div class="copy h rise" id="c1" style="top:1200px">Different AIs.<br><span class="blue">Different answers.</span></div>
+</div>
+
+<!-- 2 MEET SWITCHBOARD -->
+<div class="scene" id="s2">
+  <img class="bg" src="bg/bg02.jpg">
+  <div class="art" id="a2" style="left:-110px; top:60px; width:1300px; -webkit-mask-image: linear-gradient(to bottom, #000 63%, rgba(0,0,0,0) 71%); mask-image: linear-gradient(to bottom, #000 63%, rgba(0,0,0,0) 71%)"><img src="up/up02.png"></div>
+  <div id="bar"><div class="q"><span id="typed"></span><span class="cur" id="cur" style="background:#EBA47A"></span></div>
+    <div id="btn"><div id="ring"></div><svg viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div></div>
+  <div class="copy h rise" id="c2" style="top:1180px; font-size:136px">Just <span class="copper">ask.</span></div>
+</div>
+
+<!-- 3 STRENGTHEN THE QUESTION -->
+<div class="scene" id="s3">
+  <img class="bg" src="bg/bg03.jpg">
+  <div class="card" id="card3" style="top:300px">
+    <div class="hd"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span id="hd3">Optimizing your question…</span></div>
+    <div class="box" id="box3a"><div class="lb">Original question</div><div class="tx">How should I bring this to market?</div></div>
+    <div class="box" id="box3b"><div class="lb">Improved prompt</div><div class="tx"><span id="typed3"></span><span class="cur" id="cur3"></span></div><div class="hl" id="hl3"></div></div>
+  </div>
+  <div class="copy h rise" id="c3" style="top:1160px">A stronger <span class="teal">question.</span></div>
+</div>
+
+<!-- 4 SELECT THE AIs -->
+<div class="scene" id="s4">
+  <img class="bg" src="bg/bg04.jpg">
+  <div class="art" id="a4" style="left:-80px; top:280px; width:1240px"><img src="up/up04.png"></div>
+  <div class="glow" id="g4h" style="left:440px; top:247px; width:320px; height:320px; background: radial-gradient(circle, rgba(235,164,122,.75) 0%, rgba(235,164,122,0) 65%)"></div>
+  <div class="glow" id="g4a" style="left:178px; top:570px; width:300px; height:300px; background: radial-gradient(circle, rgba(235,164,122,.7) 0%, rgba(235,164,122,0) 65%)"></div>
+  <div class="glow" id="g4b" style="left:372px; top:570px; width:300px; height:300px; background: radial-gradient(circle, rgba(95,214,201,.7) 0%, rgba(95,214,201,0) 65%)"></div>
+  <div class="glow" id="g4c" style="left:570px; top:570px; width:300px; height:300px; background: radial-gradient(circle, rgba(142,166,255,.75) 0%, rgba(142,166,255,0) 65%)"></div>
+  <div class="copy h rise" id="c4" style="top:1180px">The right <span class="copper">AIs.</span></div>
+</div>
+
+<!-- 5 DIFFERENT PERSPECTIVES -->
+<div class="scene" id="s5">
+  <img class="bg" src="bg/bg05.jpg">
+  <div class="art" id="a5" style="left:-80px; top:300px; width:1240px"><img src="up/up05.png" id="a5img"></div>
+  <div class="glow" id="g5a" style="left:135px; top:435px; width:440px; height:440px; background: radial-gradient(circle, rgba(235,164,122,.6) 0%, rgba(235,164,122,0) 65%)"></div>
+  <div class="glow" id="g5b" style="left:429px; top:435px; width:440px; height:440px; background: radial-gradient(circle, rgba(95,214,201,.6) 0%, rgba(95,214,201,0) 65%)"></div>
+  <div class="glow" id="g5c" style="left:690px; top:373px; width:440px; height:440px; background: radial-gradient(circle, rgba(142,166,255,.65) 0%, rgba(142,166,255,0) 65%)"></div>
+  <div class="copy h rise" id="c5" style="top:1180px">Different <span class="copper">perspectives.</span></div>
+</div>
+
+<!-- 6 CRITICAL EVALUATION -->
+<div class="scene" id="s6">
+  <img class="bg" src="bg/bg06.jpg">
+  <div class="card" id="card6" style="top:320px; border-color: rgba(235,164,122,.5); box-shadow: 0 0 60px rgba(235,164,122,.22), 0 40px 90px rgba(0,0,0,.55)">
+    <div class="hd"><span class="chk" style="background:#5FD6C9"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Analysis complete</span></div>
+    <div style="margin-top:26px">
+      <div class="row" id="r6a"><span class="ic red">!</span><span>Conflicting recommendations<br>on pricing strategy.</span></div>
+      <div class="row" id="r6b"><span class="ic red">!</span><span>Missing key competitor analysis<br>in one response.</span></div>
+      <div class="row" id="r6c"><span class="ic red">!</span><span>Overly optimistic timeline<br>in two responses.</span></div>
+      <div class="row" id="r6d"><span class="ic amber">!</span><span>Important risk not mentioned<br>by one model.</span></div>
+    </div>
+  </div>
+  <div class="copy h rise" id="c6" style="top:1180px">It <span class="copper">challenges</span><br>the answers.</div>
+</div>
+
+<!-- 7 CONVERGENCE -->
+<div class="scene" id="s7">
+  <img class="bg" src="bg/bg07.jpg">
+  <div class="art" id="a7" style="left:-30px; top:290px; width:1300px"><img src="up/up07w.png"></div>
+  <div class="art" id="st7" style="left:-30px; top:290px; width:1300px; mix-blend-mode: screen; -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 100%)"><img src="streams.png"></div>
+  <div class="glow" id="g7" style="left:657px; top:417px; width:440px; height:440px; background: radial-gradient(circle, rgba(235,164,122,.8) 0%, rgba(235,164,122,0) 62%)"></div>
+  <div class="pills">
+    <div class="pill" id="p7a"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Key insights</div>
+    <div class="pill" id="p7b"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Validated facts</div>
+    <div class="pill" id="p7c"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Best ideas</div>
+    <div class="pill" id="p7d"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Actionable plan</div>
+  </div>
+  <div class="copy h rise" id="c7" style="top:1200px">The strongest ideas.<br><span class="copper">Together.</span></div>
+</div>
+
+<!-- 8 ONE STRONGER ANSWER -->
+<div class="scene" id="s8">
+  <img class="bg" src="bg/bg08.jpg">
+  <div class="card" id="card8" style="top:300px; transform-origin: 50% 50%">
+    <div class="hd"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Final answer</span></div>
+    <div id="body8" style="margin-top:22px; font-size:33px; line-height:1.35; color:#DCE3EC; opacity:0">A practical go-to-market plan for your CRM, with specific recommendations, current market context, key risks, and next steps.</div>
+    <div style="margin-top:18px">
+      <div class="row" id="r8a"><span class="ic mint"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Actionable recommendations</span></div>
+      <div class="row" id="r8b"><span class="ic mint"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Current market context</span></div>
+      <div class="row" id="r8c"><span class="ic mint"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Clear next steps</span></div>
+      <div class="row" id="r8d"><span class="ic mint"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>Key risks and considerations</span></div>
+    </div>
+  </div>
+  <div class="copy h rise" id="c8" style="top:1160px">One <span class="teal">stronger</span> answer.</div>
+</div>
+
+<!-- 9 HUMAN RESULT -->
+<div class="scene" id="s9">
+  <img class="bg" src="bg/bg09.jpg">
+  <div class="art" id="a9" style="left:-110px; top:400px; width:1300px"><img src="up/up09.png"></div>
+  <div class="copy h rise" id="c9" style="top:1250px">Less uncertainty.<br><span class="copper">More confidence.</span></div>
+</div>
+
+<!-- 10 BRAND REVEAL -->
+<div class="scene" id="s10">
+  <img class="bg" src="bg/bg10.jpg">
+  <svg id="orbit" viewBox="0 0 1080 1920">
+    <defs><filter id="gl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g transform="rotate(-9 540 760)">
+      <ellipse id="o1" cx="540" cy="760" rx="520" ry="235" fill="none" stroke="#EBA47A" stroke-width="3" stroke-linecap="round" filter="url(#gl)" opacity=".95"/>
+      <ellipse id="o2" cx="540" cy="760" rx="430" ry="185" fill="none" stroke="#EBA47A" stroke-width="1.5" stroke-linecap="round" opacity=".55"/>
+    </g>
+  </svg>
+  <div id="logo"><img src="logo.png"></div>
+  <div id="tag">Ask once · Get the top answer</div>
+  <div id="cta">See Switchboard in action</div>
+</div>
+
+<div class="vignette"></div>
+<div id="sweep"></div>
+<div id="black"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+
+  // split every .rise headline into word spans (keeps <br> and accent spans)
+  document.querySelectorAll('.rise').forEach(el => {
+    const out = [];
+    const walk = (node, cls) => {
+      if (node.nodeType === 3) { node.textContent.split(/(\s+)/).forEach(tok => { if (!tok) return; if (/^\s+$/.test(tok)) out.push(' '); else out.push(`<span class="w ${cls}">${tok}</span>`); }); }
+      else if (node.tagName === 'BR') out.push('<br>');
+      else Array.from(node.childNodes).forEach(n => walk(n, node.className));
+    };
+    Array.from(el.childNodes).forEach(n => walk(n, ''));
+    el.innerHTML = out.join('');
+  });
+  const rise = (id, start, stagger = 0.08, dur = 0.5) => {
+    Array.from($(id).querySelectorAll('.w')).forEach((w, i) => { const q = easeOut(p(t_, start + i*stagger, dur)); w.style.opacity = q; w.style.transform = `translateY(${34*(1-q)}px)`; });
+  };
+  let t_ = 0;
+
+  // scene windows; incoming scene sits on top, so only fade-ins are needed
+  const S = { s1:[0,3], s2:[3,6], s3:[6,9], s4:[9,12], s5:[12,16], s6:[16,19], s7:[19,23], s8:[23,26], s9:[26,28], s10:[28,30.5] };
+  const FADE = 0.3;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b + FADE) ? 0 : p(t, a, FADE);
+  const push = (id, t, a, b, from = 1, to = 1.07, dx = 0, dy = 0) => { const q = p(t, a, b - a); $(id).style.transform = `translate(${dx*q}px, ${dy*q}px) scale(${from + (to - from)*q})`; };
+  const pop = (id, s, d = 0.45) => { const q = p(t_, s, d); const el = $(id); el.style.opacity = clamp(q*2.5); const ic = el.querySelector('.ic, .chk'); if (ic) ic.style.transform = `scale(${0.3 + 0.7*back(q)})`; el.style.transform = `translateY(${18*(1-easeOut(q))}px)`; };
+  const glow = (id, s, d = 0.5, hold = 99) => { const q = p(t_, s, d); const f = 1 - p(t_, s + d + hold, 0.6); $(id).style.opacity = easeOut(q) * f; $(id).style.transform = `scale(${0.6 + 0.4*easeOut(q)})`; };
+  const type = (id, cur, text, s, d) => { const q = p(t_, s, d); $(id).textContent = text.slice(0, Math.round(q*text.length)); $(cur).style.opacity = (t_ >= s - 0.3 && t_ < s + d + 0.5 && Math.floor(t_*4)%2 === 0) ? 1 : 0; };
+  const sweeps = [3, 9, 16, 23, 28];
+  const Q = "How should I bring this to market?";
+  const IMPROVED = "Analyze the best go-to-market strategy for a small business CRM, including target market, pricing, distribution, and key risks. Provide specific, actionable recommendations.";
+  const O1 = 2*Math.PI*Math.sqrt((520*520+235*235)/2), O2 = 2*Math.PI*Math.sqrt((430*430+185*185)/2);
+
+  window.seek = function (t) {
+    t_ = t;
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    $('black').style.opacity = 1 - p(t, 0, 0.5);
+    // light sweeps across cuts
+    let sw = 0, sx = -900;
+    for (const s0 of sweeps) { if (t >= s0 - 0.05 && t <= s0 + 0.55) { const q = p(t, s0 - 0.05, 0.6); sx = -900 + 2300*easeInOut(q); sw = Math.sin(q*Math.PI); } }
+    $('sweep').style.opacity = sw; $('sweep').style.transform = `translateX(${sx}px) rotate(14deg)`;
+
+    // s1: gentle push, words rise
+    push('a1', t, 0, 3.3, 1.0, 1.09, 0, -12);
+    rise('c1', 0.35);
+
+    // s2: tablet drifts up, prompt bar types, submit pulse
+    { const q = easeOut(p(t, 3.0, 0.8)); $('a2').style.transform = `translateY(${40*(1-q)}px) scale(${1 + 0.03*p(t, 3, 3)})`;
+      const bq = easeOut(p(t, 3.25, 0.4)); $('bar').style.opacity = bq; $('bar').style.transform = `translateY(${30*(1-bq)}px)`;
+      type('typed', 'cur', Q, 3.55, 1.35);
+      const pq = p(t, 5.15, 0.55); const k = Math.sin(pq*Math.PI);
+      $('btn').style.transform = `scale(${1 + 0.18*k})`;
+      $('ring').style.opacity = pq > 0 && pq < 1 ? (1 - pq) : 0; $('ring').style.transform = `scale(${1 + 1.6*easeOut(pq)})`;
+      $('bar').style.boxShadow = `0 0 ${40 + 60*k}px rgba(235,164,122,${.35 + .4*k}), 0 0 ${120 + 80*k}px rgba(235,164,122,${.12 + .2*k})`;
+      if (t >= 5.15) $('cur').style.opacity = 0;
+      rise('c2', 3.4, 0.14); }
+
+    // s3: original question, then the improved prompt types in with a teal highlight travelling across it
+    { const cq = easeOut(p(t, 6.0, 0.6)); $('card3').style.transform = `translateY(${40*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
+      pop('box3a', 6.25); pop('box3b', 6.75);
+      type('typed3', 'cur3', IMPROVED, 6.9, 1.25);
+      const hq = p(t, 8.05, 0.85); $('hl3').style.left = `${-300 + 1300*easeInOut(hq)}px`; $('hl3').style.opacity = hq > 0 && hq < 1 ? 1 : 0;
+      $('hd3').textContent = t < 8.2 ? "Optimizing your question…" : "Question optimized";
+      rise('c3', 6.35); }
+
+    // s4: hub lights, then each AI card in turn
+    push('a4', t, 9, 12.3, 1.0, 1.06, 0, -8);
+    glow('g4h', 9.3, 0.5); glow('g4a', 9.75, 0.4); glow('g4b', 10.05, 0.4); glow('g4c', 10.35, 0.4);
+    for (const id of ['g4h','g4a','g4b','g4c']) { const b = 0.85 + 0.15*Math.sin((t - 9)*3.1); $(id).style.opacity = parseFloat($(id).style.opacity) * b; }
+    rise('c4', 9.35);
+
+    // s5: windows illuminate in sequence while the whole scene floats
+    { const fl = Math.sin((t - 12)*1.3)*8, fl2 = Math.cos((t - 12)*0.9)*6;
+      $('a5').style.transform = `translate(${fl}px, ${fl2}px) scale(${1 + 0.05*p(t, 12, 4.3)})`;
+      $('a5img').style.filter = `brightness(${0.55 + 0.45*easeOut(p(t, 12.3, 1.6))})`;
+      glow('g5a', 12.4, 0.5); glow('g5b', 12.9, 0.5); glow('g5c', 13.4, 0.5);
+      for (const id of ['g5a','g5b','g5c']) { const b = 0.8 + 0.2*Math.sin((t - 12)*2.4 + id.charCodeAt(2)); $(id).style.opacity = parseFloat($(id).style.opacity) * b; }
+      rise('c5', 12.4); }
+
+    // s6: evaluation panel, findings pop in one by one
+    { const cq = easeOut(p(t, 16.0, 0.6)); $('card6').style.transform = `translateY(${40*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
+      pop('r6a', 16.45); pop('r6b', 16.85); pop('r6c', 17.25); pop('r6d', 17.65);
+      rise('c6', 16.4); }
+
+    // s7: streams flow into the hub, hub glows, teal checks appear
+    { push('a7', t, 19, 23.3, 1.0, 1.06, 0, -6); $('st7').style.transform = $('a7').style.transform;
+      const fq = p(t, 19.2, 1.6); const edge = -10 + 130*easeInOut(fq);
+      const m = `linear-gradient(90deg, #000 ${edge - 25}%, rgba(0,0,0,0) ${edge}%)`;
+      $('st7').style.webkitMaskImage = m; $('st7').style.maskImage = m;
+      $('st7').style.opacity = 0.75 + 0.25*Math.sin((t - 19)*5);
+      glow('g7', 20.5, 0.6); $('g7').style.opacity = parseFloat($('g7').style.opacity) * (0.8 + 0.2*Math.sin((t - 20.5)*4));
+      pop('p7a', 21.1); pop('p7b', 21.35); pop('p7c', 21.6); pop('p7d', 21.85);
+      rise('c7', 19.4); }
+
+    // s8: final answer card settles, checks light up
+    { const cq = p(t, 23.0, 0.7); $('card8').style.transform = `translateY(${30*(1-easeOut(cq))}px) scale(${0.92 + 0.08*back(cq)})`;
+      const bq = easeOut(p(t, 23.45, 0.4)); $('body8').style.opacity = bq;
+      pop('r8a', 23.9); pop('r8b', 24.2); pop('r8c', 24.5); pop('r8d', 24.8);
+      rise('c8', 23.4); }
+
+    // s9: calm push on the person at the laptop
+    push('a9', t, 26, 28.3, 1.0, 1.05, -26, -10);
+    rise('c9', 26.3);
+
+    // s10: orbit completes, logo settles, everything still from 28.5s
+    { const oq = easeInOut(p(t, 28.0, 0.5)); $('o1').setAttribute('stroke-dasharray', `${O1*oq} ${O1}`); $('o1').setAttribute('stroke-dashoffset', 0);
+      const oq2 = easeInOut(p(t, 28.05, 0.45)); $('o2').setAttribute('stroke-dasharray', `${O2*oq2} ${O2}`);
+      const lq = easeOut(p(t, 28.05, 0.4)); $('logo').style.opacity = lq; $('logo').style.transform = `scale(${1.08 - 0.08*lq})`;
+      const tq = easeOut(p(t, 28.2, 0.3)); $('tag').style.opacity = tq; $('tag').style.transform = `translateY(${16*(1-tq)}px)`;
+      const cq = easeOut(p(t, 28.25, 0.25)); $('cta').style.opacity = cq; $('cta').style.transform = `translateY(${16*(1-cq)}px)`; }
+  };
+  window.seek(0);
+</script>
+</body></html>
