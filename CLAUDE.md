@@ -43,9 +43,16 @@ his standing brief. Read it before touching anything.
   `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable), or
   Australian voices through `tools/vo_piper.py` (Piper model from Hugging Face; "Willow", speaker 9, is the
   one Kyle has heard). `tools/audio.py --music pad|pulse` picks the score.
+  **The real Switchboard logo is the app icon** `graphics/siri-post/icons/switchboard.png` (three branches into a
+  copper node with an arrow). The storyboard's diamond mark and serif wordmark were AI-drawn stand-ins; Kyle:
+  "Make sure to use our Switchboard logo!" Use the icon (`graphics/switchboard-v4/logos/switchboard-icon.png`,
+  upscaled, rounded) and set the name as type until he supplies a wordmark.
+  `graphics/switchboard-v4/` is Commercial V4 (32 s): consumer message, V1 narrator, real provider logos from
+  `simple-icons` (OpenAI from release 13), readable HTML windows in the hook; `--music v4 --duration 32`.
+  Start any Switchboard revision from V4.
   `graphics/switchboard-final/` is Commercial V3 (28 s): the Convergence cut retimed, V1's hook windows, and the
   V1 narrator `am_michael` restored at Kyle's explicit request ("restore the exact V1 narrator"); `--music final
-  --duration 28`. This is the current best cut; start any Switchboard revision from it.
+  --duration 28`. Superseded by V4.
   `graphics/switchboard-conv/` is "Commercial V2: The Convergence" from his written 22 s brief (HTML model and
   response cards with icons cut from the art, SVG streams, `--music conv --duration 22`, a dedicated effects
   track with the ding). When a brief arrives as a full spec like that, follow it to the frame.
