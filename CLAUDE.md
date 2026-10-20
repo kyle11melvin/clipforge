@@ -43,7 +43,11 @@ his standing brief. Read it before touching anything.
   `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable), or
   Australian voices through `tools/vo_piper.py` (Piper model from Hugging Face; "Willow", speaker 9, is the
   one Kyle has heard). `tools/audio.py --music pad|pulse` picks the score.
-  Start the next storyboard-driven spot from here. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
+  `graphics/switchboard-v2/` is the phone-first recomposition of the same spot (bigger crops of the 4× panels,
+  window layers that come forward, a nine-line script, `--music v2`, `--cues` for any line count). Start the
+  next storyboard-driven spot from V2. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
+  Voices on hand: British `bf_emma` (Kokoro), Australian Willow (Piper); audition both before a final render
+  when a brief asks, and pick lower registers by measured pitch since nobody in the session can listen.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
