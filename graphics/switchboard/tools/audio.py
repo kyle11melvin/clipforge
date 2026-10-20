@@ -4,7 +4,7 @@
 import sys, argparse, numpy as np, soundfile as sf
 from scipy import signal
 from pathlib import Path
-ap = argparse.ArgumentParser(); ap.add_argument("--vo", default="videos/switchboard/vo"); ap.add_argument("--music", default="pad", choices=["pad", "pulse", "v2"]); ap.add_argument("--suffix", default=""); ap.add_argument("--late-cues", default="23.2,25.85,28.25", help="start times of lines 8, 9, 10"); ap.add_argument("--cues", default="", help="explicit start times for lines 1..n (overrides the V1 cue table)"); ap.add_argument("--speed", default="9:1.08", help="line:factor,... small resample speed-ups")
+ap = argparse.ArgumentParser(); ap.add_argument("--vo", default="videos/switchboard/vo"); ap.add_argument("--music", default="pad", choices=["pad", "pulse", "v2"]); ap.add_argument("--suffix", default=""); ap.add_argument("--late-cues", default="23.2,25.85,28.25", help="start times of lines 8, 9, 10"); ap.add_argument("--vo-gain", type=float, default=0.85); ap.add_argument("--cues", default="", help="explicit start times for lines 1..n (overrides the V1 cue table)"); ap.add_argument("--speed", default="9:1.08", help="line:factor,... small resample speed-ups")
 ARGS = ap.parse_args()
 SR = 48000; DUR = 30.0; N = int(SR*DUR); t = np.arange(N)/SR
 rng = np.random.default_rng(7)
@@ -180,7 +180,7 @@ def music_v2():
     f = midi(c[2][0]-12); n = int(0.4*SR); tt = np.arange(n)/SR
     place(m, np.sin(2*np.pi*f*tt)*np.exp(-tt*7)*0.18, at)
     if at >= 12:
-      kick = np.sin(2*np.pi*(55 + 80*np.exp(-tt*40))*tt) * np.exp(-tt*16) * (0.16 if at < 17 else 0.26)
+      kick = np.sin(2*np.pi*(55 + 80*np.exp(-tt*40))*tt) * np.exp(-tt*16) * (0.11 if at < 17 else 0.18)
       place(m, kick[:int(0.25*SR)], at)
   # pump the pad under the kick during the lift
   pump = np.ones(N)
@@ -243,7 +243,7 @@ for s0 in ((9, 12, 17, 22, 25, 27) if V2 else (3, 9, 16, 23, 28)): place(sfx, wh
 # card / glow pops: tiny soft ticks
 for at in ((7.25, 7.55, 7.85, 9.8, 10.3, 10.8, 12.5, 13.3, 15.0, 15.6, 19.6, 19.9, 20.2, 20.5, 22.6, 22.95, 23.3) if V2 else (9.75, 10.05, 10.35, 12.4, 12.9, 13.4, 16.45, 16.85, 17.25, 17.65, 21.1, 21.35, 21.6, 21.85, 23.9, 24.2, 24.5, 24.8)):
     n = int(0.12*SR); tt = np.arange(n)/SR; f = 1500 if at < 21 else 2100
-    s = np.sin(2*np.pi*f*tt)*np.exp(-tt*40)*0.12; place(sfx, s, at)
+    s = np.sin(2*np.pi*f*tt)*np.exp(-tt*40)*(0.07 if V2 else 0.12); place(sfx, s, at)
 # convergence shimmer 19.3 -> 22.5: sparkling pings over a rising air
 for i in range(70):
     at = (17.3 if V2 else 19.3) + 3.0*rng.random()**0.8; f = rng.uniform(1800, 6500); n = int(0.5*SR); tt = np.arange(n)/SR
@@ -269,7 +269,7 @@ for k, at in cues.items():
     if sr != SR: a = signal.resample_poly(a, SR, sr)
     if k in speed:  # resample-based speed change keeps it simple; the shift is tiny
         n2 = int(len(a)/speed[k]); a = signal.resample(a, n2)
-    a = a / (np.abs(a).max() + 1e-9) * 0.85
+    a = a / (np.abs(a).max() + 1e-9) * ARGS.vo_gain
     place(vo, a, at)
     print(f"vo{k:02d} at {at:.2f}s -> {at + len(a)/SR:.2f}s")
 vo = lowpass(vo, 14000)

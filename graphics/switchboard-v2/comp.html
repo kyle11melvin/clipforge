@@ -16,7 +16,7 @@
   .glow { position: absolute; border-radius: 50%; mix-blend-mode: screen; opacity: 0; pointer-events: none; }
   .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(3,6,12,.55) 100%); pointer-events: none; z-index: 50; }
   #sweep { position: absolute; top: -200px; left: 0; width: 700px; height: 2400px; opacity: 0; z-index: 60; mix-blend-mode: screen; pointer-events: none;
-    background: linear-gradient(90deg, rgba(255,225,195,0) 0%, rgba(255,225,195,.26) 50%, rgba(255,225,195,0) 100%); transform: rotate(14deg); }
+    background: linear-gradient(90deg, rgba(255,225,195,0) 0%, rgba(255,225,195,.16) 50%, rgba(255,225,195,0) 100%); transform: rotate(14deg); }
   #flash { position: absolute; left: 935px; top: 975px; width: 400px; height: 400px; margin: -200px 0 0 -200px; border-radius: 50%; z-index: 61; opacity: 0; mix-blend-mode: screen;
     background: radial-gradient(circle, rgba(255,214,180,.95) 0%, rgba(235,164,122,.7) 30%, rgba(95,214,201,.25) 60%, rgba(0,0,0,0) 72%); }
   #black { position: absolute; inset: 0; background: #070D19; z-index: 70; pointer-events: none; }
@@ -216,8 +216,9 @@
   });
   let t_ = 0;
   const rise = (id, start, stagger = 0.08, dur = 0.5) => Array.from($(id).querySelectorAll('.w')).forEach((w, i) => { const q = easeOut(p(t_, start + i*stagger, dur)); w.style.opacity = q; w.style.transform = `translateY(${34*(1-q)}px)`; });
-  const pop = (id, s, d = 0.45) => { const q = p(t_, s, d); const el = $(id); el.style.opacity = clamp(q*2.5); const ic = el.querySelector('.ic, .chk'); if (ic) ic.style.transform = `scale(${0.3 + 0.7*back(q)})`; el.style.transform = `translateY(${18*(1-easeOut(q))}px)`; };
-  const glow = (id, s, d = 0.5) => { const q = p(t_, s, d); $(id).style.opacity = easeOut(q); $(id).style.transform = `scale(${0.6 + 0.4*easeOut(q)})`; };
+  const soft = x => { const c = 1.2, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const pop = (id, s, d = 0.7) => { const q = p(t_, s, d); const el = $(id); el.style.opacity = easeOut(clamp(q*1.6)); const ic = el.querySelector('.ic, .chk'); if (ic) ic.style.transform = `scale(${0.5 + 0.5*soft(q)})`; el.style.transform = `translateY(${14*(1-easeOut(q))}px)`; };
+  const glow = (id, s, d = 0.9) => { const q = p(t_, s, d); $(id).style.opacity = easeOut(q); $(id).style.transform = `scale(${0.6 + 0.4*easeOut(q)})`; };
   const type = (id, cur, text, s, d) => { const q = p(t_, s, d); $(id).textContent = text.slice(0, Math.round(q*text.length)); $(cur).style.opacity = (t_ >= s - 0.3 && t_ < s + d + 0.5 && Math.floor(t_*4)%2 === 0) ? 1 : 0; };
 
   // s1 window layers: crops of the base art at the same scale, so they sit exactly on their source
@@ -228,7 +229,7 @@
     el.innerHTML = `<img src="../switchboard/up/up01.png" style="width:${2028*S1.s}px; left:${-x*S1.s}px; top:${-y*S1.s}px">`; }
 
   const S = { s1:[0,3], s2:[3,6], s3:[6,9], s4:[9,12], s5:[12,17], s6:[17,22], s7:[22,25], s8:[25,27], s9:[27,30.5] };
-  const FADE = 0.3;
+  const FADE = 0.5;
   const sceneOpacity = (t, [a, b]) => (t < a || t > b + FADE) ? 0 : p(t, a, FADE);
   const sweeps = [9, 12, 17, 22, 25, 27];
   const Q = "How should I bring this to market?";
@@ -239,69 +240,69 @@
     for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
     $('black').style.opacity = 1 - p(t, 0, 0.5);
     let sw = 0, sx = -900;
-    for (const s0 of sweeps) { if (t >= s0 - 0.05 && t <= s0 + 0.55) { const q = p(t, s0 - 0.05, 0.6); sx = -900 + 2300*easeInOut(q); sw = Math.sin(q*Math.PI); } }
+    for (const s0 of sweeps) { if (t >= s0 - 0.05 && t <= s0 + 0.85) { const q = p(t, s0 - 0.05, 0.9); sx = -900 + 2300*easeInOut(q); sw = Math.sin(q*Math.PI); } }
     $('sweep').style.opacity = sw; $('sweep').style.transform = `translateX(${sx}px) rotate(14deg)`;
     // the submit pulse carries the cut into scene 3
-    { const q = p(t, 5.55, 0.75); $('flash').style.opacity = q > 0 && q < 1 ? Math.sin(q*Math.PI) : 0; $('flash').style.transform = `scale(${0.3 + 7*easeOut(q)})`; }
+    { const q = p(t, 5.5, 1.0); $('flash').style.opacity = q > 0 && q < 1 ? 0.6*Math.sin(q*Math.PI) : 0; $('flash').style.transform = `scale(${0.3 + 7*easeInOut(q)})`; }
 
     // s1: push in; windows come forward one after another
     { const q = p(t, 0, 3.3); const sc = 1 + 0.06*q; $('a1').style.transform = `scale(${sc}) translateY(${-10*q}px)`;
-      const order = { w1a: 0.35, w1b: 0.85, w1c: 1.35, w1d: 1.85 };
-      for (const id in order) { const s = order[id]; const k = p(t, s, 0.5); const hold = 1 - 0.55*p(t, s + 0.5, 0.9);
-        const lift = Math.sin(Math.PI*Math.min(1, k)) * 0 + back(k); const [x, y, w, h] = WIN[id];
+      const order = { w1a: 0.3, w1b: 0.9, w1c: 1.5, w1d: 2.1 };
+      for (const id in order) { const s = order[id]; const k = easeInOut(p(t, s, 0.8)); const hold = 1 - 0.5*easeInOut(p(t, s + 0.8, 1.2));
+        const lift = k; const [x, y, w, h] = WIN[id];
         const cx = S1.bx + (x - S1.rx + w/2)*S1.s - 540, cy = S1.by + (y - S1.ry + h/2)*S1.s - 960;
         // follow the base push so the layer stays glued to its window
         const dx = cx*(sc-1), dy = cy*(sc-1) - 10*q;
-        $(id).style.transform = `translate(${dx}px, ${dy}px) scale(${sc*(1 + 0.08*lift*hold)})`;
-        $(id).style.opacity = k > 0 ? 1 : 0; $(id).style.filter = `brightness(${1 + 0.35*lift*hold})`; }
+        $(id).style.transform = `translate(${dx}px, ${dy}px) scale(${sc*(1 + 0.05*lift*hold)})`;
+        $(id).style.opacity = k > 0 ? 1 : 0; $(id).style.filter = `brightness(${1 + 0.22*lift*hold})`; }
       rise('c1', 0.4); }
 
     // s2: tablet drifts up, prompt bar types, submit pulse
     { const q = easeOut(p(t, 3.0, 0.8)); $('a2').style.transform = `translateY(${40*(1-q)}px) scale(${1 + 0.03*p(t, 3, 3)})`;
-      const bq = easeOut(p(t, 3.25, 0.4)); $('bar').style.opacity = bq; $('bar').style.transform = `translateY(${30*(1-bq)}px)`;
+      const bq = easeOut(p(t, 3.25, 0.7)); $('bar').style.opacity = bq; $('bar').style.transform = `translateY(${30*(1-bq)}px)`;
       type('typed', 'cur', Q, 3.55, 1.35);
-      const pq = p(t, 5.15, 0.55); const k = Math.sin(pq*Math.PI);
-      $('btn').style.transform = `scale(${1 + 0.18*k})`;
+      const pq = p(t, 5.15, 0.8); const k = Math.sin(pq*Math.PI);
+      $('btn').style.transform = `scale(${1 + 0.1*k})`;
       $('ring').style.opacity = pq > 0 && pq < 1 ? (1 - pq) : 0; $('ring').style.transform = `scale(${1 + 1.8*easeOut(pq)})`;
       $('bar').style.boxShadow = `0 0 ${40 + 60*k}px rgba(235,164,122,${.35 + .4*k}), 0 0 ${120 + 80*k}px rgba(235,164,122,${.12 + .2*k})`;
       if (t >= 5.15) $('cur').style.opacity = 0;
       rise('c2', 3.4, 0.14); }
 
     // s3: the question, then its sharpened version with teal chips
-    { const cq = easeOut(p(t, 6.0, 0.6)); $('card3').style.transform = `translateY(${40*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
-      const sq = easeOut(p(t, 6.8, 0.5)); $('sharp').style.opacity = sq; $('sharp').style.transform = `translateY(${20*(1-sq)}px)`;
-      [['ch1', 7.25], ['ch2', 7.55], ['ch3', 7.85]].forEach(([id, s]) => { const q = p(t, s, 0.4); const el = $(id); el.style.opacity = clamp(q*2); el.style.transform = `scale(${0.7 + 0.3*back(q)})`;
+    { const cq = easeOut(p(t, 6.0, 0.9)); $('card3').style.transform = `translateY(${40*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
+      const sq = easeOut(p(t, 6.8, 0.8)); $('sharp').style.opacity = sq; $('sharp').style.transform = `translateY(${20*(1-sq)}px)`;
+      [['ch1', 7.25], ['ch2', 7.55], ['ch3', 7.85]].forEach(([id, s]) => { const q = p(t, s, 0.6); const el = $(id); el.style.opacity = easeOut(q); el.style.transform = `scale(${0.85 + 0.15*easeOut(q)})`;
         const hq = p(t, s + 0.35, 0.6); el.querySelector('.hl').style.left = `${-200 + 700*easeInOut(hq)}px`; });
       rise('c3', 6.35); }
 
     // s4: hub lights, cards light in turn and grow a response window
     { glow('g4h', 9.3, 0.5); glow('g4a', 9.8, 0.4); glow('g4b', 10.3, 0.4); glow('g4c', 10.8, 0.4);
-      for (const id of ['g4h','g4a','g4b','g4c']) $(id).style.opacity = parseFloat($(id).style.opacity) * (0.85 + 0.15*Math.sin((t - 9)*3.1));
-      [['r4a', 10.05], ['r4b', 10.55], ['r4c', 11.05]].forEach(([id, s]) => { const q = p(t, s, 0.5); const el = $(id); el.style.opacity = clamp(q*2); el.style.transform = `scale(${0.3 + 0.7*back(q)}) translateY(${-30*easeOut(q)}px)`; });
+      for (const id of ['g4h','g4a','g4b','g4c']) $(id).style.opacity = parseFloat($(id).style.opacity) * (0.9 + 0.1*Math.sin((t - 9)*1.8));
+      [['r4a', 10.05], ['r4b', 10.55], ['r4c', 11.05]].forEach(([id, s]) => { const q = p(t, s, 0.8); const el = $(id); el.style.opacity = easeOut(q); el.style.transform = `scale(${0.7 + 0.3*easeOut(q)}) translateY(${-30*easeOut(q)}px)`; });
       $('a4').style.transform = `scale(${1 + 0.03*p(t, 9, 3.3)})`;
       rise('c4', 9.4); }
 
     // s5: close on the responses, amber flags, then the evaluation panel
     { const d = p(t, 12, 5.3); $('a5').style.transform = `translateX(${-30*d}px) scale(${1 + 0.04*d})`;
-      const dim = 1 - 0.55*easeOut(p(t, 14.4, 0.5)); $('a5img').style.filter = `brightness(${dim})`;
-      [['f5a', 't5a', 12.5], ['f5b', 't5b', 13.3]].forEach(([f, tg, s]) => { const q = p(t, s, 0.4); const fade = 1 - p(t, 14.4, 0.4);
-        $(f).style.opacity = clamp(q*2)*fade; $(f).style.transform = `scale(${1.3 - 0.3*easeOut(q)})`;
-        const tq = p(t, s + 0.2, 0.35); $(tg).style.opacity = tq*fade; $(tg).style.transform = `translateY(${12*(1-easeOut(tq))}px)`; });
-      const cq = easeOut(p(t, 14.5, 0.6)); $('card5').style.opacity = cq; $('card5').style.transform = `translateY(${50*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
+      const dim = 1 - 0.55*easeInOut(p(t, 14.3, 0.8)); $('a5img').style.filter = `brightness(${dim})`;
+      [['f5a', 't5a', 12.5], ['f5b', 't5b', 13.3]].forEach(([f, tg, s]) => { const q = p(t, s, 0.7); const fade = 1 - easeInOut(p(t, 14.3, 0.6));
+        $(f).style.opacity = easeOut(q)*fade; $(f).style.transform = `scale(${1.15 - 0.15*easeOut(q)})`;
+        const tq = p(t, s + 0.25, 0.5); $(tg).style.opacity = tq*fade; $(tg).style.transform = `translateY(${12*(1-easeOut(tq))}px)`; });
+      const cq = easeOut(p(t, 14.5, 0.9)); $('card5').style.opacity = cq; $('card5').style.transform = `translateY(${50*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
       pop('r5a', 15.0); pop('r5b', 15.6);
       rise('c5', 12.4); }
 
     // s6: streams flow into the hub, teal checks settle
     { const q = p(t, 17, 5.3); $('a6').style.transform = `scale(${1 + 0.06*q}) translateY(${-8*q}px)`; $('st6').style.transform = $('a6').style.transform;
-      const fq = p(t, 17.2, 1.8); const edge = -10 + 130*easeInOut(fq);
+      const fq = p(t, 17.2, 2.4); const edge = -10 + 130*easeInOut(fq);
       const m = `linear-gradient(90deg, #000 ${edge - 25}%, rgba(0,0,0,0) ${edge}%)`; $('st6').style.webkitMaskImage = m; $('st6').style.maskImage = m;
-      $('st6').style.opacity = 0.75 + 0.25*Math.sin((t - 17)*5);
-      glow('g6', 18.8, 0.6); $('g6').style.opacity = parseFloat($('g6').style.opacity) * (0.8 + 0.2*Math.sin((t - 18.8)*4));
+      $('st6').style.opacity = 0.82 + 0.18*Math.sin((t - 17)*2.5);
+      glow('g6', 18.8, 0.6); $('g6').style.opacity = parseFloat($('g6').style.opacity) * (0.88 + 0.12*Math.sin((t - 18.8)*2.2));
       pop('p6a', 19.6); pop('p6b', 19.9); pop('p6c', 20.2); pop('p6d', 20.5);
       rise('c6', 17.4); }
 
     // s7: result settles, three items light
-    { const cq = p(t, 22.0, 0.7); $('card7').style.transform = `translateY(${30*(1-easeOut(cq))}px) scale(${0.92 + 0.08*back(cq)})`;
+    { const cq = easeOut(p(t, 22.0, 0.9)); $('card7').style.transform = `translateY(${30*(1-cq)}px) scale(${0.95 + 0.05*cq})`;
       pop('r7a', 22.6); pop('r7b', 22.95); pop('r7c', 23.3);
       rise('c7', 22.4); }
 
@@ -311,7 +312,7 @@
     // s9: orbit completes, lockup settles by 27.5, then holds
     { const oq = easeInOut(p(t, 27.0, 0.5)); $('o1').setAttribute('stroke-dasharray', `${O1*oq} ${O1}`);
       const oq2 = easeInOut(p(t, 27.05, 0.45)); $('o2').setAttribute('stroke-dasharray', `${O2*oq2} ${O2}`);
-      const lq = easeOut(p(t, 27.05, 0.4)); $('logo').style.opacity = lq; $('logo').style.transform = `scale(${1.08 - 0.08*lq})`;
+      const lq = easeOut(p(t, 27.0, 0.5)); $('logo').style.opacity = lq; $('logo').style.transform = `scale(${1.08 - 0.08*lq})`;
       const tq = easeOut(p(t, 27.2, 0.3)); $('tag').style.opacity = tq; $('tag').style.transform = `translateY(${16*(1-tq)}px)`;
       const cq = easeOut(p(t, 27.25, 0.25)); $('cta').style.opacity = cq; $('cta').style.transform = `translateY(${16*(1-cq)}px)`; }
   };

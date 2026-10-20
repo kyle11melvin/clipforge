@@ -46,8 +46,10 @@ his standing brief. Read it before touching anything.
   `graphics/switchboard-v2/` is the phone-first recomposition of the same spot (bigger crops of the 4× panels,
   window layers that come forward, a nine-line script, `--music v2`, `--cues` for any line count). Start the
   next storyboard-driven spot from V2. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
-  Voices on hand: British `bf_emma` (Kokoro), Australian Willow (Piper); audition both before a final render
-  when a brief asks, and pick lower registers by measured pitch since nobody in the session can listen.
+  Voices on hand: British through `tools/vo_kokoro.py` (Kyle's verdict 2026-10-20: raw `bf_emma` is "way too
+  harsh"; use the 30/70 Emma–Lily blend with its softening chain, or `bm_daniel`), Australian Willow (Piper).
+  Audition before a final render when a brief asks; pick by measured pitch and high-band energy since nobody
+  in the session can listen. He wants motion smooth: long crossfades, no overshoot, slow glows.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with

@@ -60,3 +60,21 @@ contact sheet, all on the same artifact page with V1 beneath. V1 files untouched
 - Kyle's voice pick (both cuts exist; the page leads with British as the brief preferred).
 - Whisper keeps hearing an extra syllable after "Ask once" from both engines; likely a transcription
   artefact on a short final word, but worth an ear.
+
+## Redo: "that is a terrible voice. It's so harsh"
+
+Kyle on the first V2: loves British accents, Emma was far too harsh; also asked for smoother clips.
+
+- **Voice.** Measured the high-band to mid-band energy of every British Kokoro voice on the audition text:
+  Emma is the brightest (−12.5 dB), Lily the darkest (−16 dB), Daniel (male) low and dark. The redo uses
+  a blend of 30 % Emma and 70 % Lily through `tools/vo_kokoro.py`, which drives Kokoro directly
+  (`kokoro_onnx`, blended style vectors) at speed 0.9 and then softens: dynamic de-ess on 5–9.5 kHz,
+  low-pass at 11 kHz, a warmth shelf, gentle 2:1 compression, a small room. Voice gain 0.8 instead of 0.85.
+  Daniel went through the same chain as an alternate cut.
+- **Motion.** Crossfades 0.5 s, no overshoot easing on pops (a mild `soft` curve replaces `back`), window
+  layers come forward over 0.8 s with less brightness, the submit flash at 60 % over a full second, sweeps
+  slower and dimmer, glows breathe at half rate, flags and cards ease in over 0.7–0.9 s, result card settles
+  without a bounce. Kick and UI ticks turned down in the V2 score.
+
+Delivered as the new V2 (female blend), a Daniel alternate, and the no-voice cut; the Australian V2 cut was
+retired from the page.
