@@ -150,6 +150,24 @@ when a brand or tone rule changes. The Project writes scripts, captions and caro
 render. A brief that arrives here starting "send this to clipforge" came from it: build the video from the
 brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual.
 
+## Switchboard commercials (2026-10-20)
+
+Kyle's AI-orchestration app Switchboard (ask once → it improves the prompt, picks two or three models,
+collects their answers, evaluates and scores them, synthesises one answer; tagline "ASK ONCE · GET THE TOP
+ANSWER") gets its own look, separate from Rev Mortgage and Coastal Money: near-black navy with electric
+blue `#4CC9FF` / violet `#B79CFF` for the "many AIs" world, dark slate teal `#0C1F26` with copper `#E2A579`
+once Switchboard enters. Floating glass windows in real 3D, light streams, cinematic, never flat cards.
+Reference composition: `graphics/switchboard-convergence/comp.html` (3D projector, orbit, SVG streams,
+brand reveal). Model windows use coloured dots and wordmarks, never redrawn logos. The app icon lives at
+`graphics/switchboard-convergence/switchboard-icon.png`; ask for a proper logo file.
+
+- **Voiceover:** Kokoro ONNX runs offline. `pip install kokoro-onnx soundfile`, then fetch
+  `kokoro-v1.0.onnx` (Hugging Face `onnx-community/Kokoro-82M-v1.0-ONNX`, `onnx/model.onnx`) and
+  `voices-v1.0.bin` (thewh1teagle/kokoro-onnx releases) into `.tts/`. Voice in use: `am_onyx` at speed 0.95.
+- **Music:** no library and no generator; `graphics/switchboard-convergence/score.py` synthesises a score
+  in numpy, mixes the voiceover with ducking, then FFmpeg `loudnorm`. Swap for a licensed track when he has one.
+- **Mux:** render picture with `render.mjs`, then `ffmpeg -i video.mp4 -i mix.wav -c:v copy -c:a aac -b:a 192k -ar 48000 -shortest`.
+
 ## Next planned step
 
 Monday: Kyle shoots the five lines ("Listen, I have zero code experience" / "and I built six apps" / "and an

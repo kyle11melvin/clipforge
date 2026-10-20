@@ -1,0 +1,560 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #05080F; }
+  body { font-family: "Inter Display", "Inter", system-ui, sans-serif; color: #F5F1EA; position: relative; }
+  .layer, .scene { position: absolute; inset: 0; }
+  .scene { opacity: 0; }
+
+  /* ---- environment ---- */
+  #bg-blue { background:
+      radial-gradient(900px 700px at 20% 15%, rgba(59,130,246,.22), transparent 70%),
+      radial-gradient(800px 900px at 85% 70%, rgba(139,92,246,.20), transparent 70%),
+      linear-gradient(180deg, #0B1226 0%, #05080F 60%, #070A16 100%); }
+  #bg-teal { opacity: 0; background:
+      radial-gradient(1100px 1000px at 50% 100%, rgba(226,165,121,.42), transparent 65%),
+      radial-gradient(800px 700px at 15% 10%, rgba(37,89,100,.35), transparent 70%),
+      linear-gradient(180deg, #0C1F26 0%, #0A161B 55%, #08110F 100%); }
+  #bg-dark { opacity: 0; background: radial-gradient(900px 900px at 50% 45%, #121216, #05060A 70%); }
+  #vignette { background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%); pointer-events: none; }
+  #flash { background: radial-gradient(600px 600px at 50% 50%, rgba(255,235,210,.95), rgba(226,165,121,.35) 50%, transparent 75%); opacity: 0; }
+  .pt { position: absolute; left: 0; top: 0; width: 6px; height: 6px; border-radius: 50%; background: #4CC9FF; box-shadow: 0 0 12px 2px currentColor; opacity: 0; }
+
+  /* ---- glass windows ---- */
+  .win { position: absolute; left: 0; top: 0; width: 620px; border-radius: 28px; padding: 28px 32px 34px; transform-origin: 50% 50%;
+    font-family: "Inter", system-ui, sans-serif; color: #E9EEF6; will-change: transform, opacity;
+    background: linear-gradient(160deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.035) 45%, rgba(110,140,255,.06) 100%);
+    border: 1.5px solid rgba(150,180,255,.42);
+    box-shadow: 0 0 46px rgba(76,201,255,.22), 0 50px 120px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.35); }
+  .win::before { content: ""; position: absolute; left: 24px; right: 24px; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent); }
+  .win.violet { border-color: rgba(190,160,255,.45); box-shadow: 0 0 46px rgba(167,139,250,.25), 0 50px 120px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.35); }
+  .win.copper { border-color: rgba(226,165,121,.6); background: linear-gradient(160deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 45%, rgba(226,165,121,.08) 100%);
+    box-shadow: 0 0 60px rgba(226,165,121,.28), 0 50px 120px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.35); }
+  .win .hd { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 700; letter-spacing: .01em; color: #FFFFFF; margin-bottom: 22px; }
+  .win .dot { width: 18px; height: 18px; border-radius: 50%; box-shadow: 0 0 14px currentColor; background: currentColor; }
+  .win .dots { margin-left: auto; display: flex; gap: 8px; } .win .dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.22); }
+  .win .q { font-size: 26px; color: #9FB3C8; margin-bottom: 16px; line-height: 1.3; }
+  .win .a { font-size: 32px; line-height: 1.32; font-weight: 500; color: #F2F5FA; min-height: 84px; }
+  .win .bar { height: 14px; border-radius: 7px; background: rgba(255,255,255,.14); margin-top: 16px; }
+  .win .cur { display: inline-block; width: 3px; height: 32px; background: #fff; vertical-align: -6px; margin-left: 3px; }
+  .win .cite { display: inline-block; font-size: 22px; padding: 4px 12px; border-radius: 999px; background: rgba(76,201,255,.16); color: #9DDBFF; margin: 10px 8px 0 0; }
+  .win .tag { position: absolute; right: 26px; bottom: -26px; font-size: 24px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #0A1518; background: #E2A579; padding: 8px 18px; border-radius: 999px; opacity: 0; box-shadow: 0 10px 30px rgba(226,165,121,.35); }
+  .ring { position: absolute; inset: -14px; border-radius: 40px; border: 4px solid #E2A579; box-shadow: 0 0 40px rgba(226,165,121,.6), inset 0 0 30px rgba(226,165,121,.2); opacity: 0; }
+
+  /* ---- headlines ---- */
+  .h { position: absolute; left: 80px; right: 80px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.06; font-size: 104px; }
+  .h.c { text-align: center; }
+  .w { display: inline-block; opacity: 0; transform: translateY(34px); will-change: transform, opacity; }
+  .blue { color: #7CD4FF; } .violet { color: #B79CFF; } .copper { color: #E2A579; } .muted { color: #9FB3B8; }
+  .grad-bv { background: linear-gradient(90deg, #7CD4FF, #B79CFF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow { font-family: "Inter", system-ui, sans-serif; font-size: 26px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #9FB3B8; }
+  .sub { position: absolute; left: 80px; right: 80px; font-family: "Inter", system-ui, sans-serif; font-size: 36px; color: #9FB3B8; text-align: center; opacity: 0; }
+
+  /* ---- scene 2: prompt panel ---- */
+  #mark { position: absolute; left: 50%; top: 300px; width: 260px; height: 260px; margin-left: -130px; opacity: 0; transform-origin: 50% 50%; }
+  #mark img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 30px 60px rgba(0,0,0,.6)); }
+  #halo { position: absolute; left: 50%; top: 430px; width: 1200px; height: 1200px; margin: -600px 0 0 -600px; border-radius: 50%; opacity: 0;
+    background: radial-gradient(circle, rgba(226,165,121,.6) 0%, rgba(226,165,121,.2) 30%, transparent 62%); }
+  .panel { position: absolute; left: 0; top: 0; width: 920px; border-radius: 34px; padding: 40px 44px; transform-origin: 50% 50%; opacity: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    background: linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.03) 50%, rgba(226,165,121,.07));
+    border: 1.5px solid rgba(226,165,121,.55);
+    box-shadow: 0 0 70px rgba(226,165,121,.25), 0 60px 140px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.4); }
+  .panel .eyebrow { color: #E2A579; margin-bottom: 22px; }
+  #ask { font-size: 50px; font-weight: 600; line-height: 1.25; color: #F7F3EC; min-height: 130px; }
+  #ask .cur { display: inline-block; width: 4px; height: 50px; background: #E2A579; vertical-align: -8px; margin-left: 4px; }
+  #askbtn { margin-top: 30px; display: inline-flex; align-items: center; gap: 14px; background: #E2A579; color: #0A1518; font-weight: 800; font-size: 32px; padding: 18px 36px; border-radius: 999px; box-shadow: 0 16px 40px rgba(226,165,121,.35); opacity: 0; transform-origin: 0 50%; }
+  #askbtn b { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #0A1518; }
+
+  /* ---- scene 3: improve ---- */
+  #orig { position: absolute; left: 80px; right: 80px; top: 300px; font-family: "Inter", system-ui, sans-serif; opacity: 0; }
+  #orig .q { font-size: 44px; color: #9FB3B8; margin-top: 16px; line-height: 1.25; }
+  #link { position: absolute; left: 50%; top: 470px; width: 4px; height: 170px; margin-left: -2px; background: linear-gradient(180deg, rgba(226,165,121,0), #E2A579); transform-origin: 50% 0; }
+  #improved { top: 660px; left: 80px; width: 920px; }
+  #improved .txt { font-size: 40px; line-height: 1.32; color: #F7F3EC; font-weight: 500; }
+  #improved .txt .hl { color: #E2A579; font-weight: 700; }
+  #chips { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 34px; }
+  #chips .chip { font-size: 32px; font-weight: 700; color: #0A1518; background: #E2A579; border-radius: 20px; padding: 20px 26px; text-align: center; opacity: 0; transform-origin: 50% 50%; box-shadow: 0 14px 36px rgba(226,165,121,.3); white-space: nowrap; }
+
+  /* ---- scene 6: evaluation ---- */
+  #eval { top: 760px; left: 80px; width: 920px; padding-bottom: 36px; }
+  #eval .row { display: flex; align-items: center; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,.1); opacity: 0; transform-origin: 0 50%; }
+  #eval .row:first-of-type { border-top: 0; }
+  #eval .flag { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%; border: 3px solid #E2A579; color: #E2A579; font-weight: 900; font-size: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(226,165,121,.5); }
+  #eval .f { font-size: 36px; font-weight: 600; color: #F7F3EC; white-space: nowrap; }
+  #eval .src { margin-left: auto; font-size: 22px; color: #9FB3B8; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+
+  /* ---- scene 7: convergence ---- */
+  #core { position: absolute; left: 0; top: 0; width: 640px; height: 640px; transform-origin: 50% 50%; opacity: 0; }
+  #coreui { position: absolute; left: 50%; top: 50%; width: 560px; margin-left: -280px; transform: translateY(-50%); border-radius: 32px; padding: 30px 34px 30px;
+    font-family: "Inter", system-ui, sans-serif; background: linear-gradient(160deg, rgba(20,38,44,.92), rgba(12,24,28,.9)); border: 2px solid rgba(226,165,121,.85);
+    box-shadow: 0 0 90px rgba(226,165,121,.45), 0 60px 140px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.4); }
+  #coreui .hd { display: flex; align-items: center; gap: 18px; font-size: 34px; font-weight: 800; color: #fff; font-family: "Inter Display", "Inter", sans-serif; letter-spacing: -.01em; }
+  #coreui .hd img { width: 72px; height: 72px; }
+  #coreui .hd small { margin-left: auto; font-size: 20px; font-weight: 700; letter-spacing: .18em; color: #E2A579; text-transform: uppercase; }
+  #coreui .trk { display: flex; align-items: center; gap: 16px; margin-top: 18px; font-size: 24px; color: #CFD8DC; }
+  #coreui .trk span { width: 150px; }
+  #coreui .trk b { flex: 1; height: 12px; border-radius: 6px; background: rgba(255,255,255,.12); position: relative; overflow: hidden; }
+  #coreui .trk b i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 6px; }
+  #coreui .ans { margin-top: 22px; font-size: 30px; line-height: 1.3; font-weight: 600; color: #F7F3EC; opacity: 0; }
+  #core .disc { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(226,165,121,.95) 0%, rgba(226,165,121,.55) 22%, rgba(226,165,121,.12) 48%, transparent 70%); }
+  #core .ringc { position: absolute; inset: 20px; border-radius: 50%; border: 3px solid rgba(255,230,205,.7); box-shadow: 0 0 40px rgba(226,165,121,.8), inset 0 0 40px rgba(226,165,121,.5); }
+  #core > img { position: absolute; left: 50%; top: 50%; width: 220px; height: 220px; margin: -110px 0 0 -110px; filter: drop-shadow(0 20px 50px rgba(0,0,0,.6)); }
+  #bloom { position: absolute; left: 50%; top: 50%; width: 1600px; height: 1600px; margin: -800px 0 0 -800px; border-radius: 50%; opacity: 0;
+    background: radial-gradient(circle, rgba(255,230,205,.9) 0%, rgba(226,165,121,.5) 18%, rgba(226,165,121,.12) 40%, transparent 65%); }
+  #streams { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+  #streams path { fill: none; stroke-linecap: round; }
+  #synth { position: absolute; left: 50%; top: 1210px; transform: translateX(-50%); white-space: nowrap; opacity: 0; }
+
+  /* ---- scene 8: answer card ---- */
+  .card { position: absolute; left: 0; top: 0; width: 920px; border-radius: 36px; padding: 44px 46px 40px; transform-origin: 50% 50%; opacity: 0;
+    font-family: "Inter", system-ui, sans-serif; color: #F7F3EC;
+    background: linear-gradient(165deg, rgba(255,255,255,.11), rgba(255,255,255,.035) 45%, rgba(226,165,121,.08));
+    border: 1.5px solid rgba(226,165,121,.6);
+    box-shadow: 0 0 80px rgba(226,165,121,.25), 0 70px 150px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.4); }
+  .card .top { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+  .card .top img { width: 56px; height: 56px; }
+  .card .top .t { font-size: 26px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #E2A579; }
+  .card .top .m { margin-left: auto; font-size: 22px; color: #9FB3B8; letter-spacing: .06em; }
+  .card .rec { font-family: "Inter Display", "Inter", system-ui, sans-serif; font-size: 46px; font-weight: 800; line-height: 1.15; letter-spacing: -.015em; margin-bottom: 26px; }
+  .card .sec { opacity: 0; transform-origin: 0 50%; }
+  .card .lbl { font-size: 22px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #9FB3B8; margin: 22px 0 10px; }
+  .card li { list-style: none; font-size: 30px; line-height: 1.35; padding-left: 36px; position: relative; margin-bottom: 8px; color: #EEF2F5; }
+  .card li::before { content: ""; position: absolute; left: 0; top: 16px; width: 14px; height: 14px; border-radius: 50%; background: #E2A579; box-shadow: 0 0 12px rgba(226,165,121,.7); }
+  .card .steps li::before { content: counter(step); counter-increment: step; width: auto; height: auto; background: none; box-shadow: none; color: #E2A579; font-weight: 800; top: 0; font-size: 28px; }
+  .card .steps { counter-reset: step; }
+  .card .from { display: flex; gap: 12px; align-items: center; margin-top: 26px; font-size: 22px; color: #9FB3B8; flex-wrap: wrap; }
+  .card .from span { padding: 6px 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,.2); color: #E9EEF6; }
+
+  /* ---- scene 9: laptop ---- */
+  #room { position: absolute; inset: 0; background:
+      radial-gradient(1200px 900px at 15% 10%, rgba(255,226,190,.55), transparent 60%),
+      linear-gradient(170deg, #5C4634 0%, #3A2D25 45%, #1E1815 100%); }
+  #light { position: absolute; left: -300px; top: -200px; width: 900px; height: 2600px; transform: rotate(28deg); transform-origin: 50% 0;
+      background: linear-gradient(90deg, transparent, rgba(255,240,215,.16) 45%, rgba(255,240,215,.16) 55%, transparent); }
+  #desk { position: absolute; left: -200px; right: -200px; top: 1240px; height: 900px; background: linear-gradient(180deg, #2A211C, #15110F); transform: perspective(1200px) rotateX(55deg); transform-origin: 50% 0; }
+  #laptop { position: absolute; left: 50%; top: 600px; width: 860px; margin-left: -430px; transform-origin: 50% 70%; }
+  #screen { width: 860px; height: 580px; border-radius: 26px 26px 10px 10px; background: #0E1114; border: 14px solid #1C2024; border-bottom-width: 36px; overflow: hidden; position: relative; box-shadow: 0 50px 120px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.08); transform: perspective(2000px) rotateX(-6deg); transform-origin: 50% 100%; }
+  #screen .scr { position: absolute; left: 0; top: 0; width: 832px; height: 530px; background: linear-gradient(180deg, #0C1F26, #08110F); }
+  #screen .glare { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,240,215,.12), transparent 40%, transparent 70%, rgba(255,255,255,.04)); }
+  #screen .mini { position: absolute; left: 44px; top: 34px; width: 920px; transform: scale(.70); transform-origin: 0 0; opacity: 1; }
+  #base { width: 940px; height: 34px; margin-left: -40px; border-radius: 8px 8px 22px 22px; background: linear-gradient(180deg, #2B3035, #15181B); box-shadow: 0 30px 60px rgba(0,0,0,.55); }
+  #base::after { content: ""; position: absolute; left: 50%; width: 180px; height: 8px; margin-left: -90px; margin-top: 2px; border-radius: 0 0 8px 8px; background: #0B0D0F; }
+  #mug { position: absolute; left: 110px; top: 1330px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #F3E9DC, #B9A48C 70%, #7F6D5B); box-shadow: 0 30px 50px rgba(0,0,0,.45); transform: scaleY(.55); }
+
+  /* ---- scene 10: brand ---- */
+  #logo { position: absolute; left: 50%; top: 640px; width: 360px; height: 360px; margin-left: -180px; opacity: 0; transform-origin: 50% 50%; }
+  #logo img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 40px 80px rgba(0,0,0,.6)); }
+  #trails { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: visible; }
+  #trails path, #trails circle { fill: none; stroke-linecap: round; }
+  #wordmark { top: 1080px; font-size: 128px; text-align: center; letter-spacing: -.03em; }
+  #tagline { position: absolute; left: 80px; right: 80px; top: 1260px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-size: 36px; font-weight: 700; letter-spacing: .24em; color: #E2A579; white-space: nowrap; opacity: 0; }
+  #rule { position: absolute; left: 50%; top: 1230px; width: 0; height: 2px; margin-left: 0; background: linear-gradient(90deg, transparent, #E2A579, transparent); }
+</style></head>
+<body>
+
+<div class="layer" id="bg-blue"></div>
+<div class="layer" id="bg-teal"></div>
+<div class="layer" id="bg-dark"></div>
+<div class="layer" id="particles"></div>
+
+<!-- Scene 1: the problem -->
+<div class="scene" id="s1">
+  <div class="win" id="w1a" data-c="#10A37F"><div class="hd"><span class="dot"></span>ChatGPT<span class="dots"><i></i><i></i><i></i></span></div>
+    <div class="q">How should I bring this to market?</div><div class="a">Start with a freemium tier to build adoption, then upsell teams.</div><div class="bar" style="width:80%"></div><div class="bar" style="width:55%"></div></div>
+  <div class="win violet" id="w1b" data-c="#D97757"><div class="hd"><span class="dot"></span>Claude<span class="dots"><i></i><i></i><i></i></span></div>
+    <div class="q">How should I bring this to market?</div><div class="a">Pick one narrow segment first. Win it before you widen.</div><div class="bar" style="width:70%"></div><div class="bar" style="width:40%"></div></div>
+  <div class="win" id="w1c" data-c="#4E8BF5"><div class="hd"><span class="dot"></span>Gemini<span class="dots"><i></i><i></i><i></i></span></div>
+    <div class="q">How should I bring this to market?</div><div class="a">Launch broad with paid ads and a $29 entry price.</div><div class="bar" style="width:65%"></div><div class="bar" style="width:50%"></div></div>
+  <div class="win violet" id="w1d" data-c="#20B8CD"><div class="hd"><span class="dot"></span>Perplexity<span class="dots"><i></i><i></i><i></i></span></div>
+    <div class="q">How should I bring this to market?</div><div class="a">Partner with platforms your customers already use.</div><span class="cite">source 1</span><span class="cite">source 2</span><div class="bar" style="width:60%"></div></div>
+  <div class="h" id="h1" style="top:1200px"><span class="ln">Different AIs.</span><br><span class="ln">Different answers.</span><br><span class="ln grad-bv">Who’s right?</span></div>
+</div>
+
+<!-- Scene 2: meet Switchboard -->
+<div class="scene" id="s2">
+  <div id="halo"></div>
+  <div id="mark"><img src="switchboard-icon.png"></div>
+  <div class="panel" id="prompt" style="top:720px;left:80px">
+    <div class="eyebrow">Ask Switchboard</div>
+    <div id="ask"><span id="asktxt"></span><span class="cur" id="askcur"></span></div>
+    <div id="askbtn"><b></b>Ask once</div>
+  </div>
+  <div class="h c" id="h2" style="top:1380px">Just ask.</div>
+</div>
+
+<!-- Scene 3: improve the prompt -->
+<div class="scene" id="s3">
+  <div id="orig"><div class="eyebrow">Your question</div><div class="q">How should I bring this to market?</div></div>
+  <div id="link"></div>
+  <div class="panel" id="improved">
+    <div class="eyebrow">Improved prompt</div>
+    <div class="txt">Build a go-to-market plan. Define the <span class="hl">target market</span>, recommend <span class="hl">pricing</span>, map the <span class="hl">competition</span>, flag the risks, and give concrete <span class="hl">next steps</span>.</div>
+    <div id="chips"><div class="chip">Target market</div><div class="chip">Pricing</div><div class="chip">Competition</div><div class="chip">Next steps</div></div>
+  </div>
+  <div class="h" id="h3" style="top:1440px">A <span class="copper">stronger</span> question.</div>
+</div>
+
+<!-- Scene 4: routing -->
+<div class="scene" id="s4">
+  <div class="win" id="w4a" data-c="#10A37F"><div class="ring"></div><div class="hd"><span class="dot"></span>ChatGPT<span class="dots"><i></i><i></i><i></i></span></div><div class="bar" style="width:85%;margin-top:0"></div><div class="bar" style="width:60%"></div><div class="bar" style="width:72%"></div><div class="tag">Selected</div></div>
+  <div class="win violet" id="w4b" data-c="#D97757"><div class="ring"></div><div class="hd"><span class="dot"></span>Claude<span class="dots"><i></i><i></i><i></i></span></div><div class="bar" style="width:78%;margin-top:0"></div><div class="bar" style="width:52%"></div><div class="bar" style="width:66%"></div><div class="tag">Selected</div></div>
+  <div class="win" id="w4c" data-c="#4E8BF5"><div class="ring"></div><div class="hd"><span class="dot"></span>Gemini<span class="dots"><i></i><i></i><i></i></span></div><div class="bar" style="width:70%;margin-top:0"></div><div class="bar" style="width:45%"></div><div class="bar" style="width:62%"></div><div class="tag">Selected</div></div>
+  <div class="win violet" id="w4d" data-c="#20B8CD"><div class="ring"></div><div class="hd"><span class="dot"></span>Perplexity<span class="dots"><i></i><i></i><i></i></span></div><div class="bar" style="width:82%;margin-top:0"></div><div class="bar" style="width:58%"></div><div class="bar" style="width:70%"></div><div class="tag">Selected</div></div>
+  <div class="sub" id="sub4" style="top:1320px">Chosen for this question</div>
+  <div class="h" id="h4" style="top:1440px">The <span class="copper">right</span> AIs.</div>
+</div>
+
+<!-- Scene 5: independent answers -->
+<div class="scene" id="s5">
+  <div class="win" id="w5a" data-c="#D97757"><div class="hd"><span class="dot"></span>Claude<span class="dots"><i></i><i></i><i></i></span></div><div class="a"><span id="t5a"></span><span class="cur" id="c5a"></span></div></div>
+  <div class="win" id="w5b" data-c="#10A37F"><div class="hd"><span class="dot"></span>ChatGPT<span class="dots"><i></i><i></i><i></i></span></div><div class="a"><span id="t5b"></span><span class="cur" id="c5b"></span></div></div>
+  <div class="win violet" id="w5c" data-c="#20B8CD"><div class="hd"><span class="dot"></span>Perplexity<span class="dots"><i></i><i></i><i></i></span></div><div class="a"><span id="t5c"></span><span class="cur" id="c5c"></span></div><div id="cites5"><span class="cite">pricing survey</span><span class="cite">market report</span></div></div>
+  <div class="h" id="h5" style="top:1440px">Different <span class="blue">perspectives.</span></div>
+</div>
+
+<!-- Scene 6: evaluation -->
+<div class="scene" id="s6">
+  <div class="win" id="w6a" data-c="#D97757"><div class="hd"><span class="dot"></span>Claude</div><div class="bar" style="width:85%;margin-top:0"></div><div class="bar" style="width:60%"></div></div>
+  <div class="win" id="w6b" data-c="#10A37F"><div class="hd"><span class="dot"></span>ChatGPT</div><div class="bar" style="width:80%;margin-top:0"></div><div class="bar" style="width:55%"></div></div>
+  <div class="win violet" id="w6c" data-c="#20B8CD"><div class="hd"><span class="dot"></span>Perplexity</div><div class="bar" style="width:75%;margin-top:0"></div><div class="bar" style="width:62%"></div></div>
+  <div class="panel" id="eval">
+    <div class="eyebrow">Evaluation</div>
+    <div class="row"><div class="flag">!</div><div class="f">Conflicting recommendations</div><div class="src">Claude · ChatGPT</div></div>
+    <div class="row"><div class="flag">!</div><div class="f">Unsupported pricing claim</div><div class="src">ChatGPT</div></div>
+    <div class="row"><div class="flag">!</div><div class="f">Missing key risk</div><div class="src">All three</div></div>
+    <div class="row"><div class="flag">!</div><div class="f">Unrealistic timeline</div><div class="src">Perplexity</div></div>
+  </div>
+  <div class="h" id="h6" style="top:1400px;font-size:92px">It doesn’t just combine.<br><span class="copper">It challenges.</span></div>
+</div>
+
+<!-- Scene 7: THE CONVERGENCE -->
+<div class="scene" id="s7">
+  <div id="bloom"></div>
+  <svg id="streams" viewBox="0 0 1080 1920">
+    <defs>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <filter id="glow2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <g id="sg"></g>
+  </svg>
+  <div class="win" id="w7a" data-c="#D97757"><div class="hd"><span class="dot"></span>Claude</div><div class="a" style="font-size:28px">Pick one narrow segment first.</div></div>
+  <div class="win" id="w7b" data-c="#10A37F"><div class="hd"><span class="dot"></span>ChatGPT</div><div class="a" style="font-size:28px">Freemium tier, then upsell teams.</div></div>
+  <div class="win violet" id="w7c" data-c="#20B8CD"><div class="hd"><span class="dot"></span>Perplexity</div><div class="a" style="font-size:28px">Mid-market pricing: $49–$99.</div></div>
+  <div id="core"><div class="disc"></div><div class="ringc"></div>
+    <div id="coreui"><div class="hd"><img src="switchboard-icon.png">Switchboard<small>Synthesis</small></div>
+      <div class="trk"><span>Claude</span><b><i id="b7a" style="background:#E2A579"></i></b></div>
+      <div class="trk"><span>ChatGPT</span><b><i id="b7b" style="background:#4CC9FF"></i></b></div>
+      <div class="trk"><span>Perplexity</span><b><i id="b7c" style="background:#B79CFF"></i></b></div>
+      <div class="ans" id="ans7">Top answer: launch narrow, price mid-market, pilot first.</div></div></div>
+  <div class="eyebrow" id="synth">Synthesizing the top answer</div>
+  <div class="h c" id="h7" style="top:1440px;font-size:78px;white-space:nowrap">The strongest ideas.<br><span class="copper">Together.</span></div>
+</div>
+
+<!-- Scene 8: final answer -->
+<div class="scene" id="s8">
+  <div class="card" id="card8" style="left:80px;top:300px">
+    <div class="top"><img src="switchboard-icon.png"><span class="t">Top answer</span><span class="m">Claude · ChatGPT · Perplexity</span></div>
+    <div class="rec sec">Launch narrow: one segment, one channel, a 90-day pilot before you scale.</div>
+    <div class="sec"><div class="lbl">Key considerations</div><ul><li>Price in the $49–$99 mid-market band; the $29 claim had no support.</li><li>Expect a competitor response within two quarters. Plan for it.</li></ul></div>
+    <div class="sec"><div class="lbl">Next steps</div><ul class="steps"><li>Interview 15 customers in the target segment.</li><li>Run a 5-account pilot with real pricing.</li><li>Set the launch plan from pilot data.</li></ul></div>
+    <div class="from sec">Built from <span>Claude</span><span>ChatGPT</span><span>Perplexity</span></div>
+  </div>
+  <div class="h c" id="h8" style="top:1520px;font-size:84px;white-space:nowrap">One answer.<br><span class="copper">Thought through.</span></div>
+</div>
+
+<!-- Scene 9: payoff (placeholder for real footage) -->
+<div class="scene" id="s9">
+  <div id="room"></div><div id="light"></div><div id="desk"></div>
+  <div id="laptop">
+    <div id="screen"><div class="scr"></div><div class="mini" id="mini"></div><div class="glare"></div></div>
+    <div id="base"></div>
+  </div>
+  <div class="h c" id="h9" style="top:260px;font-size:84px">Less uncertainty.<br><span class="copper">More confidence.</span></div>
+</div>
+
+<!-- Scene 10: brand reveal -->
+<div class="scene" id="s10">
+  <svg id="trails" viewBox="0 0 1080 1920">
+    <defs><filter id="glow3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g id="tg"></g>
+  </svg>
+  <div id="logo"><img src="switchboard-icon.png"></div>
+  <div class="h" id="wordmark">Switchboard</div>
+  <div id="rule"></div>
+  <div id="tagline">ASK ONCE · GET THE TOP ANSWER</div>
+</div>
+
+<div class="layer" id="flash"></div>
+<div class="layer" id="vignette"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeIn = x => x * x * x;
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const lerp = (a, b, q) => a + (b - a) * q;
+  const mix = (t, s, d, a, b, e = easeInOut) => lerp(a, b, e(p(t, s, d)));
+
+  // scene windows [start, end]; frame-exact per the brief
+  const S = { s1:[0,3], s2:[3,6], s3:[6,9], s4:[9,12], s5:[12,16], s6:[16,19], s7:[19,23], s8:[23,26], s9:[26,28], s10:[28,30.01] };
+  const FADE = 0.25;
+  function sceneOpacity(t, [a, b]) { if (t < a || t > b) return 0; return Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE)); }
+
+  // ---- tiny 3D projector: camera at (x,y,z) looking down +z, focal f ----
+  function proj(cam, x, y, z) { const d = Math.max(60, z - cam.z); const s = cam.f / d; return { x: 540 + (x - cam.x) * s, y: 960 + (y - cam.y) * s, s, d }; }
+  function place(el, cam, x, y, z, o = {}) {
+    const q = proj(cam, x, y, z);
+    const w = el.offsetWidth, h = el.offsetHeight;
+    const rx = o.rx || 0, ry = o.ry || 0, rz = o.rz || 0;
+    el.style.transform = `translate(${(q.x - w/2).toFixed(2)}px, ${(q.y - h/2).toFixed(2)}px) scale(${q.s.toFixed(4)}) perspective(1800px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+    const fog = clamp(1 - (q.d - 1500) / 2400);
+    el.style.opacity = (o.op == null ? 1 : o.op) * fog;
+    const bl = o.blur == null ? Math.max(0, (q.d - 1900) / 350) : o.blur;
+    el.style.filter = bl > 0.05 ? `blur(${bl.toFixed(2)}px)` : "";
+    el.style.zIndex = Math.round(10000 - q.d);
+    return q;
+  }
+
+  // split headlines into words for the rise
+  document.querySelectorAll('.h').forEach(h => {
+    h.querySelectorAll('.ln, .copper, .blue, .violet, .grad-bv').forEach(() => {});
+    const walk = node => {
+      Array.from(node.childNodes).forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(tok => {
+            if (!tok) return;
+            if (/^\s+$/.test(tok)) frag.appendChild(document.createTextNode(tok));
+            else { const s = document.createElement('span'); s.className = 'w' + (node.classList && node.classList.contains('grad-bv') ? ' grad-bv' : ''); s.textContent = tok; frag.appendChild(s); }
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+      });
+    };
+    walk(h); h.querySelectorAll('.grad-bv:not(.w)').forEach(e => e.classList.remove('grad-bv'));
+  });
+  const words = {}; document.querySelectorAll('.h').forEach(h => words[h.id] = Array.from(h.querySelectorAll('.w')));
+  function rise(id, t, start, gap = 0.08, dur = 0.5) {
+    words[id].forEach((w, i) => { const q = easeOut(p(t, start + i*gap, dur)); w.style.opacity = q; w.style.transform = `translateY(${34*(1-q)}px)`; });
+  }
+
+  // model colours onto the header dots
+  document.querySelectorAll('.win[data-c]').forEach(w => { w.querySelector('.dot').style.color = w.dataset.c; });
+
+  // ---- particles: seeded, parallax through their own slow camera ----
+  const rnd = (seed => () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296)(7);
+  const P = []; const pl = $('particles');
+  for (let i = 0; i < 90; i++) {
+    const el = document.createElement('div'); el.className = 'pt'; pl.appendChild(el);
+    P.push({ el, x: (rnd()-.5)*3200, y: (rnd()-.5)*5200, z: 500 + rnd()*3200, r: 3 + rnd()*5, ph: rnd()*6.28, sp: .4 + rnd()*.8 });
+  }
+  function particles(t, warm, dim) {
+    const cam = { x: 40*Math.sin(t*0.25), y: 0, z: 45*t, f: 1400 };
+    for (const q of P) {
+      const y = q.y - 22*t*q.sp, x = q.x + 30*Math.sin(t*0.6 + q.ph);
+      const z = ((q.z - cam.z) % 3200 + 3200) % 3200 + 500 + cam.z;
+      const s = proj(cam, x, y, z);
+      if (s.x < -20 || s.x > 1100 || s.y < -20 || s.y > 1940) { q.el.style.opacity = 0; continue; }
+      const tw = .55 + .45*Math.sin(t*1.7 + q.ph*3);
+      const r = Math.round(lerp(76, 226, warm)), g = Math.round(lerp(201, 165, warm)), b = Math.round(lerp(255, 121, warm));
+      q.el.style.color = q.el.style.background = `rgb(${r},${g},${b})`;
+      q.el.style.opacity = (0.9 * tw * clamp(s.s*1.6) * (1 - dim)).toFixed(3);
+      q.el.style.transform = `translate(${s.x.toFixed(1)}px, ${s.y.toFixed(1)}px) scale(${(q.r*s.s/6).toFixed(3)})`;
+    }
+  }
+
+  const type = (id, cur, text, t, s, d, col) => {
+    const q = p(t, s, d); $(id).textContent = text.slice(0, Math.round(q*text.length));
+    $(cur).style.opacity = (t >= s - 0.3 && t < s + d + 0.4 && Math.floor(t*4)%2 === 0) ? 1 : 0;
+  };
+
+  // scene 7 helpers
+  const sg = $('sg'); const STREAM_COL = ['#E2A579', '#4CC9FF', '#B79CFF'];
+  const streamEls = STREAM_COL.map((c, i) => {
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const wide = document.createElementNS('http://www.w3.org/2000/svg', 'path'); wide.setAttribute('stroke', c); wide.setAttribute('stroke-width', '26'); wide.setAttribute('opacity', '.35'); wide.setAttribute('filter', 'url(#glow)');
+    const core = document.createElementNS('http://www.w3.org/2000/svg', 'path'); core.setAttribute('stroke', c); core.setAttribute('stroke-width', '6'); core.setAttribute('filter', 'url(#glow2)');
+    const dash = document.createElementNS('http://www.w3.org/2000/svg', 'path'); dash.setAttribute('stroke', '#FFFFFF'); dash.setAttribute('stroke-width', '5'); dash.setAttribute('stroke-dasharray', '26 90'); dash.setAttribute('opacity', '.9');
+    const pulses = [0,1,2,3].map(() => { const ci = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); ci.setAttribute('r', '11'); ci.setAttribute('fill', '#FFF4E6'); ci.setAttribute('filter', 'url(#glow2)'); g.appendChild(ci); return ci; });
+    g.appendChild(wide); g.appendChild(core); g.appendChild(dash); sg.appendChild(g);
+    return { g, wide, core, dash, pulses };
+  });
+  const tg = $('tg'); const trailEls = [0,1,2,3,4].map(i => {
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); c.setAttribute('cx', 540); c.setAttribute('cy', 820);
+    c.setAttribute('stroke', i % 2 ? '#F2C9A0' : '#E2A579'); c.setAttribute('stroke-width', i % 2 ? 3 : 6); c.setAttribute('filter', 'url(#glow3)'); tg.appendChild(c); return c; });
+
+  // scene 9 mini screen clone of the answer card
+  $('mini').appendChild($('card8').cloneNode(true)); const miniCard = $('mini').firstElementChild; miniCard.id = 'minicard'; miniCard.style.cssText = 'position:relative;opacity:1;left:0;top:0;'; miniCard.querySelectorAll('.sec').forEach(s => s.style.opacity = 1);
+
+  window.seek = function (t) {
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    const warm = p(t, 2.9, 1.3);                       // blue → teal/copper environment
+    const dark = p(t, 27.7, 0.6);                      // → brand black
+    $('bg-teal').style.opacity = warm * (1 - dark); $('bg-blue').style.opacity = (1 - dark); $('bg-dark').style.opacity = dark;
+    particles(t, warm, t < 28 ? p(t, 25.9, 0.3) : 1 - 0.5*p(t, 28, 0.6));
+    $('flash').style.opacity = 0;
+
+    // ---- s1: glide through four floating windows ----
+    if (t < 3.3) {
+      const cam = { x: mix(t, 0, 3, -60, 80), y: mix(t, 0, 3, 40, -40), z: mix(t, 0, 3, 0, 820, easeInOut), f: 1400 };
+      const sway = Math.sin(t*1.3) * 2;
+      place($('w1a'), cam, -360, -520, 1550, { ry: -16 + sway, rx: 4, rz: -2 });
+      place($('w1b'), cam, 380, -170, 2050, { ry: 18 - sway, rx: -3, rz: 2 });
+      place($('w1c'), cam, -330, 230, 2600, { ry: -14, rx: 2, rz: -1 });
+      place($('w1d'), cam, 400, 560, 3150, { ry: 16, rx: -2, rz: 1 });
+      rise('h1', t, 0.25, 0.09, 0.5);
+    }
+
+    // ---- s2: Switchboard emerges in copper ----
+    if (t >= 2.8 && t < 6.3) {
+      const mq = back(p(t, 3.05, 0.7)); $('mark').style.opacity = clamp(p(t, 3.05, 0.3)); $('mark').style.transform = `scale(${0.4 + 0.6*mq}) translateY(${-10*Math.sin((t-3)*1.4)}px)`;
+      $('halo').style.opacity = clamp(p(t, 3.0, 1.2)) * (0.85 + 0.15*Math.sin((t-3)*2.2));
+      const pq = easeOut(p(t, 3.5, 0.7)); const pr = $('prompt'); pr.style.opacity = pq;
+      pr.style.transform = `translateY(${120*(1-pq) - 10*(t-3.5)}px) perspective(1800px) rotateX(${8 - 2*(t-3.5)}deg) rotateY(${-6 + 1.5*(t-3.5)}deg)`;
+      type('asktxt', 'askcur', 'How should I bring this to market?', t, 3.9, 1.2);
+      const bq = back(p(t, 5.15, 0.35)); $('askbtn').style.opacity = clamp(p(t, 5.15, 0.15)); $('askbtn').style.transform = `scale(${0.6 + 0.4*bq})`;
+      rise('h2', t, 5.0, 0.1, 0.5);
+    }
+
+    // ---- s3: the question gets sharper ----
+    if (t >= 5.8 && t < 9.3) {
+      const oq = easeOut(p(t, 6.05, 0.5)); $('orig').style.opacity = oq; $('orig').style.transform = `translateY(${-30*(1-oq)}px)`;
+      $('link').style.transform = `scaleY(${easeOut(p(t, 6.4, 0.5))})`;
+      const iq = easeOut(p(t, 6.7, 0.6)); const im = $('improved'); im.style.opacity = iq;
+      im.style.transform = `translateY(${90*(1-iq)}px) perspective(1800px) rotateX(${5*(1-iq) + 2}deg) rotateY(${-3}deg)`;
+      Array.from(document.querySelectorAll('#chips .chip')).forEach((c, i) => { const q = p(t, 7.25 + i*0.22, 0.4); c.style.opacity = clamp(q*3); c.style.transform = `scale(${0.4 + 0.6*back(q)})`; });
+      rise('h3', t, 8.0, 0.1, 0.5);
+    }
+
+    // ---- s4: four candidates, three chosen ----
+    if (t >= 8.8 && t < 12.3) {
+      const tl = t - 9;
+      const cam = { x: 40*Math.sin(tl*0.9), y: -30, z: mix(t, 9, 3, 0, 140), f: 1400 };
+      const pos = [ [-265, -640, 1680, -10], [265, -640, 1780, 10], [-265, -40, 1780, -10], [265, -40, 1680, 10] ];
+      const ids = ['w4a', 'w4b', 'w4c', 'w4d']; const pick = { w4a: 10.35, w4b: 10.05, w4d: 10.65 };
+      ids.forEach((id, i) => {
+        const [x, y, z, ry] = pos[i]; const el = $(id);
+        const inq = easeOut(p(t, 9.05 + i*0.12, 0.6));
+        let op = inq, zz = z + 500*(1-inq), extra = 0;
+        if (id === 'w4c') { const f = p(t, 10.9, 0.7); op = inq * (1 - 0.8*f); zz += 900*easeIn(f); extra = f; }
+        place(el, cam, x, y, zz, { ry: ry + 2*Math.sin(tl*1.1 + i), rz: (i%2 ? 1 : -1), op, blur: extra*6 });
+        if (pick[id] != null) { const q = p(t, pick[id], 0.3); el.querySelector('.ring').style.opacity = clamp(q*2); el.querySelector('.ring').style.transform = `scale(${1.25 - 0.25*back(q)})`;
+          const tq = back(p(t, pick[id] + 0.15, 0.3)); const tg = el.querySelector('.tag'); tg.style.opacity = clamp(p(t, pick[id] + 0.15, 0.15)); tg.style.transform = `scale(${0.5 + 0.5*tq})`; }
+      });
+      $('sub4').style.opacity = p(t, 10.9, 0.4);
+      rise('h4', t, 11.0, 0.1, 0.5);
+    }
+
+    // ---- s5: three independent answers, camera glides between them ----
+    if (t >= 11.8 && t < 16.3) {
+      const camx = t < 13.2 ? mix(t, 12.0, 1.2, -780, -780) : t < 14.5 ? mix(t, 13.2, 1.2, -780, 0) : mix(t, 14.5, 1.2, 0, 780);
+      const cam = { x: camx, y: -120 + 10*Math.sin(t), z: mix(t, 12, 4, -120, 0), f: 1400 };
+      const inq = i => easeOut(p(t, 12.05 + i*0.1, 0.6));
+      place($('w5a'), cam, -780, -260, 1500, { ry: -10, op: inq(0) });
+      place($('w5b'), cam, 0, -300, 1500, { ry: 0, op: inq(1) });
+      place($('w5c'), cam, 780, -240, 1500, { ry: 10, op: inq(2) });
+      type('t5a', 'c5a', 'Start narrow. Own one segment completely before you widen.', t, 12.3, 1.5);
+      type('t5b', 'c5b', 'Lead with a freemium tier, then upsell teams on collaboration.', t, 13.4, 1.5);
+      type('t5c', 'c5c', 'Competitors price at $49–$99 a month. Position mid-market.', t, 14.6, 1.5);
+      $('cites5').style.opacity = p(t, 15.6, 0.3);
+      rise('h5', t, 12.4, 0.1, 0.5);
+    }
+
+    // ---- s6: evaluation ----
+    if (t >= 15.8 && t < 19.3) {
+      const cam = { x: 0, y: 0, z: mix(t, 16, 3, 0, 90), f: 1400 };
+      const inq = easeOut(p(t, 16.05, 0.6));
+      place($('w6a'), cam, -600, -820, 1950, { ry: -8, op: 0.85*inq });
+      place($('w6b'), cam, 0, -880, 1900, { ry: 0, op: 0.85*inq });
+      place($('w6c'), cam, 600, -820, 1950, { ry: 8, op: 0.85*inq });
+      const eq = easeOut(p(t, 16.2, 0.6)); const ev = $('eval'); ev.style.opacity = eq; ev.style.transform = `translateY(${70*(1-eq)}px) perspective(1800px) rotateX(${3*(1-eq)+1.5}deg) scale(${mix(t, 16, 3, 1, 1.03)})`;
+      Array.from(document.querySelectorAll('#eval .row')).forEach((r, i) => { const q = p(t, 16.65 + i*0.42, 0.35); r.style.opacity = clamp(q*2); r.style.transform = `translateX(${-30*(1-easeOut(q))}px)`;
+        r.querySelector('.flag').style.transform = `scale(${0.5 + 0.5*back(q)})`; });
+      rise('h6', t, 16.5, 0.07, 0.45);
+    }
+
+    // ---- s7: THE CONVERGENCE ----
+    if (t >= 18.8 && t < 23.3) {
+      const tl = t - 19;
+      const pull = easeInOut(p(t, 20.6, 2.0));
+      const cam = { x: 0, y: 0, z: -140 - 300*pull, f: 1400 };
+      const cy = -60;
+      const core = $('core'); const cq = easeOut(p(t, 19.05, 0.7)); 
+      const breathe = 1 + 0.05*Math.sin(tl*3.2);
+      const impact = p(t, 21.55, 0.25); const settle = easeOut(p(t, 21.8, 0.9));
+      const coreScale = (0.5 + 0.5*cq) * breathe * (1 + 0.25*impact);
+      const cp = place(core, cam, 0, cy, 1400, { op: cq, blur: 0 }); core.style.transform += ` scale(${coreScale.toFixed(3)})`;
+      const R = mix(t, 19.6, 2.2, 310, 230); const RY = mix(t, 19.6, 2.2, 560, 380);
+      const omega = 1.15 + 1.6*easeIn(p(t, 20.6, 1.4));
+      const ang0 = 0.9*tl + 0.6*(omega-1.15)*(t-20.6);
+      const wins = ['w7a', 'w7b', 'w7c']; const ends = [];
+      const dissolve = easeIn(p(t, 21.45, 0.55));
+      wins.forEach((id, i) => {
+        const a = ang0 + i * 2.0944;
+        const x = R*Math.cos(a), z = 1400 + 260*Math.cos(a + 0.5), y = cy + RY*Math.sin(a);
+        const inq = easeOut(p(t, 19.1 + i*0.12, 0.7));
+        const q = place($(id), cam, x, y, z, { ry: -Math.cos(a)*18, rx: Math.sin(a)*6, rz: Math.cos(a)*3, op: inq*(1-dissolve), blur: 0 });
+        $(id).style.transform += ` scale(${(0.7 - 0.3*dissolve).toFixed(3)})`;
+        ends.push({ x: q.x, y: q.y, depth: q.d });
+      });
+      // streams from each window into the core
+      const sq = easeOut(p(t, 20.0, 0.9)); const flow = (t - 20.0);
+      const intensity = clamp(p(t, 20.9, 0.8)) ; const fade7 = 1 - easeIn(p(t, 21.9, 0.5));
+      streamEls.forEach((s, i) => {
+        const e = ends[i]; const cxp = cp.x, cyp = cp.y;
+        const mx = (e.x + cxp)/2 + (cyp - e.y)*0.35, my = (e.y + cyp)/2 + (e.x - cxp)*0.35;
+        const d = `M ${e.x.toFixed(1)} ${e.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${cxp.toFixed(1)} ${cyp.toFixed(1)}`;
+        [s.wide, s.core, s.dash].forEach(pth => pth.setAttribute('d', d));
+        const L = s.core.getTotalLength();
+        [s.wide, s.core].forEach(pth => { pth.setAttribute('stroke-dasharray', `${L} ${L}`); pth.setAttribute('stroke-dashoffset', `${L*(1-sq)}`); });
+        s.dash.setAttribute('stroke-dashoffset', `${-flow*520 + L*(1-sq)*0}`); s.dash.setAttribute('stroke-dasharray', `26 90`);
+        s.g.setAttribute('opacity', (sq*fade7).toFixed(3));
+        s.wide.setAttribute('opacity', (0.3 + 0.5*intensity).toFixed(3)); s.core.setAttribute('stroke-width', (6 + 8*intensity).toFixed(1));
+        s.dash.setAttribute('opacity', sq > 0.98 ? (0.9).toFixed(2) : '0');
+        s.pulses.forEach((ci, k) => { const u = ((flow*0.55 + k*0.25 + i*0.08) % 1); const vis = sq > 0.98 ? 1 : 0; const pt = s.core.getPointAtLength(u*L);
+          ci.setAttribute('cx', pt.x.toFixed(1)); ci.setAttribute('cy', pt.y.toFixed(1)); ci.setAttribute('opacity', (vis*(0.5 + 0.5*intensity)).toFixed(2)); ci.setAttribute('r', (8 + 6*intensity).toFixed(1)); });
+      });
+      // bloom + flash on impact
+      $('bloom').style.opacity = (0.25*intensity + 0.75*impact*(1-0.6*settle)).toFixed(3);
+      $('bloom').style.transform = `translate(${cp.x-540}px, ${cp.y-960}px) scale(${(0.6 + 0.6*intensity + 0.8*impact - 0.3*settle).toFixed(3)})`;
+      $('flash').style.opacity = (impact * (1 - easeOut(p(t, 21.7, 0.5)))).toFixed(3);
+      $('synth').style.opacity = clamp(p(t, 19.6, 0.4)) * (1 - p(t, 21.5, 0.3)) * (0.7 + 0.3*Math.sin(tl*5));
+      ['b7a','b7b','b7c'].forEach((id, i) => { $(id).style.width = `${100*clamp(p(t, 20.1 + i*0.15, 1.3))}%`; });
+      $('ans7').style.opacity = easeOut(p(t, 21.9, 0.5)); $('synth').style.opacity = 0; document.querySelector('#coreui small').textContent = t < 21.8 ? 'Synthesis' : 'Top answer';
+      rise('h7', t, 21.9, 0.09, 0.5);
+    }
+
+    // ---- s8: the answer card ----
+    if (t >= 22.8 && t < 26.3) {
+      const cq = easeOut(p(t, 23.05, 0.7)); const cd = $('card8'); cd.style.opacity = cq;
+      cd.style.transform = `translateY(${80*(1-cq)}px) perspective(2000px) rotateX(${6*(1-cq) + 1.5}deg) rotateY(${-2.5 + 1.0*(t-23)}deg) scale(${mix(t, 23, 3, 0.98, 1.015)})`;
+      Array.from(document.querySelectorAll('#card8 .sec')).forEach((s, i) => { const q = easeOut(p(t, 23.3 + i*0.3, 0.45)); s.style.opacity = q; s.style.transform = `translateY(${18*(1-q)}px)`; });
+      rise('h8', t, 24.3, 0.1, 0.5);
+    }
+
+    // ---- s9: on a laptop, placeholder for real footage ----
+    if (t >= 25.8 && t < 28.3) {
+      const z = mix(t, 26, 2, 1, 1.07); $('laptop').style.transform = `scale(${z}) translateY(${-12*(t-26)}px)`;
+      rise('h9', t, 26.2, 0.08, 0.45);
+    }
+
+    // ---- s10: brand reveal, hold to the last frame ----
+    if (t >= 27.8) {
+      const lq = back(p(t, 28.05, 0.8)); $('logo').style.opacity = clamp(p(t, 28.05, 0.3)); $('logo').style.transform = `scale(${0.3 + 0.7*lq})`;
+      trailEls.forEach((c, i) => { const q = easeOut(p(t, 27.95 + i*0.08, 1.1)); const r = 120 + i*62 + 220*q; const L = 2*Math.PI*r;
+        c.setAttribute('r', r.toFixed(1)); c.setAttribute('stroke-dasharray', `${(L*0.22).toFixed(1)} ${L.toFixed(1)}`);
+        c.setAttribute('stroke-dashoffset', (-(t-28)*(380 + i*90) - i*200).toFixed(1));
+        c.setAttribute('opacity', (clamp(q*2) * (1 - easeIn(p(t, 28.6 + i*0.1, 0.9)))).toFixed(3)); });
+      rise('wordmark', t, 28.45, 0.1, 0.55);
+      $('rule').style.width = `${560*easeOut(p(t, 28.85, 0.5))}px`; $('rule').style.marginLeft = `${-280*easeOut(p(t, 28.85, 0.5))}px`;
+      const tq = easeOut(p(t, 29.0, 0.5)); $('tagline').style.opacity = tq; $('tagline').style.transform = `translateY(${16*(1-tq)}px)`;
+    }
+  };
+  window.seek(0);
+</script>
+</body></html>
