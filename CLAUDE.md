@@ -40,7 +40,9 @@ his standing brief. Read it before touching anything.
   apart, labels and baked headlines inpainted out (`tools/clean_panels.py`), upscaled 4× with Real-ESRGAN
   over ONNX (`tools/upscale.py`, model from Hugging Face, output folder git-ignored), blurred backgrounds and
   cutouts (`tools/layers.py`), a synthesised score and effects (`tools/audio.py`), Kokoro voiceover through
-  `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable).
+  `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable), or
+  Australian voices through `tools/vo_piper.py` (Piper model from Hugging Face; "Willow", speaker 9, is the
+  one Kyle has heard). `tools/audio.py --music pad|pulse` picks the score.
   Start the next storyboard-driven spot from here. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.

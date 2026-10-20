@@ -55,3 +55,21 @@ MP4 buttons, a contact sheet, the scene list and the voiceover script.
 - Kyle's verdict on the synthetic voice; a human read can be dropped in without re-rendering the picture.
 - Whether he wants the end card's "See Switchboard in action" to point anywhere (the brief said no link).
 - Save MP4 on his phone is still unconfirmed from earlier sessions.
+
+## Second pass, same day: "try another voice and music. lets do an female austrailina"
+
+Kyle liked the cut ("you did really good") and asked for a female Australian voice and different music.
+Kokoro has no Australian voice. Hugging Face has `DataCraftsmanAustralia/piper-en_AU-librivox-medium`, a
+ten-voice Australian-English Piper model (77 MB, CPU). `tools/vo_piper.py` generates the lines with it:
+speaker 9 "Willow" chosen after transcribing all six female voices with faster-whisper (speaker ids 1, 2, 3,
+7, 8, 9); Willow and Kirra read cleanest, Willow scored higher. Piper reads at audiobook pace with long
+sentence gaps, so the tool trims the ends, caps pauses at 0.22 s, and for the three closing lines runs at
+length scale 0.78 and keeps the shortest of eight takes (VITS durations vary per run). Below about 0.7 the
+words smear. Phonemes for "AIs" are already right (ˌeɪˈaɪz); whisper just transcribes the word oddly.
+
+`tools/audio.py` grew a second score, `--music pulse`: A major, 100 bpm, a soft kick with the pad pumping
+under it, a plucked motif, an airy high pad from 12 s, a wide A-major resolve at 28 s. The first score is
+`--music pad`. Cue times for lines 8–10 and the small speed-ups are flags now (`--late-cues`, `--speed`).
+
+Delivered as Cut 3 (Willow + pulse) and Cut 4 (pulse, no voice) at the top of the same artifact page, the
+first-pass cuts kept underneath for comparison.

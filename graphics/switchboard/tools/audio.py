@@ -1,12 +1,14 @@
 # Synthesised soundtrack for the Switchboard spot: a restrained cinematic-electronic bed, typing,
 # a submit chime, airy transition sweeps, a convergence shimmer, and the voiceover lines placed on
 # their scene cues with the music ducked beneath them. Writes mix-vo.wav and mix-novo.wav.
-import numpy as np, soundfile as sf
+import sys, argparse, numpy as np, soundfile as sf
 from scipy import signal
 from pathlib import Path
+ap = argparse.ArgumentParser(); ap.add_argument("--vo", default="videos/switchboard/vo"); ap.add_argument("--music", default="pad", choices=["pad", "pulse"]); ap.add_argument("--suffix", default=""); ap.add_argument("--late-cues", default="23.2,25.85,28.25", help="start times of lines 8, 9, 10"); ap.add_argument("--speed", default="9:1.08", help="line:factor,... small resample speed-ups")
+ARGS = ap.parse_args()
 SR = 48000; DUR = 30.0; N = int(SR*DUR); t = np.arange(N)/SR
 rng = np.random.default_rng(7)
-vo_dir = Path("videos/switchboard/vo"); out_dir = Path("videos/switchboard")
+vo_dir = Path(ARGS.vo); out_dir = Path("videos/switchboard")
 
 def env_adsr(n, a, d, s, r, sr=SR):
     a, d, r = int(a*sr), int(d*sr), int(r*sr); e = np.ones(n)
@@ -27,60 +29,126 @@ def saw(f, n, detune=0.0):
     return out
 def midi(m): return 440*2**((m-69)/12)
 
-# ---- music bed: D minor, 92 bpm, chords every 4 beats; resolves to D major at 28 s
-chords = [  # (start, end, midi notes)
-    (0, 3, [50, 57, 60, 65]),      # Dm
-    (3, 6, [46, 53, 58, 62]),      # Bb
-    (6, 9, [50, 57, 60, 65]),      # Dm
-    (9, 12, [48, 55, 60, 64]),     # C
-    (12, 16, [46, 53, 57, 62]),    # Bb
-    (16, 19, [45, 52, 57, 60]),    # Am
-    (19, 23, [46, 53, 58, 62]),    # Bb (build)
-    (23, 26, [48, 55, 60, 64]),    # C
-    (26, 28, [50, 57, 62, 65]),    # Dm(add4)
-    (28, 30, [50, 57, 62, 66]),    # D major (resolve)
-]
-music = np.zeros(N)
-for (a, b, notes) in chords:
-    n = int((b-a+0.6)*SR); e = env_adsr(n, 0.9, 0.0, 1.0, 0.7)
-    pad = np.zeros(n)
-    for m in notes:
-        f = midi(m)
-        pad += saw(f, n, 0.003) + saw(f, n, -0.004) + 0.5*np.sin(2*np.pi*f*np.arange(n)/SR)
-    # slow filter opening: brighter during the convergence and the resolve
-    fc = 900 + 1800*(1 if a >= 19 else 0.35)
-    pad = lowpass(pad*e, fc) * 0.035
-    place(music, pad, a)
-# sub pulse on the beat, soft
-beat = 60/92
-for k in range(int(DUR/beat)):
+def music_pad():
+  chords = [  # (start, end, midi notes)
+      (0, 3, [50, 57, 60, 65]),      # Dm
+      (3, 6, [46, 53, 58, 62]),      # Bb
+      (6, 9, [50, 57, 60, 65]),      # Dm
+      (9, 12, [48, 55, 60, 64]),     # C
+      (12, 16, [46, 53, 57, 62]),    # Bb
+      (16, 19, [45, 52, 57, 60]),    # Am
+      (19, 23, [46, 53, 58, 62]),    # Bb (build)
+      (23, 26, [48, 55, 60, 64]),    # C
+      (26, 28, [50, 57, 62, 65]),    # Dm(add4)
+      (28, 30, [50, 57, 62, 66]),    # D major (resolve)
+  ]
+  music = np.zeros(N)
+  for (a, b, notes) in chords:
+      n = int((b-a+0.6)*SR); e = env_adsr(n, 0.9, 0.0, 1.0, 0.7)
+      pad = np.zeros(n)
+      for m in notes:
+          f = midi(m)
+          pad += saw(f, n, 0.003) + saw(f, n, -0.004) + 0.5*np.sin(2*np.pi*f*np.arange(n)/SR)
+      # slow filter opening: brighter during the convergence and the resolve
+      fc = 900 + 1800*(1 if a >= 19 else 0.35)
+      pad = lowpass(pad*e, fc) * 0.035
+      place(music, pad, a)
+  # sub pulse on the beat, soft
+  beat = 60/92
+  for k in range(int(DUR/beat)):
+      at = k*beat
+      root = [c for c in chords if c[0] <= at < c[1]]
+      if not root: continue
+      f = midi(root[0][2][0]-12); n = int(0.5*SR); tt = np.arange(n)/SR
+      s = np.sin(2*np.pi*f*tt) * np.exp(-tt*6) * 0.22
+      place(music, s, at)
+  # sparse pluck arpeggio, growing from 12 s, busiest in the convergence
+  for k in range(int(DUR/(beat/2))):
+      at = k*beat/2
+      if at < 6 or at >= 28.6: continue
+      c = [c for c in chords if c[0] <= at < c[1]][0]
+      dens = 0.35 if at < 12 else (0.6 if at < 19 else (0.9 if at < 23 else 0.5))
+      if rng.random() > dens: continue
+      m = c[2][rng.integers(1, len(c[2]))] + 12*rng.integers(1, 3)
+      f = midi(m); n = int(0.6*SR); tt = np.arange(n)/SR
+      s = (np.sin(2*np.pi*f*tt) + 0.3*np.sin(2*np.pi*2*f*tt)) * np.exp(-tt*9) * 0.06
+      place(music, s, at + rng.uniform(-0.01, 0.01))
+  # riser into the convergence hub (19.3 -> 21.0) and a soft swell into the brand (27.4 -> 28.2)
+  for (a, b, g) in ((19.3, 21.0, 0.05), (27.3, 28.1, 0.04)):
+      n = int((b-a)*SR); noise = rng.standard_normal(n)
+      sw = np.zeros(n)
+      for i in range(0, n, 2400):
+          seg = noise[i:i+2400]; fc = 300 + 2500*(i/n)**2
+          sw[i:i+2400] = bandpass(seg, fc, fc*2.2)
+      sw *= np.linspace(0, 1, n)**2 * g
+      place(music, sw, a)
+  return music
+
+
+def music_pulse():
+  """Brighter, more rhythmic bed: A major, 100 bpm, soft four-on-the-floor kick with a pumping pad,
+  a plucked motif that answers the voice, a sine bass on the roots. Resolves on a wide A major at 28 s."""
+  bpm = 100; beat = 60/bpm
+  chords = [
+    (0, 3, [57, 61, 64, 69]),     # A
+    (3, 6, [54, 61, 64, 69]),     # F#m7-ish
+    (6, 9, [50, 57, 62, 66]),     # D
+    (9, 12, [52, 59, 64, 68]),    # E
+    (12, 16, [54, 61, 64, 69]),   # F#m
+    (16, 19, [50, 57, 62, 66]),   # D
+    (19, 23, [52, 59, 64, 68]),   # E (build)
+    (23, 26, [57, 61, 64, 69]),   # A
+    (26, 28, [50, 57, 62, 66]),   # D
+    (28, 30, [57, 61, 64, 69, 73]),  # A wide
+  ]
+  m = np.zeros(N)
+  for (a, b, notes) in chords:
+    n = int((b-a+0.5)*SR); e = env_adsr(n, 0.4, 0.0, 1.0, 0.5); pad = np.zeros(n); tt = np.arange(n)/SR
+    for mm in notes:
+      f = midi(mm); pad += 0.6*saw(f, n, 0.004) + 0.6*saw(f, n, -0.003) + np.sin(2*np.pi*f*tt)
+    pad = lowpass(pad*e, 1600 + (1400 if a >= 19 else 0)) * 0.03
+    place(m, pad, a)
+  # pump: duck the pad on every beat so it breathes with the kick
+  pump = np.ones(N)
+  for k in range(int(DUR/beat)):
+    i = int(k*beat*SR); L = int(0.28*SR); pump[i:i+L] *= np.minimum(1, 0.45 + 0.55*(np.arange(min(L, N-i))/L))
+  m *= pump
+  # soft kick + sine bass
+  for k in range(int(DUR/beat)):
     at = k*beat
-    root = [c for c in chords if c[0] <= at < c[1]]
-    if not root: continue
-    f = midi(root[0][2][0]-12); n = int(0.5*SR); tt = np.arange(n)/SR
-    s = np.sin(2*np.pi*f*tt) * np.exp(-tt*6) * 0.22
-    place(music, s, at)
-# sparse pluck arpeggio, growing from 12 s, busiest in the convergence
-for k in range(int(DUR/(beat/2))):
+    if at >= 28.4: break
+    n = int(0.25*SR); tt = np.arange(n)/SR
+    kick = np.sin(2*np.pi*(55 + 90*np.exp(-tt*40))*tt) * np.exp(-tt*14) * 0.3
+    place(m, kick, at)
+    c = [c for c in chords if c[0] <= at < c[1]]
+    if c and k % 2 == 0:
+      f = midi(c[0][2][0]-12); n2 = int(beat*0.9*SR); t2 = np.arange(n2)/SR
+      place(m, np.sin(2*np.pi*f*t2)*env_adsr(n2, 0.01, 0.0, 1.0, 0.08)*0.16, at)
+  # plucked motif: a repeating 8-note pattern on chord tones, answering the voice lines
+  for k in range(int(DUR/(beat/2))):
     at = k*beat/2
-    if at < 6 or at >= 28.6: continue
+    if at < 3 or at >= 28.4: continue
     c = [c for c in chords if c[0] <= at < c[1]][0]
-    dens = 0.35 if at < 12 else (0.6 if at < 19 else (0.9 if at < 23 else 0.5))
-    if rng.random() > dens: continue
-    m = c[2][rng.integers(1, len(c[2]))] + 12*rng.integers(1, 3)
-    f = midi(m); n = int(0.6*SR); tt = np.arange(n)/SR
-    s = (np.sin(2*np.pi*f*tt) + 0.3*np.sin(2*np.pi*2*f*tt)) * np.exp(-tt*9) * 0.06
-    place(music, s, at + rng.uniform(-0.01, 0.01))
-# riser into the convergence hub (19.3 -> 21.0) and a soft swell into the brand (27.4 -> 28.2)
-for (a, b, g) in ((19.3, 21.0, 0.05), (27.3, 28.1, 0.04)):
-    n = int((b-a)*SR); noise = rng.standard_normal(n)
-    sw = np.zeros(n)
+    pat = [0, 2, 1, 3, 2, 1, 3, 0][k % 8]
+    if (k % 8) in (5, 7) and at < 19: continue
+    mm = c[2][pat % len(c[2])] + 12; f = midi(mm); n = int(0.45*SR); tt = np.arange(n)/SR
+    g = 0.05 if at < 12 else (0.07 if at < 23 else 0.055)
+    s_ = (np.sin(2*np.pi*f*tt) + 0.35*np.sin(2*np.pi*2*f*tt) + 0.15*np.sin(2*np.pi*3*f*tt)) * np.exp(-tt*8) * g
+    place(m, s_, at)
+  # airy high pad from 12 s, wider in the convergence
+  for (a, b, g) in ((12, 19, 0.012), (19, 28, 0.02), (28, 30, 0.025)):
+    n = int((b-a+0.4)*SR); e = env_adsr(n, 1.0, 0.0, 1.0, 0.4); tt = np.arange(n)/SR; hp = np.zeros(n)
+    for mm in (76, 80, 83): hp += np.sin(2*np.pi*midi(mm)*tt*(1+0.002*np.sin(2*np.pi*0.3*tt)))
+    place(m, lowpass(hp*e, 6000)*g, a)
+  # riser into the hub and swell into the brand
+  for (a, b, g) in ((19.3, 21.0, 0.05), (27.3, 28.1, 0.04)):
+    n = int((b-a)*SR); noise = rng.standard_normal(n); sw = np.zeros(n)
     for i in range(0, n, 2400):
-        seg = noise[i:i+2400]; fc = 300 + 2500*(i/n)**2
-        sw[i:i+2400] = bandpass(seg, fc, fc*2.2)
-    sw *= np.linspace(0, 1, n)**2 * g
-    place(music, sw, a)
-music = lowpass(music, 9000)
+      seg = noise[i:i+2400]; fc = 300 + 2500*(i/n)**2; sw[i:i+2400] = bandpass(seg, fc, fc*2.2)
+    place(m, sw*np.linspace(0, 1, n)**2*g, a)
+  return lowpass(m, 10000)
+
+music = music_pad() if ARGS.music == "pad" else music_pulse()
 # tail: fade to silence over the last 0.6 s so the cut is clean
 music[-int(0.6*SR):] *= np.linspace(1, 0, int(0.6*SR))
 
@@ -122,8 +190,9 @@ place(sfx, bell, 28.0); place(sfx, whoosh(0.6, 2500, 9000, 0.1), 28.0)
 sfx = lowpass(sfx, 12000)
 
 # ---- voiceover placement (scene cue + a breath), with a gentle speed-up on the two tight lines
-cues = {1: 0.3, 2: 3.2, 3: 6.2, 4: 9.2, 5: 12.2, 6: 16.2, 7: 19.2, 8: 23.2, 9: 25.85, 10: 28.25}
-speed = {9: 1.08}
+c8, c9, c10 = (float(x) for x in ARGS.late_cues.split(","))
+cues = {1: 0.3, 2: 3.2, 3: 6.2, 4: 9.2, 5: 12.2, 6: 16.2, 7: 19.2, 8: c8, 9: c9, 10: c10}
+speed = {int(k): float(v) for k, v in (kv.split(":") for kv in ARGS.speed.split(",") if kv)}
 vo = np.zeros(N)
 for k, at in cues.items():
     a, sr = sf.read(vo_dir/f"vo{k:02d}.wav", dtype="float32")
@@ -146,6 +215,6 @@ bed = normalize(music, 0.3)
 mix_vo = bed*duck + sfx*0.9 + vo
 mix_novo = bed + sfx*0.9
 mix_vo = normalize(mix_vo, 0.95); mix_novo = normalize(mix_novo, 0.95)
-sf.write(out_dir/"mix-vo.wav", mix_vo.astype(np.float32), SR)
-sf.write(out_dir/"mix-novo.wav", mix_novo.astype(np.float32), SR)
+sf.write(out_dir/f"mix-vo{ARGS.suffix}.wav", mix_vo.astype(np.float32), SR)
+sf.write(out_dir/f"mix-novo{ARGS.suffix}.wav", mix_novo.astype(np.float32), SR)
 print("music rms dB", 20*np.log10(np.sqrt(np.mean(bed**2))+1e-9), "vo rms dB", 20*np.log10(np.sqrt(np.mean(vo[vo!=0]**2))+1e-9))
