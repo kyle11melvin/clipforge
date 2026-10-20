@@ -301,7 +301,7 @@
   const mix = (t, s, d, a, b, e = easeInOut) => lerp(a, b, e(p(t, s, d)));
 
   // scene windows [start, end]; frame-exact per the brief
-  const S = { s1:[0,3], s2:[3,6], s3:[6,9], s4:[9,12], s5:[12,16], s6:[16,19], s7:[19,23], s8:[23,26], s9:[26,28], s10:[28,30.01] };
+  const S = { s1:[0,3], s2:[3,6], s3:[6,9], s4:[9,12], s5:[12,16], s6:[16,19], s7:[19,23], s8:[23,26], s9:[26,28], s10:[28,31] };
   const FADE = 0.25;
   function sceneOpacity(t, [a, b]) { if (t < a || t > b) return 0; return Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE)); }
 
