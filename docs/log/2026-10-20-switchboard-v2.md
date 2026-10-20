@@ -78,3 +78,18 @@ Kyle on the first V2: loves British accents, Emma was far too harsh; also asked 
 
 Delivered as the new V2 (female blend), a Daniel alternate, and the no-voice cut; the Australian V2 cut was
 retired from the page.
+
+## V3: "just make the thing shorter"
+
+Kyle's own flow, in his words: ask a question, figure out which AI agents are best, get the best prompt,
+each one answers, Switchboard analyzes each answer, gives the best of all AI solutions. V3 is that, in
+20 s, at `graphics/switchboard-v3/comp.html` (reusing V2's styles and crops) and `videos/switchboard/v3/`:
+
+0–2.6 ask (prompt bar, submit flash) · 2.6–5.2 picks the best AIs (hub and cards light) · 5.2–7.6 builds
+the best prompt (chips) · 7.6–10.2 each one answers (three windows illuminate) · 10.2–13 analyzes every
+answer (panel: two flags plus "Strongest ideas kept") · 13–14.8 takes the best of each (streams into the
+hub) · 14.8–17 the best of all AI solutions (best-answer card) · 17–20 brand, settled by 17.6.
+
+Eight voice lines in the softened Emma–Lily blend at speed 0.92 with `--cues` set so no line overlaps the
+next. `tools/audio.py --music v3 --duration 20` is the same language as the V2 bed on the shorter timeline;
+effects follow the V3 cues. Delivered as Switchboard-V3.mp4 and a no-voice cut at the top of the page.

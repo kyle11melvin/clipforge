@@ -43,6 +43,8 @@ his standing brief. Read it before touching anything.
   `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable), or
   Australian voices through `tools/vo_piper.py` (Piper model from Hugging Face; "Willow", speaker 9, is the
   one Kyle has heard). `tools/audio.py --music pad|pulse` picks the score.
+  `graphics/switchboard-v3/` is the 20 s cut in Kyle's own flow (ask → best AIs → best prompt → each answers →
+  analyze → best of each → best of all); `--music v3 --duration 20`. He asked for shorter, so start there.
   `graphics/switchboard-v2/` is the phone-first recomposition of the same spot (bigger crops of the 4× panels,
   window layers that come forward, a nine-line script, `--music v2`, `--cues` for any line count). Start the
   next storyboard-driven spot from V2. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
