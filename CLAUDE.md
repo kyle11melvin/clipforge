@@ -43,6 +43,9 @@ his standing brief. Read it before touching anything.
   `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable), or
   Australian voices through `tools/vo_piper.py` (Piper model from Hugging Face; "Willow", speaker 9, is the
   one Kyle has heard). `tools/audio.py --music pad|pulse` picks the score.
+  `graphics/switchboard-final/` is Commercial V3 (28 s): the Convergence cut retimed, V1's hook windows, and the
+  V1 narrator `am_michael` restored at Kyle's explicit request ("restore the exact V1 narrator"); `--music final
+  --duration 28`. This is the current best cut; start any Switchboard revision from it.
   `graphics/switchboard-conv/` is "Commercial V2: The Convergence" from his written 22 s brief (HTML model and
   response cards with icons cut from the art, SVG streams, `--music conv --duration 22`, a dedicated effects
   track with the ding). When a brief arrives as a full spec like that, follow it to the frame.
@@ -51,8 +54,9 @@ his standing brief. Read it before touching anything.
   `graphics/switchboard-v2/` is the phone-first recomposition of the same spot (bigger crops of the 4× panels,
   window layers that come forward, a nine-line script, `--music v2`, `--cues` for any line count). Start the
   next storyboard-driven spot from V2. Fraunces Bold lives in `graphics/fonts/` for serif headlines.
-  Voices on hand: British through `tools/vo_kokoro.py` (Kyle's verdict 2026-10-20: raw `bf_emma` is "way too
-  harsh"; use the 30/70 Emma–Lily blend with its softening chain, or `bm_daniel`), Australian Willow (Piper).
+  Voices on hand: `am_michael` (Kokoro, the V1 narrator Kyle asked to restore for Commercial V3), British
+  through `tools/vo_kokoro.py` (raw `bf_emma` is "way too harsh"; the 30/70 Emma–Lily blend with its softening
+  chain, or `bm_daniel`), Australian Willow (Piper). Never swap narrators between versions without saying so.
   Audition before a final render when a brief asks; pick by measured pitch and high-band energy since nobody
   in the session can listen. He wants motion smooth: long crossfades, no overshoot, slow glows.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.

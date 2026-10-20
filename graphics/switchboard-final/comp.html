@@ -1,0 +1,317 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Fraunces"; src: url("../fonts/Fraunces-Bold.woff2") format("woff2"); font-weight: 700; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070D19; }
+  body { font-family: "Inter", system-ui, sans-serif; color: #F4EFE8; }
+  .scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+  .bg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+  .crop { position: absolute; overflow: hidden; transform-origin: 50% 50%; }
+  .crop img { position: absolute; display: block; }
+  .h { font-family: "Fraunces", "Inter Display", serif; font-weight: 700; font-size: 96px; line-height: 1.06; letter-spacing: -0.01em; }
+  .copy { position: absolute; left: 90px; width: 840px; }
+  .w { display: inline-block; opacity: 0; transform: translateY(34px); }
+  .copper { color: #EBA47A; } .blue { color: #8EA6FF; } .teal { color: #5FD6C9; } .violet { color: #B79CFF; } .mint { color: #3DDC97; }
+  .glow { position: absolute; border-radius: 50%; mix-blend-mode: screen; opacity: 0; pointer-events: none; }
+  .win { position: absolute; overflow: hidden; transform-origin: 50% 50%; -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 58%, rgba(0,0,0,0) 82%); mask-image: radial-gradient(ellipse at 50% 50%, #000 58%, rgba(0,0,0,0) 82%); }
+  .win img { position: absolute; display: block; }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(3,6,12,.55) 100%); pointer-events: none; z-index: 50; }
+  #sweep { position: absolute; top: -200px; left: 0; width: 700px; height: 2400px; opacity: 0; z-index: 60; mix-blend-mode: screen; pointer-events: none;
+    background: linear-gradient(90deg, rgba(255,225,195,0) 0%, rgba(255,225,195,.16) 50%, rgba(255,225,195,0) 100%); transform: rotate(14deg); }
+  #black { position: absolute; inset: 0; background: #070D19; z-index: 70; pointer-events: none; }
+  #copperrise { position: absolute; left: -200px; right: -200px; bottom: -400px; height: 1400px; opacity: 0; z-index: 40; mix-blend-mode: screen; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 100%, rgba(235,164,122,.75) 0%, rgba(235,164,122,.2) 40%, rgba(0,0,0,0) 70%); }
+  #signal { position: absolute; left: 540px; top: 900px; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; z-index: 45; opacity: 0; mix-blend-mode: screen;
+    background: radial-gradient(circle, #fff 0%, #EBA47A 25%, rgba(235,164,122,.5) 50%, rgba(0,0,0,0) 72%); box-shadow: 0 0 60px 20px rgba(235,164,122,.5); }
+
+  .card { position: absolute; left: 90px; width: 900px; border-radius: 36px; padding: 46px; background: rgba(12,20,36,.94);
+    border: 2px solid rgba(235,164,122,.5); box-shadow: 0 0 60px rgba(235,164,122,.22), 0 40px 90px rgba(0,0,0,.55); }
+  .eyebrow { font-size: 30px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #93A3B8; }
+  .q { font-size: 44px; line-height: 1.3; font-weight: 500; margin-top: 10px; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 26px; }
+  .chip { font-size: 40px; font-weight: 600; padding: 18px 26px; border-radius: 20px; border: 2px solid rgba(235,164,122,.75); color: #EBA47A; background: rgba(235,164,122,.08); opacity: 0; position: relative; overflow: hidden; white-space: nowrap; }
+  .chip .hl { position: absolute; top: 0; bottom: 0; width: 160px; left: -200px; background: linear-gradient(90deg, rgba(235,164,122,0), rgba(235,164,122,.4), rgba(235,164,122,0)); }
+  .cur { display: inline-block; width: 4px; height: 42px; background: #EBA47A; vertical-align: -6px; margin-left: 4px; }
+
+  /* s2 prompt field */
+  #field { position: absolute; left: 90px; top: 840px; width: 900px; height: 210px; border-radius: 40px; background: rgba(9,16,30,.94); border: 2px solid rgba(235,164,122,.75);
+    box-shadow: 0 0 40px rgba(235,164,122,.35), 0 0 120px rgba(235,164,122,.12); display: flex; align-items: center; padding: 0 24px 0 44px; gap: 20px; opacity: 0; }
+  #field .q2 { flex: 1; font-size: 40px; line-height: 1.3; font-weight: 500; }
+  #btn { width: 100px; height: 100px; border-radius: 50%; background: #EBA47A; display: flex; align-items: center; justify-content: center; flex: none; }
+  #btn svg { width: 46px; height: 46px; }
+
+  /* s4 model cards */
+  .mc { position: absolute; width: 270px; height: 300px; border-radius: 28px; background: rgba(10,17,30,.9); border: 2px solid rgba(255,255,255,.12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; opacity: 0; transform-origin: 50% 50%; }
+  .mc img { width: 110px; height: 110px; object-fit: contain; }
+  .mc .nm { font-size: 34px; font-weight: 700; }
+  .mc.on { border-color: var(--c); box-shadow: 0 0 50px var(--g), inset 0 0 40px rgba(255,255,255,.03); }
+  #hubcrop { position: absolute; left: 50%; top: 330px; width: 300px; margin-left: -150px; opacity: 0; -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 45%, rgba(0,0,0,0) 72%); mask-image: radial-gradient(ellipse at 50% 50%, #000 45%, rgba(0,0,0,0) 72%); }
+  #hubcrop img { width: 100%; display: block; }
+  #links { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #links path { fill: none; stroke-width: 6; stroke-linecap: round; filter: url(#lg); }
+
+  /* s5 response cards */
+  .rc { position: absolute; left: 90px; width: 900px; height: 230px; border-radius: 30px; background: rgba(12,20,36,.94); border: 2px solid var(--c); box-shadow: 0 0 50px var(--g), 0 30px 70px rgba(0,0,0,.5); padding: 30px 40px; display: flex; align-items: center; gap: 30px; opacity: 0; transform-origin: 50% 50%; }
+  .rc img { width: 96px; height: 96px; object-fit: contain; flex: none; }
+  .rc .t { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .rc .nm { font-size: 36px; font-weight: 700; display: flex; align-items: center; gap: 16px; }
+  .rc .done { font-size: 26px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #3DDC97; }
+  .rc .hi { font-size: 44px; font-weight: 500; color: #DCE3EC; white-space: nowrap; }
+
+  /* s6 convergence */
+  #conv { position: absolute; inset: 0; transform-origin: 50% 46%; }
+  .sc { position: absolute; width: 330px; height: 200px; border-radius: 26px; background: rgba(12,20,36,.92); border: 2px solid var(--c); box-shadow: 0 0 40px var(--g); padding: 22px 26px; opacity: 0; transform-origin: 50% 50%; }
+  .sc .nm { font-size: 30px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+  .sc .nm img { width: 44px; height: 44px; object-fit: contain; }
+  .sc .ln { height: 10px; border-radius: 5px; background: rgba(255,255,255,.22); margin-top: 16px; }
+  .sc .ln.b { width: 70%; }
+  .tagi { position: absolute; font-size: 28px; font-weight: 700; padding: 8px 18px; border-radius: 12px; white-space: nowrap; opacity: 0; }
+  .tagi.good { background: #3DDC97; color: #06261A; } .tagi.weak { background: #F2B64B; color: #1A1206; }
+  #hubc { position: absolute; left: 50%; top: 640px; width: 420px; margin-left: -210px; border-radius: 28px; overflow: hidden; opacity: 0; transform-origin: 50% 50%; box-shadow: 0 0 80px rgba(235,164,122,.35); }
+  #hubc img { width: 100%; display: block; }
+  #streams { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #streams path { fill: none; stroke-width: 11; stroke-linecap: round; filter: url(#sg); }
+  #streams .dot { fill: #fff; filter: url(#sg); }
+
+  /* s7 answer card */
+  #ans { position: absolute; left: 90px; top: 420px; width: 900px; border-radius: 36px; padding: 48px; background: rgba(12,20,36,.95); border: 2px solid rgba(95,214,201,.6); box-shadow: 0 0 70px rgba(79,209,197,.3), 0 40px 90px rgba(0,0,0,.55); opacity: 0; transform-origin: 50% 50%; }
+  #ans .top { display: flex; align-items: center; justify-content: space-between; }
+  #ans .eyebrow { color: #5FD6C9; font-size: 32px; }
+  #ok { width: 72px; height: 72px; border-radius: 50%; background: #2FC48A; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(.5); box-shadow: 0 0 40px rgba(61,220,151,.6); }
+  #ok svg { width: 40px; height: 40px; }
+  #ans .a { font-size: 46px; line-height: 1.32; font-weight: 500; margin-top: 26px; }
+
+  /* s8 */
+  #logo { position: absolute; left: 90px; top: 640px; width: 900px; opacity: 0; transform-origin: 50% 50%; }
+  #logo img { width: 100%; display: block; }
+  #tag { position: absolute; left: 0; right: 0; top: 1090px; text-align: center; font-size: 38px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0; white-space: nowrap; }
+  #orbit { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+</style></head>
+<body>
+
+<!-- 1 THE PROBLEM -->
+<div class="scene" id="s1">
+  <img class="bg" src="../switchboard/bg/bg01.jpg">
+  <div id="hook" style="position:absolute; inset:0; transform-origin: 50% 45%">
+  <div class="crop" id="a1" style="left:-120px; top:220px; width:1320px; height:1000px"><img src="../switchboard/up/up01.png" style="width:1622px; left:-300px; top:-40px"></div>
+  <div class="win" id="w1a"></div><div class="win" id="w1b"></div><div class="win" id="w1c"></div><div class="win" id="w1d"></div>
+  </div>
+  <div class="copy h rise" id="c1" style="top:1290px">Which AI should<br><span class="blue">you ask?</span></div>
+</div>
+
+<!-- 2 JUST ASK -->
+<div class="scene" id="s2">
+  <img class="bg" src="../switchboard/bg/bg02.jpg">
+  <div class="crop" id="a2" style="left:-3px; top:280px; width:1086px; height:511px; -webkit-mask-image: linear-gradient(to bottom, #000 80%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to bottom, #000 80%, rgba(0,0,0,0) 100%)"><img src="../switchboard/up/up02.png" style="width:1480.4px; left:-394px; top:-175px"></div>
+  <div id="field"><div class="q2"><span id="typed"></span><span class="cur" id="cur"></span></div>
+    <div id="btn"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div></div>
+  <div class="copy h rise" id="c2" style="top:1200px; font-size:128px">Just <span class="copper">ask.</span></div>
+</div>
+
+<!-- 3 BETTER PROMPT -->
+<div class="scene" id="s3">
+  <img class="bg" src="../switchboard/bg/bg03.jpg">
+  <div class="card" id="card3" style="top:300px">
+    <div class="eyebrow">Your question</div>
+    <div class="q">I built an app. How do I turn it into a profitable business?</div>
+    <div id="sharp" style="opacity:0; margin-top:30px; border-top:1px solid rgba(255,255,255,.1); padding-top:26px">
+      <div class="eyebrow copper">Structured prompt</div>
+      <div class="chips">
+        <div class="chip" id="ch1">Market demand<div class="hl"></div></div>
+        <div class="chip" id="ch2">Competition<div class="hl"></div></div>
+        <div class="chip" id="ch3">Pricing strategy<div class="hl"></div></div>
+        <div class="chip" id="ch4">Launch plan<div class="hl"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="copy h rise" id="c3" style="top:1250px">A stronger <span class="copper">question.</span></div>
+</div>
+
+<!-- 4 RIGHT AI AGENTS -->
+<div class="scene" id="s4">
+  <img class="bg" src="../switchboard/bg/bg04.jpg">
+  <div id="hubcrop"><img src="../switchboard-conv/icons/hub.png"></div>
+  <svg id="links" viewBox="0 0 1080 1920">
+    <defs><filter id="lg" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <path id="lk1" d="M540 560 C 540 700, 225 680, 225 820" stroke="#EBA47A"/>
+    <path id="lk2" d="M540 560 C 540 720, 540 700, 540 820" stroke="#8EA6FF"/>
+    <path id="lk3" d="M540 560 C 540 700, 855 680, 855 820" stroke="#B79CFF"/>
+  </svg>
+  <div class="mc on" id="m1" style="left:90px; top:820px; --c:#EBA47A; --g:rgba(235,164,122,.45)"><img src="../switchboard-conv/icons/claude.png"><div class="nm">Claude</div></div>
+  <div class="mc on" id="m2" style="left:405px; top:820px; --c:#8EA6FF; --g:rgba(142,166,255,.45)"><img src="../switchboard-conv/icons/perplexity.png"><div class="nm">Perplexity</div></div>
+  <div class="mc on" id="m3" style="left:720px; top:820px; --c:#B79CFF; --g:rgba(183,156,255,.45)"><img src="../switchboard-conv/icons/gemini.png"><div class="nm">Gemini</div></div>
+  <div class="mc" id="m4" style="left:250px; top:1160px; --c:#fff; width:260px; height:120px; flex-direction:row; gap:14px"><img src="../switchboard-conv/icons/chatgpt.png" style="width:60px; height:60px"><div class="nm" style="font-size:28px; color:#93A3B8">ChatGPT</div></div>
+  <div class="mc" id="m5" style="left:570px; top:1160px; --c:#fff; width:260px; height:120px; flex-direction:row; gap:14px"><div class="nm" style="font-size:28px; color:#93A3B8">Other models</div></div>
+  <div class="copy h rise" id="c4" style="top:1330px">The right <span class="copper">AIs.</span></div>
+</div>
+
+<!-- 5 THREE ANSWERS -->
+<div class="scene" id="s5">
+  <img class="bg" src="../switchboard/bg/bg05.jpg">
+  <div class="rc" id="r1" style="top:330px; --c:#EBA47A; --g:rgba(235,164,122,.35)"><img src="../switchboard-conv/icons/claude.png"><div class="t"><div class="nm">Claude <span class="done">Done</span></div><div class="hi">Customer validation</div></div></div>
+  <div class="rc" id="r2" style="top:600px; --c:#8EA6FF; --g:rgba(142,166,255,.35)"><img src="../switchboard-conv/icons/perplexity.png"><div class="t"><div class="nm">Perplexity <span class="done">Done</span></div><div class="hi">Competitive research</div></div></div>
+  <div class="rc" id="r3" style="top:870px; --c:#B79CFF; --g:rgba(183,156,255,.35)"><img src="../switchboard-conv/icons/gemini.png"><div class="t"><div class="nm">Gemini <span class="done">Done</span></div><div class="hi">Pricing and launch</div></div></div>
+  <div class="copy h rise" id="c5" style="top:1250px">Three <span class="violet">perspectives.</span></div>
+</div>
+
+<!-- 6 THE CONVERGENCE -->
+<div class="scene" id="s6">
+  <img class="bg" src="../switchboard/bg/bg07.jpg">
+  <div id="conv">
+    <svg id="streams" viewBox="0 0 1080 1920">
+      <defs><filter id="sg" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <path id="st1" d="M255 622 C 255 800, 420 860, 540 940" stroke="#EBA47A"/>
+      <path id="st2" d="M825 622 C 825 800, 660 860, 540 940" stroke="#8EA6FF"/>
+      <path id="st3" d="M540 1238 C 540 1150, 540 1100, 540 1040" stroke="#B79CFF"/>
+      <circle id="d1" class="dot" r="9"/><circle id="d2" class="dot" r="9"/><circle id="d3" class="dot" r="9"/>
+    </svg>
+    <div id="hubc"><img src="../switchboard-conv/icons/hubcard.png"></div>
+    <div class="sc" id="k1" style="left:90px; top:420px; --c:#EBA47A; --g:rgba(235,164,122,.35)"><div class="nm"><img src="../switchboard-conv/icons/claude.png">Claude</div><div class="ln"></div><div class="ln b"></div></div>
+    <div class="sc" id="k2" style="left:660px; top:420px; --c:#8EA6FF; --g:rgba(142,166,255,.35)"><div class="nm"><img src="../switchboard-conv/icons/perplexity.png">Perplexity</div><div class="ln"></div><div class="ln b"></div></div>
+    <div class="sc" id="k3" style="left:375px; top:1240px; --c:#B79CFF; --g:rgba(183,156,255,.35)"><div class="nm"><img src="../switchboard-conv/icons/gemini.png">Gemini</div><div class="ln"></div><div class="ln b"></div></div>
+    <div class="tagi good" id="t1" style="left:120px; top:380px">Useful insight</div>
+    <div class="tagi weak" id="t2" style="left:690px; top:380px">Unsupported claim</div>
+    <div class="tagi weak" id="t3" style="left:405px; top:1200px">Contradiction</div>
+  </div>
+  <div class="copy h rise" id="c6" style="top:1470px; width:900px; font-size:84px">It doesn&#39;t just combine.<br><span class="copper">It challenges.</span></div>
+</div>
+
+<!-- 7 THE PAYOFF -->
+<div class="scene" id="s7">
+  <img class="bg" src="../switchboard/bg/bg08.jpg">
+  <div id="ans">
+    <div class="top"><div class="eyebrow">Top answer</div><div id="ok"><svg viewBox="0 0 24 24" fill="none" stroke="#06261A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div></div>
+    <div class="a">Validate demand. Find your ideal customer. Test pricing. Launch a focused pilot.</div>
+  </div>
+  <div class="copy h rise" id="c7" style="top:1180px">One answer.<br><span class="teal">Thought through.</span></div>
+</div>
+
+<!-- 8 BRAND -->
+<div class="scene" id="s8">
+  <img class="bg" src="../switchboard/bg/bg10.jpg">
+  <svg id="orbit" viewBox="0 0 1080 1920">
+    <defs><filter id="gl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g transform="rotate(-9 540 860)"><ellipse id="o1" cx="540" cy="860" rx="560" ry="255" fill="none" stroke="#EBA47A" stroke-width="3" stroke-linecap="round" filter="url(#gl)" opacity=".9"/></g>
+  </svg>
+  <div id="logo"><img src="../switchboard/logo.png"></div>
+  <div id="tag">Ask once · Get the top answer</div>
+</div>
+
+<div class="vignette"></div>
+<div id="copperrise"></div>
+<div id="signal"></div>
+<div id="sweep"></div>
+<div id="black"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const soft = x => { const c = 1.2, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  document.querySelectorAll('.rise').forEach(el => {
+    const out = [];
+    const walk = (node, cls) => {
+      if (node.nodeType === 3) { node.textContent.split(/(\s+)/).forEach(tok => { if (!tok) return; if (/^\s+$/.test(tok)) out.push(' '); else out.push(`<span class="w ${cls}">${tok}</span>`); }); }
+      else if (node.tagName === 'BR') out.push('<br>');
+      else Array.from(node.childNodes).forEach(n => walk(n, node.className));
+    };
+    Array.from(el.childNodes).forEach(n => walk(n, '')); el.innerHTML = out.join('');
+  });
+  let t_ = 0;
+  const rise = (id, start, stagger = 0.08, dur = 0.5) => Array.from($(id).querySelectorAll('.w')).forEach((w, i) => { const q = easeOut(p(t_, start + i*stagger, dur)); w.style.opacity = q; w.style.transform = `translateY(${34*(1-q)}px)`; });
+  const type = (id, cur, text, s, d) => { const q = p(t_, s, d); $(id).textContent = text.slice(0, Math.round(q*text.length)); $(cur).style.opacity = (t_ >= s - 0.3 && t_ < s + d + 0.5 && Math.floor(t_*4)%2 === 0) ? 1 : 0; };
+  const setDash = (el, q) => { const L = el.getTotalLength(); el.setAttribute('stroke-dasharray', `${L*q} ${L}`); };
+  const along = (path, dot, q) => { const L = path.getTotalLength(); const pt = path.getPointAtLength(L*q); dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y); };
+
+  const S = { s1:[0,4], s2:[4,8], s3:[8,11], s4:[11,14], s5:[14,18], s6:[18,23], s7:[23,26], s8:[26,28.5] };
+  const FADE = 0.5;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b + FADE) ? 0 : p(t, a, FADE);
+  const sweeps = [11, 14, 18];
+  const Q = "I built an app. How do I turn it into a profitable business?";
+  const O1 = 2*Math.PI*Math.sqrt((560*560+255*255)/2);
+  const S1 = { s: 0.8, rx: 375, ry: 50, bx: -120, by: 220 };
+  const WIN = { w1a: [940, 40, 660, 600], w1b: [432, 240, 700, 648], w1c: [1540, 300, 488, 640], w1d: [960, 680, 820, 700] };
+  for (const id in WIN) { const [x, y, w, h] = WIN[id]; const el = $(id);
+    el.style.left = (S1.bx + (x - S1.rx)*S1.s) + 'px'; el.style.top = (S1.by + (y - S1.ry)*S1.s) + 'px'; el.style.width = (w*S1.s) + 'px'; el.style.height = (h*S1.s) + 'px';
+    el.innerHTML = `<img src="../switchboard/up/up01.png" style="width:${2028*S1.s}px; left:${-x*S1.s}px; top:${-y*S1.s}px">`; }
+
+  window.seek = function (t) {
+    t_ = t;
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    $('black').style.opacity = 1 - p(t, 0, 0.5);
+    let sw = 0, sx = -900;
+    for (const s0 of sweeps) { if (t >= s0 - 0.05 && t <= s0 + 0.85) { const q = p(t, s0 - 0.05, 0.9); sx = -900 + 2300*easeInOut(q); sw = Math.sin(q*Math.PI); } }
+    $('sweep').style.opacity = sw; $('sweep').style.transform = `translateX(${sx}px) rotate(14deg)`;
+
+    // s1: camera glides between the windows, then they fall back as copper rises
+    { const g = p(t, 0, 3.6); const thru = easeInOut(p(t, 3.3, 0.9));
+      const base = `translate(${-40 + 60*easeInOut(g)}px, ${10 - 20*easeInOut(g)}px) scale(${1.08 - 0.05*easeInOut(g)})`;
+      $('a1').style.transform = base;
+      $('hook').style.transform = `scale(${1 + 0.45*thru})`; $('hook').style.opacity = 1 - 0.6*thru;
+      const order = { w1a: 0.5, w1b: 1.1, w1c: 1.7, w1d: 2.3 };
+      for (const id in order) { const s0 = order[id]; const k = easeInOut(p(t, s0, 0.8)); const hold = 1 - 0.5*easeInOut(p(t, s0 + 0.8, 1.2));
+        const [x, y, w, h] = WIN[id]; const cx = S1.bx + (x - S1.rx + w/2)*S1.s, cy = S1.by + (y - S1.ry + h/2)*S1.s;
+        const sc = 1.08 - 0.05*easeInOut(g); const ax = -120 + 660, ay = 220 + 500;  // the base art scales about its own centre
+        const dx = -40 + 60*easeInOut(g) + (cx - ax)*(sc - 1), dy = 10 - 20*easeInOut(g) + (cy - ay)*(sc - 1);
+        $(id).style.transform = `translate(${dx}px, ${dy}px) scale(${sc*(1 + 0.05*k*hold)})`;
+        $(id).style.opacity = k > 0 ? 1 : 0; $(id).style.filter = `brightness(${1 + 0.22*k*hold})`; }
+      $('copperrise').style.opacity = 0.9*easeInOut(p(t, 3.2, 0.9)) * (1 - easeInOut(p(t, 4.4, 0.7)));
+      rise('c1', 0.5); }
+
+    // s2: Switchboard emerges in copper, the question types, camera pushes into the field
+    { const q = easeOut(p(t, 4.0, 1.1)); $('a2').style.transform = `translateY(${50*(1-q)}px) scale(${0.96 + 0.04*q})`;
+      const fq = easeOut(p(t, 4.4, 0.8)); $('field').style.opacity = fq; $('field').style.transform = `translateY(${30*(1-fq)}px)`;
+      type('typed', 'cur', Q, 4.9, 2.1);
+      const push = easeInOut(p(t, 7.4, 0.8)); $('s2').style.transform = `scale(${1 + 0.16*push})`; $('s2').style.transformOrigin = '50% 49%';
+      rise('c2', 4.6, 0.14); }
+
+    // s3: the question becomes a structured prompt; the prompt becomes a signal that travels into scene 4
+    { const cq = easeOut(p(t, 8.0, 0.9)); $('card3').style.transform = `translateY(${40*(1-cq)}px) scale(${0.96 + 0.04*cq})`;
+      const sq = easeOut(p(t, 8.7, 0.8)); $('sharp').style.opacity = sq; $('sharp').style.transform = `translateY(${20*(1-sq)}px)`;
+      [['ch1', 9.0], ['ch2', 9.3], ['ch3', 9.6], ['ch4', 9.9]].forEach(([id, s]) => { const q = p(t, s, 0.6); const el = $(id); el.style.opacity = easeOut(q); el.style.transform = `scale(${0.85 + 0.15*easeOut(q)})`;
+        const hq = p(t, s + 0.35, 0.6); el.querySelector('.hl').style.left = `${-200 + 800*easeInOut(hq)}px`; });
+      const sg = p(t, 10.5, 1.0); $('signal').style.opacity = sg > 0 && sg < 1 ? Math.sin(sg*Math.PI) : 0;
+      $('signal').style.transform = `translateY(${(900 - 900*easeInOut(sg)) - 900 + 0}px) translate(0px, ${-(900-480)*easeInOut(sg)}px) scale(${1 + 1.5*Math.sin(sg*Math.PI)})`;
+      rise('c3', 8.4); }
+
+    // s4: the signal reaches the node, the right models light up, the rest fade back
+    { const hq = easeOut(p(t, 11.1, 0.6)); $('hubcrop').style.opacity = hq; $('hubcrop').style.transform = `scale(${0.9 + 0.1*hq})`;
+      const all = easeOut(p(t, 11.3, 0.6));
+      [['m1', 11.9], ['m2', 12.3], ['m3', 12.7]].forEach(([id, s], i) => { const on = easeOut(p(t, s, 0.5)); const el = $(id);
+        el.style.opacity = all; el.style.transform = `translateY(${30*(1-all) - 16*on}px) scale(${0.96 + 0.06*on})`; el.style.filter = `brightness(${0.55 + 0.6*on})`;
+        setDash($('lk' + (i+1)), easeInOut(p(t, s - 0.3, 0.6))); });
+      const off = easeInOut(p(t, 12.9, 0.7));
+      for (const id of ['m4', 'm5']) { $(id).style.opacity = all*(1 - 0.75*off); $(id).style.transform = `translateY(${30*(1-all) + 20*off}px) scale(${1 - 0.08*off})`; $(id).style.filter = `brightness(${0.7 - 0.3*off})`; }
+      rise('c4', 11.5); }
+
+    // s5: three answers land in rhythm, then turn toward Switchboard
+    { [['r1', 14.6], ['r2', 15.6], ['r3', 16.6]].forEach(([id, s]) => { const q = p(t, s, 0.45); const el = $(id); const turn = easeInOut(p(t, 17.4, 0.7));
+        el.style.opacity = easeOut(clamp(q*1.5)); el.style.transform = `perspective(1400px) translateY(${40*(1-easeOut(q))}px) scale(${0.9 + 0.1*soft(q)}) rotateX(${-18*turn}deg) translateZ(${-120*turn}px)`; });
+      rise('c5', 14.4); }
+
+    // s6: the hero convergence
+    { const cam = p(t, 18, 5.3); $('conv').style.transform = `perspective(1600px) rotateX(${4 - 4*easeInOut(cam)}deg) scale(${1.07 - 0.07*easeInOut(cam)})`;
+      [['k1', 18.1], ['k2', 18.3], ['k3', 18.5]].forEach(([id, s]) => { const q = easeOut(p(t, s, 0.6)); const el = $(id); el.style.opacity = q; el.style.transform = `scale(${0.9 + 0.1*q})`; });
+      const hq = easeOut(p(t, 18.2, 0.7)); $('hubc').style.opacity = hq; $('hubc').style.transform = `scale(${0.9 + 0.1*hq + 0.06*easeOut(p(t, 22.0, 0.9))})`;
+      [['t1', 18.9], ['t2', 19.3], ['t3', 19.7]].forEach(([id, s]) => { const q = easeOut(p(t, s, 0.4)); const el = $(id); el.style.opacity = q; el.style.transform = `translateY(${10*(1-q)}px)`; });
+      [['st1', 'd1', 20.3], ['st2', 'd2', 20.6], ['st3', 'd3', 20.9]].forEach(([pid, did, s]) => { const q = easeInOut(p(t, s, 1.4)); const path = $(pid); setDash(path, q);
+        path.style.opacity = q > 0 ? (1 - 0.5*easeInOut(p(t, s + 1.7, 0.7))) : 0; along(path, $(did), q); $(did).style.opacity = q > 0 && q < 1 ? 1 : 0; });
+      $('hubc').style.boxShadow = `0 0 ${80 + 100*easeOut(p(t, 21.8, 0.9))}px rgba(235,164,122,${.35 + .4*easeOut(p(t, 21.8, 0.9))})`;
+      rise('c6', 18.6, 0.08, 0.5); }
+
+    // s7: the answer card settles, the green indicator lands with the ding at 19.8
+    { const cq = easeOut(p(t, 23.0, 0.85)); $('ans').style.opacity = cq; $('ans').style.transform = `translateY(${40*(1-cq)}px) scale(${0.94 + 0.06*cq})`;
+      const ok = p(t, 23.9, 0.4); $('ok').style.opacity = easeOut(ok); $('ok').style.transform = `scale(${0.5 + 0.5*soft(ok)})`;
+      rise('c7', 23.4, 0.07, 0.45); }
+
+    // s8: lockup, held through the last frame
+    { const oq = easeInOut(p(t, 26.0, 0.6)); $('o1').setAttribute('stroke-dasharray', `${O1*oq} ${O1}`);
+      const lq = easeOut(p(t, 26.0, 0.5)); $('logo').style.opacity = lq; $('logo').style.transform = `scale(${1.06 - 0.06*lq})`;
+      const tq = easeOut(p(t, 26.25, 0.35)); $('tag').style.opacity = tq; $('tag').style.transform = `translateY(${16*(1-tq)}px)`; }
+  };
+  window.seek(0);
+</script>
+</body></html>
