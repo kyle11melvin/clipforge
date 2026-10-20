@@ -43,6 +43,9 @@ his standing brief. Read it before touching anything.
   `npx hyperframes tts` (works after a one-time model download; the cloud voice APIs are unreachable), or
   Australian voices through `tools/vo_piper.py` (Piper model from Hugging Face; "Willow", speaker 9, is the
   one Kyle has heard). `tools/audio.py --music pad|pulse` picks the score.
+  `graphics/switchboard-conv/` is "Commercial V2: The Convergence" from his written 22 s brief (HTML model and
+  response cards with icons cut from the art, SVG streams, `--music conv --duration 22`, a dedicated effects
+  track with the ding). When a brief arrives as a full spec like that, follow it to the frame.
   `graphics/switchboard-v3/` is the 20 s cut in Kyle's own flow (ask → best AIs → best prompt → each answers →
   analyze → best of each → best of all); `--music v3 --duration 20`. He asked for shorter, so start there.
   `graphics/switchboard-v2/` is the phone-first recomposition of the same spot (bigger crops of the 4× panels,

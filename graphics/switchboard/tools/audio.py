@@ -4,7 +4,7 @@
 import sys, argparse, numpy as np, soundfile as sf
 from scipy import signal
 from pathlib import Path
-ap = argparse.ArgumentParser(); ap.add_argument("--vo", default="videos/switchboard/vo"); ap.add_argument("--music", default="pad", choices=["pad", "pulse", "v2", "v3"]); ap.add_argument("--suffix", default=""); ap.add_argument("--late-cues", default="23.2,25.85,28.25", help="start times of lines 8, 9, 10"); ap.add_argument("--duration", type=float, default=30.0); ap.add_argument("--vo-gain", type=float, default=0.85); ap.add_argument("--cues", default="", help="explicit start times for lines 1..n (overrides the V1 cue table)"); ap.add_argument("--speed", default="9:1.08", help="line:factor,... small resample speed-ups")
+ap = argparse.ArgumentParser(); ap.add_argument("--vo", default="videos/switchboard/vo"); ap.add_argument("--music", default="pad", choices=["pad", "pulse", "v2", "v3", "conv"]); ap.add_argument("--suffix", default=""); ap.add_argument("--late-cues", default="23.2,25.85,28.25", help="start times of lines 8, 9, 10"); ap.add_argument("--duration", type=float, default=30.0); ap.add_argument("--vo-gain", type=float, default=0.85); ap.add_argument("--cues", default="", help="explicit start times for lines 1..n (overrides the V1 cue table)"); ap.add_argument("--speed", default="9:1.08", help="line:factor,... small resample speed-ups")
 ARGS = ap.parse_args()
 SR = 48000; DUR = ARGS.duration; N = int(SR*DUR); t = np.arange(N)/SR
 rng = np.random.default_rng(7)
@@ -18,7 +18,9 @@ def env_adsr(n, a, d, s, r, sr=SR):
     if r: e[-r:] *= np.linspace(1, 0, r)
     return e
 def place(buf, sig, at):
-    i = int(at*SR); j = min(N, i+len(sig)); buf[i:j] += sig[:j-i]
+    i = int(at*SR)
+    if i >= N or i < 0: return
+    j = min(N, i+len(sig)); buf[i:j] += sig[:j-i]
 def lowpass(x, fc, order=2):
     b, a = signal.butter(order, fc/(SR/2)); return signal.lfilter(b, a, x)
 def bandpass(x, lo, hi, order=2):
@@ -272,12 +274,77 @@ def music_v3():
     place(m, sw*np.linspace(0, 1, n)**2*g, a)
   return lowpass(m, 10000)
 
-music = {"pad": music_pad, "pulse": music_pulse, "v2": music_v2, "v3": music_v3}[ARGS.music]()
+
+def music_conv():
+  """22 s bed for the Convergence brief: atmospheric tension with digital pulses, a warm copper impact
+  when Switchboard appears, a build from the responses into the convergence, a clean landing on the answer,
+  and a short held chord under the brand. F# minor to A major, 100 bpm."""
+  bpm = 100; beat = 60/bpm
+  chords = [
+    (0, 3, [54, 61, 64]), (3, 6, [50, 57, 61, 66]), (6, 9, [57, 61, 64, 68]), (9, 12, [52, 59, 64, 68]),
+    (12, 15, [54, 61, 64, 69]), (15, 19, [50, 57, 61, 66, 69]), (19, 21, [57, 61, 64, 68]), (21, 22, [57, 61, 64, 69, 73]),
+  ]
+  m = np.zeros(N)
+  for (a, b, notes) in chords:
+    n = int((b-a+0.6)*SR); e = env_adsr(n, 0.4 if a else 1.0, 0.0, 1.0, 0.6); pad = np.zeros(n); tt = np.arange(n)/SR
+    for mm in notes:
+      f = midi(mm); pad += 0.5*saw(f, n, 0.004) + 0.5*saw(f, n, -0.003) + np.sin(2*np.pi*f*tt)
+    bright = 600 if a < 3 else (1300 if a < 15 else 2600)
+    pad = lowpass(pad*e, bright) * (0.022 if a < 3 else 0.03)
+    place(m, pad, a)
+  # digital pulses in the opening: filtered ticks on the off-beats
+  for k in range(int(3/(beat/2))):
+    at = k*beat/2 + 0.2; n = int(0.12*SR); tt = np.arange(n)/SR
+    place(m, bandpass(rng.standard_normal(n), 1800, 2600)*np.exp(-tt*60)*0.05, at)
+  # copper impact at 3.0: low boom plus a soft swell
+  n = int(1.6*SR); tt = np.arange(n)/SR
+  place(m, np.sin(2*np.pi*(48 + 30*np.exp(-tt*8))*tt)*np.exp(-tt*2.2)*0.28, 3.0)
+  place(m, lowpass(rng.standard_normal(n), 900)*np.exp(-tt*4)*0.08, 3.0)
+  # sub pulse from the question, soft kick from the responses, pumping pad in the convergence
+  for k in range(int(DUR/beat)):
+    at = k*beat
+    if at < 3 or at >= 20.6: continue
+    c = [c for c in chords if c[0] <= at < c[1]][0]
+    f = midi(c[2][0]-12); n = int(0.4*SR); tt = np.arange(n)/SR
+    place(m, np.sin(2*np.pi*f*tt)*np.exp(-tt*7)*0.17, at)
+    if 12 <= at < 19:
+      kick = np.sin(2*np.pi*(55 + 80*np.exp(-tt*40))*tt) * np.exp(-tt*16) * (0.11 if at < 15 else 0.18)
+      place(m, kick[:int(0.25*SR)], at)
+  pump = np.ones(N)
+  for k in range(int(DUR/beat)):
+    at = k*beat
+    if at < 15 or at >= 19: continue
+    i = int(at*SR); L = int(0.3*SR); pump[i:i+L] *= np.minimum(1, 0.5 + 0.5*(np.arange(min(L, N-i))/L))
+  m *= pump
+  # arpeggio: from the prompt, thicker through the responses, singing in the convergence, out for the answer
+  for k in range(int(DUR/(beat/2))):
+    at = k*beat/2
+    if at < 6 or at >= 19: continue
+    c = [c for c in chords if c[0] <= at < c[1]][0]
+    pat = [0, 2, 1, 3, 2, 1, 3, 0][k % 8]
+    dens = 0.45 if at < 12 else (0.75 if at < 15 else 1.0)
+    if rng.random() > dens: continue
+    mm = c[2][pat % len(c[2])] + 12; f = midi(mm); n = int(0.5*SR); tt = np.arange(n)/SR
+    g = 0.045 if at < 15 else 0.065
+    place(m, (np.sin(2*np.pi*f*tt) + 0.3*np.sin(2*np.pi*2*f*tt) + 0.12*np.sin(2*np.pi*3*f*tt))*np.exp(-tt*8)*g, at)
+  # airy high layer in the convergence and the hold
+  for (a, b, g) in ((15, 19, 0.02), (19, 22, 0.024)):
+    n = int((b-a+0.5)*SR); e = env_adsr(n, 1.0, 0.0, 1.0, 0.6); tt = np.arange(n)/SR; hp = np.zeros(n)
+    for mm in (76, 81, 85): hp += np.sin(2*np.pi*midi(mm)*tt*(1+0.002*np.sin(2*np.pi*0.3*tt)))
+    place(m, lowpass(hp*e, 6000)*g, a)
+  # cinematic rise 15 -> 19.6
+  n = int(4.6*SR); noise = rng.standard_normal(n); sw = np.zeros(n)
+  for i in range(0, n, 2400):
+    seg = noise[i:i+2400]; fc = 250 + 2600*(i/n)**2; sw[i:i+2400] = bandpass(seg, fc, fc*2.2)
+  place(m, sw*np.linspace(0, 1, n)**2.2*0.06, 15.0)
+  return lowpass(m, 10000)
+
+music = {"pad": music_pad, "pulse": music_pulse, "v2": music_v2, "v3": music_v3, "conv": music_conv}[ARGS.music]()
 # tail: fade out so the cut is clean (longer, breathing fade on the V2 bed)
-_tail = int((1.6 if ARGS.music in ('v2', 'v3') else 0.6)*SR); music[-_tail:] *= np.linspace(1, 0, _tail)**1.5
+_tail = int((1.6 if ARGS.music in ('v2', 'v3') else (0.9 if ARGS.music == 'conv' else 0.6))*SR); music[-_tail:] *= np.linspace(1, 0, _tail)**1.5
 
 # ---- sfx (cue times follow the edit: V1 scene times, or the V2 timeline)
-V2 = ARGS.music == 'v2'; V3 = ARGS.music == 'v3'
+V2 = ARGS.music == 'v2'; V3 = ARGS.music == 'v3'; CONV = ARGS.music == 'conv'
 sfx = np.zeros(N)
 # typing under the prompt bar
 at = 0.45 if V3 else 3.55
@@ -314,6 +381,43 @@ bell = (np.sin(2*np.pi*587.3*tt)*np.exp(-tt*2.2) + 0.5*np.sin(2*np.pi*1174.7*tt)
 _b = 17.0 if V3 else (27.0 if V2 else 28.0)
 place(sfx, bell, _b); place(sfx, whoosh(0.6, 2500, 9000, 0.1), _b)
 sfx = lowpass(sfx, 12000)
+
+if CONV:
+  sfx = np.zeros(N)
+  # typing 3.5 -> 5.4
+  at = 3.5
+  while at < 5.4:
+    n = int(0.03*SR); place(sfx, bandpass(rng.standard_normal(n), 1800, 5200)*np.exp(-np.arange(n)/SR*180)*0.45, at); at += rng.uniform(0.03, 0.05)
+  # digital transformation at 6.6: a quick rising sparkle and an airy sweep
+  for i in range(14):
+    at = 6.6 + i*0.045; f = 1200*2**(i/7); n = int(0.25*SR); tt = np.arange(n)/SR
+    place(sfx, np.sin(2*np.pi*f*tt)*np.exp(-tt*18)*0.06, at)
+  place(sfx, whoosh(0.8, 1500, 6000, 0.12), 6.5)
+  # three activation tones, distinct pitches, with the model lights
+  for at, f in ((9.9, 659.3), (10.3, 783.9), (10.7, 987.8)):
+    n = int(0.7*SR); tt = np.arange(n)/SR
+    place(sfx, (np.sin(2*np.pi*f*tt) + 0.4*np.sin(2*np.pi*2*f*tt))*np.exp(-tt*6)*0.16, at)
+  # three completion hits: DUM. DUM. DUM.
+  for at in (12.3, 13.1, 13.9):
+    n = int(0.5*SR); tt = np.arange(n)/SR
+    thump = np.sin(2*np.pi*(70 + 60*np.exp(-tt*30))*tt)*np.exp(-tt*12)*0.5
+    tone = np.sin(2*np.pi*440*tt)*np.exp(-tt*14)*0.12
+    place(sfx, thump + tone, at)
+  # convergence shimmer and rise 16.6 -> 19
+  for i in range(60):
+    at = 16.6 + 2.3*rng.random()**0.8; f = rng.uniform(1800, 6500); n = int(0.5*SR); tt = np.arange(n)/SR
+    place(sfx, np.sin(2*np.pi*f*tt)*np.exp(-tt*10)*0.045*(0.4 + 0.6*(at-16.6)/2.3), at)
+  place(sfx, whoosh(2.4, 2000, 8000, 0.08), 16.6)
+  # the ding at 19.8
+  n = int(1.8*SR); tt = np.arange(n)/SR
+  ding = (np.sin(2*np.pi*1318.5*tt)*np.exp(-tt*3.5) + 0.6*np.sin(2*np.pi*2637*tt)*np.exp(-tt*5) + 0.3*np.sin(2*np.pi*3951*tt)*np.exp(-tt*7) + 0.35*np.sin(2*np.pi*659.3*tt)*np.exp(-tt*3)) * 0.42
+  ding[:int(0.003*SR)] *= np.linspace(0, 1, int(0.003*SR)); place(sfx, ding, 19.8)
+  # sonic logo at 21.0: three quick notes landing on a warm bell
+  for i, (f, dt) in enumerate(((587.3, 0.0), (880.0, 0.12), (1174.7, 0.24))):
+    n = int(1.4*SR); tt = np.arange(n)/SR
+    place(sfx, (np.sin(2*np.pi*f*tt) + 0.3*np.sin(2*np.pi*2*f*tt))*np.exp(-tt*(2.5 if i == 2 else 9))*0.2, 21.0 + dt)
+  place(sfx, whoosh(0.6, 2500, 9000, 0.08), 21.0)
+  sfx = lowpass(sfx, 12000)
 
 # ---- voiceover placement (scene cue + a breath), with a gentle speed-up on the two tight lines
 c8, c9, c10 = (float(x) for x in ARGS.late_cues.split(","))
