@@ -24,6 +24,8 @@ export async function probe(file) {
     height: rotated ? v.width : v.height,
     fps: den ? num / den : 30,
     hasAudio: Boolean(a),
+    // iPhone footage is HLG/PQ HDR; the renderer would otherwise promote the whole job to HDR.
+    hdr: ["arib-std-b67", "smpte2084"].includes(v.color_transfer),
   };
 }
 
@@ -96,10 +98,14 @@ export async function assemble({ clips, width, height, fps = 30, fit = "cover", 
     ? `scale=${width}:${height}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2:color=black`
     : `scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height}`;
 
+  // Tone-map HDR sources to SDR BT.709 after the downscale, so the output is a plain SDR file.
+  const sdr = "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv";
+
   clips.forEach((clip, i) => {
     clip.segments.forEach((seg, j) => {
       const v = `v${i}_${j}`, a = `a${i}_${j}`;
-      filters.push(`[${i}:v]trim=start=${seg.start}:end=${seg.end},setpts=PTS-STARTPTS,${scale},fps=${fps},format=yuv420p,setsar=1[${v}]`);
+      const tone = clip.hdr ? `${sdr},` : "";
+      filters.push(`[${i}:v]trim=start=${seg.start}:end=${seg.end},setpts=PTS-STARTPTS,${scale},${tone}fps=${fps},format=yuv420p,setsar=1[${v}]`);
       if (clip.hasAudio) {
         filters.push(`[${i}:a]atrim=start=${seg.start}:end=${seg.end},asetpts=PTS-STARTPTS,aformat=sample_rates=48000:channel_layouts=stereo[${a}]`);
       } else {
@@ -115,6 +121,9 @@ export async function assemble({ clips, width, height, fps = 30, fit = "cover", 
     "-filter_complex", filters.join(";"),
     "-map", "[vcat]", "-map", "[aout]",
     "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-r", String(fps),
+    // A keyframe every second keeps the renderer's seeks exact; tag the output as SDR BT.709.
+    "-g", String(fps), "-keyint_min", String(fps),
+    "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
     "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
     output,
   );

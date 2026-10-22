@@ -11,11 +11,15 @@
  *   {
  *     "footage": "videos/x/final.mp4",          // captioned output of `clipforge build`, or any clip
  *     "graphics": "videos/x/final-graphics.mp4", // output of src/graphics/render.mjs
+ *     "pip": { "width": 0.56, "x": 0, "y": 0, "border": 8, "borderColor": "#C9A96A" }, // all optional
  *     "cues": [
  *       { "at": 3.2, "from": 3.4, "to": 6.4, "mode": "cut" },
  *       { "at": 9.0, "from": 16.3, "to": 18.8, "mode": "pip" }
  *     ]
  *   }
+ *
+ * The graphics video may be any size; a pip box keeps its aspect, so a landscape card (say 1080x640)
+ * makes a short box that fits above the speaker's head.
  */
 import { mkdir, readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
@@ -56,7 +60,8 @@ export async function broll({ cuesFile, output, width = 1080, height = 1920, fps
   const pipH = Math.round(pipW * (g.height / g.width));
   const pipX = spec.pip.x ?? Math.round((width - pipW) / 2);
   const pipY = spec.pip.y ?? Math.round(height - pipH - height * 0.07);
-  const border = 8;
+  const border = spec.pip.border ?? 8;
+  const borderColor = spec.pip.borderColor ?? "#C9A96A";
 
   const filters = [`[0:v]format=yuv420p[b0]`];
   const cues = [...spec.cues].sort((a, b) => a.at - b.at);
@@ -75,7 +80,8 @@ export async function broll({ cuesFile, output, width = 1080, height = 1920, fps
     ];
     let x = 0, y = 0;
     if (mode === "pip") {
-      chain.push(`scale=${pipW}:${pipH}`, `pad=${pipW + border * 2}:${pipH + border * 2}:${border}:${border}:color=#C9A96A`);
+      chain.push(`scale=${pipW}:${pipH}`);
+      if (border > 0) chain.push(`pad=${pipW + border * 2}:${pipH + border * 2}:${border}:${border}:color=${borderColor}`);
       x = pipX - border; y = pipY - border;
     }
     chain.push(`setpts=PTS+${c.at}/TB`);

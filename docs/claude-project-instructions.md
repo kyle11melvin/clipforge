@@ -39,6 +39,8 @@ kit, the fonts and the render pipeline.
 - Carousel shape: hook (navy) → editorial (sand) → numerals (navy, 01/02 rows) → big number (navy) →
   CTA (navy: DM keyword, hairline, portrait, name, NMLS, disclosure line).
 - The ask is always a DM keyword. In use: CONV, VA, DSCR, WAIT, BUYDOWN.
+- Talking-head reels carry no DM / name / NMLS card inside the video (Kyle, 2026-10-22). He says
+  "message me" on camera; the written caption carries the ask.
 - Content pillars: Mortgage IQ, OC Real Estate, Beyond the Mortgage, Life.
 
 ## Voice

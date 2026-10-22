@@ -9,7 +9,10 @@ his standing brief. Read it before touching anything.
 1. Read this file, then the newest note in `docs/log/`.
 2. Run `npm install` and `npm run doctor`. If doctor reports a missing browser or speech model, run
    `npm run setup` (downloads about 700 MB once). Nothing renders or transcribes until this passes.
-3. Ask Kyle for the footage or screenshots as chat attachments. Not Drive.
+3. Footage: the Google Drive connector can now list his `Clipforge` folder, but its download tool caps at
+   10 MB. For a real clip, find it by name with `search_files`, then fetch
+   `https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t` with curl (works when
+   the file is link-shared, which his uploads have been). If that 403s, ask for a chat attachment.
 4. Deliver on a private artifact page with a Save MP4 button and a contact sheet of stills, then list what
    is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
 
@@ -28,6 +31,11 @@ his standing brief. Read it before touching anything.
 ## What exists
 
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
+  iPhone footage is HDR (HLG); the cut step tone-maps it to SDR and writes a keyframe every second, which
+  HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") before the render.
+- `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
+  `border`, `borderColor`. Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
+  the top (`y: 48`) so it sits in the sky above his head and never touches the captions.
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
   If Playwright's own browser is missing it falls back to `CLIPFORGE_CHROMIUM` or `/opt/pw-browsers/chromium`,
@@ -37,6 +45,9 @@ his standing brief. Read it before touching anything.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
   01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
+- `graphics/20-down-myth/` — the first talking-head reel with cards (2026-10-22): landscape Coastal Money
+  cards, "20% down" with a terracotta X slamming through it, "3% down", "Seller credit / Buys your rate
+  down." Start the next Instagram talking-head post from this one.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
@@ -103,6 +114,9 @@ his standing brief. Read it before touching anything.
 - The graphics follow the words: icons popping while he says "six apps", the website while he says
   "entire website", the Morgan chat while he asks about Siri. Full-frame cut for a graphic that carries its
   own text; picture-in-picture (lower half, gold border, he stays visible) for a reaction moment.
+- **No DM / name / NMLS card inside a talking-head video** (Kyle, 2026-10-22: "get rid of the last one that
+  says DM me and gives my name and my NMLS number"). He says "message me" on camera; the caption carries
+  the ask. The Coastal Money sign-off stays for graphics-only posts.
 - Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). Caption
   style: Inter ExtraBold, uppercase, white with a dark outline, centred at 70% of frame height.
 - Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
