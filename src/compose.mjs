@@ -7,8 +7,17 @@ export function composition({ width, height, fps, duration, videoSrc, captions, 
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   const d = (n) => Math.round(n * 1000) / 1000;
   const accent = style.accent ?? "#ffd400";
-  const captionSize = Math.round(width * (style.captionScale ?? 0.064));
+  // Caption presets. "classic": Inter bold, uppercase, dark outline (the Siri-post look).
+  // "rounded": Nunito ExtraBold, sentence case, soft shadow, no outline (matches Kyle's earlier reels).
+  const rounded = style.captionStyle === "rounded";
+  const captionSize = Math.round(width * (style.captionScale ?? (rounded ? 0.074 : 0.064)));
   const captionBottom = Math.round(height * (style.captionFromBottom ?? 0.30));
+  const capFont = rounded
+    ? `font-family: "Nunito", "Inter", system-ui, sans-serif; font-weight: 800; text-transform: none; letter-spacing: -0.005em;
+    text-shadow: 0 2px 2px rgba(0,0,0,.55), 0 4px 18px rgba(0,0,0,.55);`
+    : `font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em;
+    text-shadow: 0 2px 0 rgba(0,0,0,.9), 0 0 18px rgba(0,0,0,.85), 0 6px 28px rgba(0,0,0,.6);
+    -webkit-text-stroke: ${Math.max(1, Math.round(captionSize * 0.02))}px rgba(0,0,0,.55);`;
 
   const capEls = captions.map((c, i) =>
     `  <div id="cap-${i + 1}" class="clip cap" data-start="${d(c.start)}" data-duration="${d(c.end - c.start)}" data-track-index="1">${esc(c.text)}</div>`
@@ -32,16 +41,15 @@ export function composition({ width, height, fps, duration, videoSrc, captions, 
 <style>
   @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/Inter-400-latin.woff2") format("woff2"); }
   @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/Inter-700-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
   html, body { margin: 0; background: #000; }
   #stage { position: relative; width: ${width}px; height: ${height}px; overflow: hidden; background: #000; font-family: "Inter", system-ui, sans-serif; }
   #main-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
   .cap {
     position: absolute; left: ${Math.round(width * 0.06)}px; right: ${Math.round(width * 0.06)}px; bottom: ${captionBottom}px;
-    text-align: center; font-weight: 700; font-size: ${captionSize}px; line-height: 1.12;
-    color: #fff; text-transform: uppercase; letter-spacing: 0.01em;
-    text-shadow: 0 2px 0 rgba(0,0,0,.9), 0 0 18px rgba(0,0,0,.85), 0 6px 28px rgba(0,0,0,.6);
-    -webkit-text-stroke: ${Math.max(1, Math.round(captionSize * 0.02))}px rgba(0,0,0,.55);
+    text-align: center; font-size: ${captionSize}px; line-height: 1.12; color: #fff;
+    ${capFont}
     animation-name: cap-pop; animation-duration: 160ms; animation-timing-function: cubic-bezier(.2,.9,.3,1.2);
     animation-iteration-count: 1; animation-fill-mode: both;
   }

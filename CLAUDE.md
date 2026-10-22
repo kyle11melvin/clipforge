@@ -49,7 +49,8 @@ his standing brief. Read it before touching anything.
 - `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
 - `graphics/20-down-myth/` — the first talking-head reel with cards (2026-10-22): landscape Coastal Money
   cards, "20% down" with a terracotta X slamming through it, "3% down", "Seller credit / Buys your rate
-  down." Start the next Instagram talking-head post from this one.
+  down." Start the next Instagram talking-head post from this one. **Kyle picked the no-card version**
+  (`comp.html#nocard`, rendered with `--alpha`): type floating over the footage, no navy panel.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
@@ -119,8 +120,11 @@ his standing brief. Read it before touching anything.
 - **No DM / name / NMLS card inside a talking-head video** (Kyle, 2026-10-22: "get rid of the last one that
   says DM me and gives my name and my NMLS number"). He says "message me" on camera; the caption carries
   the ask. The Coastal Money sign-off stays for graphics-only posts.
-- Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). Caption
-  style: Inter ExtraBold, uppercase, white with a dark outline. **Position: `--caption-y 0.19`** (bottom of
+- Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). **Caption
+  style for Instagram reels: `--caption-style rounded`** (Nunito ExtraBold, sentence case, white, soft
+  shadow, no outline), which matches the captions on his earlier reels; Kyle sent a screenshot of one
+  ("Keep saying") on 2026-10-22 and asked for the same. The uppercase Inter outline style (`classic`) is
+  the Siri-post look. **Position: `--caption-y 0.19`** (bottom of
   the caption 19% up from the frame bottom, so it sits on his chest). Kyle, 2026-10-22: "Move the text so
   it's not on my face"; the old 70%-height default landed on his chin in a selfie-framed clip.
 - Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
