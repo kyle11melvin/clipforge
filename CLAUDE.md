@@ -118,7 +118,9 @@ his standing brief. Read it before touching anything.
   says DM me and gives my name and my NMLS number"). He says "message me" on camera; the caption carries
   the ask. The Coastal Money sign-off stays for graphics-only posts.
 - Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). Caption
-  style: Inter ExtraBold, uppercase, white with a dark outline, centred at 70% of frame height.
+  style: Inter ExtraBold, uppercase, white with a dark outline. **Position: `--caption-y 0.19`** (bottom of
+  the caption 19% up from the frame bottom, so it sits on his chest). Kyle, 2026-10-22: "Move the text so
+  it's not on my face"; the old 70%-height default landed on his chin in a selfie-framed clip.
 - Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
   `clipforge broll videos/<name>/cues.json --output ...` to cut them together. The HyperFrames
   `talking-head-recut` skill is the more complete version of the broll step (cards written per moment,

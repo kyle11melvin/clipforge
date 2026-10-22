@@ -24,6 +24,8 @@ BUILD OPTIONS
   --silence-db <n>     Silence threshold in dBFS (default -35)
   --min-silence <s>    Shortest pause that counts as dead air (default 0.5)
   --pad <s>            Breathing room kept around speech (default 0.18)
+  --caption-y <frac>   Where captions sit, as a fraction of frame height from the bottom (default 0.30;
+                       use ~0.19 to keep them off the face, above Instagram's own caption overlay)
   --quality <q>        draft | looks (default) | delivery
   --out <dir>          Where project folders go (default: ./videos)
   --force              Redo the cut, transcript, and render from scratch
@@ -38,6 +40,7 @@ const { values, positionals } = parseArgs({
     name: { type: "string" }, aspect: { type: "string", default: "9:16" }, fit: { type: "string", default: "cover" },
     hook: { type: "string" }, lower: { type: "string" }, trim: { type: "boolean", default: true },
     "silence-db": { type: "string" }, "min-silence": { type: "string" }, pad: { type: "string" },
+    "caption-y": { type: "string" },
     quality: { type: "string", default: "looks" }, out: { type: "string" }, force: { type: "boolean", default: false },
     output: { type: "string" },
     help: { type: "boolean", short: "h", default: false },
@@ -65,6 +68,7 @@ try {
     trim: values.trim, quality: values.quality, outDir: values.out, force: values.force,
     silence: { noiseDb: num(values["silence-db"], -35), minSilence: num(values["min-silence"], 0.5) },
     keep: { pad: num(values.pad, 0.18) },
+    style: { captionFromBottom: num(values["caption-y"], 0.30) },
   });
 } catch (err) {
   console.error(`\nclipforge failed: ${err.message}`);
