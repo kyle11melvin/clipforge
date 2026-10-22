@@ -46,7 +46,9 @@ his standing brief. Read it before touching anything.
   `graphics/20-down-myth/cover.html` is the cover template: a frame from the footage (`cover-frame.png`,
   grabbed with ffmpeg at a smiling, mouth-closed moment) with the headline above his head in Nunito
   ExtraBold, white with a 7 px black stroke, the look of his "POV: you're waiting for rates to drop" cover.
-  Keep the text inside the centre 4:5 so the profile grid crop shows it. He asks for a cover per reel.
+  Keep the text inside the centre 4:5 so the profile grid crop shows it. He asks for a cover per reel and
+  has his own opinion about the frame: show him two or three candidate frames (or take the frame from
+  `cut.mp4`, which has no captions, at the moment he screenshots).
 - `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
   stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
