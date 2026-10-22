@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Reel cover: a frame from the footage with the headline above Kyle's head, in the white outlined
+     caption style of his earlier reels (the "POV: you're waiting for rates to drop" post). Keep the text
+     inside the centre 4:5 so the profile-grid crop shows it. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  .frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .head { position: absolute; left: 60px; right: 60px; top: 330px; text-align: center;
+    font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 104px; line-height: 1.12; color: #fff;
+    -webkit-text-stroke: 7px #000; paint-order: stroke fill;
+    text-shadow: 0 4px 10px rgba(0,0,0,.35); }
+</style></head>
+<body>
+  <img class="frame" src="../../videos/20-down-myth/cover-frame.png">
+  <div class="head">You don&rsquo;t need<br>20% down</div>
+</body></html>

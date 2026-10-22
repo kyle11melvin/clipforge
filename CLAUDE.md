@@ -13,8 +13,8 @@ his standing brief. Read it before touching anything.
    10 MB. For a real clip, find it by name with `search_files`, then fetch
    `https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t` with curl (works when
    the file is link-shared, which his uploads have been). If that 403s, ask for a chat attachment.
-4. Deliver on a private artifact page with a Save MP4 button and a contact sheet of stills, then list what
-   is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
+4. Deliver on a private artifact page with a Save MP4 button, a contact sheet of stills and a reel cover
+   (1080x1920 PNG, see `still.mjs`), then list what is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
 
 ## The standard job: a talking-head post with graphics
 
@@ -42,6 +42,11 @@ his standing brief. Read it before touching anything.
   panel; `comp.html#nocard` is the variant switch `graphics/20-down-myth` uses for that.
   If Playwright's own browser is missing it falls back to `CLIPFORGE_CHROMIUM` or `/opt/pw-browsers/chromium`,
   so `npm run doctor` complaining about Chrome does not block graphics renders.
+- `src/graphics/still.mjs` — one full-size still of a composition (`--t`, `--size`), for reel covers.
+  `graphics/20-down-myth/cover.html` is the cover template: a frame from the footage (`cover-frame.png`,
+  grabbed with ffmpeg at a smiling, mouth-closed moment) with the headline above his head in Nunito
+  ExtraBold, white with a 7 px black stroke, the look of his "POV: you're waiting for rates to drop" cover.
+  Keep the text inside the centre 4:5 so the profile grid crop shows it. He asks for a cover per reel.
 - `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
   stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
