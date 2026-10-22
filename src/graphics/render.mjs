@@ -2,6 +2,7 @@
 // frame by frame with headless Chromium, then encode it with FFmpeg.
 //
 //   node src/graphics/render.mjs <comp.html> <out.mp4> [--duration 20] [--fps 30] [--size 1080x1920]
+//   node src/graphics/render.mjs <comp.html> <out.mov> --alpha      (transparent background, ProRes 4444)
 //   node src/graphics/render.mjs <comp.html> <probe.png> --probe 1.5,6.9,9.6      (one still per time, side by side)
 //
 // The composition contract is simple: the page draws itself for any time `t` (seconds) when
@@ -27,13 +28,14 @@ function loadPlaywright() {
 }
 
 function parseArgs(argv) {
-  const opts = { duration: 20, fps: 30, width: 1080, height: 1920, probe: null, positional: [] };
+  const opts = { duration: 20, fps: 30, width: 1080, height: 1920, probe: null, alpha: false, positional: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--duration") opts.duration = parseFloat(argv[++i]);
     else if (a === "--fps") opts.fps = parseInt(argv[++i], 10);
     else if (a === "--size") [opts.width, opts.height] = argv[++i].split("x").map(Number);
     else if (a === "--probe") opts.probe = argv[++i].split(",").map(Number);
+    else if (a === "--alpha") opts.alpha = true;
     else opts.positional.push(a);
   }
   if (opts.positional.length < 2) {
@@ -59,7 +61,7 @@ async function launchChromium(chromium) {
   }
 }
 
-export async function render({ comp, out, duration, fps, width, height, probe }) {
+export async function render({ comp, out, duration, fps, width, height, probe, alpha = false }) {
   const { chromium } = loadPlaywright();
   const frames = join(tmpdir(), `clipforge-frames-${process.pid}`);
   await rm(frames, { recursive: true, force: true });
@@ -68,7 +70,9 @@ export async function render({ comp, out, duration, fps, width, height, probe })
 
   const browser = await launchChromium(chromium);
   const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
-  await page.goto("file://" + resolve(comp));
+  // A "#fragment" on the comp path reaches the page as location.hash (compositions use it for variants).
+  const [compPath, hash = ""] = comp.split("#");
+  await page.goto("file://" + resolve(compPath) + (hash ? "#" + hash : ""));
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(300);
 
@@ -76,7 +80,7 @@ export async function render({ comp, out, duration, fps, width, height, probe })
     if (probe) {
       for (let i = 0; i < probe.length; i++) {
         await page.evaluate((t) => window.seek(t), probe[i]);
-        await page.screenshot({ path: join(frames, `probe_${i}.png`), type: "png" });
+        await page.screenshot({ path: join(frames, `probe_${i}.png`), type: "png", omitBackground: alpha });
       }
       const inputs = probe.flatMap((_, i) => ["-i", join(frames, `probe_${i}.png`)]);
       const scaled = probe.map((_, i) => `[${i}]scale=360:-1[p${i}]`).join(";");
@@ -89,12 +93,19 @@ export async function render({ comp, out, duration, fps, width, height, probe })
     const t0 = Date.now();
     for (let f = 0; f < total; f++) {
       await page.evaluate((t) => window.seek(t), f / fps);
-      await page.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.jpg`), type: "jpeg", quality: 94 });
+      if (alpha) await page.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.png`), type: "png", omitBackground: true });
+      else await page.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.jpg`), type: "jpeg", quality: 94 });
       if (f % 150 === 0) process.stderr.write(`  frame ${f}/${total}\n`);
     }
     process.stderr.write(`  ${total} frames in ${((Date.now() - t0) / 1000).toFixed(1)}s\n`);
-    execFileSync("ffmpeg", ["-y", "-v", "error", "-framerate", String(fps), "-i", join(frames, "f_%05d.jpg"),
-      "-c:v", "libx264", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-movflags", "+faststart", out]);
+    if (alpha) {
+      // ProRes 4444 keeps the alpha channel; broll's pip/cut overlay honours it.
+      execFileSync("ffmpeg", ["-y", "-v", "error", "-framerate", String(fps), "-i", join(frames, "f_%05d.png"),
+        "-c:v", "prores_ks", "-profile:v", "4444", "-pix_fmt", "yuva444p10le", out]);
+    } else {
+      execFileSync("ffmpeg", ["-y", "-v", "error", "-framerate", String(fps), "-i", join(frames, "f_%05d.jpg"),
+        "-c:v", "libx264", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-movflags", "+faststart", out]);
+    }
     return out;
   } finally {
     await browser.close();

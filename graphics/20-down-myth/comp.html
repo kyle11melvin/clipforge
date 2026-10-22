@@ -9,6 +9,12 @@
   :root { --navy:#173F4F; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sage-lift:#A9C0B9; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 640px; overflow: hidden; background: var(--navy); }
+  /* #nocard variant: no navy panel, the type floats over the footage (render with --alpha). A soft navy
+     shadow keeps sand and sage legible over bright sky; the fonts and colours stay on brand. */
+  html.nocard, html.nocard body { background: transparent; }
+  html.nocard .scene { text-shadow: 0 3px 18px rgba(14,42,53,.65), 0 1px 3px rgba(14,42,53,.5); }
+  html.nocard .eyebrow { color: var(--sand); font-size: 34px; }   /* sage is a label colour on navy only */
+  html.nocard .note { font-size: 76px; }
   body { font-family: "Manrope", sans-serif; color: var(--sand); }
   .scene { position: absolute; inset: 0; opacity: 0; padding: 56px 64px; }
   .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
@@ -73,6 +79,7 @@
 </div>
 
 <script>
+  if (location.hash === '#nocard') document.documentElement.classList.add('nocard');
   const $ = id => document.getElementById(id);
   const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
   const easeOut = x => 1 - Math.pow(1 - x, 3);
