@@ -84,8 +84,9 @@ export async function render({ comp, out, duration, fps, width, height, probe, a
       }
       const inputs = probe.flatMap((_, i) => ["-i", join(frames, `probe_${i}.png`)]);
       const scaled = probe.map((_, i) => `[${i}]scale=360:-1[p${i}]`).join(";");
-      const stack = probe.map((_, i) => `[p${i}]`).join("") + `hstack=${probe.length}`;
-      execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", `${scaled};${stack}`, out]);
+      // hstack needs two or more inputs; a single probe is just scaled.
+      const stack = probe.length > 1 ? `;${probe.map((_, i) => `[p${i}]`).join("")}hstack=${probe.length}` : "";
+      execFileSync("ffmpeg", ["-y", "-v", "error", ...inputs, "-filter_complex", `${scaled}${stack}`, ...(probe.length > 1 ? [] : ["-map", "[p0]"]), out]);
       return out;
     }
 

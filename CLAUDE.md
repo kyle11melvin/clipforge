@@ -34,7 +34,8 @@ his standing brief. Read it before touching anything.
   iPhone footage is HDR (HLG); the cut step tone-maps it to SDR and writes a keyframe every second, which
   HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") before the render.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
-  `border`, `borderColor`. Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
+  `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
+  small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
   the top (`y: 48`) so it sits in the sky above his head and never touches the captions.
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
@@ -58,6 +59,10 @@ his standing brief. Read it before touching anything.
   cards, "20% down" with a terracotta X slamming through it, "3% down", "Seller credit / Buys your rate
   down." Start the next Instagram talking-head post from this one. **Kyle picked the no-card version**
   (`comp.html#nocard`, rendered with `--alpha`): type floating over the footage, no navy panel.
+- `graphics/iq-quiz/` (2026-10-23) — the first full-screen cutaway in a talking head: a sand slide with the
+  real quiz-page screenshot while he pitches the quiz, then a floating "Comment IQ" when he gives the CTA.
+  Kyle wants cutaways "so the camera's not just on my face the entire time"; he cut the numeral rows from
+  the slide ("good but get rid of this part"), so keep slides to headline + real screenshot + one note.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
