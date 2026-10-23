@@ -144,9 +144,11 @@ his standing brief. Read it before touching anything.
   style for Instagram reels: `--caption-style rounded`** (Nunito ExtraBold, sentence case, white, soft
   shadow, no outline), which matches the captions on his earlier reels; Kyle sent a screenshot of one
   ("Keep saying") on 2026-10-22 and asked for the same. The uppercase Inter outline style (`classic`) is
-  the Siri-post look. **Position: `--caption-y 0.19`** (bottom of
-  the caption 19% up from the frame bottom, so it sits on his chest). Kyle, 2026-10-22: "Move the text so
-  it's not on my face"; the old 70%-height default landed on his chin in a selfie-framed clip.
+  the Siri-post look. **Position depends on the shot.** Outdoor selfie with sky and a high head:
+  `--caption-y 0.19` (caption bottom 19% up, on his chest; Kyle, 2026-10-22: "Move the text so it's not on
+  my face"). Indoor shot against a plain wall with his head mid-frame and a pale shirt: `--caption-y 0.66`,
+  captions above his head where the wall is darker (Kyle, 2026-10-23, agreed to the suggestion). When an
+  overlay sits above his head too, hide the captions under it with `--caption-hide a-b`.
 - Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
   `clipforge broll videos/<name>/cues.json --output ...` to cut them together. The HyperFrames
   `talking-head-recut` skill is the more complete version of the broll step (cards written per moment,

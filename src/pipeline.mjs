@@ -66,7 +66,10 @@ export async function build(opts) {
   const words = JSON.parse(await readFile(transcriptPath, "utf8"));
 
   // 3. Captions.
-  const captions = groupWords(words, opts.captions).filter((c) => c.start < cutInfo.duration)
+  // Captions can be hidden over windows ("a-b" seconds) where a full-frame graphic or an overlay says it instead.
+  const hide = (opts.captionHide ?? []).map((w) => w.split("-").map(Number)).filter(([a, b]) => b > a);
+  const hidden = (c) => hide.some(([a, b]) => c.start < b && c.end > a);
+  const captions = groupWords(words, opts.captions).filter((c) => c.start < cutInfo.duration && !hidden(c))
     .map((c) => ({ ...c, end: Math.min(c.end, cutInfo.duration) }));
   await writeFile(join(work, "captions.srt"), toSrt(captions));
   log("captions", `${captions.length} caption chunks`);
