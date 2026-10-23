@@ -51,7 +51,9 @@ his standing brief. Read it before touching anything.
   has his own opinion about the frame: show him a numbered strip of candidate frames (ffmpeg `tile` with
   `drawtext` of the index) and he answers with a number, or he sends his own selfie for it (2026-10-23; crop
   a phone screenshot's black bars first). Frames come from `cut.mp4`, which has no captions. The headline
-  is his spoken hook, sentence case.
+  is his spoken hook, sentence case, and it should fill the space above his head: three lines at ~130 px
+  from y=190 when his head starts around y=800 (Kyle, 2026-10-23: "move the text above my head since
+  there's a lot of empty space above me").
 - `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
   stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
