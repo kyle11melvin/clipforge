@@ -49,7 +49,9 @@ his standing brief. Read it before touching anything.
   ExtraBold, white with a 7 px black stroke, the look of his "POV: you're waiting for rates to drop" cover.
   Keep the text inside the centre 4:5 so the profile grid crop shows it. He asks for a cover per reel and
   has his own opinion about the frame: show him a numbered strip of candidate frames (ffmpeg `tile` with
-  `drawtext` of the index) and he answers with a number. Frames come from `cut.mp4`, which has no captions.
+  `drawtext` of the index) and he answers with a number, or he sends his own selfie for it (2026-10-23; crop
+  a phone screenshot's black bars first). Frames come from `cut.mp4`, which has no captions. The headline
+  is his spoken hook, sentence case.
 - `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
   stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
 - `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
