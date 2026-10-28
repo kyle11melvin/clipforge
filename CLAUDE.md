@@ -52,7 +52,7 @@ his standing brief. Read it before touching anything.
   ExtraBold, white with a 7 px black stroke, the look of his "POV: you're waiting for rates to drop" cover.
   Keep the headline inside the centre **1:1** (y 420–1500), not just the 4:5: Kyle, 2026-10-28, "move the
   hook caption down so it will fit in the little Instagram square". If the head is too high for that, zoom
-  the frame ~1.12x anchored at the top so the hat drops to about y 830, then three lines at 110 px from y 445.
+  the frame ~1.12x anchored at the top so the hat drops to about y 830, then three lines at 102 px, line-height 0.98, from y 445 (Kyle, 2026-10-28: tighter lines, slightly smaller).
   Draw the 1:1 box on the check copy with `drawbox` before sending. He asks for a cover per reel and
   has his own opinion about the frame: show him a numbered strip of candidate frames (ffmpeg `tile` with
   `drawtext` of the index) and he answers with a number, or he sends his own selfie for it (2026-10-23; crop

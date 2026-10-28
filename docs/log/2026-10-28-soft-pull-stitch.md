@@ -93,3 +93,6 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
   sit inside the centre 1:1 (y 420–1500 of 1920), not just the centre 4:5. Zoomed the frame 1.12x anchored
   at the top so his hat drops to about y 830, then three lines at 110 px from y 445. Check copy had the
   1:1 (red) and 4:5 (yellow) boxes drawn with `drawbox`.
+
+- "Reduce space between lines in the cover title and shrink the text a tiny bit." 110 px / 1.08 →
+  102 px / 0.98 line-height. Standing cover setting for a frame with the head at about y 830.
