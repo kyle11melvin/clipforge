@@ -2,7 +2,18 @@
   "footage": "final.mp4",
   "graphics": "callout.mov",
   "cues": [
-    { "at": 7.6, "from": 0, "to": 11.8, "mode": "pip", "pip": { "width": 1, "y": 40, "border": 0 },
-      "says": "I do a soft credit pull first … the hard pull only comes once you're ready to move forward. You get the answers before you take the credit hit." }
+    {
+      "at": 7.6,
+      "from": 0,
+      "to": 10.0,
+      "mode": "pip",
+      "pip": {
+        "width": 1,
+        "y": 40,
+        "border": 0
+      },
+      "says": "I do a soft credit pull first \u2026 nothing dings your credit. (Soft pull, out at 12.3)",
+      "note": "Hard pull lives in the same slice: in at footage 14.8 on 'the hard pull only comes', out at 17.3 after 'move forward'."
+    }
   ]
 }

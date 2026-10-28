@@ -58,3 +58,8 @@ your score" under it at 11.0 ("nothing dings your credit"), "Hard pull" (terraco
 you're ready" at 15.8; out at 19.4, before the cut to take 4. First pass was a two-column card at 84 px in
 a 0.8-width pip: it read small and left the sky empty, so it became a full-width stack at 150 px. Delivered
 as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the alternate.
+
+- "The soft pull and hard pull stay on the screen a little too long. Remove soft pull after I'm done
+  talking about that and then move hard pull when I'm talking about that." Retimed as two separate
+  appearances in the same slot: Soft pull 7.8–12.3 s, Hard pull 14.8–17.3 s, nothing in between. Rule for
+  next time: a callout lives only while he is on its line, then leaves.

@@ -37,7 +37,9 @@ his standing brief. Read it before touching anything.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
   `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
   small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
-  the top (`y: 48`) so it sits in the sky above his head and never touches the captions.
+  the top (`y: 48`) so it sits in the sky above his head and never touches the captions. A floating callout
+  stays up only while he is on its line and then leaves (Kyle, 2026-10-28: "stay on the screen a little too
+  long"); full-width pip, Sora 150 px, so it fills the sky (`graphics/soft-pull/callout.html`).
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
   `--alpha` renders a transparent background to ProRes 4444 (`.mov`) so text can float over footage with no
