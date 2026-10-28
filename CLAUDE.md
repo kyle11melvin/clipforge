@@ -36,8 +36,11 @@ his standing brief. Read it before touching anything.
   HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") before the render.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
   `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
-  small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
-  the top (`y: 48`) so it sits in the sky above his head and never touches the captions. A floating callout
+  small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it
+  near the top (`y: 260`, never higher) so it sits in the sky above his head and never touches the captions.
+  **Instagram's own top bar covers the first ~250 px of a reel** (Kyle, 2026-10-28, with preview screenshots:
+  "you can't see them on the Instagram reel"); anything above y 260 is lost. Its bottom UI covers the
+  last ~420 px, which the `--caption-y 0.19` captions already clear. A floating callout
   stays up only while he is on its line and then leaves (Kyle, 2026-10-28: "stay on the screen a little too
   long"); full-width pip, Sora 150 px, so it fills the sky (`graphics/soft-pull/callout.html`).
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by

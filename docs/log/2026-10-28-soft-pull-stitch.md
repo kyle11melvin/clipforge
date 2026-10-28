@@ -96,3 +96,10 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
 
 - "Reduce space between lines in the cover title and shrink the text a tiny bit." 110 px / 1.08 →
   102 px / 0.98 line-height. Standing cover setting for a frame with the head at about y 830.
+
+- "Look at the preview where the soft and hard credit pulls go, you can't see them on the Instagram reel."
+  He sent two Instagram preview screenshots: the reel's top ~250 px sit under Instagram's blurred top bar
+  (back button, "Preview" / "Reels" label, camera icon), so a callout pipped at y 40 is invisible and its
+  second line never shows. Moved the pip to y 260 (text starts ~y 310, ends ~530, hat at ~720+). Both the
+  captioned and the callout-only versions re-cut. The old "pip at y 48" note in CLAUDE.md was wrong for
+  Instagram; corrected.
