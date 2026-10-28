@@ -84,3 +84,7 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
 - "Can you give me the video without the text as well?" Added a no-text version (`cut.mp4` encoded) and a
   callout-without-captions version (`broll` on `cut.mp4`, `cues-nocaptions.json`) to the page, each with
   its own Save MP4.
+
+- "The caption shouldn't be the script exactly." Rewrote it to add what the video does not say (what a soft
+  pull shows, that it leaves no mark) instead of transcribing the script. Rule: the caption complements the
+  video; never paste the spoken script as the caption.

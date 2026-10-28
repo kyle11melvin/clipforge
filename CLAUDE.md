@@ -129,7 +129,8 @@ his standing brief. Read it before touching anything.
   on this?"). Confirm the intended wording when it will appear on screen.
 - Ship the whole edit, then list what is still missing. He prefers seeing a finished cut and reacting.
 - Captions: always draft one on the page (Kyle, 2026-10-28: "Don't you come up with the caption as well?");
-  when he writes his own and sends it, put that on the page as is. His caption voice: first
+  when he writes his own and sends it, put that on the page as is. The caption is not the spoken script (Kyle,
+  2026-10-28: "the caption shouldn't be the script exactly"); it adds what the video leaves out. His caption voice: first
   person, plain talk, one idea per paragraph, the real math in dollars, no emoji, no hashtags. He has a
   free two-minute home-buying quiz he links from the comments ("Link is in the comments if you want it"),
   so a reel CTA can point there instead of a DM keyword.
