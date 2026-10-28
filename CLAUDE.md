@@ -9,7 +9,8 @@ his standing brief. Read it before touching anything.
 1. Read this file, then the newest note in `docs/log/`.
 2. Run `npm install` and `npm run doctor`. If doctor reports a missing browser or speech model, run
    `npm run setup` (downloads about 700 MB once). Nothing renders or transcribes until this passes.
-3. Footage: the Google Drive connector can now list his `Clipforge` folder, but its download tool caps at
+3. Footage: he uploads to his `Clipforge` Drive folder (iPhone names like `Oct 28, 2026 at 2-54-45 PM.mov`,
+   order them by the time in the name). The Google Drive connector can list the folder, but its download tool caps at
    10 MB. For a real clip, find it by name with `search_files`, then fetch
    `https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t` with curl (works when
    the file is link-shared, which his uploads have been). If that 403s, ask for a chat attachment.
@@ -158,6 +159,14 @@ his standing brief. Read it before touching anything.
 - Getting footage in: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
   upload works but Safari's Photo Library picker re-encodes and strips the audio; he must Save to Files
   first and upload from Files. A clip with no audio track cannot be captioned; say so immediately.
+
+## Stitching several takes of one script (2026-10-28)
+
+When he uploads several takes of the same script ("use the best beginning of one and the best ending of
+the other"): transcribe each take on its own, compare the word timings line by line, pick the longest clean
+run plus the cleanest ending, cut the pieces with ffmpeg at a `silencedetect` gap (re-encode, crf 10) into
+a numbered folder, and run the standard build on that folder. Put the take map on the delivery page so he
+can swap a line by take number. See `docs/log/2026-10-28-soft-pull-stitch.md`.
 
 ## Project log
 
