@@ -71,3 +71,7 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
 - "Don't you come up with the caption as well?" Yes: wrote it in his caption voice (the spoken script,
   tightened, plus the quiz-in-comments line) and put it on the page with a copy button. Standing rule:
   draft the caption without being asked; he replaces it if he has his own.
+
+- "The very end … you have a comma instead of a question mark." Transcript "for," → "for?" and "send" →
+  "Send", re-rendered, callout cut back in. Reminder: read the ending punctuation of the transcript before
+  the render; the ASR writes commas where he asks a question.
