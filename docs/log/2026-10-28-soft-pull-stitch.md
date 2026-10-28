@@ -49,3 +49,12 @@ The build trims each piece's own dead air and stitches them. Transcript fixes be
 - No graphics in this one; he only asked for the stitch. A "soft pull vs hard pull" callout is the obvious
   pip if he wants one.
 - His caption.
+
+## "Add a soft pull vs hard pull callout above my head"
+
+`graphics/soft-pull/callout.html` (1080x640, `--alpha`, pip width 1 at y 40, cues in
+`graphics/soft-pull/cues.json`): "Soft pull" (sand, Sora 150 px) pops in at 7.8 s as he says it, "No hit to
+your score" under it at 11.0 ("nothing dings your credit"), "Hard pull" (terracotta) at 14.8, "Only when
+you're ready" at 15.8; out at 19.4, before the cut to take 4. First pass was a two-column card at 84 px in
+a 0.8-width pip: it read small and left the sky empty, so it became a full-width stack at 150 px. Delivered
+as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the alternate.
