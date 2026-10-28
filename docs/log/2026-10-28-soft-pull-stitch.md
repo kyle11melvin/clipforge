@@ -63,3 +63,7 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
   talking about that and then move hard pull when I'm talking about that." Retimed as two separate
   appearances in the same slot: Soft pull 7.8–12.3 s, Hard pull 14.8–17.3 s, nothing in between. Rule for
   next time: a callout lives only while he is on its line, then leaves.
+
+- Cover, take two: Kyle sent his own selfie from the same walk (1290x1923, tree behind him, hat top at
+  about y=550 of 1920) and asked for the hook on it. Cropped to 9:16 keeping the top; headline moved up
+  to y=120 at 118 px so three lines clear the hat. Delivered as `videos/soft-pull/cover.png`.
