@@ -53,7 +53,9 @@ his standing brief. Read it before touching anything.
   Keep the text inside the centre 4:5 so the profile grid crop shows it. He asks for a cover per reel and
   has his own opinion about the frame: show him a numbered strip of candidate frames (ffmpeg `tile` with
   `drawtext` of the index) and he answers with a number, or he sends his own selfie for it (2026-10-23; crop
-  a phone screenshot's black bars first). Frames come from `cut.mp4`, which has no captions. The headline
+  a phone screenshot's black bars first). Frames come from `cut.mp4`, which has no captions. Check the last second of every take first: the smile
+  as he reaches to stop recording is the best cover frame (2026-10-28, the A/B/C strip). Offer the video
+  without captions too; he asked for it (2026-10-28). The headline
   is his spoken hook, sentence case, and it should fill the space above his head: three lines at ~130 px
   from y=190 when his head starts around y=800 (Kyle, 2026-10-23: "move the text above my head since
   there's a lot of empty space above me").

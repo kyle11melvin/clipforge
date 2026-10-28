@@ -75,3 +75,12 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
 - "The very end … you have a comma instead of a question mark." Transcript "for," → "for?" and "send" →
   "Send", re-rendered, callout cut back in. Reminder: read the ending punctuation of the transcript before
   the render; the ASR writes commas where he asks a question.
+
+- "Can you help me pick a better cover photo?" Grabbed a face crop at every `silencedetect` pause across all
+  four takes (38 frames, numbered grid). The keepers are the smiles at the very end of each take, when he
+  reaches to stop recording: take 2 @ 28.04, take 3 @ 26.56, take 1 @ 28.18. Rendered the hook on all
+  three (A/B/C strip), recommended B (tree, same spot as his selfie), set it as the cover. Rule: the
+  end-of-take smile is the cover frame; check the last second of every take first.
+- "Can you give me the video without the text as well?" Added a no-text version (`cut.mp4` encoded) and a
+  callout-without-captions version (`broll` on `cut.mp4`, `cues-nocaptions.json`) to the page, each with
+  its own Save MP4.
