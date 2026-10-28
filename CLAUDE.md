@@ -50,7 +50,10 @@ his standing brief. Read it before touching anything.
   `graphics/20-down-myth/cover.html` is the cover template: a frame from the footage (`cover-frame.png`,
   grabbed with ffmpeg at a smiling, mouth-closed moment) with the headline above his head in Nunito
   ExtraBold, white with a 7 px black stroke, the look of his "POV: you're waiting for rates to drop" cover.
-  Keep the text inside the centre 4:5 so the profile grid crop shows it. He asks for a cover per reel and
+  Keep the headline inside the centre **1:1** (y 420–1500), not just the 4:5: Kyle, 2026-10-28, "move the
+  hook caption down so it will fit in the little Instagram square". If the head is too high for that, zoom
+  the frame ~1.12x anchored at the top so the hat drops to about y 830, then three lines at 110 px from y 445.
+  Draw the 1:1 box on the check copy with `drawbox` before sending. He asks for a cover per reel and
   has his own opinion about the frame: show him a numbered strip of candidate frames (ffmpeg `tile` with
   `drawtext` of the index) and he answers with a number, or he sends his own selfie for it (2026-10-23; crop
   a phone screenshot's black bars first). Frames come from `cut.mp4`, which has no captions. Check the last second of every take first: the smile

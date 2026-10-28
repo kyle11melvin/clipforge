@@ -88,3 +88,8 @@ as `final-broll.mp4` (phone file 14 MB); the plain cut stays on the page as the 
 - "The caption shouldn't be the script exactly." Rewrote it to add what the video does not say (what a soft
   pull shows, that it leaves no mark) instead of transcribing the script. Rule: the caption complements the
   video; never paste the spoken script as the caption.
+
+- "Go with B but move the hook caption down so it fits in the little Instagram square." The headline must
+  sit inside the centre 1:1 (y 420–1500 of 1920), not just the centre 4:5. Zoomed the frame 1.12x anchored
+  at the top so his hat drops to about y 830, then three lines at 110 px from y 445. Check copy had the
+  1:1 (red) and 4:5 (yellow) boxes drawn with `drawbox`.
