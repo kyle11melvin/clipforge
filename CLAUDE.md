@@ -126,7 +126,8 @@ his standing brief. Read it before touching anything.
 - His messages are dictated and often garbled. Read for intent ("Whew see we at on this" = "Where are we at
   on this?"). Confirm the intended wording when it will appear on screen.
 - Ship the whole edit, then list what is still missing. He prefers seeing a finished cut and reacting.
-- Captions: he often writes his own and sends it; put it on the page as is. His caption voice: first
+- Captions: always draft one on the page (Kyle, 2026-10-28: "Don't you come up with the caption as well?");
+  when he writes his own and sends it, put that on the page as is. His caption voice: first
   person, plain talk, one idea per paragraph, the real math in dollars, no emoji, no hashtags. He has a
   free two-minute home-buying quiz he links from the comments ("Link is in the comments if you want it"),
   so a reel CTA can point there instead of a DM keyword.
