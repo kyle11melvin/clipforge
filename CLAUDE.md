@@ -9,10 +9,11 @@ his standing brief. Read it before touching anything.
 1. Read this file, then the newest note in `docs/log/`.
 2. Run `npm install` and `npm run doctor`. If doctor reports a missing browser or speech model, run
    `npm run setup` (downloads about 700 MB once). Nothing renders or transcribes until this passes.
-3. Footage: the Google Drive connector can now list his `Clipforge` folder, but its download tool caps at
+3. Footage: the Google Drive connector can now list his `Clipforge` folder (and subfolders, by `parentId`), but its download tool caps at
    10 MB. For a real clip, find it by name with `search_files`, then fetch
    `https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t` with curl (works when
-   the file is link-shared, which his uploads have been). If that 403s, ask for a chat attachment.
+   the file is link-shared, which his uploads have been; a 13 MB video came through on 2026-10-29). If that 403s, ask for a chat attachment.
+   HEIC photos: `pip install pillow-heif`, then PIL with `exif_transpose` (ffmpeg and ImageMagick choke on the depth map).
 4. Deliver on a private artifact page with a Save MP4 button, a contact sheet of stills and a reel cover
    (1080x1920 PNG, see `still.mjs`), then list what is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
 
@@ -67,6 +68,11 @@ his standing brief. Read it before touching anything.
   real quiz-page screenshot while he pitches the quiz, then a floating "Comment IQ" when he gives the CTA.
   Kyle wants cutaways "so the camera's not just on my face the entire time"; he cut the numeral rows from
   the slide ("good but get rid of this part"), so keep slides to headline + real screenshot + one note.
+- `graphics/price-cuts/` (2026-10-29) — a **format copy** reel with no talking head: his photo with a Playfair
+  Display hook + sage pill, then Zillow price-cut screenshots hard-cut at 0.5 s (one beat at 120 BPM), then the
+  photo again so it loops. Video only; he adds the song in Instagram. When he says "copy this format exactly"
+  and attaches an example video, match the example's timing and type, not the Coastal Money look. Playfair
+  Display (4 faces) is in `graphics/fonts/`. He pre-crops Zillow screenshots himself; only trim to 9:16.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic

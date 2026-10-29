@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Price cuts reel</title>
+<style>
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Regular.ttf"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-weight: 400; font-style: italic; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Bold.ttf"); font-weight: 700; font-style: normal; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-BoldItalic.ttf"); font-weight: 700; font-style: italic; }
+
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
+  .frame.on { display: block; }
+  .frame img { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 50%; }
+
+  .hook { position: absolute; left: 0; right: 0; top: 160px; text-align: center; font-family: "Playfair"; font-weight: 400;
+          font-size: 80px; line-height: 1.12; color: #F5EFE6; text-shadow: 0 2px 6px rgba(0,0,0,.45), 0 8px 28px rgba(0,0,0,.35); }
+  .hook i { font-style: italic; font-weight: 700; }
+
+  .pill { position: absolute; left: 50%; transform: translateX(-50%); top: 1390px; background: #A9BCA6; border-radius: 999px;
+          padding: 34px 64px; color: #1D2A22; font-family: "Playfair"; font-style: italic; font-weight: 400;
+          font-size: 56px; line-height: 1.22; text-align: center; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="frame me" id="f0">
+  <img src="photo.jpg" alt="">
+  <div class="hook">You want a<br><i>better deal</i> on<br>a house?</div>
+  <div class="pill">Maybe stop looking exclusively<br>at interest rates.</div>
+</div>
+<div class="frame cut" data-n="1"><img src="cut1.jpg" alt=""></div>
+<div class="frame cut" data-n="2"><img src="cut2.jpg" alt=""></div>
+<div class="frame cut" data-n="3"><img src="cut3.jpg" alt=""></div>
+<div class="frame cut" data-n="4"><img src="cut4.jpg" alt=""></div>
+<div class="frame cut" data-n="5"><img src="cut5.jpg" alt=""></div>
+<div class="frame cut" data-n="6"><img src="cut6.jpg" alt=""></div>
+<div class="frame cut" data-n="7"><img src="cut7.jpg" alt=""></div>
+<div class="frame me" id="f9">
+  <img src="photo.jpg" alt="">
+  <div class="hook">You want a<br><i>better deal</i> on<br>a house?</div>
+  <div class="pill">Maybe stop looking exclusively<br>at interest rates.</div>
+</div>
+
+<script>
+  // Timeline (seconds): hook 0–2.5, seven cuts of 0.5 s (one beat at 120 BPM), hook again 1.5 s. Total 7.5 s.
+  const HOOK = 2.5, BEAT = 0.5, TAIL = 1.5;
+  const cuts = [...document.querySelectorAll(".cut")];
+  const N = cuts.length;
+  window.DURATION = HOOK + N * BEAT + TAIL;
+  const frames = [...document.querySelectorAll(".frame")];
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 2);
+
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    let frame, p, zoom;
+    if (t < HOOK) { frame = document.getElementById("f0"); p = clamp(t / HOOK, 0, 1); zoom = 1 + 0.05 * p; }
+    else if (t < HOOK + N * BEAT) {
+      const i = Math.min(N - 1, Math.floor((t - HOOK) / BEAT));
+      frame = cuts[i]; p = clamp(((t - HOOK) - i * BEAT) / BEAT, 0, 1); zoom = 1 + 0.03 * easeOut(p);
+    } else {
+      // The closing frame continues the push where the hook left off, so the loop reads as one slow move.
+      frame = document.getElementById("f9"); p = clamp((t - HOOK - N * BEAT) / TAIL, 0, 1); zoom = 1.05 - 0.05 * p;
+    }
+    frame.classList.add("on");
+    frame.querySelector("img").style.transform = `scale(${zoom.toFixed(4)})`;
+  };
+  window.seek(0);
+</script>
+</body>
+</html>
