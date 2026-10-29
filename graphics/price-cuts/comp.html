@@ -12,15 +12,19 @@
   .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
   .frame.on { display: block; }
   .frame img { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 50%; }
-  /* Photo hook: cinematic photo under a navy gradient scrim, top and bottom, so sand type reads on the wood wall. */
+  /* Instagram Reels covers roughly the top 250 px and the bottom 470 px of a 1920 frame, and the right 140 px.
+     The photo frames keep the type inside that window: the photo sits lower (navy band above it, scrim
+     blending in) so the three-line hook clears both the chrome and his hair. */
+  .me { background: var(--navy); }
+  .me img { top: 280px; left: -75px; width: 1230px; height: 1640px; transform-origin: 50% 50%; }
   .scrim { position: absolute; inset: 0; background:
-      linear-gradient(180deg, rgba(23,63,79,.88) 0%, rgba(23,63,79,.55) 22%, rgba(23,63,79,0) 42%),
-      linear-gradient(0deg, rgba(23,63,79,.90) 0%, rgba(23,63,79,.60) 18%, rgba(23,63,79,0) 36%); }
+      linear-gradient(180deg, rgba(23,63,79,1) 0px, rgba(23,63,79,1) 290px, rgba(23,63,79,.75) 430px, rgba(23,63,79,0) 660px),
+      linear-gradient(0deg, rgba(23,63,79,.92) 0%, rgba(23,63,79,.65) 22%, rgba(23,63,79,0) 38%); }
 
-  .h { position: absolute; left: 64px; right: 64px; top: 150px; font-family: "Sora", sans-serif; font-weight: 700;
-       font-size: 96px; line-height: 1.05; letter-spacing: -0.02em; color: var(--sand); }
+  .h { position: absolute; left: 64px; right: 140px; top: 290px; font-family: "Sora", sans-serif; font-weight: 700;
+       font-size: 88px; line-height: 1.05; letter-spacing: -0.02em; color: var(--sand); }
   .h .terra { color: var(--terra); }
-  .cont { position: absolute; left: 64px; width: 800px; bottom: 170px; font-family: "Manrope", sans-serif; font-weight: 500;
+  .cont { position: absolute; left: 64px; width: 800px; bottom: 480px; font-family: "Manrope", sans-serif; font-weight: 500;
           font-size: 44px; line-height: 1.35; color: var(--sand); }
   .cont .arrow { color: var(--terra); }
   .rise { will-change: transform, opacity; }

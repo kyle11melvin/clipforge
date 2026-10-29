@@ -75,7 +75,13 @@ his standing brief. Read it before touching anything.
   colours to be Coastal Money anyway ("match kylemylenderguy brand"), so: structure from the example, look from
   the brand. Photo hooks get a navy gradient scrim top and bottom so sand type reads. A closing frame carries
   one headline only, no line under it (Kyle, 2026-10-29). Playfair Display (4 faces) is in `graphics/fonts/`
-  if a brief ever asks for it. He pre-crops Zillow screenshots himself; only trim to 9:16.
+  if a brief ever asks for it. He pre-crops Zillow screenshots himself; `make-cuts.py` restacks each one
+  (house photo + price block, map row and Est. bar dropped) into the safe zone.
+- **Instagram Reels safe zone, every reel (Kyle, 2026-10-29, "Cuts off on the IG preview"):** on 1080x1920
+  keep all type and anything that must be read below y=250 (back button, "Preview"), above y=1450 (username,
+  audio, caption) and left of x=940 (like/comment/share column). Probe stills with those zones drawn in red
+  before rendering. A three-line hook does not fit between the chrome and his head in a full-bleed selfie,
+  so put the photo lower on a navy ground with a scrim blending the join (see `graphics/price-cuts/`).
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic

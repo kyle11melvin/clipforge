@@ -47,3 +47,13 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
 - Page restyled to the brand palette too.
 - Round three: each home 0.75 s instead of 0.5 (he asked after seeing the 0.5 s cut), and the closing line is
   "What are you / waiting for?" ("waiting for?" terracotta), his wording. 10.75 s total.
+- Round four: Kyle sent two Instagram preview screenshots: the hook ran under the back button / "Preview"
+  label, the interest-rates line and the price block ran under the username + caption block. **Instagram
+  Reels safe zone (1080x1920): keep type below y=250, above y=1450, and left of x=940.** Fixes:
+  photo frames put the photo at 1230x1640 anchored at y=280 on a navy ground with the scrim blending the
+  join, so the three-line hook (88 px from y=290) clears both the chrome and his hair; the bottom line sits
+  at bottom:480. Home frames are rebuilt by `graphics/price-cuts/make-cuts.py`: the main house photo
+  (second photo on the Zillow page, 808 px) plus the price-cut/price/address block, scaled 0.9 and stacked
+  from y=265 so the block ends at ~1420; the map row and the "Est. $/mo" bar are cut out, and the bottom of
+  the first photo peeks in under the chrome so it still reads as the page. Probe with the chrome zones
+  drawn over the stills (red bands) before rendering.
