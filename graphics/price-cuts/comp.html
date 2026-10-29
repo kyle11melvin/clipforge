@@ -43,12 +43,12 @@
 <div class="frame me" id="f9">
   <img src="photo.jpg" alt="">
   <div class="scrim"></div>
-  <div class="h"><span class="rise">Let&rsquo;s find you</span><br><span class="terra rise">a deal.</span></div>
+  <div class="h"><span class="rise">What are you</span><br><span class="terra rise">waiting for?</span></div>
 </div>
 
 <script>
-  // Timeline (seconds): hook 0–2.5, seven cuts of 0.5 s (one beat at 120 BPM), closing frame 3 s. Total 9 s.
-  const HOOK = 2.5, BEAT = 0.5, TAIL = 3.0;
+  // Timeline (seconds): hook 0–2.5, seven cuts of 0.75 s each (Kyle, 2026-10-29), closing frame 3 s. Total 10.75 s.
+  const HOOK = 2.5, BEAT = 0.75, TAIL = 3.0;
   const cuts = [...document.querySelectorAll(".cut")];
   const N = cuts.length;
   window.DURATION = HOOK + N * BEAT + TAIL;

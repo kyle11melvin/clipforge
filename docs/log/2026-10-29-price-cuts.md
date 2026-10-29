@@ -45,3 +45,5 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   rising in word-row by word-row, slow push-in. I had added "Send me the address. I'll tell you if it still
   works." underneath; Kyle: "get rid of the bottom text on the last frame". Headline only.
 - Page restyled to the brand palette too.
+- Round three: each home 0.75 s instead of 0.5 (he asked after seeing the 0.5 s cut), and the closing line is
+  "What are you / waiting for?" ("waiting for?" terracotta), his wording. 10.75 s total.
