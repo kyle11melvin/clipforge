@@ -34,3 +34,14 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
 ## Open
 
 - His reaction to the hook size and the pill position; his caption.
+
+## Round two (same session)
+
+- "Make the frame 1 fonts and colors match kylemylenderguy brand" = Coastal Money. Playfair and the sage pill are
+  gone: Sora Bold 96 px sand hook with "better deal" in terracotta, left at x=64 from y=150; the interest-rates
+  line in Manrope 500 44 px sand at the bottom; a navy gradient scrim top and bottom over the photo (the guide's
+  "photo under a gradient scrim") so sand type reads on the wood wall. Playfair stays in `graphics/fonts/`.
+- Closing frame now holds 3 s (9 s total) with its own line, "Let's find you / a deal." ("a deal." terracotta),
+  rising in word-row by word-row, slow push-in. I had added "Send me the address. I'll tell you if it still
+  works." underneath; Kyle: "get rid of the bottom text on the last frame". Headline only.
+- Page restyled to the brand palette too.

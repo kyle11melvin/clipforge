@@ -71,8 +71,11 @@ his standing brief. Read it before touching anything.
 - `graphics/price-cuts/` (2026-10-29) — a **format copy** reel with no talking head: his photo with a Playfair
   Display hook + sage pill, then Zillow price-cut screenshots hard-cut at 0.5 s (one beat at 120 BPM), then the
   photo again so it loops. Video only; he adds the song in Instagram. When he says "copy this format exactly"
-  and attaches an example video, match the example's timing and type, not the Coastal Money look. Playfair
-  Display (4 faces) is in `graphics/fonts/`. He pre-crops Zillow screenshots himself; only trim to 9:16.
+  and attaches an example video, match the example's timing and structure, but he then asked for the type and
+  colours to be Coastal Money anyway ("match kylemylenderguy brand"), so: structure from the example, look from
+  the brand. Photo hooks get a navy gradient scrim top and bottom so sand type reads. A closing frame carries
+  one headline only, no line under it (Kyle, 2026-10-29). Playfair Display (4 faces) is in `graphics/fonts/`
+  if a brief ever asks for it. He pre-crops Zillow screenshots himself; only trim to 9:16.
 - `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic

@@ -4,30 +4,34 @@
 <meta charset="utf-8">
 <title>Price cuts reel</title>
 <style>
-  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Regular.ttf"); font-weight: 400; font-style: normal; }
-  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-weight: 400; font-style: italic; }
-  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Bold.ttf"); font-weight: 700; font-style: normal; }
-  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-BoldItalic.ttf"); font-weight: 700; font-style: italic; }
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage-lift:#A9C0B9; }
 
   html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
   .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
   .frame.on { display: block; }
   .frame img { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 50%; }
+  /* Photo hook: cinematic photo under a navy gradient scrim, top and bottom, so sand type reads on the wood wall. */
+  .scrim { position: absolute; inset: 0; background:
+      linear-gradient(180deg, rgba(23,63,79,.88) 0%, rgba(23,63,79,.55) 22%, rgba(23,63,79,0) 42%),
+      linear-gradient(0deg, rgba(23,63,79,.90) 0%, rgba(23,63,79,.60) 18%, rgba(23,63,79,0) 36%); }
 
-  .hook { position: absolute; left: 0; right: 0; top: 160px; text-align: center; font-family: "Playfair"; font-weight: 400;
-          font-size: 80px; line-height: 1.12; color: #F5EFE6; text-shadow: 0 2px 6px rgba(0,0,0,.45), 0 8px 28px rgba(0,0,0,.35); }
-  .hook i { font-style: italic; font-weight: 700; }
-
-  .pill { position: absolute; left: 50%; transform: translateX(-50%); top: 1390px; background: #A9BCA6; border-radius: 999px;
-          padding: 34px 64px; color: #1D2A22; font-family: "Playfair"; font-style: italic; font-weight: 400;
-          font-size: 56px; line-height: 1.22; text-align: center; white-space: nowrap; }
+  .h { position: absolute; left: 64px; right: 64px; top: 150px; font-family: "Sora", sans-serif; font-weight: 700;
+       font-size: 96px; line-height: 1.05; letter-spacing: -0.02em; color: var(--sand); }
+  .h .terra { color: var(--terra); }
+  .cont { position: absolute; left: 64px; width: 800px; bottom: 170px; font-family: "Manrope", sans-serif; font-weight: 500;
+          font-size: 44px; line-height: 1.35; color: var(--sand); }
+  .cont .arrow { color: var(--terra); }
+  .rise { will-change: transform, opacity; }
 </style>
 </head>
 <body>
 <div class="frame me" id="f0">
   <img src="photo.jpg" alt="">
-  <div class="hook">You want a<br><i>better deal</i> on<br>a house?</div>
-  <div class="pill">Maybe stop looking exclusively<br>at interest rates.</div>
+  <div class="scrim"></div>
+  <div class="h">You want a<br><span class="terra">better deal</span><br>on a house?</div>
+  <div class="cont">Maybe stop looking exclusively at interest rates.</div>
 </div>
 <div class="frame cut" data-n="1"><img src="cut1.jpg" alt=""></div>
 <div class="frame cut" data-n="2"><img src="cut2.jpg" alt=""></div>
@@ -38,13 +42,13 @@
 <div class="frame cut" data-n="7"><img src="cut7.jpg" alt=""></div>
 <div class="frame me" id="f9">
   <img src="photo.jpg" alt="">
-  <div class="hook">You want a<br><i>better deal</i> on<br>a house?</div>
-  <div class="pill">Maybe stop looking exclusively<br>at interest rates.</div>
+  <div class="scrim"></div>
+  <div class="h"><span class="rise">Let&rsquo;s find you</span><br><span class="terra rise">a deal.</span></div>
 </div>
 
 <script>
-  // Timeline (seconds): hook 0–2.5, seven cuts of 0.5 s (one beat at 120 BPM), hook again 1.5 s. Total 7.5 s.
-  const HOOK = 2.5, BEAT = 0.5, TAIL = 1.5;
+  // Timeline (seconds): hook 0–2.5, seven cuts of 0.5 s (one beat at 120 BPM), closing frame 3 s. Total 9 s.
+  const HOOK = 2.5, BEAT = 0.5, TAIL = 3.0;
   const cuts = [...document.querySelectorAll(".cut")];
   const N = cuts.length;
   window.DURATION = HOOK + N * BEAT + TAIL;
@@ -60,8 +64,13 @@
       const i = Math.min(N - 1, Math.floor((t - HOOK) / BEAT));
       frame = cuts[i]; p = clamp(((t - HOOK) - i * BEAT) / BEAT, 0, 1); zoom = 1 + 0.03 * easeOut(p);
     } else {
-      // The closing frame continues the push where the hook left off, so the loop reads as one slow move.
-      frame = document.getElementById("f9"); p = clamp((t - HOOK - N * BEAT) / TAIL, 0, 1); zoom = 1.05 - 0.05 * p;
+      // Closing frame: a slow push-in, the lines rising in one after another (brand motion), then a hold.
+      const tt = t - HOOK - N * BEAT;
+      frame = document.getElementById("f9"); p = clamp(tt / TAIL, 0, 1); zoom = 1 + 0.04 * p;
+      frame.querySelectorAll(".rise").forEach((el, i) => {
+        const q = clamp((tt - 0.08 * i) / 0.45, 0, 1), e = 1 - Math.pow(1 - q, 3);
+        el.style.opacity = e; el.style.transform = `translateY(${(1 - e) * 36}px)`;
+      });
     }
     frame.classList.add("on");
     frame.querySelector("img").style.transform = `scale(${zoom.toFixed(4)})`;
