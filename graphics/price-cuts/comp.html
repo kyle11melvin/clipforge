@@ -52,11 +52,15 @@
 </div>
 
 <script>
-  // Timeline (seconds): hook 0–2.5, seven cuts of 0.75 s each (Kyle, 2026-10-29), closing frame 3 s. Total 10.75 s.
-  const HOOK = 2.5, BEAT = 0.75, TAIL = 3.0;
+  // Timeline on an 80 BPM grid (one beat = 0.75 s, the music is composed to it): hook 4 beats (0–3.0),
+  // first home 2 beats (Kyle, 2026-10-30: he knows the listing agent, "just a little bit longer"), six homes at
+  // 1 beat each, closing frame 4 beats. Every cut lands on a kick. Total 12.0 s = 4 bars.
+  const HOOK = 3.0, BEAT = 0.75, TAIL = 3.0, FIRST = 1.5;
   const cuts = [...document.querySelectorAll(".cut")];
   const N = cuts.length;
-  window.DURATION = HOOK + N * BEAT + TAIL;
+  const starts = cuts.map((_, i) => HOOK + (i === 0 ? 0 : FIRST + (i - 1) * BEAT));
+  const CUTS_END = HOOK + FIRST + (N - 1) * BEAT;
+  window.DURATION = CUTS_END + TAIL;
   const frames = [...document.querySelectorAll(".frame")];
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 2);
@@ -65,12 +69,13 @@
     frames.forEach((f) => f.classList.remove("on"));
     let frame, p, zoom;
     if (t < HOOK) { frame = document.getElementById("f0"); p = clamp(t / HOOK, 0, 1); zoom = 1 + 0.05 * p; }
-    else if (t < HOOK + N * BEAT) {
-      const i = Math.min(N - 1, Math.floor((t - HOOK) / BEAT));
-      frame = cuts[i]; p = clamp(((t - HOOK) - i * BEAT) / BEAT, 0, 1); zoom = 1 + 0.03 * easeOut(p);
+    else if (t < CUTS_END) {
+      let i = 0; while (i + 1 < N && t >= starts[i + 1]) i++;
+      const len = i === 0 ? FIRST : BEAT;
+      frame = cuts[i]; p = clamp((t - starts[i]) / len, 0, 1); zoom = 1 + 0.03 * easeOut(p);
     } else {
       // Closing frame: a slow push-in, the lines rising in one after another (brand motion), then a hold.
-      const tt = t - HOOK - N * BEAT;
+      const tt = t - CUTS_END;
       frame = document.getElementById("f9"); p = clamp(tt / TAIL, 0, 1); zoom = 1 + 0.04 * p;
       // Typewriter: the question types out at 14 characters a second after a short beat, cursor blinking after.
       const L1 = "What are you", L2 = "waiting for?", RATE = 14, START = 0.2;

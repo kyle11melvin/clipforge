@@ -79,6 +79,11 @@ his standing brief. Read it before touching anything.
   a rounded card (house photo + price block, map row and Est. bar dropped) floating on the same photo blown
   up and blurred, inside the safe zone. Kyle, 2026-10-30: "that's it, much better". A flat navy void under a
   screenshot "looks a little weird" to him; fill the frame with blurred imagery instead.
+- `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
+  grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
+  Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
+  (80 BPM = 0.75 s per cut) so every hard cut lands on a kick; the first home can hold two beats. Give him
+  two or three styles to choose from; deep house was the recommendation for the price-cuts format.
 - **Instagram Reels safe zone, every reel (Kyle, 2026-10-29, "Cuts off on the IG preview"):** on 1080x1920
   keep all type and anything that must be read below y=250 (back button, "Preview"), above y=1450 (username,
   audio, caption) and left of x=940 (like/comment/share column). Probe stills with those zones drawn in red

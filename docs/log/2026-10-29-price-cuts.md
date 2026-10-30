@@ -65,3 +65,14 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   45 px and darkened to 60 %. Full frame, no void, and the chrome-covered bottom is just blurred photo.
 - Kyle: typewriter on the closing line instead of the rise? Yes: 14 characters a second after a 0.2 s beat,
   terracotta bar cursor, done at about 1.8 s into the 3 s hold, cursor blinking after. Kept the two-tone.
+- First home held longer: Kyle knows the listing agent ("a little more visibility, don't make it awkward").
+  1.5 s (two beats) instead of 0.75; the rest unchanged.
+- **Music.** Kyle: Instagram will not let his account add a song (business account, no licensed library), so
+  "set up the music behind it and we call it original audio". A commercial track baked into the file would be
+  muted or flagged, so the beds are synthesised: `src/music/beds.py` composes three 12 s beds at 80 BPM
+  (one beat = 0.75 s = one home) in A minor, Am7–Fmaj7–Cmaj7–G6, one chord per bar: bar 1 pad + riser under
+  the hook, kick drops on the first home, bars 2–3 groove, bar 4 thins under "What are you waiting for?" and
+  fades so the loop restarts. Options: deep house (recommended, closest to the example), lo-fi, trap
+  half-time. To make the cuts sit on the kicks the picture moved to the same grid: hook 3.0 s (4 beats),
+  first home 1.5, six at 0.75, closing 3.0; 12 s = 4 bars. Muxed with ffmpeg (`-c:a aac -b:a 192k`); a silent
+  version stays on the page. WAVs are gitignored; rerun the script to regenerate.
