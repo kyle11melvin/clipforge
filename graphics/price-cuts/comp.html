@@ -28,6 +28,7 @@
           font-size: 58px; line-height: 1.25; letter-spacing: -0.01em; color: var(--sand); }
   .cont .arrow { color: var(--terra); }
   .rise { will-change: transform, opacity; }
+  .cursor { display: inline-block; width: 8px; height: 0.82em; background: var(--terra); margin-left: 10px; vertical-align: -0.06em; }
 </style>
 </head>
 <body>
@@ -47,7 +48,7 @@
 <div class="frame me" id="f9">
   <img src="photo.jpg" alt="">
   <div class="scrim"></div>
-  <div class="h"><span class="rise">What are you</span><br><span class="terra rise">waiting for?</span></div>
+  <div class="h type"><span id="l1"></span><span id="cur1" class="cursor"></span><br><span id="l2" class="terra"></span><span id="cur2" class="cursor"></span></div>
 </div>
 
 <script>
@@ -71,10 +72,16 @@
       // Closing frame: a slow push-in, the lines rising in one after another (brand motion), then a hold.
       const tt = t - HOOK - N * BEAT;
       frame = document.getElementById("f9"); p = clamp(tt / TAIL, 0, 1); zoom = 1 + 0.04 * p;
-      frame.querySelectorAll(".rise").forEach((el, i) => {
-        const q = clamp((tt - 0.08 * i) / 0.45, 0, 1), e = 1 - Math.pow(1 - q, 3);
-        el.style.opacity = e; el.style.transform = `translateY(${(1 - e) * 36}px)`;
-      });
+      // Typewriter: the question types out at 14 characters a second after a short beat, cursor blinking after.
+      const L1 = "What are you", L2 = "waiting for?", RATE = 14, START = 0.2;
+      const n = Math.max(0, Math.floor((tt - START) * RATE));
+      const n1 = Math.min(n, L1.length), n2 = Math.min(Math.max(0, n - L1.length - 1), L2.length);   // the space costs a tick
+      document.getElementById("l1").textContent = L1.slice(0, n1);
+      document.getElementById("l2").textContent = L2.slice(0, n2);
+      const onLine2 = n > L1.length, done = n2 >= L2.length;
+      const blink = Math.floor(tt * 2.2) % 2 === 0;
+      document.getElementById("cur1").style.display = (!onLine2 && (n1 > 0 || blink)) ? "inline-block" : "none";
+      document.getElementById("cur2").style.display = (onLine2 && (!done || blink)) ? "inline-block" : "none";
     }
     frame.classList.add("on");
     frame.querySelector("img").style.transform = `scale(${zoom.toFixed(4)})`;

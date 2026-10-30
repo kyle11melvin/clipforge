@@ -63,3 +63,5 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
 - "Still big empty space even though it's colored now": the listing is now a 1000 px rounded card (house
   photo + price block, scale 0.9, y=250 to ~1420) floating on the same house photo blown up to 1920, blurred
   45 px and darkened to 60 %. Full frame, no void, and the chrome-covered bottom is just blurred photo.
+- Kyle: typewriter on the closing line instead of the rise? Yes: 14 characters a second after a 0.2 s beat,
+  terracotta bar cursor, done at about 1.8 s into the 3 s hold, cursor blinking after. Kept the two-tone.
