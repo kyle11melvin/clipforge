@@ -103,3 +103,9 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   render: `feel-so-close-2beats` (hook 8, first 3, homes 2, tail 8 beats = 14.5 s) and `feel-so-close-1beat`
   (hook 8, first 2, homes 1, tail 8 = 11.25 s), both silent. In the Reels editor he drags the song start to
   the drop; the first home then lands on bar three's downbeat.
+- 2026-10-31: he picked up the thread. Page reorganised: one file marked USE THIS ONE (the two-beats cut for
+  Feel So Close), others labelled "Other version". Gave him the posting steps (personal account, song from
+  the picker, start at ~0:40 so the drop lands on the first home, business account as collaborator). The
+  caption he meant was on a separate page from another conversation (https://claude.ai/artifact/PH6vw48J2i15ZNpWV9E5oN);
+  found it with an artifact list + read. Covers: `graphics/price-cuts/cover.html#open|close|total|waiting`,
+  the reel's own layout; the two new hooks use the real total of the seven cuts, $458K.
