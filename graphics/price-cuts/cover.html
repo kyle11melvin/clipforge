@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Price cuts cover</title>
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage-lift:#A9C0B9; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  /* Reel cover: same layout as the reel's photo frames. Text stays inside the centre 4:5 (y 285–1635) so the
+     profile-grid crop shows it. Variants by hash: #open, #close, #total, #waiting. */
+  img { position: absolute; top: 280px; left: -75px; width: 1230px; height: 1640px; }
+  .scrim { position: absolute; inset: 0; background:
+      linear-gradient(180deg, rgba(23,63,79,1) 0px, rgba(23,63,79,1) 290px, rgba(23,63,79,.75) 430px, rgba(23,63,79,0) 660px),
+      linear-gradient(0deg, rgba(23,63,79,.97) 0%, rgba(23,63,79,.90) 24%, rgba(23,63,79,.55) 36%, rgba(23,63,79,0) 48%); }
+  .h { position: absolute; left: 64px; right: 100px; top: 320px; font-family: "Sora", sans-serif; font-weight: 700;
+       font-size: 88px; line-height: 1.05; letter-spacing: -0.02em; color: var(--sand); }
+  .terra { color: var(--terra); }
+  .num { font-size: 176px; line-height: 0.9; letter-spacing: -0.03em; display: block; margin-bottom: 18px; }
+  .cont { position: absolute; left: 64px; width: 860px; bottom: 480px; font-family: "Manrope", sans-serif; font-weight: 700;
+          font-size: 58px; line-height: 1.25; letter-spacing: -0.01em; color: var(--sand); }
+  .eyebrow { position: absolute; left: 64px; top: 320px; font-family: "Manrope", sans-serif; font-weight: 700; font-size: 30px;
+             letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage-lift); }
+  .v { display: none; }
+</style>
+</head>
+<body>
+<img src="photo.jpg" alt="">
+<div class="scrim"></div>
+
+<div class="v" id="open">
+  <div class="h">You want a<br><span class="terra">better deal</span><br>on a house?</div>
+  <div class="cont">Maybe stop looking exclusively at interest rates.</div>
+</div>
+<div class="v" id="close">
+  <div class="h">What are you<br><span class="terra">waiting for?</span></div>
+</div>
+<div class="v" id="total">
+  <div class="eyebrow">Orange County · Zillow</div>
+  <div class="h" style="top: 372px"><span class="num terra">$458K</span>in price cuts.</div>
+  <div class="cont">Seven homes. Still waiting for rates to drop?</div>
+</div>
+<div class="v" id="waiting">
+  <div class="h">Still waiting<br>for rates<br><span class="terra">to drop?</span></div>
+  <div class="cont">Sellers just cut $458K off seven homes.</div>
+</div>
+<script>
+  const v = (location.hash || "#open").slice(1);
+  document.getElementById(v).style.display = "block";
+  window.seek = () => {};
+</script>
+</body>
+</html>
