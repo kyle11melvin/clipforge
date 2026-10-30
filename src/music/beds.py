@@ -254,4 +254,76 @@ def bounce(path):
         if groove and b % 4 == 3: m.add(b * B + H, bass(root(b) * 2, H * 0.8, cutoff=300), 0.6)
     m.render(path)
 
-deep_house(f"{out}/bed-deep-house.wav"); trap(f"{out}/bed-trap.wav"); bounce(f"{out}/bed-bounce.wav")
+# ---- Option F: piano house at 128, the lane of "Feel So Close" (own chords, own melody) ----------------------
+# Grid in beats: hook 8, first home 3, six homes at 2, closing 8 = 31 beats. Run with --bpm 128 --beats 31 --style piano.
+def supersaw(f, n, voices=7, spread=18):
+    tt = t(n); x = np.zeros(n)
+    for k in range(voices):
+        d = (k - (voices - 1) / 2) / ((voices - 1) / 2) * spread
+        x += 2 * ((tt * f * 2 ** (d / 1200) + k * 0.13) % 1.0) - 1
+    return x / voices
+def piano(f, dur):
+    n = int(dur * SR); tt = t(n)
+    x = np.sin(2 * np.pi * f * tt) * np.exp(-tt * 2.2) + 0.5 * np.sin(2 * np.pi * 2 * f * tt) * np.exp(-tt * 4) \
+        + 0.25 * np.sin(2 * np.pi * 3 * f * tt) * np.exp(-tt * 7) + 0.12 * np.sin(2 * np.pi * 4.01 * f * tt) * np.exp(-tt * 12)
+    return np.tanh(x * 1.3) * env(n, 0.002, 0.25, 0.5, 0.2, hold=max(0, dur - 0.45)) * 0.45
+def lead(f, dur):
+    n = int(dur * SR); tt = t(n); vib = 1 + 0.004 * np.sin(2 * np.pi * 5.5 * tt) * np.minimum(1, tt * 3)
+    x = lp(supersaw(f, n, voices=5, spread=10) * vib, 3800) + np.sin(2 * np.pi * f * tt) * 0.3
+    return x * env(n, 0.01, 0.15, 0.75, 0.12, hold=max(0, dur - 0.27)) * 0.5
+def pump(n_total, kicks, depth=0.55, rel=0.28):
+    e = np.ones(n_total)
+    for k in kicks:
+        i = int(k * SR); m = int(rel * SR); seg = e[i:i + m]
+        seg *= 1 - depth * np.exp(-np.arange(len(seg)) / SR * (4 / rel))
+    return e
+def piano_house(path):
+    HOOKB, FIRSTB, HOMEB, TAILB = 8, 3, 2, 8
+    drop = HOOKB; close = HOOKB + FIRSTB + 6 * HOMEB; total = close + TAILB
+    assert total == BEATS, (total, BEATS)
+    # F major, I–V–vi–IV, one chord per bar
+    PROGF = [["F3", "A3", "C4", "F4"], ["C3", "E3", "G3", "C4"], ["D3", "F3", "A3", "D4"], ["A#2", "D3", "F3", "A#3"]]
+    ROOTF = ["F1", "C2", "D2", "A#1"]
+    def ch(b): return [note(x) for x in PROGF[(b // 4) % 4]]
+    def rt(b): return note(ROOTF[(b // 4) % 4])
+    dry = Mix(); wet = Mix(); kicks = []
+    # hook: piano chords on every beat, pushed on the "and" of 2 and 4, a riser and a snare roll into the drop
+    for b in range(HOOKB):
+        for f in ch(b): wet.add(b * B, piano(f * 2, B * 0.95), 0.5, pan=rng.uniform(-0.25, 0.25))
+        if b % 2 == 1:
+            for f in ch(b): wet.add(b * B + B / 2, piano(f * 2, B * 0.45), 0.3)
+        wet.add(b * B, hat(dur=0.04), 0.18, pan=0.2)
+        if b >= 4: dry.add(b * B, lp(kick(punch=0.3), 500), 0.5)
+    for q in range(8): dry.add((HOOKB - 2) * B + q * B / 4, snare(), 0.25 + 0.07 * q)
+    wet.add((HOOKB - 4) * B, riser(4 * B), 1.0); dry.add((HOOKB - 4) * B, reverse_cymbal(4 * B), 0.8)
+    dry.add(drop * B, impact(), 0.9)
+    # drop + closing: four-on-the-floor, offbeat bass, supersaw chords (pumped), lead melody during the homes
+    MOTIF = [(0, 0.5), (2, 0.5), (3, 1.0), (2, 0.5), (0, 0.5), (1, 1.0), (3, 0.5), (2, 0.5), (1, 1.0), (0, 1.0)]   # chord-tone index, beats
+    for b in range(drop, total):
+        groove = b < close; g = 1.0 if groove else 0.7
+        dry.add(b * B, kick(dur=0.4, f0=170, f1=50), g); kicks.append(b * B)
+        dry.add(b * B + B / 2, hat(open_=True), 0.4 * g, pan=0.3)
+        for q in (0.25, 0.75): dry.add(b * B + q * B, hat(dur=0.04), 0.3 * g, pan=-0.2)
+        if b % 2 == 1: dry.add(b * B, clap(), 0.7 * g)
+        dry.add(b * B + B / 2, bass(rt(b) * 2, B * 0.45, cutoff=420, drive=1.6), 0.8 * g)
+        if b % 4 == 0:
+            n = int(4 * B * SR); x = sum(lp(supersaw(f * 2, n), 5000) for f in ch(b)) / 4
+            wet.add(b * B, x * env(n, 0.02, 0.1, 0.9, 0.3, hold=4 * B - 0.42) * 0.5, 0.75 * g)
+            for f in ch(b): wet.add(b * B, piano(f * 2, 4 * B), 0.3)
+    # the melody: an original two-bar motif, repeated over the homes, octave up over the last pass
+    tb = drop; pos = 0.0; k = 0
+    while tb + pos / 1.0 < close:
+        idx, ln = MOTIF[k % len(MOTIF)]
+        at = (drop + pos) * B; bb = drop + int(pos)
+        if bb < close:
+            oct_ = 4 if (pos >= 8) else 2
+            wet.add(at, lead(ch(bb)[idx] * oct_, ln * B * 0.95), 0.55, pan=0.1)
+        pos += ln; k += 1
+    typewriter(wet, close * B, last_f=1397)
+    m = Mix(); pe = pump(N, kicks)
+    m.L = dry.L + wet.L * pe; m.R = dry.R + wet.R * pe
+    m.render(path)
+
+STYLE = args[args.index("--style") + 1] if "--style" in args else None
+if STYLE == "piano": piano_house(f"{out}/bed-piano-house.wav")
+else: deep_house(f"{out}/bed-deep-house.wav"); trap(f"{out}/bed-trap.wav"); bounce(f"{out}/bed-bounce.wav")
