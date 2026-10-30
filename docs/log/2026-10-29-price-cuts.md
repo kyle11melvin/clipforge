@@ -90,3 +90,8 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   backbeat, 808 glide per bar, swung 16th hats, phonk-style cowbell melody on the chord tones, plus the shared
   front build and typewriter close. An `upbeat_house()` (double-time house) exists in the script too but is
   not on the page. Page now offers deep house, trap, bounce, silent.
+- Kyle on the bounce bed: "Terrible". Pulled from the page. Lesson: synthesising "like this song" from onset
+  statistics does not work; the two he liked (deep house, trap) came from a plain style brief, not imitation.
+  For music that sounds like a real track, he needs a licensed library track (Instagram's own royalty-free
+  tab for business accounts, or a download from Epidemic Sound / Artlist / Pixabay sent here) and the
+  picture cut to its beat.
