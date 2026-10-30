@@ -75,8 +75,10 @@ his standing brief. Read it before touching anything.
   colours to be Coastal Money anyway ("match kylemylenderguy brand"), so: structure from the example, look from
   the brand. Photo hooks get a navy gradient scrim top and bottom so sand type reads. A closing frame carries
   one headline only, no line under it (Kyle, 2026-10-29). Playfair Display (4 faces) is in `graphics/fonts/`
-  if a brief ever asks for it. He pre-crops Zillow screenshots himself; `make-cuts.py` restacks each one
-  (house photo + price block, map row and Est. bar dropped) into the safe zone.
+  if a brief ever asks for it. He pre-crops Zillow screenshots himself; `make-cuts.py` turns each one into
+  a rounded card (house photo + price block, map row and Est. bar dropped) floating on the same photo blown
+  up and blurred, inside the safe zone. Kyle, 2026-10-30: "that's it, much better". A flat navy void under a
+  screenshot "looks a little weird" to him; fill the frame with blurred imagery instead.
 - **Instagram Reels safe zone, every reel (Kyle, 2026-10-29, "Cuts off on the IG preview"):** on 1080x1920
   keep all type and anything that must be read below y=250 (back button, "Preview"), above y=1450 (username,
   audio, caption) and left of x=940 (like/comment/share column). Probe stills with those zones drawn in red
