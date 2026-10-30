@@ -76,3 +76,10 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   half-time. To make the cuts sit on the kicks the picture moved to the same grid: hook 3.0 s (4 beats),
   first home 1.5, six at 0.75, closing 3.0; 12 s = 4 bars. Muxed with ffmpeg (`-c:a aac -b:a 192k`); a silent
   version stays on the page. WAVs are gitignored; rerun the script to regenerate.
+- Kyle likes the beds, especially the groove between the houses, and wants the front and back "spiced up",
+  the back matching the typewriter. Added to all three: hook bar gets a muted half-time kick, a ticking hat, a
+  reverse cymbal and a pre-drop stab; the closing bar keeps a softer groove and plays a keyboard tick on every
+  typed letter (same formula as comp.html: 0.2 s + k/14), a ding plus a kick when the "?" lands.
+- He asked again whether Claude could add a real song: no. The block is the license, not the account; a
+  commercial track baked into the file gets muted or blocked by Instagram's audio matching. Only owned or
+  royalty-free music goes into the file.

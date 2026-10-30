@@ -116,14 +116,40 @@ def chord(beat): return [note(x) for x in PROG[bar_of(beat)]]
 def root(beat): return note(ROOTS[bar_of(beat)])
 HOME_BEATS = range(4, 12); HOOK = range(0, 4); CLOSE = range(12, BEATS)
 
+# ---- shared: the front (hook) build and the back end that follows the typewriter -----------------------------
+def tick():
+    n = int(0.05 * SR); tt = t(n)
+    return (hp(rng.normal(0, 1, n), 3500, 4) * np.exp(-tt * 180) + np.sin(2 * np.pi * 2400 * tt) * np.exp(-tt * 260) * 0.5) * 0.7
+def ding(f=1760):
+    n = int(1.2 * SR); tt = t(n)
+    return (np.sin(2 * np.pi * f * tt) + 0.4 * np.sin(2 * np.pi * f * 2.76 * tt) * np.exp(-tt * 6)) * np.exp(-tt * 3.2) * 0.35
+def reverse_cymbal(dur):
+    n = int(dur * SR); tt = t(n)
+    return hp(rng.normal(0, 1, n), 5000, 4) * (tt / dur) ** 3 * 0.4
+def front(m, heavy=True):
+    # Hook bar: a muted half-time kick, a ticking hat, the pad opening, a reverse cymbal and a pre-drop stab.
+    for b in (0, 2): m.add(b * B, lp(kick(punch=0.3), 400), 0.55 if heavy else 0.4)
+    for b in range(4): m.add(b * B, hat(dur=0.04), 0.18, pan=0.2)
+    m.add(2 * B, reverse_cymbal(2 * B), 0.8)
+    m.add(3.5 * B, stab(chord(0), 0.5 * B, cutoff=2600), 0.5, pan=-0.15)
+def typewriter(m, t0, rate=14.0, start=0.2, chars=25, last_f=1760):
+    # Mirrors comp.html: n = floor((tt - START) * RATE); character k appears at tt = start + k / rate.
+    # n = 13 is the space between the lines (no letter, so no tick). The last one is the question mark.
+    for k in range(1, chars + 1):
+        if k == 13: continue
+        m.add(t0 + start + k / rate, tick(), 0.75 if k != chars else 0.4, pan=0.35)
+    m.add(t0 + start + chars / rate, ding(last_f), 0.9, pan=0.1)
+    m.add(t0 + start + chars / rate, kick(punch=0.6), 0.8)
+
 # ---- Option A: deep house ------------------------------------------------------------------------------------
 def deep_house(path):
     m = Mix()
     for bar in range(4): m.add(bar * 4 * B, pad(chord(bar * 4), 4 * B, cutoff=900), 0.8)
-    m.add(2 * B, riser(2 * B), 0.9)
-    m.add(4 * B, impact(), 0.7)
+    m.add(2 * B, riser(2 * B), 0.9); front(m)
+    m.add(4 * B, impact(), 0.7); typewriter(m, 12 * B)
     for b in range(BEATS):
-        if b in HOME_BEATS or b == 12: m.add(b * B, kick(), 1.0)
+        if b in HOME_BEATS: m.add(b * B, kick(), 1.0)
+        if b in CLOSE: m.add(b * B, kick(), 0.6)
         if b in HOME_BEATS or b in CLOSE:
             m.add(b * B + B / 2, hat(open_=True), 0.5 if b in HOME_BEATS else 0.25, pan=0.3)
             for q in (0.25, 0.75): m.add(b * B + q * B, hat(), 0.35, pan=-0.2)
@@ -131,7 +157,9 @@ def deep_house(path):
         if b in HOME_BEATS:
             m.add(b * B, bass(root(b), B * 0.45), 0.9); m.add(b * B + B / 2, bass(root(b), B * 0.4, cutoff=200), 0.6)
             m.add(b * B + B / 2, stab(chord(b), B * 0.5), 0.55, pan=0.15)
-        if b in CLOSE and b > 12: m.add(b * B + B / 2, stab(chord(b), B * 0.5, cutoff=900), 0.3, pan=0.15)
+        if b in CLOSE:
+            m.add(b * B + B / 2, stab(chord(b), B * 0.5, cutoff=1100), 0.35, pan=0.15)
+            if b % 2 == 0: m.add(b * B, bass(root(b), B * 0.45), 0.55)
     m.render(path)
 
 # ---- Option B: lo-fi -----------------------------------------------------------------------------------------
@@ -140,9 +168,11 @@ def lofi(path):
     m.add(0, crackle(DUR), 0.5)
     for bar in range(4):
         for f in chord(bar * 4): m.add(bar * 4 * B, rhodes(f, 4 * B), 0.55, pan=rng.uniform(-0.3, 0.3))
-    m.add(2 * B, riser(2 * B), 0.5)
+    m.add(2 * B, riser(2 * B), 0.5); front(m, heavy=False); typewriter(m, 12 * B, last_f=1318)
     for b in range(BEATS):
-        if b in HOME_BEATS or b == 12: m.add(b * B, kick(dur=0.35, f0=120, f1=52, punch=0.4), 0.9)
+        if b in HOME_BEATS: m.add(b * B, kick(dur=0.35, f0=120, f1=52, punch=0.4), 0.9)
+        if b in CLOSE and b % 2 == 0: m.add(b * B, kick(dur=0.35, f0=120, f1=52, punch=0.4), 0.6)
+        if b in CLOSE and b % 2 == 1: m.add(b * B, snare(), 0.4)
         if b in HOME_BEATS and b % 2 == 1: m.add(b * B, snare(), 0.75)
         if b in HOME_BEATS or b in CLOSE:
             m.add(b * B, hat(dur=0.05), 0.3, pan=0.2); m.add(b * B + B / 2 + swing, hat(dur=0.05), 0.22, pan=0.2)
@@ -153,10 +183,11 @@ def lofi(path):
 def trap(path):
     m = Mix()
     for bar in range(4): m.add(bar * 4 * B, pad([f / 2 for f in chord(bar * 4)], 4 * B, cutoff=600, a=1.2), 0.7)
-    m.add(2 * B, riser(2 * B), 1.0)
-    m.add(4 * B, impact(), 0.9)
+    m.add(2 * B, riser(2 * B), 1.0); front(m)
+    m.add(4 * B, impact(), 0.9); typewriter(m, 12 * B, last_f=880)
     for b in range(BEATS):
-        if b in HOME_BEATS or b == 12: m.add(b * B, kick808(dur=B * 0.95, f1=root(b) / 2 if root(b) > 50 else root(b)), 1.0)
+        if b in HOME_BEATS: m.add(b * B, kick808(dur=B * 0.95, f1=root(b) / 2 if root(b) > 50 else root(b)), 1.0)
+        if b in CLOSE and b % 2 == 0: m.add(b * B, kick808(dur=B * 0.95, f1=root(b) / 2 if root(b) > 50 else root(b)), 0.7)
         if b in HOME_BEATS and b % 4 == 2: m.add(b * B, clap(), 0.8); m.add(b * B, snare(), 0.5)
         if b in HOME_BEATS or b in CLOSE:
             for q in range(4):
