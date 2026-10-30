@@ -85,6 +85,12 @@ his standing brief. Read it before touching anything.
   (80 BPM = 0.75 s per cut) so every hard cut lands on a kick; the first home can hold two beats. Give him
   two or three styles to choose from; deep house was the recommendation for the price-cuts format. Sound design
   follows the picture: a tick per typed letter under a typewriter line, a hit when the last character lands.
+  **He will ask for a real song anyway** (2026-10-30, Dua Lipa, then Calvin Harris "Feel So Close"). Never bake
+  a commercial track into the file, even if he says he is not worried. Do this instead: preview songs for him
+  with Spotify links (the connector finds tracks; he does not want to dig through the app), then render the
+  reel silent at the song's tempo with `comp.html#bpm=128&hook=8&first=3&home=2&tail=8` (beats) so he posts
+  it from a creator account with the song from Instagram's picker, business account tagged as collaborator.
+  Give him one and two beats per home; tell him to drag the song start to the drop.
 - **Instagram Reels safe zone, every reel (Kyle, 2026-10-29, "Cuts off on the IG preview"):** on 1080x1920
   keep all type and anything that must be read below y=250 (back button, "Preview"), above y=1450 (username,
   audio, caption) and left of x=940 (like/comment/share column). Probe stills with those zones drawn in red

@@ -95,3 +95,11 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   For music that sounds like a real track, he needs a licensed library track (Instagram's own royalty-free
   tab for business accounts, or a download from Epidemic Sound / Artlist / Pixabay sent here) and the
   picture cut to its beat.
+- Kyle wants a real song after all ("fuck it, I'm not worried about Instagram"). Declined to bake a commercial
+  track into the file; offered the legal route: silent reel re-timed to the song's tempo, posted from a creator
+  account with the song from Instagram's picker, business account tagged / collaborator. Previewed songs for him
+  with Spotify links (Dua Lipa list, then the Kygo / tropical-house lane he asked for). He picked Calvin Harris,
+  "Feel So Close", 128 BPM. `comp.html` now takes `#bpm=&hook=&first=&home=&tail=` (beats) so any tempo is one
+  render: `feel-so-close-2beats` (hook 8, first 3, homes 2, tail 8 beats = 14.5 s) and `feel-so-close-1beat`
+  (hook 8, first 2, homes 1, tail 8 = 11.25 s), both silent. In the Reels editor he drags the song start to
+  the drop; the first home then lands on bar three's downbeat.

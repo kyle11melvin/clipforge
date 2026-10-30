@@ -55,7 +55,12 @@
   // Timeline on an 80 BPM grid (one beat = 0.75 s, the music is composed to it): hook 4 beats (0–3.0),
   // first home 2 beats (Kyle, 2026-10-30: he knows the listing agent, "just a little bit longer"), six homes at
   // 1 beat each, closing frame 4 beats. Every cut lands on a kick. Total 12.0 s = 4 bars.
-  const HOOK = 3.0, BEAT = 0.75, TAIL = 3.0, FIRST = 1.5;
+  // Any tempo: comp.html#bpm=128&hook=8&first=3&home=2&tail=8 (counts in beats) re-times the whole reel so
+  // the silent version can be posted with a licensed song from Instagram's picker. Defaults = the 80 BPM beds.
+  const Q = Object.fromEntries(location.hash.slice(1).split("&").filter(Boolean).map((kv) => kv.split("=").map(decodeURIComponent)));
+  const BPM = parseFloat(Q.bpm || "80"), BEAT0 = 60 / BPM;
+  const HOOK = (parseFloat(Q.hook || "4")) * BEAT0, BEAT = (parseFloat(Q.home || "1")) * BEAT0,
+        TAIL = (parseFloat(Q.tail || "4")) * BEAT0, FIRST = (parseFloat(Q.first || "2")) * BEAT0;
   const cuts = [...document.querySelectorAll(".cut")];
   const N = cuts.length;
   const starts = cuts.map((_, i) => HOOK + (i === 0 ? 0 : FIRST + (i - 1) * BEAT));
