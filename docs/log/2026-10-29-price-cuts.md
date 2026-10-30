@@ -60,3 +60,6 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
 - 2026-10-30: "the bottom font looks a little too faint to read" on frame 1 → Manrope 700 at 58 px (was
   500 at 44) and the bottom scrim goes almost solid navy in the last quarter. "So much white space below"
   the listings → `make-cuts.py` fills under the price block with navy (24 px of page, then navy).
+- "Still big empty space even though it's colored now": the listing is now a 1000 px rounded card (house
+  photo + price block, scale 0.9, y=250 to ~1420) floating on the same house photo blown up to 1920, blurred
+  45 px and darkened to 60 %. Full frame, no void, and the chrome-covered bottom is just blurred photo.

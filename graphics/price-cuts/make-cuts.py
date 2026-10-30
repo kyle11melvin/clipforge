@@ -7,7 +7,7 @@ import sys, numpy as np
 from PIL import Image
 src, out = sys.argv[1], sys.argv[2]
 order = ["IMG_8646","IMG_8648","IMG_8649","IMG_8651","IMG_8652","IMG_8654","IMG_8655"]
-S = 0.9; W = 1080; HERO = 808; TOP = 265
+S = 0.9; W = 1080; HERO = 808; TOP = 250
 for i, n in enumerate(order, 1):
     im = Image.open(f"{src}/{n}.PNG").convert("RGB"); a = np.asarray(im).astype(int); H = a.shape[0]
     sd = a.std(axis=(1, 2)); uni = sd < 8
@@ -19,17 +19,24 @@ for i, n in enumerate(order, 1):
         if not green[y] and s is not None: runs.append((s, y)); s = None
     g0, g1 = [r for r in runs if r[1] - r[0] > 100][-1]          # the Est. $/mo bar is the last tall green run
     hero_top = p1_end + 4; hero_bot = hero_top + HERO
-    lead = int(TOP / S)                                            # strip of the page above the hero, under IG chrome
-    top_part = im.crop((0, hero_top - lead, im.width, hero_bot))
+    hero = im.crop((0, hero_top, im.width, hero_bot))
     price = im.crop((0, g1 + 1, im.width, H))
     sw = round(im.width * S)
-    top_part = top_part.resize((sw, round(top_part.height * S)), Image.LANCZOS)
-    price = price.resize((sw, round(price.height * S)), Image.LANCZOS)
-    frame = Image.new("RGB", (W, 1920), (23, 63, 79))                # navy below the price block, not a white void
-    x = (W - sw) // 2
-    frame.paste(top_part, (x, 0))                                  # photos centred (crop both sides)
-    frame.paste(price, (0, top_part.height))                       # price block keeps its left edge
-    bottom = top_part.height + price.height
-    frame.paste((255, 255, 255), (0, bottom, W, bottom + 24))          # a little page under the address, then navy
+    hero_s = hero.resize((sw, round(hero.height * S)), Image.LANCZOS)
+    price_s = price.resize((sw, round(price.height * S)), Image.LANCZOS)
+    # Background: the house photo blown up, blurred and darkened, edge to edge, so nothing in the frame is a void
+    # (Kyle, 2026-10-30: the navy under the card "still looks a little weird"). The listing floats on it as a card.
+    from PIL import ImageFilter, ImageEnhance, ImageDraw
+    bg = hero.resize((round(hero.width * 1920 / hero.height), 1920), Image.LANCZOS)
+    bg = bg.crop(((bg.width - W) // 2, 0, (bg.width - W) // 2 + W, 1920)).filter(ImageFilter.GaussianBlur(45))
+    frame = ImageEnhance.Brightness(bg).enhance(0.6)
+    CW = 1000; cx = (W - CW) // 2; ox = (sw - CW) // 2                 # card 1000 wide, photo cropped both sides
+    card = Image.new("RGB", (CW, hero_s.height + price_s.height + 12), "white")
+    card.paste(hero_s.crop((ox, 0, ox + CW, hero_s.height)), (0, 0))
+    card.paste(price_s.crop((0, 0, CW, price_s.height)), (0, hero_s.height))   # price block keeps its left edge
+    mask = Image.new("L", card.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, card.width - 1, card.height - 1], radius=28, fill=255)
+    frame.paste(card, (cx, TOP), mask)
+    bottom = TOP + card.height
     frame.save(f"{out}/cut{i}.jpg", quality=90)
     print(i, n, "p1_end", p1_end, "green", g0, g1, "hero", hero_top, hero_bot, "-> price block ends at", bottom)
