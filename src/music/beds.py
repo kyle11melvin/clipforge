@@ -197,4 +197,61 @@ def trap(path):
                 for q in range(8): m.add(b * B + B / 2 + q * B / 16, hat(dur=0.03), 0.22)
     m.render(path)
 
-deep_house(f"{out}/bed-deep-house.wav"); lofi(f"{out}/bed-lofi.wav"); trap(f"{out}/bed-trap.wav")
+# ---- Option D: upbeat house (double time: two kicks per home, 160 BPM feel) ----------------------------------
+def pluck(f, dur):
+    n = int(dur * SR); tt = t(n)
+    x = lp(saw(f, n, detune=6), 3200) * np.exp(-tt * 9) + np.sin(2 * np.pi * f * tt) * np.exp(-tt * 12) * 0.5
+    return x * env(n, 0.002, 0.12, 0.3, 0.08, hold=max(0, dur - 0.2)) * 0.5
+def upbeat_house(path):
+    m = Mix(); H = B / 2
+    # brighter voicings: the same progression an octave up, with the 9th on top
+    for bar in range(4): m.add(bar * 4 * B, pad([f * 2 for f in chord(bar * 4)], 4 * B, cutoff=1600), 0.55)
+    m.add(2 * B, riser(2 * B), 1.0); front(m)
+    for q in range(4):                                                   # pre-drop: kick on every 8th of beat 3
+        m.add(3 * B + q * B / 4, lp(kick(punch=0.5), 700), 0.5 + 0.12 * q)
+    m.add(4 * B, impact(), 0.8); typewriter(m, 12 * B, last_f=2093)
+    arp = [0, 2, 1, 3, 2, 3, 1, 2]                                       # chord-tone arpeggio, 16ths
+    for b in range(BEATS):
+        groove = b in HOME_BEATS; close = b in CLOSE
+        if groove or close:
+            for h in (0, 1): m.add(b * B + h * H, kick(dur=0.32, f0=170, f1=50), 1.0 if groove else 0.6)
+            for h in (0, 1): m.add(b * B + h * H + H / 2, hat(open_=True), 0.4 if groove else 0.25, pan=0.3)
+            for q in range(4): m.add(b * B + q * B / 4, hat(dur=0.04), 0.28, pan=-0.2)
+            if b % 2 == 1: m.add(b * B, clap(), 0.8 if groove else 0.45)
+            c = chord(b)
+            for q in range(4): m.add(b * B + q * B / 4, pluck(c[arp[(b * 4 + q) % 8]] * 2, B / 4), 0.6 if groove else 0.35, pan=0.2 * (-1) ** q)
+        if groove:
+            m.add(b * B, bass(root(b) * 2, H * 0.8, cutoff=320), 0.8); m.add(b * B + H, bass(root(b) * 2, H * 0.8, cutoff=260), 0.65)
+            if b % 2 == 0: m.add(b * B + B / 2 + B / 4, stab(c, B / 4, cutoff=2400), 0.45, pan=0.1)
+    m.render(path)
+
+# ---- Option E: bounce, in the style of the example reel's track ----------------------------------------------
+# The example (analysed 2026-10-30): a dense kick pattern under the cuts, punchy backbeat, mid-heavy, hip-hop
+# bounce rather than house. Same 80 BPM grid, two kicks per home, snare on two and four, an 808 that glides into
+# each bar, 16th hats with a swing, and a phonk-style cowbell melody carrying the hook.
+def cowbell(f, dur):
+    n = int(dur * SR); tt = t(n)
+    x = (np.sign(np.sin(2 * np.pi * f * tt)) * 0.5 + np.sign(np.sin(2 * np.pi * f * 1.48 * tt)) * 0.5) * np.exp(-tt * 10)
+    return bp(x, 500, 4000) * 0.35
+def bounce(path):
+    m = Mix(); H = B / 2; sw = 0.06 * B
+    for bar in range(4): m.add(bar * 4 * B, pad([f / 2 for f in chord(bar * 4)], 4 * B, cutoff=700, a=1.0), 0.6)
+    m.add(2 * B, riser(2 * B), 1.0); front(m)
+    for q in range(4): m.add(3 * B + q * B / 4, lp(kick(punch=0.5), 700), 0.45 + 0.12 * q)   # pre-drop stutter
+    m.add(4 * B, impact(), 0.9); typewriter(m, 12 * B, last_f=1175)
+    # cowbell melody on the chord tones, 8ths, two-bar phrase
+    MEL = [0, 2, 1, 0, 3, 2, 1, 2, 0, 2, 1, 3, 2, 1, 0, 1]
+    for b in range(BEATS):
+        groove = b in HOME_BEATS; close = b in CLOSE; c = chord(b)
+        if groove or close:
+            g = 1.0 if groove else 0.6
+            m.add(b * B, kick(dur=0.4, f0=180, f1=52, punch=1.2), g)                 # the "boom" on every home
+            m.add(b * B + H + (sw if b % 2 else 0), kick(dur=0.3, f0=150, f1=55, punch=0.8), 0.7 * g)
+            if b % 2 == 1: m.add(b * B, snare(), 0.9 * g); m.add(b * B, clap(), 0.5 * g)
+            for q in range(4): m.add(b * B + q * B / 4 + (sw if q % 2 else 0), hat(dur=0.04), (0.32 if q % 2 == 0 else 0.2) * g, pan=0.25 * (-1) ** q)
+            for h in (0, 1): m.add(b * B + h * H, cowbell(c[MEL[(b * 2 + h) % 16]] * 2, H * 0.9), 0.7 * g, pan=0.15)
+        if groove and b % 2 == 0: m.add(b * B, kick808(dur=B * 1.9, f0=root(b) * 1.5, f1=root(b)), 0.9)
+        if groove and b % 4 == 3: m.add(b * B + H, bass(root(b) * 2, H * 0.8, cutoff=300), 0.6)
+    m.render(path)
+
+deep_house(f"{out}/bed-deep-house.wav"); trap(f"{out}/bed-trap.wav"); bounce(f"{out}/bed-bounce.wav")

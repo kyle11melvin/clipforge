@@ -83,3 +83,10 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
 - He asked again whether Claude could add a real song: no. The block is the license, not the account; a
   commercial track baked into the file gets muted or blocked by Instagram's audio matching. Only owned or
   royalty-free music goes into the file.
+- Kyle: no on lo-fi, yes on deep house and trap; "should we do something more upbeat?" then "something like
+  the original video's track?". Analysed the example's audio (ffmpeg → wav, onset autocorrelation): ~100 BPM
+  feel, a dense kick pattern under the cuts (hits every 0.15–0.3 s), mid-heavy, hip-hop bounce rather than
+  house. Built `bounce()` on our 80 BPM grid with that density: two kicks per home, snare + clap on the
+  backbeat, 808 glide per bar, swung 16th hats, phonk-style cowbell melody on the chord tones, plus the shared
+  front build and typewriter close. An `upbeat_house()` (double-time house) exists in the script too but is
+  not on the page. Page now offers deep house, trap, bounce, silent.
