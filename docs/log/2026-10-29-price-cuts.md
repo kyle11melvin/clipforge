@@ -57,3 +57,6 @@ The "PNG" screenshots were JPEGs inside; PIL does not care. He had already cropp
   from y=265 so the block ends at ~1420; the map row and the "Est. $/mo" bar are cut out, and the bottom of
   the first photo peeks in under the chrome so it still reads as the page. Probe with the chrome zones
   drawn over the stills (red bands) before rendering.
+- 2026-10-30: "the bottom font looks a little too faint to read" on frame 1 → Manrope 700 at 58 px (was
+  500 at 44) and the bottom scrim goes almost solid navy in the last quarter. "So much white space below"
+  the listings → `make-cuts.py` fills under the price block with navy (24 px of page, then navy).

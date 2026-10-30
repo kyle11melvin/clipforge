@@ -25,10 +25,11 @@ for i, n in enumerate(order, 1):
     sw = round(im.width * S)
     top_part = top_part.resize((sw, round(top_part.height * S)), Image.LANCZOS)
     price = price.resize((sw, round(price.height * S)), Image.LANCZOS)
-    frame = Image.new("RGB", (W, 1920), "white")
+    frame = Image.new("RGB", (W, 1920), (23, 63, 79))                # navy below the price block, not a white void
     x = (W - sw) // 2
     frame.paste(top_part, (x, 0))                                  # photos centred (crop both sides)
     frame.paste(price, (0, top_part.height))                       # price block keeps its left edge
     bottom = top_part.height + price.height
+    frame.paste((255, 255, 255), (0, bottom, W, bottom + 24))          # a little page under the address, then navy
     frame.save(f"{out}/cut{i}.jpg", quality=90)
     print(i, n, "p1_end", p1_end, "green", g0, g1, "hero", hero_top, hero_bot, "-> price block ends at", bottom)
