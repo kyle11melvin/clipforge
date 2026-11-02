@@ -81,10 +81,13 @@ his standing brief. Read it before touching anything.
   screenshot "looks a little weird" to him; fill the frame with blurred imagery instead.
 - `graphics/broncos-4q/` (2026-11-02) — a **personal-account meme reel**, no Coastal Money ("this is the straight
   personal account"): photos with his reel-cover type (Nunito ExtraBold, white, black stroke) and Broncos orange.
-  Asher laughing = 1st quarter, Kyle draining to an aged black-and-white = 4th quarter, with a blood-pressure /
-  BPM monitor and an ECG trace, then "they pull it off. Every time." A true face-aged photo needs a phone app
-  (FaceApp); ask him for one rather than faking it. `src/music/heartbeat.py` is the baked-in heartbeat sound.
-  Lesson: when he says "personal account", drop the brand rules and go for the joke.
+  Kyle holding Asher = 1st quarter, Kyle alone draining to an aged black-and-white = 4th quarter, with a broadcast
+  score bug (the real game's score, down and clock, found by web search; espn/cbssports are not reachable from
+  the session and game footage is never an option) plus a blood-pressure / BPM monitor and an ECG trace, then
+  Asher laughing: "they pull it off. Every time." A true face-aged photo needs a phone app (FaceApp); ask him
+  for one rather than faking it. `src/music/heartbeat.py` is the baked-in sound bed (ticks, drone, toms,
+  heartbeat, buzzer, crowd roar). Lesson: when he says "personal account", drop the brand rules and go for the
+  joke, and he wants the real game on screen.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
