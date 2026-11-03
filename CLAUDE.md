@@ -88,7 +88,10 @@ his standing brief. Read it before touching anything.
   for one rather than faking it. `src/music/heartbeat.py` is the baked-in sound bed (ticks, drone, toms,
   heartbeat, buzzer, crowd roar). Lesson: when he says "personal account", drop the brand rules and go for the
   joke, and he wants the real game on screen. **It worked**: ~15K views, 243 shares in 24 h (2026-11-03), his
-  biggest reel so far; average watch 8 s of 16, so keep the tension frame of a meme to ~4 s before the payoff.
+  biggest reel so far (Rod Smith commented); average watch 8 s of 16, so keep a meme under ~10 s: 2 s hook,
+  ~4 s tension, payoff. **Next game meme**: ask him for his own phone recording of the TV at the final play (the
+  announcers' call) plus a reaction photo of Asher, and build the same night. He wants different music next time;
+  ask for the lane (or a picker song on the silent version) before building the picture.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
