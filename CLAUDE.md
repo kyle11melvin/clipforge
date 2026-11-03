@@ -87,7 +87,8 @@ his standing brief. Read it before touching anything.
   Asher laughing: "they pull it off. Every time." A true face-aged photo needs a phone app (FaceApp); ask him
   for one rather than faking it. `src/music/heartbeat.py` is the baked-in sound bed (ticks, drone, toms,
   heartbeat, buzzer, crowd roar). Lesson: when he says "personal account", drop the brand rules and go for the
-  joke, and he wants the real game on screen.
+  joke, and he wants the real game on screen. **It worked**: ~15K views, 243 shares in 24 h (2026-11-03), his
+  biggest reel so far; average watch 8 s of 16, so keep the tension frame of a meme to ~4 s before the payoff.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
