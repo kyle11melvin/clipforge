@@ -1,0 +1,97 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* "Maverick laughing in his sleep" (2026-11-04): a personal-account meme over a Nanit crib-cam clip.
+     Text-only overlay rendered with --alpha and laid over videos/mav-sleep-laugh/base.mp4 (the cut footage, crib window at y=700).
+     Type is his reel-cover look: Nunito ExtraBold, white, black stroke; the "THEORY n" eyebrow is a night-vision
+     yellow. Safe zone: nothing readable above y=250 or below y=1450, nothing right of x=940. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url("../../assets/fonts/Inter-700-latin.woff2") format("woff2"); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  .stage { position: absolute; inset: 0; }
+  .top { position: absolute; left: 50px; right: 140px; top: 262px; }
+  .eyebrow { font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 46px; letter-spacing: .12em; color: #FFD60A;
+    text-transform: uppercase; margin-bottom: 14px; -webkit-text-stroke: 5px #000; paint-order: stroke fill; }
+  .h { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 96px; line-height: 1.06; color: #fff;
+    -webkit-text-stroke: 8px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,.5); }
+  .h.small { font-size: 92px; }
+  .w { display: inline-block; opacity: 0; will-change: transform, opacity; }
+  .w.y { color: #FFD60A; }
+  .sting { position: absolute; left: 40px; right: 150px; top: 1362px; text-align: center; font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 800; font-size: 72px; line-height: 1.1; color: #fff; -webkit-text-stroke: 7px #000; paint-order: stroke fill; }
+  .blk { display: none; } .blk.on { display: block; }
+</style></head>
+<body>
+<div class="stage">
+  <div class="blk" id="b0"><div class="top"><div class="h" id="h0"></div></div><div class="sting" id="s0"></div></div>
+  <div class="blk" id="b1"><div class="top"><div class="eyebrow" id="e1"></div><div class="h" id="h1"></div></div></div>
+  <div class="blk" id="b2"><div class="top"><div class="eyebrow" id="e2"></div><div class="h" id="h2"></div></div></div>
+  <div class="blk" id="b3"><div class="top"><div class="eyebrow" id="e3"></div><div class="h" id="h3"></div></div></div>
+  <div class="blk" id="b4"><div class="top"><div class="eyebrow" id="e4"></div><div class="h small" id="h4"></div></div></div>
+  <div class="blk" id="b5"><div class="top"><div class="h" id="h5"></div></div><div class="sting" id="s5"></div></div>
+</div>
+<script>
+  // Cuts in base.mp4: 0 / 3.4 / 5.7 / 7.8 / (10.3 within the last clip) / 11.3 freeze; the giggles sit at
+  // 0.75, 2.5, 3.75, 6.0, 8.25 and 10.5 s. Each theory lands a beat before its giggle so the laugh reads as a reply.
+  const T = { t1: 3.4, t2: 5.7, t3: 7.8, t4: 10.3, q: 12.0, end: 14.0 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const back = (p) => { const s = 1.70158; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+  const $ = (id) => document.getElementById(id);
+  const blocks = [0, 1, 2, 3, 4, 5].map((i) => $("b" + i));
+
+  // Words rise in one by one; words between asterisks are yellow.
+  function words(el, html, t, gap = 0.08, dur = 0.28) {
+    if (!el.dataset.built) {
+      let y = false;
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        if (w.startsWith("*")) y = true;
+        const cls = y ? "w y" : "w", end = w.endsWith("*"); if (end) y = false;
+        return `<span class="${cls}">${w.replace(/\*/g, "")}</span>`;
+      }).join(" ")).join("<br>");
+      el.dataset.built = "1";
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * 50}px)`;
+    });
+  }
+  // The eyebrow pops in with overshoot.
+  function pop(el, text, t) {
+    el.textContent = text;
+    const p = clamp(t / 0.3, 0, 1);
+    el.style.opacity = p; el.style.transform = `scale(${(0.6 + 0.4 * back(p)).toFixed(3)})`; el.style.transformOrigin = "left center";
+  }
+
+  window.seek = (t) => {
+    blocks.forEach((b) => b.classList.remove("on"));
+    if (t < T.t1) {
+      blocks[0].classList.add("on");
+      words($("h0"), "My son laughs<br>in his sleep.", t - 0.1);
+      words($("s0"), "Nobody knows what at.", t - 2.45, 0.07);
+    } else if (t < T.t2) {
+      blocks[1].classList.add("on"); const tt = t - T.t1;
+      pop($("e1"), "Theory 1", tt - 0.05);
+      words($("h1"), "The Chiefs on<br>*4th and goal.*", tt - 0.15);
+    } else if (t < T.t3) {
+      blocks[2].classList.add("on"); const tt = t - T.t2;
+      pop($("e2"), "Theory 2", tt - 0.05);
+      words($("h2"), "Mom saying<br>*“he’s a great<br>sleeper.”*", tt - 0.15);
+    } else if (t < T.t4) {
+      blocks[3].classList.add("on"); const tt = t - T.t3;
+      pop($("e3"), "Theory 3", tt - 0.05);
+      words($("h3"), "Today’s<br>*mortgage rates.*", tt - 0.15);
+    } else if (t < T.q) {
+      blocks[4].classList.add("on"); const tt = t - T.t4;
+      pop($("e4"), "Theory 4", tt - 0.05);
+      words($("h4"), "He already knows<br>what time he’s<br>*waking me up.*", tt - 0.15);
+    } else {
+      blocks[5].classList.add("on"); const tt = t - T.q;
+      words($("h5"), "What is he<br>laughing at?", tt - 0.05, 0.08);
+      words($("s5"), "*Wrong answers only.*", tt - 0.7, 0.07);
+    }
+  };
+  window.seek(0);
+</script>
+</body></html>
