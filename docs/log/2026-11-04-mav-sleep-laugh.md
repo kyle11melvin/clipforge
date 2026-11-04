@@ -26,3 +26,15 @@ not on screen) and flagged on the page.
 
 - Whether "Maverick" is right; which theories he keeps (the rates one is the lender in-joke, swap for "Dad's fantasy
   team" if he wants it fully personal); whether he wants a sound bed or a song from the picker (then re-mux silent).
+
+## Round two (what is on the page now)
+
+Kyle: "add a little Maverick in there… he's dreaming, can you add an animation? If you can't I'll ask ChatGPT", and the
+financial theory should be "knowing that rates are coming down tomorrow". So: the name is confirmed and in the hook
+("*Maverick* laughs in his sleep."); a cartoon thought bubble (three dots trailing from his head, a cloud of
+stroked circles at the window's top-left, bobbing) pops in on every block with an SVG drawing animated in `seek`:
+a top-down fighter jet crossing with contrails (the Top Gun nod to his name), a bouncing spinning football, Zzz
+floating up, a red rate line drawing itself downhill with a green arrow, an alarm clock with spinning hands, a
+pulsing "?" on the freeze. Theory 3 is now "He knows rates are coming down tomorrow." Cover: frame at 2.0 s (jet
+in the bubble). Lesson: when he asks for "an animation", a cartoon device drawn in SVG inside the comp is enough;
+no stock or AI imagery needed.

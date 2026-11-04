@@ -95,13 +95,17 @@ his standing brief. Read it before touching anything.
 - `graphics/mav-sleep-laugh/` (2026-11-04) — a **crib-cam meme** from a Nanit screen recording: the baby giggling in his
   sleep, dead air cut so a laugh lands every ~2 s, a punch-in per cut, and a running list of "Theory 1…4" guesses
   at what he is laughing at, ending on "Wrong answers only." `cut.sh` holds the ffmpeg recipe (crop the app chrome,
-  animated zoom via `scale … eval=frame`, blurred feed behind a fixed window). Personal-account look, no brand. The
-  baby's name came from Kyle's message as "Maverick" (the notes only knew Asher); confirm before putting it on screen.
+  animated zoom via `scale … eval=frame`, blurred feed behind a fixed window). Personal-account look, no brand.
+  **Maverick is his younger son** (Asher is the toddler). Round two added a cartoon thought bubble with an SVG drawing
+  per theory (jet, football, Zzz, rates chart, alarm clock, "?"); when he asks for "an animation" on a meme, that kind
+  of hand-drawn device in the comp is what he means, and he will threaten ChatGPT if it is not offered.
 - `graphics/mav-sleep-laugh/` (2026-11-04) — a **crib-cam meme** from a Nanit screen recording: the baby giggling in his
   sleep, dead air cut so a laugh lands every ~2 s, a punch-in per cut, and a running list of "Theory 1…4" guesses
   at what he is laughing at, ending on "Wrong answers only." `cut.sh` holds the ffmpeg recipe (crop the app chrome,
-  animated zoom via `scale … eval=frame`, blurred feed behind a fixed window). Personal-account look, no brand. The
-  baby's name came from Kyle's message as "Maverick" (the notes only knew Asher); confirm before putting it on screen.
+  animated zoom via `scale … eval=frame`, blurred feed behind a fixed window). Personal-account look, no brand.
+  **Maverick is his younger son** (Asher is the toddler). Round two added a cartoon thought bubble with an SVG drawing
+  per theory (jet, football, Zzz, rates chart, alarm clock, "?"); when he asks for "an animation" on a meme, that kind
+  of hand-drawn device in the comp is what he means, and he will threaten ChatGPT if it is not offered.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
