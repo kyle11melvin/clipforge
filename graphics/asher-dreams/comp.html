@@ -17,7 +17,7 @@
   .sting { position: absolute; left: 40px; right: 150px; top: 1362px; text-align: center; font-family: "Nunito", system-ui, sans-serif;
     font-weight: 800; font-size: 72px; line-height: 1.1; color: #fff; -webkit-text-stroke: 7px #000; paint-order: stroke fill; }
   /* Dream shot: the image blown up and blurred behind, the image itself as a 4:5 card inside the safe zone. */
-  .dream .bg { position: absolute; inset: -60px; background-size: cover; background-position: center; filter: blur(38px) brightness(.55); }
+  .dream .bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
   .dream .card { position: absolute; left: 156px; top: 480px; width: 768px; height: 952px; border-radius: 28px; overflow: hidden;
     box-shadow: 0 30px 80px rgba(0,0,0,.6); transform-origin: center; }
   .dream .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -25,16 +25,16 @@
 </style></head>
 <body>
 <div class="stage">
-  <div class="blk" id="b0"><div class="top"><div class="h" id="h0"></div></div><div class="sting" id="s0"></div></div>
-  <div class="blk dream" id="b1"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/dream1-crib-card.png)"></div>
+  <div class="blk" id="b0"><div class="top"><div class="h" id="h0"></div></div><div class="sting" id="s0" style="top:1272px"></div></div>
+  <div class="blk dream" id="b1"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/dream1-crib-bg.png)"></div>
     <div class="card"><img src="../../videos/asher-dreams/img/dream1-crib-card.png"></div><div class="label"><div class="h" id="h1"></div></div></div>
-  <div class="blk dream" id="b2"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/dream2-highchair-card.png)"></div>
+  <div class="blk dream" id="b2"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/dream2-highchair-bg.png)"></div>
     <div class="card"><img src="../../videos/asher-dreams/img/dream2-highchair-card.png"></div><div class="label"><div class="h" id="h2"></div></div></div>
-  <div class="blk dream" id="b3"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/dream3-jersey-card.png)"></div>
+  <div class="blk dream" id="b3"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/dream3-jersey-bg.png)"></div>
     <div class="card"><img src="../../videos/asher-dreams/img/dream3-jersey-card.png"></div><div class="label"><div class="h" id="h3"></div></div></div>
-  <div class="blk dream" id="b4"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/maverick-card.png)"></div>
+  <div class="blk dream" id="b4"><div class="bg" style="background-image:url(../../videos/asher-dreams/img/maverick-bg.png)"></div>
     <div class="card"><img src="../../videos/asher-dreams/img/maverick-card.png"></div><div class="label"><div class="h" id="h4"></div></div>
-    <div class="sting" id="s4" style="top:1450px"></div></div>
+    <div class="sting" id="s4" style="top:1262px"></div></div>
 </div>
 <script>
   // base.mp4: L1 0-3.4 (hook, giggles 1+2) | dream1 3.4-4.8 | L2 4.8-7.1 (giggle, roll) | dream2 7.1-8.5 | L3 8.5-10.5 |
@@ -70,7 +70,7 @@
     if (t < T.d1) {
       blocks[0].classList.add("on");
       words($("h0"), "Asher laughing<br>in his sleep.", t - 0.1);
-      words($("s0"), "He’s dreaming about *the dog.*", t - 2.3, 0.07);
+      words($("s0"), "He’s dreaming<br>about *the dog.*", t - 2.3, 0.07);
     } else if (t < T.l2) dream(1, t - T.d1, T.l2 - T.d1, "Maverick took<br>*the crib.*");
     else if (t < T.d2) { /* baby giggling, nothing on screen */ }
     else if (t < T.l3) dream(2, t - T.d2, T.l3 - T.d2, "Maverick took<br>*the high chair.*");
@@ -80,7 +80,7 @@
     else {
       const tt = t - T.p;
       dream(4, tt, T.end - T.p, "Meanwhile, *Maverick.*");
-      words($("s4"), "Zero idea what’s so funny.", tt - 1.2, 0.07);
+      words($("s4"), "Zero idea<br>what’s so funny.", tt - 1.2, 0.07);
     }
   };
   window.seek(0);
