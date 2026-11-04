@@ -92,20 +92,16 @@ his standing brief. Read it before touching anything.
   ~4 s tension, payoff. **Next game meme**: ask him for his own phone recording of the TV at the final play (the
   announcers' call) plus a reaction photo of Asher, and build the same night. He wants different music next time;
   ask for the lane (or a picker song on the silent version) before building the picture.
-- `graphics/mav-sleep-laugh/` (2026-11-04) — a **crib-cam meme** from a Nanit screen recording: the baby giggling in his
-  sleep, dead air cut so a laugh lands every ~2 s, a punch-in per cut, and a running list of "Theory 1…4" guesses
-  at what he is laughing at, ending on "Wrong answers only." `cut.sh` holds the ffmpeg recipe (crop the app chrome,
-  animated zoom via `scale … eval=frame`, blurred feed behind a fixed window). Personal-account look, no brand.
-  **Maverick is his younger son** (Asher is the toddler). Round two added a cartoon thought bubble with an SVG drawing
-  per theory (jet, football, Zzz, rates chart, alarm clock, "?"); when he asks for "an animation" on a meme, that kind
-  of hand-drawn device in the comp is what he means, and he will threaten ChatGPT if it is not offered.
-- `graphics/mav-sleep-laugh/` (2026-11-04) — a **crib-cam meme** from a Nanit screen recording: the baby giggling in his
-  sleep, dead air cut so a laugh lands every ~2 s, a punch-in per cut, and a running list of "Theory 1…4" guesses
-  at what he is laughing at, ending on "Wrong answers only." `cut.sh` holds the ffmpeg recipe (crop the app chrome,
-  animated zoom via `scale … eval=frame`, blurred feed behind a fixed window). Personal-account look, no brand.
-  **Maverick is his younger son** (Asher is the toddler). Round two added a cartoon thought bubble with an SVG drawing
-  per theory (jet, football, Zzz, rates chart, alarm clock, "?"); when he asks for "an animation" on a meme, that kind
-  of hand-drawn device in the comp is what he means, and he will threaten ChatGPT if it is not offered.
+- `graphics/asher-dreams/` (2026-11-04) — a **crib-cam meme** from a Nanit screen recording of Asher giggling in his
+  sleep. Dead air cut so a laugh lands every ~2 s, a punch-in per cut, blurred feed behind a fixed window
+  (`cut.sh` holds the ffmpeg recipe: crop the app chrome, animated zoom via `scale … eval=frame`). **Names: Asher is
+  the baby, Maverick is the dog** (a grey-and-black Australian Shepherd). The first two rounds were wrong on both:
+  a "Theory 1…4" list of guesses with hand-drawn SVG bubbles (jet, football, clock). Kyle: "god-awful", "those
+  graphics are fucking awful", "get more creative", "send a prompt to ChatGPT Images because they are better images
+  than you are". Standing rule from it: **never put hand-drawn SVG clip-art in his videos.** Imagery is real photos,
+  real screenshots, or images he generates in ChatGPT from his own photos with prompts written here (give him the
+  prompts on the page with copy buttons, one per image, each starting from an uploaded photo of the real subject).
+  The concept that replaced it: the giggles are reactions to dream shots of Maverick doing Asher's life.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

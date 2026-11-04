@@ -38,3 +38,28 @@ floating up, a red rate line drawing itself downhill with a green arrow, an alar
 pulsing "?" on the freeze. Theory 3 is now "He knows rates are coming down tomorrow." Cover: frame at 2.0 s (jet
 in the bubble). Lesson: when he asks for "an animation", a cartoon device drawn in SVG inside the comp is enough;
 no stock or AI imagery needed.
+
+## Round three: the names were wrong and the graphics were "fucking awful"
+
+Kyle: "That is a god-awful video for one. My son's name is Asher. My dog's name is Maverick so I was saying he's
+laughing at Maverick. Those graphics are fucking awful… get more creative… Send a prompt to ChatGPT Images because
+they are better images than you are." Then, calmer: "I want you to reach outside the box a little bit. I wanna start
+getting some graphics in our clips. I don't know if I need to feed you graphics or what."
+
+Read: "I have an Australian grey and black laughing at" was "I have an Australian [Shepherd], grey and black, [he's]
+laughing at [him]". Two lessons folded into CLAUDE.md: never hand-drawn SVG clip-art again; real photos, real
+screenshots, or images he generates in ChatGPT from his own photos with prompts written here.
+
+The post folder is renamed `asher-dreams`. New concept: every giggle is a reaction to a dream shot of Maverick living
+Asher's life. Hook "Asher laughing in his sleep." / "He's dreaming about the dog." → "Maverick took the crib."
+(night-vision look, the dog in the crib) → giggle → "Maverick took the high chair." → giggle → "Maverick in the 4th
+quarter." (jersey, paws over eyes, the Broncos callback) → the longest laugh → punchline on a photo of the dog awake,
+staring: "Meanwhile, Maverick." / "Zero idea what's so funny." 18.4 s; `cut.sh` now leaves black gaps in the base
+and the comp paints the dream shots (image blown up and blurred behind a 768x952 card at y=480, slow push).
+
+Images: the Canva connector's `generate-image` made four usable stand-ins of a blue merle Aussie in about a minute,
+but `media.canva.com` is denied by the session's network policy, so only the 161x200 thumbnails came through; they are
+upscaled with lanczos + grain and pass as "dream haze" at review size, nowhere near post quality. The page carries
+one ChatGPT prompt per shot with a copy button (each starts "Use the attached photo of my dog and keep his exact
+face, markings and colouring"), and asks for a real flash photo of Maverick for the punchline. When his four images
+arrive: drop them in `videos/asher-dreams/img/` under the same names, rerun the three commands, republish.
