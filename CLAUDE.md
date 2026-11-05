@@ -42,9 +42,13 @@ his standing brief. Read it before touching anything.
   take in a Drive subfolder), transcribe each take on its own, pick the cleanest delivery per line, and list the
   picks in `videos/<post>/edl.json` (`{file, start, end, gain, says}`); `node src/edl.mjs` assembles `cut.mp4`
   and `clipforge build` then reuses it. Cut on `silencedetect` boundaries, not Parakeet's word ends (they are
-  stretched to the next word). He pauses on purpose for a reaction beat; keep the take whose pause is longest.
+  stretched to the next word). A scripted silent "reaction shot" reads as dead air to him once cut in (2026-11-05: "very awkward"); trim it like any pause unless he asks for it.
   First use: `docs/log/2026-11-05-wait-rate.md`.
-- **Pip cards at the top of a reel** (2026-11-05): start the card's text ~265 px down a 1080x640 card so, pipped
+- **Kyle's 2026-11-05 calls on the wait-rate reel**: no cards over the footage at all ("get rid of the cards above my
+  head"), only the two full-screen cards; captions above his head even outdoors when the shot has headroom
+  (`--caption-y 0.73` with his head top around y 550). Default the next talking head to that: full-screen cards
+  for the big statements, nothing pipped, captions over the headroom.
+- **Pip cards at the top of a reel** (2026-11-05, built but cut by Kyle, kept for reference): start the card's text ~265 px down a 1080x640 card so, pipped
   at `y: 40, width: 0.78`, every word sits below Instagram's top chrome (y 250) and the card bottom (y 539) clears
   his hair. `graphics/wait-rate/cards.html` is the reference; `full.html#safe` draws the safe zone on probes.
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by

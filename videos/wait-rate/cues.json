@@ -1,12 +1,8 @@
 {
   "footage": "final.mp4",
-  "graphics": "cards.mp4",
-  "pip": { "width": 0.78, "y": 40, "border": 0 },
+  "graphics": "full.mp4",
   "cues": [
-    { "at": 0.0,  "from": 0.0,  "to": 2.2,  "mode": "pip", "says": "What rate are you waiting for?" },
-    { "at": 2.4,  "from": 6.0,  "to": 10.2, "mode": "pip", "says": "I was talking to a friend ... he didn't have a number." },
-    { "at": 9.2,  "from": 0.0,  "to": 3.2,  "mode": "cut", "graphics": "full.mp4", "says": "Waiting with no number isn't a plan. It's just waiting." },
-    { "at": 14.1, "from": 6.0,  "to": 9.1,  "mode": "cut", "graphics": "full.mp4", "says": "fifty thousand dollars in seller credits or price cuts." },
-    { "at": 17.4, "from": 13.0, "to": 16.2, "mode": "pip", "says": "If you're waiting on rates, what actual rate are you waiting on?" }
+    { "at": 6.6,  "from": 0.0, "to": 3.1, "mode": "cut", "says": "Waiting with no number isn't a plan. It's just waiting." },
+    { "at": 11.4, "from": 6.0, "to": 9.1, "mode": "cut", "says": "fifty thousand dollars in seller credits or price cuts." }
   ]
 }
