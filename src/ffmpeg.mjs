@@ -107,7 +107,9 @@ export async function assemble({ clips, width, height, fps = 30, fit = "cover", 
       const tone = clip.hdr ? `${sdr},` : "";
       filters.push(`[${i}:v]trim=start=${seg.start}:end=${seg.end},setpts=PTS-STARTPTS,${scale},${tone}fps=${fps},format=yuv420p,setsar=1[${v}]`);
       if (clip.hasAudio) {
-        filters.push(`[${i}:a]atrim=start=${seg.start}:end=${seg.end},asetpts=PTS-STARTPTS,aformat=sample_rates=48000:channel_layouts=stereo[${a}]`);
+        // seg.gain (dB) matches levels between takes before the shared loudnorm pass.
+        const gain = seg.gain ? `,volume=${seg.gain}dB` : "";
+        filters.push(`[${i}:a]atrim=start=${seg.start}:end=${seg.end},asetpts=PTS-STARTPTS${gain},aformat=sample_rates=48000:channel_layouts=stereo[${a}]`);
       } else {
         filters.push(`[${silentIndex}:a]atrim=start=0:end=${seg.end - seg.start},asetpts=PTS-STARTPTS[${a}]`);
       }

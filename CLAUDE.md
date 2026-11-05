@@ -38,6 +38,15 @@ his standing brief. Read it before touching anything.
   `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
   small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
   the top (`y: 48`) so it sits in the sky above his head and never touches the captions.
+- `src/edl.mjs` (2026-11-05) — **multi-take shoots**: when he films the same lines several times (one file per
+  take in a Drive subfolder), transcribe each take on its own, pick the cleanest delivery per line, and list the
+  picks in `videos/<post>/edl.json` (`{file, start, end, gain, says}`); `node src/edl.mjs` assembles `cut.mp4`
+  and `clipforge build` then reuses it. Cut on `silencedetect` boundaries, not Parakeet's word ends (they are
+  stretched to the next word). He pauses on purpose for a reaction beat; keep the take whose pause is longest.
+  First use: `docs/log/2026-11-05-wait-rate.md`.
+- **Pip cards at the top of a reel** (2026-11-05): start the card's text ~265 px down a 1080x640 card so, pipped
+  at `y: 40, width: 0.78`, every word sits below Instagram's top chrome (y 250) and the card bottom (y 539) clears
+  his hair. `graphics/wait-rate/cards.html` is the reference; `full.html#safe` draws the safe zone on probes.
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
   `--alpha` renders a transparent background to ProRes 4444 (`.mov`) so text can float over footage with no
@@ -200,6 +209,9 @@ his standing brief. Read it before touching anything.
 - Getting footage in: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
   upload works but Safari's Photo Library picker re-encodes and strips the audio; he must Save to Files
   first and upload from Files. A clip with no audio track cannot be captioned; say so immediately.
+
+- Scripted CTA lines often don't survive the shoot: on 2026-11-05 every take ended on a question instead of
+  "send me WAIT". Build the card and caption with the keyword anyway and tell him the line was not spoken.
 
 ## Project log
 

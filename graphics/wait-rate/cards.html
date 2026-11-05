@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* "What rate are you waiting for?" (2026-11-05). Three landscape 1080x640 cards in the Coastal Money
+     brand, cut into the talking head as a picture-in-picture box above Kyle's head (pip width 0.8, y 48).
+     s1 navy hook, s2 sand "my friend" card, s3 navy DM card. The full-screen cards are in full.html. */
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 640px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; opacity: 0; padding: 56px 64px; background: var(--navy); }
+  .scene.sandbg { background: var(--sand); color: var(--ink); }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; }
+  .eyebrow { font-family: "Manrope", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; }
+  .terra { color: var(--terra); } .sand { color: var(--sand); } .ink { color: var(--ink); } .sage { color: var(--sage); }
+  .w { display: inline-block; opacity: 0; transform: translateY(22px); }
+  .ln { display: block; }
+
+  /* s1 hook: two-tone headline anchored bottom-left */
+  #s1 .head { position: absolute; left: 64px; right: 64px; bottom: 64px; font-size: 108px; }
+
+  /* s2 my friend: sage eyebrow, ink body, handwritten turn */
+  /* the pip sits at the top of the frame: card content starts ~265px down so it clears Instagram's top chrome (frame y 250) */
+  #s2 .eyebrow { position: absolute; left: 64px; top: 262px; }
+  #s2 .body { position: absolute; left: 64px; width: 880px; top: 306px; font-size: 46px; line-height: 1.25; font-weight: 500; }
+  #s2 .note { position: absolute; left: 64px; bottom: 50px; font-family: "Caveat", cursive; font-weight: 600; font-size: 104px; line-height: 1; color: var(--terra); opacity: 0; transform-origin: 0 100%; }
+
+  /* s3 DM card: oversized DM, headline and the ask to its right */
+  #s3 .dm { position: absolute; left: 64px; bottom: 64px; font-size: 230px; color: var(--terra); opacity: 0; transform-origin: 0 100%; }
+  #s3 .head { position: absolute; left: 470px; right: 64px; top: 266px; font-size: 60px; }
+  #s3 .ask { position: absolute; left: 470px; right: 64px; top: 356px; font-size: 36px; line-height: 1.4; font-weight: 500; opacity: 0; }
+  #s3 .ask b { font-weight: 800; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="head h">
+    <span class="ln sand"><span class="w">What</span> <span class="w">rate</span> <span class="w">are</span> <span class="w">you</span></span>
+    <span class="ln terra"><span class="w">waiting</span> <span class="w">for?</span></span>
+  </div>
+</div>
+
+<div class="scene sandbg" id="s2">
+  <div class="eyebrow sage" id="e2">My friend</div>
+  <div class="body ink">
+    <span class="w">Great</span> <span class="w">income.</span> <span class="w">Great</span> <span class="w">credit.</span><br>
+    <span class="w">Down</span> <span class="w">payment</span> <span class="w">saved.</span>
+  </div>
+  <div class="note" id="note2">No number.</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="dm num" id="dm">DM</div>
+  <div class="head h sand">
+    <span class="ln"><span class="w">Waiting</span> <span class="w">on</span> <span class="w">rates?</span></span>
+  </div>
+  <div class="ask sand" id="ask">Send me <b>&ldquo;WAIT.&rdquo;</b> I&rsquo;ll show you what you could get today.</div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+
+  // scene windows on the graphics timeline; cues.json slices these into the footage
+  const S = { s1:[0,5], s2:[6,12], s3:[13,19] };
+  const FADE = 0.2;
+  const sceneOpacity = (t, [a, b]) => (t < a || t > b) ? 0 : Math.min(p(t, a, FADE), 1 - p(t, b - FADE, FADE));
+  const words = sel => Array.from(document.querySelectorAll(sel));
+  const w1 = words('#s1 .w'), w2 = words('#s2 .w'), w3 = words('#s3 .w');
+  const rise = (els, t, s, gap = 0.09, d = 0.4, extra = () => 0) => els.forEach((w, i) => { const q = easeOut(p(t, s + i*gap + extra(i), d)); w.style.opacity = q; w.style.transform = `translateY(${22*(1-q)}px)`; });
+  const pop = (el, t, s, d = 0.45) => { const q = p(t, s, d); el.style.opacity = clamp(q*3); el.style.transform = `scale(${0.6 + 0.4*back(q)})`; };
+
+  window.seek = function (t) {
+    for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
+    // s1: sand line rises word by word, a beat, then the terracotta turn
+    rise(w1, t, 0.2, 0.09, 0.4, i => i >= 4 ? 0.35 : 0);
+    // s2: eyebrow, the three short sentences, a beat, the handwritten "No number."
+    $('e2').style.opacity = p(t, 6.15, 0.25);
+    rise(w2, t, 6.3, 0.1);
+    const nq = p(t, 9.5, 0.4); $('note2').style.opacity = clamp(nq*2); $('note2').style.transform = `rotate(${-3 + 1*easeOut(nq)}deg) scale(${0.8 + 0.2*back(nq)})`;
+    // s3: DM pops, headline rises, the ask
+    pop($('dm'), t, 13.15);
+    rise(w3, t, 13.4);
+    const aq = easeOut(p(t, 14.1, 0.4)); $('ask').style.opacity = aq; $('ask').style.transform = `translateY(${22*(1-aq)}px)`;
+  };
+  window.seek(0);
+</script>
+</body></html>
