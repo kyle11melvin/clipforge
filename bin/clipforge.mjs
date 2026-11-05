@@ -2,17 +2,24 @@
 import { parseArgs } from "node:util";
 import { build } from "../src/pipeline.mjs";
 import { broll } from "../src/broll.mjs";
+import { reframe } from "../src/reframe.mjs";
 
 const HELP = `clipforge — folder of clips in, social-ready video out
 
 USAGE
   clipforge build <folder-or-files...> [options]
   clipforge broll <cues.json> --output <file.mp4>
+  clipforge reframe <clip> --output <file.mp4|png> [--zoom 1.3] [--top 0.2] [--x 0.5] [--probe 1,5,9]
 
 BROLL
   Cuts rendered graphics (src/graphics/render.mjs) into footage at the times listed in cues.json,
   full-frame ("cut") or picture-in-picture ("pip"). The footage audio is left untouched.
   See src/broll.mjs for the cues.json format.
+
+REFRAME
+  Punches in by --zoom and slides the window down by --top (fraction of the source height; default
+  as low as the zoom allows) so empty space above the head is cropped away. No captions, audio untouched.
+  --probe t1,t2,... writes a numbered strip of stills with the crop box drawn instead of a video.
 
 BUILD OPTIONS
   --name <name>        Project name; output goes to videos/<name>/final.mp4 (default: folder name)
@@ -45,13 +52,28 @@ const { values, positionals } = parseArgs({
     "silence-db": { type: "string" }, "min-silence": { type: "string" }, pad: { type: "string" },
     "caption-y": { type: "string" }, "caption-style": { type: "string", default: "classic" }, "caption-hide": { type: "string" },
     quality: { type: "string", default: "looks" }, out: { type: "string" }, force: { type: "boolean", default: false },
-    output: { type: "string" },
+    output: { type: "string" }, zoom: { type: "string" }, top: { type: "string" }, x: { type: "string" }, probe: { type: "string" },
     help: { type: "boolean", short: "h", default: false },
   },
 });
 
 const [cmd, ...inputs] = positionals;
-if (values.help || !["build", "broll"].includes(cmd) || !inputs.length) { console.log(HELP); process.exit(values.help ? 0 : 1); }
+if (values.help || !["build", "broll", "reframe"].includes(cmd) || !inputs.length) { console.log(HELP); process.exit(values.help ? 0 : 1); }
+
+if (cmd === "reframe") {
+  if (!values.output) { console.error("clipforge reframe needs --output <file>"); process.exit(1); }
+  try {
+    const box = await reframe({
+      input: inputs[0], output: values.output, zoom: num(values.zoom, 1.3), top: values.top == null ? undefined : Number(values.top),
+      x: num(values.x, 0.5), probe: values.probe ? values.probe.split(",").map(Number) : undefined,
+    });
+    console.log(`reframe: crop ${box.cw}x${box.ch} at (${box.cx},${box.cy}) of ${box.sw}x${box.sh}, zoom ${box.zoom}, top ${box.top} -> ${values.output}`);
+  } catch (err) {
+    console.error(`\nclipforge failed: ${err.message}`);
+    process.exit(1);
+  }
+  process.exit(0);
+}
 
 if (cmd === "broll") {
   if (!values.output) { console.error("clipforge broll needs --output <file.mp4>"); process.exit(1); }
