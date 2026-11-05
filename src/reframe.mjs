@@ -10,8 +10,12 @@ import { run } from "./run.mjs";
  *
  * With `probe: [t1, t2, ...]` it writes a numbered strip of stills with the crop box drawn in gold
  * instead of a video, so Kyle can pick the framing from his phone.
+ *
+ * `keepHdr` skips the SDR conversion: the 10-bit HLG video is cropped and re-encoded with HEVC and the
+ * phone's own colour tags, so the colour and warmth are exactly as shot. Every SDR tone-map warms his
+ * skin ("you made me orange again", 2026-11-05), so this is the default for anything with no graphics.
  */
-export async function reframe({ input, output, zoom = 1.3, top, x = 0.5, width = 1080, height = 1920, probe: times, fps }) {
+export async function reframe({ input, output, zoom = 1.3, top, x = 0.5, width = 1080, height = 1920, probe: times, fps, keepHdr = false }) {
   const info = await probe(input);
   // Make the stills tone-map and audio handling consistent with the cut step.
   const sw = info.width, sh = info.height;
@@ -44,10 +48,16 @@ export async function reframe({ input, output, zoom = 1.3, top, x = 0.5, width =
     return box;
   }
 
+  const hdr = keepHdr && info.hdr;
+  const video = hdr
+    ? ["-c:v", "libx265", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p10le", "-tag:v", "hvc1",
+       "-color_primaries", "bt2020", "-color_trc", "arib-std-b67", "-colorspace", "bt2020nc", "-color_range", "tv",
+       "-x265-params", "colorprim=bt2020:transfer=arib-std-b67:colormatrix=bt2020nc:range=limited:repeat-headers=1:log-level=error"]
+    : ["-c:v", "libx264", "-preset", "medium", "-crf", "18",
+       "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709"];
   const args = ["-hide_banner", "-nostats", "-y", "-i", input,
-    "-vf", `crop=${cw}:${ch}:${cx}:${cy},scale=${width}:${height}:flags=lanczos,${tone}${fps ? `fps=${fps},` : ""}format=yuv420p,setsar=1`,
-    "-c:v", "libx264", "-preset", "medium", "-crf", "18",
-    "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
+    "-vf", `crop=${cw}:${ch}:${cx}:${cy},scale=${width}:${height}:flags=lanczos,${hdr ? "" : tone}${fps ? `fps=${fps},` : ""}format=${hdr ? "yuv420p10le" : "yuv420p"},setsar=1`,
+    ...video,
     "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", output];
   await run("ffmpeg", args);
   return box;

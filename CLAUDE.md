@@ -41,7 +41,10 @@ his standing brief. Read it before touching anything.
   or any clip with no captions: `--zoom 1.3` with the window dropped as low as the zoom allows, `--probe`
   for numbered stills with the crop box. Show him the framings side by side at one time (as shot, 1.2, 1.3,
   1.4) and recommend one; on his indoor wall shots the head starts ~38% down and 1.3 is the right call.
-  **Stories: no captions**, just the reframe, audio untouched.
+  **Stories: no captions**, just the reframe, audio untouched. **Colour: `--keep-hdr`.** Every SDR
+  tone-map of his HLG footage warms his skin (Kyle, 2026-11-05: "you made me orange again. Don't touch the
+  coloring or warmth"), so anything with no graphics ships as 10-bit HEVC HLG exactly as shot. Stills for
+  the page still need the hable conversion; say on the page that they run warmer than the file.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
   `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
   small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
