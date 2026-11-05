@@ -1,0 +1,36 @@
+{
+  "output": "cut.mp4",
+  "aspect": "9:16",
+  "cuts": [
+    {
+      "file": "../wait-rate/takes/take6-1235.mov",
+      "start": 0.7,
+      "end": 3.9,
+      "says": "So I just got off the phone with one of my good friends and he's waiting to buy"
+    },
+    {
+      "file": "../wait-rate/takes/take6-1235.mov",
+      "start": 4.28,
+      "end": 5.55,
+      "says": "until rates come down."
+    },
+    {
+      "file": "../wait-rate/takes/take6-1235.mov",
+      "start": 5.7,
+      "end": 10.55,
+      "says": "So I asked him, well, what interest rate are you waiting for it to come down to until you get in the market?"
+    },
+    {
+      "file": "../wait-rate/takes/take6-1235.mov",
+      "start": 10.95,
+      "end": 12.7,
+      "says": "And he didn't have an answer."
+    },
+    {
+      "file": "../wait-rate/takes/take6-1235.mov",
+      "start": 12.95,
+      "end": 19.5,
+      "says": "So it made me think, for you people out there that are waiting for rates to drop, what is your actual rate that you're waiting for to drop to?"
+    }
+  ]
+}

@@ -99,7 +99,9 @@ export async function assemble({ clips, width, height, fps = 30, fit = "cover", 
     : `scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height}`;
 
   // Tone-map HDR sources to SDR BT.709 after the downscale, so the output is a plain SDR file.
-  const sdr = "zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv";
+  // npl=300 + mobius + desat=2: the earlier npl=100/hable/desat=0 chain blew out iPhone HLG skin to orange
+  // under warm indoor light (Kyle, 2026-11-05: "why does my face look orange?"); 1000 nits went too dark.
+  const sdr = "zscale=t=linear:npl=300,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=mobius:desat=2,zscale=t=bt709:m=bt709:r=tv";
 
   clips.forEach((clip, i) => {
     clip.segments.forEach((seg, j) => {

@@ -32,8 +32,10 @@ his standing brief. Read it before touching anything.
 ## What exists
 
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
-  iPhone footage is HDR (HLG); the cut step tone-maps it to SDR and writes a keyframe every second, which
-  HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") before the render.
+  iPhone footage is HDR (HLG); the cut step tone-maps it to SDR (mobius, 300 nits, desat 2, fixed 2026-11-05 after
+  his face came out orange indoors; check a still of his skin on every HDR clip) and writes a keyframe every second, which
+  HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") and dropped words ("with one" vanished on 2026-11-05)
+  before the render; filler words ("um") get cut in the EDL and deleted from the transcript.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
   `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
   small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
