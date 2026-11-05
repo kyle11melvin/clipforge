@@ -12,7 +12,10 @@ his standing brief. Read it before touching anything.
 3. Footage: the Google Drive connector can now list his `Clipforge` folder (and subfolders, by `parentId`), but its download tool caps at
    10 MB. For a real clip, find it by name with `search_files`, then fetch
    `https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t` with curl (works when
-   the file is link-shared, which his uploads have been; a 13 MB video came through on 2026-10-29). If that 403s, ask for a chat attachment.
+   the file is link-shared; a 153 MB video came through on 2026-11-05). A new upload is usually owner-only and
+   the download then bounces to a sign-in page; the session cannot change sharing itself (auto mode refuses
+   `share_file`), so ask him to paste the file's "Anyone with the link" share URL, which takes him ten seconds.
+   If that still 403s, ask for a chat attachment.
    HEIC photos: `pip install pillow-heif`, then PIL with `exif_transpose` (ffmpeg and ImageMagick choke on the depth map).
 4. Deliver on a private artifact page with a Save MP4 button, a contact sheet of stills and a reel cover
    (1080x1920 PNG, see `still.mjs`), then list what is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
@@ -34,6 +37,11 @@ his standing brief. Read it before touching anything.
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
   iPhone footage is HDR (HLG); the cut step tone-maps it to SDR and writes a keyframe every second, which
   HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") before the render.
+- `bin/clipforge.mjs reframe` (2026-11-05) — punch in and crop the empty space above his head for a story
+  or any clip with no captions: `--zoom 1.3` with the window dropped as low as the zoom allows, `--probe`
+  for numbered stills with the crop box. Show him the framings side by side at one time (as shot, 1.2, 1.3,
+  1.4) and recommend one; on his indoor wall shots the head starts ~38% down and 1.3 is the right call.
+  **Stories: no captions**, just the reframe, audio untouched.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,
   `border`, `borderColor`. A cue may name its own `graphics` file and `pip` box, so a full-frame slide and a
   small alpha overlay can share one cues.json (see `videos/iq-quiz/cues.json` in the 2026-10-23 log). Render the graphics as a landscape 1080x640 card (`--size 1080x640`) and pip it at
