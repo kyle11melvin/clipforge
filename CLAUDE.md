@@ -33,7 +33,9 @@ his standing brief. Read it before touching anything.
 
 - `bin/clipforge.mjs build` — talking-head clips in, trimmed + captioned vertical video out (see README).
   iPhone footage is HDR (HLG); the cut step tone-maps it to SDR (mobius, 300 nits, desat 2, fixed 2026-11-05 after
-  his face came out orange indoors; check a still of his skin on every HDR clip) and writes a keyframe every second, which
+  his face came out orange indoors; check a still of his skin on every HDR clip). Warm indoor light needs a grade on
+  top: `"grade": "colortemperature=temperature=7200,eq=saturation=0.85"` in the EDL (his office slat wall, 2026-11-05;
+  higher temperature = cooler in that filter). Compare 4–6 settings on one frame and pick by eye before rendering and writes a keyframe every second, which
   HyperFrames needs. Check `transcript.json` for misheard numbers ("2%" for "20%") and dropped words ("with one" vanished on 2026-11-05)
   before the render; filler words ("um") get cut in the EDL and deleted from the transcript.
 - `bin/clipforge.mjs broll` — cuts graphics into footage as `cut` or `pip`. `pip` accepts `width`, `x`, `y`,

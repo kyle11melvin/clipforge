@@ -7,7 +7,9 @@
  *   { "output": "cut.mp4", "aspect": "9:16",
  *     "cuts": [ { "file": "takes/take2.mov", "start": 1.0, "end": 2.95, "gain": 0, "says": "What rate are you waiting for?" }, ... ] }
  *
- * Paths are relative to the edl file. `gain` (dB, optional) evens out levels between takes; the whole
+ * Paths are relative to the edl file. `grade` (per cut or top-level, optional) is an ffmpeg video filter chain
+ * applied after the HDR tone-map, e.g. "colortemperature=temperature=7200,eq=saturation=0.85" for warm indoor
+ * light. `gain` (dB, optional) evens out levels between takes; the whole
  * assembly is then loudness-normalised like any `clipforge build` cut. Writes <output> next to the edl plus
  * cut.json, so `clipforge build <anything> --name <post>` reuses it (it only re-cuts when cut.mp4 is missing)
  * and goes straight to transcription, captions and the render.
@@ -30,7 +32,7 @@ for (const c of edl.cuts) {
   if (!byFile.has(file)) byFile.set(file, await probe(file));
 }
 // One clip entry per cut keeps the order of the EDL (a take may be used more than once, out of order).
-const clips = edl.cuts.map((c) => ({ ...byFile.get(resolve(base, c.file)), segments: [{ start: c.start, end: c.end, gain: c.gain }] }));
+const clips = edl.cuts.map((c) => ({ ...byFile.get(resolve(base, c.file)), segments: [{ start: c.start, end: c.end, gain: c.gain, grade: c.grade ?? edl.grade }] }));
 const total = edl.cuts.reduce((s, c) => s + (c.end - c.start), 0);
 edl.cuts.forEach((c, i) => log("cut", `${i + 1}. ${c.file} ${c.start.toFixed(2)}–${c.end.toFixed(2)} (${(c.end - c.start).toFixed(2)}s)${c.says ? `  "${c.says}"` : ""}`));
 const output = resolve(base, edl.output ?? "cut.mp4");

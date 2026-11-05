@@ -32,5 +32,6 @@
       "end": 19.5,
       "says": "So it made me think, for you people out there that are waiting for rates to drop, what is your actual rate that you're waiting for to drop to?"
     }
-  ]
+  ],
+  "grade": "colortemperature=temperature=7200,eq=saturation=0.85"
 }

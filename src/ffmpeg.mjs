@@ -107,7 +107,9 @@ export async function assemble({ clips, width, height, fps = 30, fit = "cover", 
     clip.segments.forEach((seg, j) => {
       const v = `v${i}_${j}`, a = `a${i}_${j}`;
       const tone = clip.hdr ? `${sdr},` : "";
-      filters.push(`[${i}:v]trim=start=${seg.start}:end=${seg.end},setpts=PTS-STARTPTS,${scale},${tone}fps=${fps},format=yuv420p,setsar=1[${v}]`);
+      // seg.grade: an optional ffmpeg filter chain for this shot (white balance, saturation), applied after the tone-map.
+      const grade = seg.grade ? `${seg.grade},` : "";
+      filters.push(`[${i}:v]trim=start=${seg.start}:end=${seg.end},setpts=PTS-STARTPTS,${scale},${tone}${grade}fps=${fps},format=yuv420p,setsar=1[${v}]`);
       if (clip.hasAudio) {
         // seg.gain (dB) matches levels between takes before the shared loudnorm pass.
         const gain = seg.gain ? `,volume=${seg.gain}dB` : "";
