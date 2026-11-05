@@ -18,11 +18,13 @@
   .ln { display: block; }
 
   /* s1: two-tone statement, the heavy line a little above centre */
-  #s1 .head { position: absolute; left: 64px; right: 64px; top: 700px; font-size: 132px; }
+  #s1 .head { position: absolute; left: 64px; right: 64px; top: 580px; font-size: 106px; }
+  #s1 .head .terra { margin-top: 48px; }
 
   /* s2: the oversized number, then the line under it */
-  #s2 .big { position: absolute; left: 64px; top: 640px; font-size: 200px; color: var(--terra); white-space: nowrap; opacity: 0; transform-origin: 0 50%; }
-  #s2 .body { position: absolute; left: 64px; width: 800px; top: 880px; font-size: 50px; line-height: 1.35; font-weight: 500; opacity: 0; }
+  #s2 .big { position: absolute; left: 64px; top: 640px; font-size: 200px; color: var(--sand); white-space: nowrap; opacity: 0; transform-origin: 0 50%; }
+  #s2 .body { position: absolute; left: 64px; width: 800px; top: 880px; font-size: 56px; line-height: 1.3; font-weight: 500; opacity: 0; }
+  #s2 .both { top: 960px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 72px; letter-spacing: -0.02em; }
 
   #safe { position: absolute; inset: 0; display: none; pointer-events: none; }
   #safe div { position: absolute; border: 2px dashed rgba(255,0,0,.9); }
@@ -32,14 +34,17 @@
 
 <div class="scene" id="s1">
   <div class="head h">
-    <span class="ln sand"><span class="w">No</span> <span class="w">number</span></span>
-    <span class="ln terra"><span class="w">is</span> <span class="w">no</span> <span class="w">plan.</span></span>
+    <span class="ln sand"><span class="w">Waiting</span> <span class="w">with</span></span>
+    <span class="ln sand"><span class="w">no</span> <span class="w">number</span></span>
+    <span class="ln sand"><span class="w">isn't</span> <span class="w">a</span> <span class="w">plan.</span></span>
+    <span class="ln terra" id="just"><span class="w">It's</span> <span class="w">just</span> <span class="w">waiting.</span></span>
   </div>
 </div>
 
 <div class="scene" id="s2">
   <div class="big num" id="big">$<span id="n">0</span></div>
-  <div class="body sand" id="body2">in seller credits or price cuts, my buyers, this fall</div>
+  <div class="body sand" id="body2">Seller credits or price cuts.</div>
+  <div class="body both terra" id="both">Or both.</div>
 </div>
 
 <div id="safe"><div style="left:0;top:250px;width:940px;height:1200px"></div></div>
@@ -60,11 +65,13 @@
   window.seek = function (t) {
     for (const k in S) $(k).style.opacity = sceneOpacity(t, S[k]);
     // s1: "No number" rises, a beat, "is no plan." lands
-    w1.forEach((w, i) => { const q = easeOut(p(t, 0.2 + i*0.1 + (i >= 2 ? 0.4 : 0), 0.4)); w.style.opacity = q; w.style.transform = `translateY(${26*(1-q)}px)`; });
+    // the three sand lines rise with his words; "It's just waiting." lands in terracotta when he says it (~2.1 s in)
+    w1.forEach((w, i) => { const q = easeOut(p(t, 0.2 + i*0.1 + (i >= 7 ? 1.2 : 0), 0.4)); w.style.opacity = q; w.style.transform = `translateY(${26*(1-q)}px)`; });
     // s2: the number pops and counts up over 1.2 s, then the line
     const bq = p(t, 6.15, 0.4); $('big').style.opacity = clamp(bq*2); $('big').style.transform = `scale(${0.9 + 0.1*back(bq)})`;
     $('n').textContent = fmt(50000 * easeOut(p(t, 6.15, 1.2)));
     const lq = easeOut(p(t, 7.3, 0.45)); $('body2').style.opacity = lq; $('body2').style.transform = `translateY(${26*(1-lq)}px)`;
+    const oq = easeOut(p(t, 8.4, 0.4)); $('both').style.opacity = oq; $('both').style.transform = `translateY(${26*(1-oq)}px)`;
   };
   window.seek(0);
 </script>
