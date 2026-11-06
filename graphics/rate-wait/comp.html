@@ -73,6 +73,16 @@
   </div>
 </div>
 
+<div class="layer" id="hdrD">
+  <div class="badge">03</div>
+  <div class="ticker">OC homes</div>
+  <div class="sub">ORANGE COUNTY MEDIAN, C.A.R.</div>
+  <div class="price" id="priceD">$1.48M</div>
+  <div class="pill" id="pillD">+$82,550 (+5.9%) Two years</div>
+  <div class="src">SEP 2024 – SEP 2026 · SINGLE-FAMILY · SOURCE: C.A.R.</div>
+  <div class="tabs"><span>1M</span><span>3M</span><span>YTD</span><span>1Y</span><span class="on">2Y</span><span>ALL</span></div>
+</div>
+
 <div class="card" id="card1" style="left:64px; top:596px; width:330px;">
   <div class="lab">Waiting for</div>
   <div class="big" id="q1">?.??%</div>
@@ -83,10 +93,10 @@
   <div class="big">&mdash;</div>
   <div class="sm">didn't have one</div>
 </div>
-<div class="card" id="card4" style="left:64px; top:596px; width:360px;">
-  <div class="lab">Your number</div>
-  <div class="big">_ . _ _ %<span class="cursor" id="cur"></span></div>
-  <div class="sm">comment it below</div>
+<div class="card" id="card4" style="left:64px; top:596px; width:470px;">
+  <div class="lab">The rate you'd need today</div>
+  <div class="big" style="color:var(--terra)">5.5%</div>
+  <div class="sm">to pay what you'd have paid in 2024</div>
 </div>
 
 <div class="plan" id="plan">
@@ -96,6 +106,7 @@
 </div>
 
 <script src="rates.js"></script>
+<script src="prices.js"></script>
 <script>
   const $ = id => document.getElementById(id);
   const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -111,9 +122,10 @@
   // C 9.5–14.1 "Meanwhile my buyers are getting $50,000 in seller credits or price cuts."
   // D 14.1–end "If you're waiting on rates to drop, what rate are you waiting on?"
   const A = [0, 6.5], B = [6.5, 9.5], C = [9.5, 14.1], D = [14.1, 18.5];
-  const R = window.RATES; // [{d:'YYYY-MM-DD', v:7.18}, ...] oldest first, real Freddie Mac PMMS values
-  const vals = R.map(r => r.v), vmin = Math.min(...vals), vmax = Math.max(...vals);
-  const first = vals[0], last = vals[vals.length - 1];
+  let R = window.RATES; // [{d:'YYYY-MM-DD', v:7.18}, ...] oldest first, real Freddie Mac PMMS values
+  let vals, vmin, vmax, first, last, T, t0, t1;
+  function useSeries(S) { R = S; vals = R.map(r => r.v); vmin = Math.min(...vals); vmax = Math.max(...vals); first = vals[0]; last = vals[vals.length - 1]; T = R.map(r => Date.parse(r.d)); t0 = T[0]; t1 = T[T.length - 1]; }
+  useSeries(window.RATES);
   const diff = last - first, pct = diff / first * 100;
   const down = diff < 0;
   $('priceA').textContent = last.toFixed(2) + '%';
@@ -123,7 +135,6 @@
 
   const ctx = $('chart').getContext('2d');
   const CH = { x0: -40, x1: 1120, y0: 470, y1: 790 }; // chart box, runs off both edges like the app
-  const T = R.map(r => Date.parse(r.d)), t0 = T[0], t1 = T[T.length - 1];
   function pt(i, v) { const x = CH.x0 + (CH.x1 - CH.x0) * (T[i] - t0) / (t1 - t0); const y = CH.y1 - (CH.y1 - CH.y0) * (v - vmin) / (vmax - vmin || 1); return [x, y]; }
   function drawChart(draw, flat, alpha, col) {
     ctx.clearRect(0, 0, 1080, 1920);
@@ -158,11 +169,12 @@
     const chartOn = Math.max(inA, inB, inD);
     
     // header A lives through A, B and D
-    setO('hdrA', Math.max(inA, inB, inD)); 
+    setO('hdrA', Math.max(inA, inB)); setO('hdrD', inD); 
     setO('hdrC', inC); 
     // chart: draws in over the first 1.4 s, flatlines during B, returns in D
-    const draw = t < B[0] ? easeInOut(p(t, 0.1, 1.4)) : 1;
-    const flat = t < B[0] ? 0 : (t < C[0] ? easeInOut(p(t, B[0] + 0.3, 0.9)) : 1 - easeInOut(p(t, D[0], 0.8)));
+    useSeries(t >= D[0] - 0.3 ? window.PRICES : window.RATES);
+    const draw = t < B[0] ? easeInOut(p(t, 0.1, 1.4)) : t >= D[0] ? easeInOut(p(t, D[0], 1.2)) : 1;
+    const flat = t < B[0] ? 0 : (t < C[0] ? easeInOut(p(t, B[0] + 0.3, 0.9)) : 0);
     const col = flat > 0.5 ? 'rgba(239,233,222,.45)' : COL;
     drawChart(draw, flat, chartOn * (flat > 0 ? (1 - 0.45*flat) : 1), col);
     
@@ -180,7 +192,7 @@
     $('cardC2').style.opacity = 0;
     // D: your number card with a blinking cursor
     popIn('card4', t, D[0] + 0.3, 0.6, 'rise'); $('card4').style.opacity = clamp(p(t, D[0] + 0.3, 0.45)*3) * inD;
-    $('cur').style.opacity = Math.floor(t * 2) % 2 ? 0 : 1;
+    
   };
 </script>
 </body></html>

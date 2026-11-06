@@ -107,6 +107,10 @@ his standing brief. Read it before touching anything.
   called it **"too busy and gimmicky"**. What stays: the cutout on a live screen, one element on screen at a time, a chart
   that moves on cue, one-word white captions, soft rises and cross-fades. No emojis, no bubbles, no overshoot slides. The
   green app-look version lives in `comp-app.html` for comparison; the emoji pass is only on disk as `final-busy.mp4`.
+  The close is the **price-vs-rate math** he asked for: C.A.R. Orange County median over two years (`prices.js`) and the
+  rate you'd need today to match the old payment (5.5% as of Nov 2026). When he says "was it worth waiting on the rate",
+  this is the screen: price then and now, payment then and now, break-even rate. car.org is blocked; the C.A.R. county
+  tables are quoted on ocrealtors.org and instamortgage.com.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

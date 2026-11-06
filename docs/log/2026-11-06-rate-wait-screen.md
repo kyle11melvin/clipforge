@@ -59,6 +59,22 @@ looking exclusively at interest rates.", posted on ke_melvin with kylemylendergu
 333 views). Answer given: yes, same thesis from the other side; make the link explicit in the caption and keep the cover
 in the same navy two-tone look.
 
+## Round three: Orange County prices
+
+Kyle's direction after the quiet pass: show average home prices going up in Orange County, "if someone is waiting on a
+rate and the home price went up say $100,000 in two years, was it worth waiting on the rate". So the closing scene
+(14.1 s, "If you're waiting on rates to drop, what rate are you waiting on?") is now "03 OC homes": the C.A.R. median
+single-family price drawn in over two years (`prices.js`: Sep 2024 $1,397,450, Sep 2025 $1,401,250, monthly Nov 2025 to
+Sep 2026 ending $1,480,000; +$82,550, +5.9%), and the "Your number" card answers his question: **the rate you'd need today
+to pay what you'd have paid in 2024 is 5.5%** (20% down; Sep 2024 median at that week's 6.08% = $6,760 P&I; today's median
+at 7.18% = $8,021; break-even 5.55%). The buyers scene stays "02". car.org, laalmanac.com and the rest are blocked, so the
+values came from the C.A.R. county tables as quoted by ocrealtors.org, instamortgage.com and the laalmanac snippet; the
+Sep 2024 value is the prior-year column of the Sep 2025 table (unlabeled, but the row's 0.3% matches). His "$100,000 in two
+years" is close; the real figure is $82,550, and the first of the two years was flat.
+
+Suggested re-shoot line so the screen has words under it: "Two years ago the median house in Orange County was $1.4
+million. Today it's $1.48 million. The rate you'd need today just to get back to that payment is five and a half."
+
 ## Delivered
 
 Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the quiet cut and the app-look cut with a tab switch and Save MP4 (the MP4s are published
