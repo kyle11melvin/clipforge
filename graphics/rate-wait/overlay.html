@@ -1,0 +1,112 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* OVERLAY version (Kyle, 2026-11-06: "not sure we should entirely blue screen, maybe keep the background"): the real
+     footage stays; one widget floats above his head (his head top is ~y=640 in cut.mp4) and swaps its contents on each
+     beat. Rendered with --alpha and composited over the graded footage; captions.html goes on top. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  :root { --deep:#102C38; --terra:#D77B52; --sand:#EFE9DE; --sage:#A9C0B9; --mute:rgba(239,233,222,.72); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); position: relative; }
+  #scrim { position: absolute; left: 0; right: 0; top: 0; height: 760px; background: linear-gradient(rgba(16,44,56,.55), rgba(16,44,56,0)); }
+  #w { position: absolute; left: 48px; top: 250px; width: 984px; height: 380px; border-radius: 22px; background: rgba(16,44,56,.90); overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+  .pane { position: absolute; inset: 0; padding: 30px 36px; opacity: 0; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; color: var(--terra); font-size: 44px; letter-spacing: -0.03em; line-height: 1; display: inline-block; vertical-align: top; margin-right: 16px; }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; font-size: 54px; letter-spacing: -0.02em; line-height: 1; display: inline-block; vertical-align: top; }
+  .eyebrow { font-weight: 700; font-size: 20px; letter-spacing: .14em; color: var(--sage); margin-top: 10px; }
+  .right { position: absolute; right: 36px; top: 30px; text-align: right; }
+  .price { font-family: "Sora", sans-serif; font-weight: 700; font-size: 46px; letter-spacing: -0.02em; line-height: 1; }
+  .pill { display: inline-block; margin-top: 8px; padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 20px; background: var(--terra); color: var(--deep); white-space: nowrap; }
+  .foot { position: absolute; left: 36px; right: 36px; bottom: 16px; font-size: 18px; letter-spacing: .08em; color: rgba(239,233,222,.5); display: flex; justify-content: space-between; }
+  canvas { position: absolute; left: 0; top: 0; }
+  /* B: the plan */
+  #pB .l1 { font-weight: 700; font-size: 22px; letter-spacing: .14em; color: var(--sage); margin-top: 26px; }
+  #pB .l2 { font-family: "Sora", sans-serif; font-weight: 700; font-size: 92px; letter-spacing: -0.02em; line-height: 1; margin-top: 14px; }
+  #pB .l3 { font-size: 34px; color: var(--mute); margin-top: 14px; }
+  /* C: the money */
+  #pC .huge { font-family: "Sora", sans-serif; font-weight: 700; font-size: 150px; letter-spacing: -0.04em; line-height: 1; color: var(--terra); margin-top: 26px; font-variant-numeric: tabular-nums; }
+  #pC .sub { font-size: 30px; color: var(--mute); margin-top: 10px; }
+  /* D: the answer chip */
+  .chip { position: absolute; left: 36px; bottom: 50px; background: var(--terra); color: var(--deep); border-radius: 14px; padding: 12px 18px; font-weight: 700; font-size: 22px; line-height: 1.2; }
+  .chip b { font-family: "Sora", sans-serif; font-size: 40px; letter-spacing: -0.02em; display: block; }
+</style></head>
+<body>
+<div id="scrim"></div>
+<div id="w">
+  <canvas id="chart" width="984" height="400"></canvas>
+  <div class="pane" id="pA">
+    <span class="num">01</span><span class="h">30-yr fixed</span>
+    <div class="eyebrow">FREDDIE MAC, WEEKLY</div>
+    <div class="right"><div class="price" id="priceA">7.18%</div><div class="pill" id="pillA">+0.96 (+15.4%) Past year</div></div>
+    <div class="foot"><span>NOV 2025 – NOV 2026</span><span>SOURCE: FREDDIE MAC PMMS</span></div>
+  </div>
+  <div class="pane" id="pB">
+    <div class="l1">WAITING WITH NO NUMBER</div>
+    <div class="l2">Isn't a plan.</div>
+    <div class="l3">It's just waiting.</div>
+  </div>
+  <div class="pane" id="pC">
+    <span class="num">02</span><span class="h">My buyers</span>
+    <div class="huge" id="huge">$50,000</div>
+    <div class="sub">in seller credits or price cuts, right now</div>
+  </div>
+  <div class="pane" id="pD">
+    <span class="num">03</span><span class="h">OC homes</span>
+    <div class="eyebrow">ORANGE COUNTY MEDIAN, C.A.R.</div>
+    <div class="right"><div class="price">$1.48M</div><div class="pill">+$82,550 (+5.9%) Two years</div></div>
+    <div class="chip" id="chip">The rate you'd need today<b>5.5%</b>to pay what you'd have paid in 2024</div>
+    <div class="foot"><span></span><span>SEP 2024 – SEP 2026 · SINGLE-FAMILY</span></div>
+  </div>
+</div>
+<script src="rates.js"></script>
+<script src="prices.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const p = (t, s, d) => clamp((t - s) / d);
+  const fade = (t, a, b, f = 0.25) => (t < a || t > b) ? 0 : Math.min(p(t, a, f), 1 - p(t, b - f, f));
+  const A = [0, 6.5], B = [6.5, 9.5], C = [9.5, 14.1], D = [14.1, 18.5];
+  const ctx = $('chart').getContext('2d');
+  // chart box inside the widget: under the header, above the footer
+  function series(S, box, draw, flat, alpha, col) {
+    const vals = S.map(r => r.v), vmin = Math.min(...vals), vmax = Math.max(...vals);
+    const T = S.map(r => Date.parse(r.d)), t0 = T[0], t1 = T[T.length - 1];
+    const pt = i => [box.x0 + (box.x1 - box.x0) * (T[i] - t0) / (t1 - t0), box.y1 - (box.y1 - box.y0) * (vals[i] - vmin) / (vmax - vmin || 1)];
+    const n = Math.max(2, Math.round(S.length * draw)), yFlat = box.y1 + 22;
+    ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    for (const [w, blur, a] of [[14, 24, .14], [7, 10, .3], [4.5, 0, 1]]) {
+      ctx.beginPath();
+      for (let i = 0; i < n; i++) { let [x, y] = pt(i); y += (yFlat - y) * flat; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.strokeStyle = col; ctx.lineWidth = w; ctx.shadowColor = col; ctx.shadowBlur = blur; ctx.globalAlpha = alpha * a; ctx.stroke();
+    }
+    if (draw >= 1 && flat < 1) { let [x, y] = pt(S.length - 1); y += (yFlat - y) * flat; ctx.globalAlpha = alpha; ctx.shadowBlur = 16; ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI*2); ctx.fillStyle = '#EFE9DE'; ctx.fill(); }
+    ctx.restore();
+  }
+  const BOX = { x0: 36, x1: 948, y0: 150, y1: 312 };
+  const rise = (el, q) => { el.style.opacity = q; el.style.transform = `translateY(${18*(1-easeOut(q))}px)`; };
+  window.seek = function (t) {
+    const inA = fade(t, A[0], A[1]), inB = fade(t, B[0], B[1]), inC = fade(t, C[0], C[1]), inD = fade(t, D[0], D[1]);
+    // the widget itself rises in once at 0.3 s and stays
+    const w = p(t, 0.3, 0.6); $('w').style.opacity = w; $('w').style.transform = `translateY(${30*(1-easeOut(w))}px)`;
+    $('scrim').style.opacity = w;
+    rise($('pA'), inA); rise($('pB'), inB); rise($('pC'), inC); rise($('pD'), inD);
+    ctx.clearRect(0, 0, 984, 400);
+    // A: the rate line draws in; B: it flattens to sand and dims; D: the price line draws in
+    if (t < C[0]) {
+      const draw = easeInOut(p(t, 0.5, 1.4));
+      const flat = t < B[0] ? 0 : easeInOut(p(t, B[0] + 0.3, 0.9));
+      series(window.RATES, BOX, draw, flat, Math.max(inA, inB) * (1 - 0.55*flat), flat > 0.5 ? 'rgba(239,233,222,.6)' : '#D77B52');
+    } else if (t >= D[0] - 0.3) {
+      series(window.PRICES, { x0: 450, x1: 948, y0: 150, y1: 300 }, easeInOut(p(t, D[0] + 0.1, 1.1)), 0, inD, '#D77B52');
+    }
+    // C: $50,000 counts up
+    const cnt = easeOut(p(t, C[0] + 0.3, 1.4)) * 50000; $('huge').textContent = '$' + Math.round(cnt).toLocaleString('en-US');
+    // D: the answer chip comes after the line has drawn
+    const ch = p(t, D[0] + 1.3, 0.5); $('chip').style.opacity = ch; $('chip').style.transform = `translateY(${16*(1-easeOut(ch))}px)`;
+  };
+</script>
+</body></html>

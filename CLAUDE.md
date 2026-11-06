@@ -110,7 +110,11 @@ his standing brief. Read it before touching anything.
   The close is the **price-vs-rate math** he asked for: C.A.R. Orange County median over two years (`prices.js`) and the
   rate you'd need today to match the old payment (5.5% as of Nov 2026). When he says "was it worth waiting on the rate",
   this is the screen: price then and now, payment then and now, break-even rate. car.org is blocked; the C.A.R. county
-  tables are quoted on ocrealtors.org and instamortgage.com.
+  tables are quoted on ocrealtors.org and instamortgage.com. **Then he pulled back from the cutout** ("not sure we should
+  entirely blue screen, maybe keep the background"): `overlay.html` is the version to start from. Real footage, lightly
+  graded with a punch-in at each turn of the script (ffmpeg zoompan + eq/colorbalance/vignette, recipe in the log), one
+  floating widget above his head that swaps its contents per beat, captions on the chest. The cutout stays a tool for when
+  he asks for it.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

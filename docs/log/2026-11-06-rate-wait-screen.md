@@ -75,9 +75,21 @@ years" is close; the real figure is $82,550, and the first of the two years was 
 Suggested re-shoot line so the screen has words under it: "Two years ago the median house in Orange County was $1.4
 million. Today it's $1.48 million. The rate you'd need today just to get back to that payment is five and a half."
 
+## Round four: keep the background
+
+Kyle: "Still missing something, use your creative brain … I'm not sure we should entirely blue screen, maybe keep the
+background like it was." So `overlay.html` is the real-footage version and the main cut: his plaza stays, one widget
+(984x380, deep navy at 90%, 22 px radius) floats above his head at y=250 and swaps its contents per beat (01 rate line
+→ the flatline and "Isn't a plan." → 02 $50,000 → 03 OC price line with the 5.5% chip), rendered with `--alpha` and laid
+over `footage-graded.mp4`: cut.mp4 through zoompan (1.06 → 1.0 over the first 1.6 s, then a 5% punch-in with a quick
+ease out at 6.5, 9.5 and 14.1 s), a light grade (contrast 1.06, saturation 0.9, shadows nudged navy, highlights warm,
+soft vignette). A navy-to-clear scrim over the top 760 px keeps the widget readable against the bright ceiling. What I
+judged was missing: life behind him (the flat navy read as a slide) and a change of energy at each turn (the punch-ins).
+`final-overlay.mp4` is the page's main tab; the cutout-on-navy and app-look cuts are the other tabs.
+
 ## Delivered
 
-Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the quiet cut and the app-look cut with a tab switch and Save MP4 (the MP4s are published
+Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: real-background, cutout-on-navy and app-look cuts on tabs and Save MP4 (the MP4s are published
 beside the page and fetched on click), seven-frame contact sheet, cover (frame at 1.3 s), caption draft, the numbers on
 screen, what's missing. Also attached in chat.
 
