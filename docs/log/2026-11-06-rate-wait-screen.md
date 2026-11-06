@@ -121,6 +121,13 @@ the plaza's own ambience (two silent gaps of the raw take, 18.9–22.0 s and 8.0
 cut's normalisation) mixed under it. Lesson for the file: **a voice memo recorded elsewhere does not match a phone-video
 take to his ear**; if a line is missing, the honest options are re-shoot the whole thing or cut the line.
 
+## Cover
+
+`graphics/rate-wait/cover.html` on `cover-frame.png` (candidate 1 of eight, 1.45 s of footage-graded.mp4, mouth closed,
+half a smile, before the line starts). A = Coastal Money two-tone on a navy tint, the look of his "You want a better deal
+on a house?" cover from the day before, so the two reels sit together on the grid; `#b` = the Nunito white-with-stroke
+type. Rendered with `still.mjs`; strip `cover-candidates.jpg` for his number.
+
 ## Delivered
 
 Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: clean cut (main), memo with matched sound, cutout-on-navy and app-look cuts and Save MP4 (the MP4s are published
