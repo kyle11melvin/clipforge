@@ -110,9 +110,20 @@ Second memo (Aliso Creek Rd 3, 11.6 s, same phone mic, outdoors) replaced the fi
 from 0.9 s, 10.6 s; constants at the top of `cutaway.html`). Parakeet heard "Oran County" and "$1.489."; `memo-words.js`
 has the fixes ("Orange", "$1.48M"). Full cut 28.3 s.
 
+## Round six: "the sound is totally off", cut the memo
+
+Kyle on the second memo: "very obvious that that's a different take. The sound is totally off. Maybe just cut that
+section." Main tab is now `final-overlay.mp4` (17.7 s, no cutaway; the OC price and the 5.5% survive in the end widget).
+One matching attempt kept on a second tab, `final-memo-matched.mp4`: measured the speech spectrum of cut.mp4 vs the memo
+(STFT, louder 40% of frames) and applied the band-ratio as a firequalizer curve (memo was ~6 dB boomier below 450 Hz and
+~3 dB duller at 3–5 kHz), a short aecho (28 ms, 0.14) for the covered walkway, loudnorm to the footage's -16.4 LUFS, and
+the plaza's own ambience (two silent gaps of the raw take, 18.9–22.0 s and 8.0–10.1 s, looped, +3.7 dB to match the
+cut's normalisation) mixed under it. Lesson for the file: **a voice memo recorded elsewhere does not match a phone-video
+take to his ear**; if a line is missing, the honest options are re-shoot the whole thing or cut the line.
+
 ## Delivered
 
-Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the full cut with the memo cutaway (main tab), cutout-on-navy and app-look cuts and Save MP4 (the MP4s are published
+Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: clean cut (main), memo with matched sound, cutout-on-navy and app-look cuts and Save MP4 (the MP4s are published
 beside the page and fetched on click), seven-frame contact sheet, cover (frame at 1.3 s), caption draft, the numbers on
 screen, what's missing. Also attached in chat.
 

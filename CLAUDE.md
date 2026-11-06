@@ -114,9 +114,11 @@ his standing brief. Read it before touching anything.
   entirely blue screen, maybe keep the background"): `overlay.html` is the version to start from. Real footage, lightly
   graded with a punch-in at each turn of the script (ffmpeg zoompan + eq/colorbalance/vignette, recipe in the log), one
   floating widget above his head that swaps its contents per beat, captions on the chest. The cutout stays a tool for when
-  he asks for it. **A line he forgot to shoot can be a voice memo:** he records it anywhere, it plays over a full-screen
-  Coastal Money cutaway (`cutaway.html`: oversized numeral counting up, 01/02 rows, the answer slamming in, one Caveat
-  note), spliced in with ffmpeg concat; loudnorm the memo to the footage. He asked for the cutaway "towards my brand
+  he asks for it. **A voice memo does not pass for a missing line** (2026-11-06): two memos, same phone, outdoors, loudness matched,
+  then EQ-matched with the plaza ambience under it, and he still heard a different take ("the sound is totally off",
+  so the section was cut). The cutaway itself (`cutaway.html`: oversized numeral counting up, the answer slamming in, one
+  Caveat note, spliced with ffmpeg concat) is the right shape for a full-screen math beat; the voice has to come from
+  the same shoot. If a line is missing, re-shoot the take or cut the line. He asked for the cutaway "towards my brand
   image but also really cool", so brand slide language with motion on his words, not a dashboard. **No 01/02/03
   numbering on cards or rows** in a talking-head reel (Kyle, 2026-11-06: "get rid of the slide numbers on the cards");
   the oversized numeral is for the dollar figure or the rate, not for counting.
