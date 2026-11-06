@@ -92,6 +92,20 @@ his standing brief. Read it before touching anything.
   ~4 s tension, payoff. **Next game meme**: ask him for his own phone recording of the TV at the final play (the
   announcers' call) plus a reaction photo of Asher, and build the same night. He wants different music next time;
   ask for the lane (or a picker song on the silent version) before building the picture.
+- `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
+  data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
+  1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart
+  that draws in and flatlines on cue, cards sliding in from the sides with overshoot), the cutout, then `captions.html`
+  foreground (one word at a time in Nunito ExtraBold, key words terracotta, chat bubbles, emojis sliding in on the beats).
+  **Cutout:** `npx hyperframes remove-background videos/<post>/cut.mp4 -o videos/<post>/cutout.mov` (ProRes 4444 alpha,
+  ~0.45 s/frame on CPU, clean on face and shoulders indoors and outdoors; the selfie arm smears at the frame edge, so shoot
+  this format seated and still). Place him so his head top sits near y=760 (scale 0.86, overlay at 76,210) with a deep-navy
+  desk band hiding the bottom edge; captions on the chest at y≈1400. Recipe in the 2026-11-06 log. Rate feeds
+  (FRED, freddiemac.com, mortgagenewsdaily) are blocked from the session; `rates.js` was filled by web search week by week.
+  **Kyle's direction for this format:** keep the Coastal Money colours but do not stick to the brand's quiet identity
+  ("I agree with the colors, but change up some shit"): more graphics, things sliding in, emojis when he asks for them,
+  a chat bubble when he quotes someone. He wants reaction to a finished cut; the green app-look version lives in
+  `comp-app.html` for comparison.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

@@ -1,0 +1,190 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Coastal Money version (Kyle, 2026-11-06: "not copy their brand image … use a lot of that, change course a
+     little"): the live-screen technique from the ETF reel, in his own brand. Navy ground, sand type, terracotta for
+     the thing read first (the rate line, the $50,000), sea glass labels, Sora/Manrope. comp-app.html is the
+     green app-look version kept for reference. Rendered 1080x1920 as the BACKGROUND layer under the cutout. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  :root { --navy:#173F4F; --deep:#102C38; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sage:#A9C0B9; --mute:rgba(239,233,222,.72); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); position: relative; }
+  #glow { position: absolute; inset: 0; background: var(--navy); }
+  #grid { position: absolute; inset: 0; opacity: 1;
+    background-image: linear-gradient(rgba(239,233,222,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(239,233,222,.045) 1px, transparent 1px);
+    background-size: 72px 72px; }
+  canvas { position: absolute; left: 0; top: 0; }
+  .layer { position: absolute; inset: 0; }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+  /* header: oversized numeral (the Coastal Money signature) + headline */
+  .badge { position: absolute; left: 64px; top: 236px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 128px; letter-spacing: -0.03em; line-height: 1; color: var(--terra); }
+  .ticker { position: absolute; left: 236px; top: 250px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 88px; letter-spacing: -0.02em; line-height: 1; white-space: nowrap; color: var(--sand); }
+  .sub { position: absolute; left: 240px; top: 352px; font-weight: 700; font-size: 25px; letter-spacing: .14em; color: var(--sage); white-space: nowrap; }
+  .price { position: absolute; right: 64px; top: 254px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 52px; letter-spacing: -0.02em; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--sand); }
+  .pill { position: absolute; right: 64px; top: 322px; padding: 10px 22px; border-radius: 999px; font-weight: 700; font-size: 25px; white-space: nowrap; background: var(--terra); color: var(--deep); }
+  .pill.red { background: var(--terra); color: var(--deep); }
+  .src { position: absolute; right: 64px; top: 392px; text-align: right; font-size: 20px; letter-spacing: .08em; color: rgba(239,233,222,.42); }
+  /* cards: deep navy, 20px radius, flat */
+  .card { position: absolute; background: var(--deep); border-radius: 20px; padding: 26px 28px; }
+  .card .lab { font-weight: 700; font-size: 22px; letter-spacing: .14em; color: var(--sage); text-transform: uppercase; }
+  .card .big { font-family: "Sora", sans-serif; font-weight: 700; font-size: 44px; letter-spacing: -0.02em; margin-top: 14px; line-height: 1.05; white-space: nowrap; color: var(--sand); }
+  .card .sm { font-size: 24px; color: var(--mute); margin-top: 10px; white-space: nowrap; }
+  .tabs { position: absolute; left: 0; right: 0; top: 806px; display: flex; justify-content: center; font-weight: 700; font-size: 27px; color: var(--sage); }
+  .tabs span { padding: 10px 28px; border-radius: 999px; margin: 0 14px; }
+  .tabs span.on { background: var(--terra); color: var(--deep); }
+  /* the $50,000 */
+  .huge { position: absolute; left: 0; right: 0; top: 440px; text-align: center; font-family: "Sora", sans-serif; font-weight: 700; font-size: 230px; letter-spacing: -0.04em; line-height: 1; color: var(--terra); font-variant-numeric: tabular-nums; }
+  .plan { position: absolute; left: 110px; right: 110px; top: 470px; text-align: center; }
+  .plan .l1 { font-weight: 700; font-size: 28px; letter-spacing: .14em; color: var(--sage); }
+  .plan .l2 { font-family: "Sora", sans-serif; font-weight: 700; font-size: 118px; letter-spacing: -0.02em; line-height: 1; margin-top: 18px; color: var(--sand); }
+  .plan .l3 { font-size: 40px; color: var(--mute); margin-top: 18px; }
+  .cursor { display: inline-block; width: 6px; height: .9em; background: var(--terra); vertical-align: -0.1em; margin-left: 6px; }
+  #desk { background: linear-gradient(rgba(16,44,56,0), #102C38 45%, #102C38) !important; }
+</style></head>
+<body>
+<div id="glow"></div><div id="grid"></div>
+<div id="desk" style="position:absolute; left:0; right:0; top:1780px; height:140px; background:linear-gradient(rgba(20,26,23,0), #161c19 40%, #1b2320);"></div>
+<canvas id="chart" width="1080" height="1920"></canvas>
+
+<div class="layer" id="hdrA">
+  <div class="badge" id="badgeA">01</div>
+  <div class="ticker">30-yr fixed</div>
+  <div class="sub">FREDDIE MAC, WEEKLY</div>
+  <div class="price" id="priceA">7.18%</div>
+  <div class="pill red" id="pillA">+0.96 (+15.4%) Past year</div>
+  <div class="tabs red"><span>1D</span><span>1W</span><span>1M</span><span>3M</span><span>YTD</span><span class="on">1Y</span><span>ALL</span></div>
+  <div class="src">NOV 2025 – NOV 2026 · SOURCE: FREDDIE MAC PMMS</div>
+</div>
+
+<div class="layer" id="hdrC">
+  <div class="badge">02</div>
+  <div class="ticker">My buyers</div>
+  <div class="sub">GETTING RIGHT NOW</div>
+  <div class="price" id="priceC">$50,000</div>
+  <div class="pill" id="pillC">credits or price cuts</div>
+  <div class="huge" id="huge">$50,000</div>
+  <div class="card" id="cardC1" style="left:64px; top:720px; width:330px;">
+    <div class="lab">Seller credits</div>
+    <div class="big" style="color:var(--terra)">&#10003;</div>
+    <div class="sm">buys the rate down</div>
+  </div>
+  <div class="card" id="cardC2" style="right:64px; top:720px; width:330px;">
+    <div class="lab">Price cuts</div>
+    <div class="big" style="color:var(--terra)">&#10003;</div>
+    <div class="sm">off the price</div>
+  </div>
+</div>
+
+<div class="card" id="card1" style="left:64px; top:596px; width:330px;">
+  <div class="lab">Waiting for</div>
+  <div class="big" id="q1">?.??%</div>
+  <div class="sm">name your number</div>
+</div>
+<div class="card" id="card2" style="right:64px; top:596px; width:330px;">
+  <div class="lab">His answer</div>
+  <div class="big">&mdash;</div>
+  <div class="sm">didn't have one</div>
+</div>
+<div class="card" id="card4" style="left:64px; top:596px; width:360px;">
+  <div class="lab">Your number</div>
+  <div class="big">_ . _ _ %<span class="cursor" id="cur"></span></div>
+  <div class="sm">comment it below</div>
+</div>
+
+<div class="plan" id="plan">
+  <div class="l1">WAITING WITH NO NUMBER</div>
+  <div class="l2">Isn't a plan.</div>
+  <div class="l3">It's just waiting.</div>
+</div>
+
+<script src="rates.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const fade = (t, a, b, f = 0.25) => (t < a || t > b) ? 0 : Math.min(p(t, a, f), 1 - p(t, b - f, f));
+
+  // Scene windows on the footage timeline (videos/rate-wait/transcript.json):
+  // A 0–6.5 "What rate are you waiting for? … he didn't have a number."
+  // B 6.5–9.5 "Waiting with no number isn't a plan. It's just waiting."
+  // C 9.5–14.1 "Meanwhile my buyers are getting $50,000 in seller credits or price cuts."
+  // D 14.1–end "If you're waiting on rates to drop, what rate are you waiting on?"
+  const A = [0, 6.5], B = [6.5, 9.5], C = [9.5, 14.1], D = [14.1, 18.5];
+  const R = window.RATES; // [{d:'YYYY-MM-DD', v:7.18}, ...] oldest first, real Freddie Mac PMMS values
+  const vals = R.map(r => r.v), vmin = Math.min(...vals), vmax = Math.max(...vals);
+  const first = vals[0], last = vals[vals.length - 1];
+  const diff = last - first, pct = diff / first * 100;
+  const down = diff < 0;
+  $('priceA').textContent = last.toFixed(2) + '%';
+  $('pillA').textContent = `${diff >= 0 ? '+' : '−'}${Math.abs(diff).toFixed(2)} (${diff >= 0 ? '+' : '−'}${Math.abs(pct).toFixed(1)}%) Past year`;
+  if (down) { $('pillA').classList.remove('red'); document.querySelector('.tabs').classList.remove('red'); }
+  const COL = '#D77B52';
+
+  const ctx = $('chart').getContext('2d');
+  const CH = { x0: -40, x1: 1120, y0: 470, y1: 790 }; // chart box, runs off both edges like the app
+  const T = R.map(r => Date.parse(r.d)), t0 = T[0], t1 = T[T.length - 1];
+  function pt(i, v) { const x = CH.x0 + (CH.x1 - CH.x0) * (T[i] - t0) / (t1 - t0); const y = CH.y1 - (CH.y1 - CH.y0) * (v - vmin) / (vmax - vmin || 1); return [x, y]; }
+  function drawChart(draw, flat, alpha, col) {
+    ctx.clearRect(0, 0, 1080, 1920);
+    if (alpha <= 0) return;
+    const n = Math.max(2, Math.round(R.length * draw));
+    const yFlat = (CH.y0 + CH.y1) / 2;
+    ctx.save(); ctx.globalAlpha = alpha;
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    for (const [w, blur, a] of [[16, 30, .14], [8, 14, .3], [5, 0, 1]]) {
+      ctx.beginPath();
+      for (let i = 0; i < n; i++) { let [x, y] = pt(i, vals[i]); y = y + (yFlat - y) * flat; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.strokeStyle = col; ctx.lineWidth = w; ctx.shadowColor = col; ctx.shadowBlur = blur; ctx.globalAlpha = alpha * a; ctx.stroke();
+    }
+    // the little live dot at the end of the line
+    if (draw >= 1) { let [x, y] = pt(R.length - 1, last); y = y + (yFlat - y) * flat; ctx.globalAlpha = alpha; ctx.shadowBlur = 24; ctx.beginPath(); ctx.arc(Math.min(x, 1050), y, 9, 0, Math.PI*2); ctx.fillStyle = '#EFE9DE'; ctx.fill(); }
+    ctx.restore();
+  }
+  // floating dots
+  const dots = Array.from({ length: 26 }, (_, i) => ({ x: (i * 173) % 1080, y: 200 + (i * 331) % 800, r: 2 + (i % 3), s: 0.4 + (i % 5) / 10 }));
+  function drawDots(t, alpha) {
+    ctx.save(); ctx.globalAlpha = alpha;
+    for (const d of dots) { const y = d.y - (t * 12 * d.s) % 900; ctx.beginPath(); ctx.arc(d.x, ((y % 1000) + 1000) % 1000 + 150, d.r, 0, Math.PI*2); ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 8; ctx.fill(); }
+    ctx.restore();
+  }
+  const setO = (id, o) => { $(id).style.opacity = o; };
+  const popIn = (id, t, s, d = 0.45, from = 'scale') => { const q = p(t, s, d); const el = $(id); el.style.opacity = clamp(q*3);
+    el.style.transform = from === 'left' ? `translateX(${-520*(1-back(q))}px)` : from === 'right' ? `translateX(${520*(1-back(q))}px)` : from === 'scale' ? `scale(${0.7 + 0.3*back(q)})` : `translateY(${26*(1-easeOut(q))}px)`; };
+  const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+
+  window.seek = function (t) {
+    const inA = fade(t, A[0], A[1]), inB = fade(t, B[0], B[1]), inC = fade(t, C[0], C[1]), inD = fade(t, D[0], D[1]);
+    const chartOn = Math.max(inA, inB, inD);
+    
+    // header A lives through A, B and D
+    setO('hdrA', Math.max(inA, inB, inD)); $('hdrA').style.transform = `translateY(${-60*(1-Math.max(inA, inB, inD))}px)`;
+    setO('hdrC', inC); $('hdrC').style.transform = `translateY(${-80*(1-easeOut(p(t, C[0], 0.5)))}px)`;
+    // chart: draws in over the first 1.4 s, flatlines during B, returns in D
+    const draw = t < B[0] ? easeInOut(p(t, 0.1, 1.4)) : 1;
+    const flat = t < B[0] ? 0 : (t < C[0] ? easeInOut(p(t, B[0] + 0.3, 0.9)) : 1 - easeInOut(p(t, D[0], 0.8)));
+    const col = flat > 0.5 ? 'rgba(239,233,222,.45)' : COL;
+    drawChart(draw, flat, chartOn * (flat > 0 ? (1 - 0.45*flat) : 1), col);
+    
+    // A cards
+    popIn('card1', t, 0.5, 0.5, 'left'); $('card1').style.opacity = clamp(p(t, 0.5, 0.45)*3) * inA;
+    popIn('card2', t, 5.6, 0.5, 'right'); $('card2').style.opacity = clamp(p(t, 5.6, 0.45)*3) * inA;
+    // B plan text: rises in word by word-ish (three lines)
+    const b = inB; setO('plan', b);
+    ['l1','l2','l3'].forEach((c, i) => { const q = easeOut(p(t, B[0] + 0.25 + i*0.22, 0.45)); const el = document.querySelector('.plan .' + c); el.style.opacity = q; el.style.transform = `translateY(${24*(1-q)}px)`; });
+    // C: $50,000 counts up, bars fill
+    const cnt = easeOut(p(t, C[0] + 0.3, 1.6)) * 50000;
+    $('huge').textContent = fmt(cnt); $('priceC').textContent = fmt(cnt);
+    popIn('huge', t, C[0] + 0.25); { const land = p(t, C[0] + 1.9, 0.35); if (land > 0 && land < 1) $('huge').style.transform = `scale(${1 + 0.08*Math.sin(land*Math.PI)})`; }
+    popIn('cardC1', t, C[0] + 2.3, 0.5, 'left'); $('cardC1').style.opacity = clamp(p(t, C[0] + 2.3, 0.45)*3) * inC;   // "seller credits"
+    popIn('cardC2', t, C[0] + 3.6, 0.5, 'right'); $('cardC2').style.opacity = clamp(p(t, C[0] + 3.6, 0.45)*3) * inC;   // "price cuts"
+    // D: your number card with a blinking cursor
+    popIn('card4', t, D[0] + 0.3, 0.5, 'left'); $('card4').style.opacity = clamp(p(t, D[0] + 0.3, 0.45)*3) * inD;
+    $('cur').style.opacity = Math.floor(t * 2) % 2 ? 0 : 1;
+  };
+</script>
+</body></html>
