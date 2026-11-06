@@ -117,7 +117,9 @@ his standing brief. Read it before touching anything.
   he asks for it. **A line he forgot to shoot can be a voice memo:** he records it anywhere, it plays over a full-screen
   Coastal Money cutaway (`cutaway.html`: oversized numeral counting up, 01/02 rows, the answer slamming in, one Caveat
   note), spliced in with ffmpeg concat; loudnorm the memo to the footage. He asked for the cutaway "towards my brand
-  image but also really cool", so brand slide language with motion on his words, not a dashboard.
+  image but also really cool", so brand slide language with motion on his words, not a dashboard. **No 01/02/03
+  numbering on cards or rows** in a talking-head reel (Kyle, 2026-11-06: "get rid of the slide numbers on the cards");
+  the oversized numeral is for the dollar figure or the rate, not for counting.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

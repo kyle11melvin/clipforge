@@ -103,6 +103,9 @@ also shortened to 320 px (Kyle: "the widget sits too close to my hair, you can s
 His question on music: told him the voice is there, a bed is what's missing, and offered picker song (creator account)
 or a baked bed; waiting on his call.
 
+Kyle then: "get rid of the slide numbers on the cards". The 01/02/03 numerals are off the widget and the 01/02 off
+the cutaway's payment rows. The oversized-numeral device is for the $ figures and the 5.5%, not for counting cards.
+
 ## Delivered
 
 Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the full cut with the memo cutaway (main tab), cutout-on-navy and app-look cuts and Save MP4 (the MP4s are published
