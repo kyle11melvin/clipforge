@@ -20,18 +20,6 @@
   .bub .big { font-family: "Noto Color Emoji", sans-serif; font-size: 110px; line-height: 1; }
   .who { position: absolute; left: 60px; font-family: "Manrope", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: .14em; color: #A9C0B9; opacity: 0; text-shadow: 0 2px 8px rgba(0,0,0,.5); }
 </style></head><body>
-<div class="who" id="who1" style="top:880px">ME</div>
-<div class="bub me" id="b1" style="top:910px">What rate are you waiting for?</div>
-<div class="who" id="who2" style="top:1060px">MY FRIEND</div>
-<div class="bub him" id="b2" style="top:1090px"><div class="dots"><span></span><span></span><span></span></div></div>
-<div class="bub him" id="b3" style="top:1090px"><div class="big">🤷‍♂️</div></div>
-<div class="emo" id="e1" style="left:800px; top:560px;">🤔</div>
-<div class="emo" id="e2" style="left:820px; top:900px;">⏳</div>
-<div class="emo" id="e3" style="left:140px; top:1000px;">💰</div>
-<div class="emo" id="e4" style="left:760px; top:1000px;">💰</div>
-<div class="emo" id="e5" style="left:300px; top:640px; font-size:110px;">🏷️</div>
-<div class="emo" id="e6" style="left:900px; top:640px; font-size:110px;">✂️</div>
-<div class="emo" id="e7" style="left:800px; top:1120px;">👇</div>
 <div id="w"></div>
 <script src="words.js"></script>
 <script>
@@ -57,21 +45,8 @@
     let cur = null;
     for (let i = 0; i < W.length; i++) { const nxt = i + 1 < W.length ? W[i+1].start : W[i].end + 0.6; if (t >= W[i].start && t < Math.min(nxt, W[i].start + 1.3)) { cur = W[i]; break; } }
     if (!cur) el.style.opacity = 0; else {
-      const q = p(t, cur.start, 0.08); el.textContent = cur.text; el.className = KEY.test(cur.text) ? 'key' : '';
+      const q = p(t, cur.start, 0.08); el.textContent = cur.text; el.className = '';
       el.style.opacity = 1; el.style.transform = `scale(${0.9 + 0.1*back(q)})`;
     }
-    // the friend conversation (1.6 "I was talking to a friend" → 6.4 "didn't have a number")
-    who('who1', t, 2.3, 6.5); bub('b1', t, 2.4, 6.5);
-    who('who2', t, 4.3, 6.5); bub('b2', t, 4.4, 5.6); bub('b3', t, 5.55, 6.5);
-    // the typing dots blink while the bubble is up
-    Array.from(document.querySelectorAll('#b2 .dots span')).forEach((d, i) => d.style.opacity = 0.35 + 0.65 * Math.max(0, Math.sin((t * 6) - i * 1.2)));
-    // emojis on the beats
-    emo('e1', t, 0.95, 2.2, 'right');     // "waiting for?" 🤔
-    emo('e2', t, 8.5, 9.6, 'right');      // "it's just waiting" ⏳
-    emo('e3', t, 11.1, 14.1, 'up');       // "fifty thousand" 💰💰
-    emo('e4', t, 11.3, 14.1, 'up');
-    emo('e5', t, 12.1, 14.1, 'left');     // "seller credits" 🏷️
-    emo('e6', t, 13.4, 14.4, 'right');    // "price cuts" ✂️
-    emo('e7', t, 16.0, 18.5, 'right');    // "what rate are you waiting on?" 👇
   };
 </script></body></html>

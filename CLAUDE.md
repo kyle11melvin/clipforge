@@ -102,10 +102,11 @@ his standing brief. Read it before touching anything.
   this format seated and still). Place him so his head top sits near y=760 (scale 0.86, overlay at 76,210) with a deep-navy
   desk band hiding the bottom edge; captions on the chest at y≈1400. Recipe in the 2026-11-06 log. Rate feeds
   (FRED, freddiemac.com, mortgagenewsdaily) are blocked from the session; `rates.js` was filled by web search week by week.
-  **Kyle's direction for this format:** keep the Coastal Money colours but do not stick to the brand's quiet identity
-  ("I agree with the colors, but change up some shit"): more graphics, things sliding in, emojis when he asks for them,
-  a chat bubble when he quotes someone. He wants reaction to a finished cut; the green app-look version lives in
-  `comp-app.html` for comparison.
+  **Kyle's direction for this format:** keep the Coastal Money colours, loosen the brand's rules a little ("I agree with
+  the colors, but change up some shit"), but when the pass with emojis, a chat bubble and cards sliding in came back he
+  called it **"too busy and gimmicky"**. What stays: the cutout on a live screen, one element on screen at a time, a chart
+  that moves on cue, one-word white captions, soft rises and cross-fades. No emojis, no bubbles, no overshoot slides. The
+  green app-look version lives in `comp-app.html` for comparison; the emoji pass is only on disk as `final-busy.mp4`.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

@@ -65,11 +65,7 @@
   <div class="price" id="priceC">$50,000</div>
   <div class="pill" id="pillC">credits or price cuts</div>
   <div class="huge" id="huge">$50,000</div>
-  <div class="card" id="cardC1" style="left:64px; top:720px; width:330px;">
-    <div class="lab">Seller credits</div>
-    <div class="big" style="color:var(--terra)">&#10003;</div>
-    <div class="sm">buys the rate down</div>
-  </div>
+  <div id="cardC1" style="position:absolute; left:0; right:0; top:684px; text-align:center; font-weight:700; font-size:26px; letter-spacing:.14em; color:var(--sage);">SELLER CREDITS OR PRICE CUTS</div>
   <div class="card" id="cardC2" style="right:64px; top:720px; width:330px;">
     <div class="lab">Price cuts</div>
     <div class="big" style="color:var(--terra)">&#10003;</div>
@@ -162,8 +158,8 @@
     const chartOn = Math.max(inA, inB, inD);
     
     // header A lives through A, B and D
-    setO('hdrA', Math.max(inA, inB, inD)); $('hdrA').style.transform = `translateY(${-60*(1-Math.max(inA, inB, inD))}px)`;
-    setO('hdrC', inC); $('hdrC').style.transform = `translateY(${-80*(1-easeOut(p(t, C[0], 0.5)))}px)`;
+    setO('hdrA', Math.max(inA, inB, inD)); 
+    setO('hdrC', inC); 
     // chart: draws in over the first 1.4 s, flatlines during B, returns in D
     const draw = t < B[0] ? easeInOut(p(t, 0.1, 1.4)) : 1;
     const flat = t < B[0] ? 0 : (t < C[0] ? easeInOut(p(t, B[0] + 0.3, 0.9)) : 1 - easeInOut(p(t, D[0], 0.8)));
@@ -171,19 +167,19 @@
     drawChart(draw, flat, chartOn * (flat > 0 ? (1 - 0.45*flat) : 1), col);
     
     // A cards
-    popIn('card1', t, 0.5, 0.5, 'left'); $('card1').style.opacity = clamp(p(t, 0.5, 0.45)*3) * inA;
-    popIn('card2', t, 5.6, 0.5, 'right'); $('card2').style.opacity = clamp(p(t, 5.6, 0.45)*3) * inA;
+    popIn('card1', t, 0.5, 0.6, 'rise'); $('card1').style.opacity = clamp(p(t, 0.5, 0.45)*3) * inA;
+    $('card2').style.opacity = 0;
     // B plan text: rises in word by word-ish (three lines)
     const b = inB; setO('plan', b);
     ['l1','l2','l3'].forEach((c, i) => { const q = easeOut(p(t, B[0] + 0.25 + i*0.22, 0.45)); const el = document.querySelector('.plan .' + c); el.style.opacity = q; el.style.transform = `translateY(${24*(1-q)}px)`; });
     // C: $50,000 counts up, bars fill
     const cnt = easeOut(p(t, C[0] + 0.3, 1.6)) * 50000;
     $('huge').textContent = fmt(cnt); $('priceC').textContent = fmt(cnt);
-    popIn('huge', t, C[0] + 0.25); { const land = p(t, C[0] + 1.9, 0.35); if (land > 0 && land < 1) $('huge').style.transform = `scale(${1 + 0.08*Math.sin(land*Math.PI)})`; }
-    popIn('cardC1', t, C[0] + 2.3, 0.5, 'left'); $('cardC1').style.opacity = clamp(p(t, C[0] + 2.3, 0.45)*3) * inC;   // "seller credits"
-    popIn('cardC2', t, C[0] + 3.6, 0.5, 'right'); $('cardC2').style.opacity = clamp(p(t, C[0] + 3.6, 0.45)*3) * inC;   // "price cuts"
+    popIn('huge', t, C[0] + 0.25, 0.6, 'rise');
+    popIn('cardC1', t, C[0] + 2.2, 0.6, 'rise'); $('cardC1').style.opacity = clamp(p(t, C[0] + 2.2, 0.6)*3) * inC;   // "seller credits or price cuts", one card
+    $('cardC2').style.opacity = 0;
     // D: your number card with a blinking cursor
-    popIn('card4', t, D[0] + 0.3, 0.5, 'left'); $('card4').style.opacity = clamp(p(t, D[0] + 0.3, 0.45)*3) * inD;
+    popIn('card4', t, D[0] + 0.3, 0.6, 'rise'); $('card4').style.opacity = clamp(p(t, D[0] + 0.3, 0.45)*3) * inD;
     $('cur').style.opacity = Math.floor(t * 2) % 2 ? 0 : 1;
   };
 </script>

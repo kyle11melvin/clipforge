@@ -45,9 +45,23 @@ came from web search over Freddie Mac's weekly releases and news coverage; missi
 Nov 5, 2026: 7.18%; a year earlier 6.22%, so the pill reads +0.96 (+15.4%) and the line is terracotta, not green: rates
 up is the point of his hook.
 
+## Round two: "too busy and gimmicky"
+
+Kyle's verdict on the emoji pass, from a four-option pick: **too busy and gimmicky** (not "not slick enough", not "the
+cutout looks fake", not "wrong idea"). So `comp.html` / `captions.html` are now the quiet version: no emojis, no chat
+bubble, no slides with overshoot, no punch on the $50,000. Cards rise 20 px with a fade, one element on screen at a time,
+captions plain white, cross-fades only. The "seller credits or price cuts" card sat behind his head, so it is a sage
+eyebrow line under the $50,000 instead. Lesson for this format: the technique (cutout on a live screen, one-word captions,
+a chart that moves on cue) is what he wanted; decoration on top of it is not. `final-busy.mp4` keeps the emoji pass on disk.
+
+He also asked whether this is a good follow-up to the price-cuts reel ("You want a better deal on a house? Maybe stop
+looking exclusively at interest rates.", posted on ke_melvin with kylemylenderguy as collaborator, Calvin Harris song,
+333 views). Answer given: yes, same thesis from the other side; make the link explicit in the caption and keep the cover
+in the same navy two-tone look.
+
 ## Delivered
 
-Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: both cuts with a tab switch and Save MP4 (the MP4s are published
+Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the quiet cut and the app-look cut with a tab switch and Save MP4 (the MP4s are published
 beside the page and fetched on click), seven-frame contact sheet, cover (frame at 1.3 s), caption draft, the numbers on
 screen, what's missing. Also attached in chat.
 
