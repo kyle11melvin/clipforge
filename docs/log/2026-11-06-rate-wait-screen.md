@@ -106,6 +106,10 @@ or a baked bed; waiting on his call.
 Kyle then: "get rid of the slide numbers on the cards". The 01/02/03 numerals are off the widget and the 01/02 off
 the cutaway's payment rows. The oversized-numeral device is for the $ figures and the 5.5%, not for counting cards.
 
+Second memo (Aliso Creek Rd 3, 11.6 s, same phone mic, outdoors) replaced the first; cutaway re-timed to it (memo trimmed
+from 0.9 s, 10.6 s; constants at the top of `cutaway.html`). Parakeet heard "Oran County" and "$1.489."; `memo-words.js`
+has the fixes ("Orange", "$1.48M"). Full cut 28.3 s.
+
 ## Delivered
 
 Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the full cut with the memo cutaway (main tab), cutout-on-navy and app-look cuts and Save MP4 (the MP4s are published
