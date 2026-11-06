@@ -87,9 +87,25 @@ soft vignette). A navy-to-clear scrim over the top 760 px keeps the widget reada
 judged was missing: life behind him (the flat navy read as a slide) and a change of energy at each turn (the punch-ins).
 `final-overlay.mp4` is the page's main tab; the cutout-on-navy and app-look cuts are the other tabs.
 
+## Round five: the memo cutaway, "towards my brand image but also really cool"
+
+Kyle recorded the price line as a voice memo (Aliso Creek Rd 2.m4a, 12.4 s, different room from the footage) rather
+than re-shoot in different clothes; the agreed move was a full-screen cutaway with his voice over it. `cutaway.html`
+(11.2 s, memo trimmed from 0.8 s, loudnorm to -16 LUFS) is a Coastal Money slide sequence timed to his words: two-tone
+headline "Two years ago it was" → "And today it is", the oversized numeral popping in at $1,397,450 on "1.4 million" and
+counting to $1,480,000 (turning terracotta) while the line draws on "Today it's 1.48", the +$82,550 pill, 01/02 rows
+"Payment then $6,760 / Payment now $8,021" on "the rate you need today … payment", then the rows give way to "5.5%" at
+250 px slamming in on "five" and a Caveat note "that's your number." on "percent". `memo-captions.html` is captions.html
+pointed at `memo-words.js`, captions at y=1460 since there is no face. Spliced in at 14.1 s of `final-overlay.mp4`
+(after "price cuts", before "If you're waiting on rates to drop") with ffmpeg concat → `final-full.mp4`, 28.9 s. Widget
+also shortened to 320 px (Kyle: "the widget sits too close to my hair, you can shrink it").
+
+His question on music: told him the voice is there, a bed is what's missing, and offered picker song (creator account)
+or a baked bed; waiting on his call.
+
 ## Delivered
 
-Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: real-background, cutout-on-navy and app-look cuts on tabs and Save MP4 (the MP4s are published
+Page https://claude.ai/artifact/MAAcVbLWH2c7N3SmPY1ebc: the full cut with the memo cutaway (main tab), cutout-on-navy and app-look cuts and Save MP4 (the MP4s are published
 beside the page and fetched on click), seven-frame contact sheet, cover (frame at 1.3 s), caption draft, the numbers on
 screen, what's missing. Also attached in chat.
 

@@ -1,0 +1,114 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Full-screen cutaway for the price line Kyle recorded as a voice memo (2026-11-06), cut in between "$50,000 …
+     price cuts" and "If you're waiting on rates to drop". Coastal Money slide language: oversized numeral, two-tone
+     headline, 01/02 rows, one Caveat note. Times are memo time minus 0.8 s: "Two years ago" 0.24, "1.4 million"
+     3.2–4.7, "Today it's 1.48 million" 4.5–6.4, "The rate you need today" 6.8, "five and a half percent" 9.8–11.0. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  :root { --navy:#173F4F; --deep:#102C38; --terra:#D77B52; --terra-soft:#E7A481; --sand:#EFE9DE; --sage:#A9C0B9; --mute:rgba(239,233,222,.72); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); position: relative; }
+  canvas { position: absolute; left: 0; top: 0; }
+  .sora { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+  .eyebrow { font-weight: 700; font-size: 26px; letter-spacing: .14em; color: var(--sage); text-transform: uppercase; }
+  #top { position: absolute; left: 64px; right: 64px; top: 250px; }
+  #hl { font-family: "Sora", sans-serif; font-weight: 700; font-size: 72px; letter-spacing: -0.02em; line-height: 1.05; margin-top: 14px; }
+  #hl .t { color: var(--terra); }
+  #big { font-family: "Sora", sans-serif; font-weight: 700; font-size: 172px; letter-spacing: -0.04em; line-height: 0.95; margin-top: 22px; color: var(--sand); font-variant-numeric: tabular-nums; white-space: nowrap; opacity: 0; }
+  #when { margin-top: 14px; opacity: 0; }
+  .pill { display: inline-block; margin-top: 18px; padding: 10px 22px; border-radius: 999px; font-weight: 700; font-size: 27px; background: var(--terra); color: var(--deep); opacity: 0; }
+  .dot { position: absolute; font-family: "Manrope", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: .12em; color: var(--sage); opacity: 0; white-space: nowrap; }
+  /* 01 / 02 rows */
+  #rows { position: absolute; left: 64px; right: 64px; top: 1070px; opacity: 0; }
+  .row { display: flex; align-items: baseline; gap: 28px; padding: 18px 0; border-top: 1px solid rgba(239,233,222,.2); opacity: 0; }
+  .row .n { font-family: "Sora", sans-serif; font-weight: 700; font-size: 64px; letter-spacing: -0.03em; color: var(--terra); width: 110px; }
+  .row:nth-child(2) .n { color: var(--sage); }
+  .row .k { flex: 1; font-size: 30px; color: var(--mute); }
+  .row .v { font-family: "Sora", sans-serif; font-weight: 700; font-size: 64px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .row .s { font-size: 20px; color: var(--sage); letter-spacing: .12em; margin-left: 16px; }
+  /* the answer */
+  #ans { position: absolute; left: 64px; right: 64px; top: 1040px; opacity: 0; }
+  #ansv { font-family: "Sora", sans-serif; font-weight: 700; font-size: 250px; letter-spacing: -0.05em; line-height: 0.9; color: var(--terra); margin-top: 10px; opacity: 0; transform-origin: 0 100%; }
+  #anss { font-size: 32px; color: var(--mute); margin-top: 14px; opacity: 0; }
+  #note { position: absolute; right: 72px; top: 1250px; font-family: "Caveat", cursive; font-weight: 600; font-size: 74px; color: var(--terra-soft); transform: rotate(-6deg); transform-origin: 100% 100%; opacity: 0; text-align: right; line-height: 1; }
+  .src { position: absolute; left: 64px; right: 64px; bottom: 84px; font-size: 19px; letter-spacing: .08em; color: rgba(239,233,222,.42); }
+</style></head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="top">
+  <div class="eyebrow" id="eb">Orange County median home</div>
+  <div id="hl"><span class="w">Two years ago</span> <span class="w t" id="hl2">it was</span></div>
+  <div id="big">$1,397,450</div>
+  <div class="eyebrow" id="when">September 2024 · C.A.R.</div>
+  <div class="pill" id="pill">+$82,550 in two years</div>
+</div>
+<div class="dot" id="d1">SEP 2024</div>
+<div class="dot" id="d2" style="text-align:right">SEP 2026</div>
+<div id="rows">
+  <div class="row"><div class="n">01</div><div class="k">Payment then<span class="s">6.08% · 20% DOWN</span></div><div class="v">$6,760</div></div>
+  <div class="row"><div class="n">02</div><div class="k">Payment now<span class="s">7.18% · 20% DOWN</span></div><div class="v">$8,021</div></div>
+</div>
+<div id="ans">
+  <div class="eyebrow">The rate you'd need today</div>
+  <div id="ansv">5.5%</div>
+  <div id="anss">to get back to that 2024 payment</div>
+</div>
+<div id="note">that's your number.</div>
+<div class="src">SOURCE: C.A.R. MEDIAN, EXISTING SINGLE-FAMILY · FREDDIE MAC PMMS · P&amp;I ONLY, EXAMPLE NOT A QUOTE</div>
+<script src="prices.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeInOut = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const S = window.PRICES, vals = S.map(r => r.v), vmin = Math.min(...vals), vmax = Math.max(...vals);
+  const T = S.map(r => Date.parse(r.d)), t0 = T[0], t1 = T[T.length - 1];
+  const BOX = { x0: 64, x1: 1016, y0: 740, y1: 980 };
+  const pt = i => [BOX.x0 + (BOX.x1 - BOX.x0) * (T[i] - t0) / (t1 - t0), BOX.y1 - (BOX.y1 - BOX.y0) * (vals[i] - vmin) / (vmax - vmin)];
+  const ctx = $('c').getContext('2d');
+  const rise = (el, q, d = 24) => { el.style.opacity = q; el.style.transform = `translateY(${d*(1-easeOut(q))}px)`; };
+  const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
+  const words = Array.from(document.querySelectorAll('#hl .w'));
+  window.seek = function (t) {
+    // headline words rise on "Two years ago"; the numeral pops on "1.4 million"; it counts up on "Today it's 1.48"
+    words.forEach((w, i) => rise(w, p(t, 0.2 + i*0.18, 0.4), 20));
+    const today = p(t, 4.5, 0.3);
+    $('hl2').textContent = today > 0.5 ? 'today it is' : 'it was';
+    words[0].textContent = today > 0.5 ? 'And' : 'Two years ago';
+    $('hl2').style.opacity = 1 - Math.abs(today - 0.5) * 2 * (today > 0 && today < 1 ? 1 : 0);
+    const q1 = p(t, 3.2, 0.45); $('big').style.opacity = clamp(q1*3); $('big').style.transform = `scale(${0.85 + 0.15*back(q1)})`; $('big').style.transformOrigin = '0 100%';
+    const cnt = easeOut(p(t, 4.6, 1.5)); $('big').textContent = fmt(1397450 + (1480000 - 1397450) * cnt);
+    $('big').style.color = cnt >= 1 ? '#D77B52' : '#EFE9DE';
+    $('when').textContent = cnt > 0.5 ? 'September 2026 · C.A.R.' : 'September 2024 · C.A.R.';
+    rise($('when'), p(t, 3.4, 0.4), 12);
+    rise($('pill'), p(t, 6.4, 0.4), 12);
+    // chart: dot lands with the numeral, line draws with the count-up
+    ctx.clearRect(0, 0, 1080, 1920);
+    const d1 = p(t, 3.25, 0.4), draw = easeInOut(p(t, 4.6, 1.5));
+    ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    if (draw > 0) { const n = Math.max(2, Math.round(S.length * draw));
+      for (const [w, blur, a] of [[16, 30, .14], [8, 14, .3], [5, 0, 1]]) { ctx.beginPath(); for (let i = 0; i < n; i++) { const [x, y] = pt(i); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.strokeStyle = '#D77B52'; ctx.lineWidth = w; ctx.shadowColor = '#D77B52'; ctx.shadowBlur = blur; ctx.globalAlpha = a; ctx.stroke(); } }
+    ctx.globalAlpha = 1; ctx.shadowBlur = 18; ctx.shadowColor = '#EFE9DE'; ctx.fillStyle = '#EFE9DE';
+    if (d1 > 0) { const [x, y] = pt(0); ctx.beginPath(); ctx.arc(x, y, 11 * easeOut(d1), 0, Math.PI*2); ctx.fill(); }
+    if (draw >= 1) { const [x, y] = pt(S.length - 1); ctx.beginPath(); ctx.arc(x, y, 11 * easeOut(p(t, 6.1, 0.3)), 0, Math.PI*2); ctx.fill(); }
+    ctx.restore();
+    const [x0, y0] = pt(0), [xe, ye] = pt(S.length - 1);
+    $('d1').style.left = x0 + 'px'; $('d1').style.top = (y0 + 22) + 'px'; rise($('d1'), p(t, 3.4, 0.4), 10);
+    $('d2').style.right = (1080 - xe) + 'px'; $('d2').style.top = (ye - 46) + 'px'; rise($('d2'), p(t, 6.2, 0.4), 10);
+    // 01 / 02 payment rows on "The rate you need today … payment", then they give way to the 5.5%
+    const rowsIn = p(t, 6.9, 0.4), rowsOut = p(t, 9.55, 0.3);
+    $('rows').style.opacity = rowsIn * (1 - rowsOut);
+    const rows = document.querySelectorAll('#rows .row'); rise(rows[0], p(t, 6.9, 0.45), 18); rise(rows[1], p(t, 7.3, 0.45), 18);
+    const a = p(t, 9.7, 0.3); $('ans').style.opacity = a;
+    const v = p(t, 9.85, 0.4); $('ansv').style.opacity = clamp(v*3); $('ansv').style.transform = `scale(${0.7 + 0.3*back(v)})`;   // "five"
+    rise($('anss'), p(t, 10.5, 0.4), 12);                                                                                        // "half percent"
+    const n = p(t, 10.9, 0.35); $('note').style.opacity = n; $('note').style.transform = `rotate(-6deg) scale(${0.8 + 0.2*back(n)})`;
+  };
+</script>
+</body></html>

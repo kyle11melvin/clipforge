@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* FOREGROUND layer (rendered with --alpha, composited ABOVE the cutout): one-word captions on his chest, the chat
+     bubbles with his friend, and the emojis that slide in on the beats. Kyle, 2026-11-06: "use some sliding in
+     emojis … make it better". Words come from videos/rate-wait/transcript.json via words.js. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  * { margin: 0; padding: 0; box-sizing: border-box; } html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  #w { position: absolute; left: 0; right: 0; top: 1460px; text-align: center; font-family: "Nunito", sans-serif; font-weight: 800; font-size: 80px; color: #fff; letter-spacing: -0.005em;
+    text-shadow: 0 2px 3px rgba(0,0,0,.6), 0 6px 24px rgba(0,0,0,.5); }
+  #w.key { color: #D77B52; }
+  .emo { position: absolute; font-family: "Noto Color Emoji", sans-serif; font-size: 150px; line-height: 1; opacity: 0; filter: drop-shadow(0 8px 18px rgba(0,0,0,.45)); transform-origin: 50% 50%; }
+  .bub { position: absolute; left: 40px; width: 330px; padding: 20px 24px; border-radius: 28px; font-family: "Manrope", sans-serif; font-weight: 600; font-size: 29px; line-height: 1.3; opacity: 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35); transform-origin: 0 100%; }
+  .bub.me { background: #D77B52; color: #102C38; border-bottom-left-radius: 8px; }
+  .bub.him { background: #EFE9DE; color: #0E2A35; border-bottom-left-radius: 8px; }
+  .bub .dots span { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #7E9A93; margin: 0 4px; }
+  .bub .big { font-family: "Noto Color Emoji", sans-serif; font-size: 110px; line-height: 1; }
+  .who { position: absolute; left: 60px; font-family: "Manrope", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: .14em; color: #A9C0B9; opacity: 0; text-shadow: 0 2px 8px rgba(0,0,0,.5); }
+</style></head><body>
+<div id="w"></div>
+<script src="memo-words.js"></script>
+<script>
+  const W = window.WORDS; const el = document.getElementById('w'); const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  const KEY = /^(rate|rates|number\.?|plan\.?|waiting\.?|fifty|thousand|credits|cuts\.?|drop,?)$/i;
+  // emoji: slides in from a side with overshoot, idles with a little bob, leaves by shrinking
+  function emo(id, t, s, e, from = 'right') {
+    const q = p(t, s, 0.5), out = p(t, e - 0.25, 0.25); const el = $(id);
+    if (q <= 0 || out >= 1) { el.style.opacity = 0; return; }
+    const dx = (from === 'right' ? 1 : -1) * 500 * (1 - back(q)) * (from === 'up' ? 0 : 1);
+    const dy = from === 'up' ? 700 * (1 - back(q)) : 0;
+    const bob = Math.sin((t - s) * 5) * 10 * q;
+    el.style.opacity = 1 - out; el.style.transform = `translate(${dx}px, ${dy + bob}px) rotate(${(1-q)*(from==='right'?25:-25)}deg) scale(${1 - 0.6*out})`;
+  }
+  function bub(id, t, s, e) { const q = p(t, s, 0.45), out = p(t, e - 0.25, 0.25); const el = $(id); el.style.opacity = q > 0 && out < 1 ? 1 - out : 0; el.style.transform = `translateX(${-480 * (1 - back(q))}px) scale(${0.9 + 0.1*back(q)})`; }
+  function who(id, t, s, e) { $(id).style.opacity = p(t, s, 0.3) * (1 - p(t, e - 0.25, 0.25)); }
+  window.seek = function (t) {
+    // captions
+    let cur = null;
+    for (let i = 0; i < W.length; i++) { const nxt = i + 1 < W.length ? W[i+1].start : W[i].end + 0.6; if (t >= W[i].start && t < Math.min(nxt, W[i].start + 1.3)) { cur = W[i]; break; } }
+    if (!cur) el.style.opacity = 0; else {
+      const q = p(t, cur.start, 0.08); el.textContent = cur.text; el.className = '';
+      el.style.opacity = 1; el.style.transform = `scale(${0.9 + 0.1*back(q)})`;
+    }
+  };
+</script></body></html>

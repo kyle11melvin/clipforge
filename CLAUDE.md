@@ -114,7 +114,10 @@ his standing brief. Read it before touching anything.
   entirely blue screen, maybe keep the background"): `overlay.html` is the version to start from. Real footage, lightly
   graded with a punch-in at each turn of the script (ffmpeg zoompan + eq/colorbalance/vignette, recipe in the log), one
   floating widget above his head that swaps its contents per beat, captions on the chest. The cutout stays a tool for when
-  he asks for it.
+  he asks for it. **A line he forgot to shoot can be a voice memo:** he records it anywhere, it plays over a full-screen
+  Coastal Money cutaway (`cutaway.html`: oversized numeral counting up, 01/02 rows, the answer slamming in, one Caveat
+  note), spliced in with ffmpeg concat; loudnorm the memo to the footage. He asked for the cutaway "towards my brand
+  image but also really cool", so brand slide language with motion on his words, not a dashboard.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
