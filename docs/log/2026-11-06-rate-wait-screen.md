@@ -126,7 +126,8 @@ take to his ear**; if a line is missing, the honest options are re-shoot the who
 `graphics/rate-wait/cover.html` on `cover-frame.png` (candidate 1 of eight, 1.45 s of footage-graded.mp4, mouth closed,
 half a smile, before the line starts). A = Coastal Money two-tone on a navy tint, the look of his "You want a better deal
 on a house?" cover from the day before, so the two reels sit together on the grid; `#b` = the Nunito white-with-stroke
-type. Rendered with `still.mjs`; strip `cover-candidates.jpg` for his number.
+type. Rendered with `still.mjs`; strip `cover-candidates.jpg` for his number. **Kyle picked A** (two-tone) on frame 1; a
+"Save cover PNG" button sits beside Save MP4 on the page.
 
 ## Delivered
 

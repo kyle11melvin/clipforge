@@ -121,7 +121,9 @@ his standing brief. Read it before touching anything.
   the same shoot. If a line is missing, re-shoot the take or cut the line. He asked for the cutaway "towards my brand
   image but also really cool", so brand slide language with motion on his words, not a dashboard. **No 01/02/03
   numbering on cards or rows** in a talking-head reel (Kyle, 2026-11-06: "get rid of the slide numbers on the cards");
-  the oversized numeral is for the dollar figure or the rate, not for counting.
+  the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
+  head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
+  he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
