@@ -83,9 +83,11 @@ export async function broll({ cuesFile, output, width = 1080, height = 1920, fps
     const mode = c.mode === "pip" ? "pip" : "cut";
     log("cue", `${i + 1}: ${mode} graphics ${from.toFixed(1)}–${(from + len).toFixed(1)}s at footage ${c.at.toFixed(1)}–${end.toFixed(1)}s`);
 
+    // A cue that runs to the end of the footage holds its last frame instead of fading back to the speaker.
+    const endsVideo = end >= f.duration - 0.05;
     const chain = [
       `[${input}:v]trim=start=${from}:end=${from + len}`, "setpts=PTS-STARTPTS", "format=yuva420p",
-      `fade=t=in:st=0:d=${FADE}:alpha=1`, `fade=t=out:st=${(len - FADE).toFixed(3)}:d=${FADE}:alpha=1`,
+      `fade=t=in:st=0:d=${FADE}:alpha=1`, ...(endsVideo ? [] : [`fade=t=out:st=${(len - FADE).toFixed(3)}:d=${FADE}:alpha=1`]),
     ];
     let x = 0, y = 0;
     if (mode === "pip") {

@@ -53,7 +53,9 @@ his standing brief. Read it before touching anything.
   (`--caption-y 0.73` with his head top around y 550). Default the next talking head to that: full-screen cards
   for the big statements, nothing pipped, captions over the headroom. A full-screen card carries **his spoken
   sentence**, not a paraphrase ("does 'No number is no plan' make sense?"); the turn of the sentence goes terracotta.
-  End the video right after the last word ("trim the end as soon as I'm done talking").
+  End the video right after the last word ("trim the end as soon as I'm done talking"), or on the last
+  full-screen card: a cue that reaches the end of the footage holds instead of fading back to his face (2026-11-06,
+  "so I didn't have an awkward face").
 - **Pip cards at the top of a reel** (2026-11-05, built but cut by Kyle, kept for reference): start the card's text ~265 px down a 1080x640 card so, pipped
   at `y: 40, width: 0.78`, every word sits below Instagram's top chrome (y 250) and the card bottom (y 539) clears
   his hair. `graphics/wait-rate/cards.html` is the reference; `full.html#safe` draws the safe zone on probes.
