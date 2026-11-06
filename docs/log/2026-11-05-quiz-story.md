@@ -35,3 +35,18 @@ probably move to the same HDR passthrough with the caption overlay in 10-bit. No
 
 - Whether the HDR file looks right to him on the phone, and whether Save MP4 works this time.
 - Captioned builds (`clipforge build`) still tone-map; same orange problem waiting there.
+
+## Round three (2026-11-06): is it good content?
+
+Kyle: "is this good content? like i'm so bad and awkward on camera". Transcribed it (whisper small.en via
+`hyperframes transcribe`): "Hey, if you're thinking about buying a home at any point, even if it's a couple
+years from now, I built a free quiz that will tell you exactly where you're at. It takes two minutes, there's
+no credit pull, either you'll find out you're in good shape or there's some stuff we need to work on. The
+link is below." Told him it is good: tight script, objection handled, clear ask, steady eye contact; the
+stillness he reads as awkward reads as calm on a phone. Suggested a muted-viewer sticker in the empty top
+strip and the link sticker where he points.
+
+He picked the hook himself: **"Are you ready to buy?"** over "Attention homebuyers", with "Free 2-minute
+quiz. No credit pull." as the second line. Both are on the page with copy buttons; he adds them as Instagram
+stickers (stories: stickers in the app, nothing burned in). He wants copy-paste text for anything he types
+on his phone.
