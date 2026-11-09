@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Broncos 16 straight</title>
+<style>
+  /* Personal-account meme (the 2026-11-02 "4th quarter" reel's sequel). Rendered with --alpha: the 4th-quarter
+     frame leaves a hole at y 250–1302 where ffmpeg puts Kyle's screen recording of the Fox Sports replay. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url("../../assets/fonts/Inter-700-latin.woff2") format("woff2"); }
+  :root { --orange:#FB4F14; --navy:#002244; --car:#0085CA; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
+  .frame.on { display: block; }
+  .solid { background: #000; }
+  .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 50%; }
+  .head { position: absolute; left: 50px; right: 160px; text-align: center;
+    font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 108px; line-height: 1.1; color: #fff;
+    -webkit-text-stroke: 8px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,.45); }
+  .head .o { color: var(--orange); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  .sting { position: absolute; left: 30px; right: 140px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    font-size: 76px; line-height: 1.1; color: #fff; -webkit-text-stroke: 7px #000; paint-order: stroke fill; }
+  .sting .o { color: var(--orange); }
+  /* frame B: black above the footage hole, the panic panel below it */
+  .top { position: absolute; left: 0; top: 0; width: 1080px; height: 250px; background: #000; }
+  .scrim { position: absolute; left: 0; top: 250px; width: 1080px; height: 300px; background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,0)); }
+  .panel { position: absolute; left: 0; top: 1302px; width: 1080px; height: 618px; overflow: hidden; background: #000; }
+  .panel img { position: absolute; left: 0; top: 0; width: 1080px; height: 620px; transform-origin: 50% 50%; }
+  .panel .red { position: absolute; inset: 0; box-shadow: inset 0 0 160px 40px rgba(255,20,20,.95); opacity: 0; }
+  .panel .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 50%, rgba(0,0,0,.5) 100%); }
+  .seam { position: absolute; left: 0; top: 1302px; width: 1080px; height: 4px; background: #000; }
+  .bug { position: absolute; left: 50px; top: 272px; width: 650px; height: 130px; display: flex; align-items: stretch;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; color: #fff; border-radius: 14px; overflow: hidden;
+    background: #0a0f1a; box-shadow: 0 8px 30px rgba(0,0,0,.55); transform-origin: 50% 0; }
+  .bug .team { display: flex; align-items: center; gap: 10px; padding: 0 16px; font-size: 34px; letter-spacing: .02em; }
+  .bug .team b { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 54px; }
+  .bug .car { background: var(--car); } .bug .den { background: var(--orange); }
+  .bug .ctr { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; }
+  .bug .q { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 40px; letter-spacing: .04em; white-space: nowrap; }
+  .bug .st { font-size: 22px; letter-spacing: .1em; color: #ffd36b; white-space: nowrap; margin-top: 4px; }
+  .mon { position: absolute; left: 724px; top: 272px; width: 296px; height: 130px; background: rgba(0,0,0,.72); border-radius: 14px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; transform-origin: 50% 0;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; color: #fff; font-size: 26px; letter-spacing: .12em; }
+  .mon b { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 78px; line-height: 1; color: #ff2d2d;
+    -webkit-text-stroke: 5px #000; paint-order: stroke fill; display: block; }
+  .tn { position: absolute; left: 0; top: 180px; width: 1080px; height: 1559px; transform-origin: 50% 50%; }
+</style>
+</head>
+<body>
+<!-- A. hook: both of them, colour -->
+<div class="frame solid" id="fA">
+  <img class="ph" id="phA" src="hook.jpg" alt="">
+  <div class="head" style="top:290px" id="hA"></div>
+</div>
+<!-- B. the 3rd quarter: footage hole + score bug + monitor, Kyle draining to black-and-white below -->
+<div class="frame" id="fB">
+  <div class="top"></div>
+  <div class="scrim"></div>
+  <div class="panel">
+    <img id="pcol" src="panic-color.jpg" alt="">
+    <img id="pold" src="panic-old.jpg" alt="" style="opacity:0">
+    <div class="vig"></div>
+    <div class="red" id="red"></div>
+    <div class="head" style="top:14px;font-size:92px;left:30px;right:140px" id="hB"></div>
+  </div>
+  <div class="seam"></div>
+  <div class="bug" id="bug">
+    <div class="team car">CAR <b>14</b></div>
+    <div class="ctr"><div class="q">3RD QTR</div><div class="st" id="st">UNDER REVIEW</div></div>
+    <div class="team den">DEN <b>13</b></div>
+  </div>
+  <div class="mon" id="mon"><b id="bpm">96</b>BPM</div>
+</div>
+<!-- C. then / now -->
+<div class="frame solid" id="fC">
+  <img class="tn" id="phC" src="then-now.jpg" alt="">
+  <div class="head" style="top:790px;font-size:100px" id="hC"></div>
+</div>
+<!-- D. payoff -->
+<div class="frame solid" id="fD">
+  <img class="ph" id="phD" src="payoff.jpg" alt="">
+  <div class="head" style="top:290px;font-size:104px" id="hD"></div>
+  <div class="sting" style="top:1240px" id="sD"></div>
+</div>
+
+<script>
+  // Timeline (seconds). B's footage (pick-crop.mp4) starts at T.B in the ffmpeg composite; the announcer's
+  // "Overturned" is at 0.0 s of it, "interception" at 2.3 s, "Devon Key" ends at 4.15 s.
+  const T = { A: 0, B: 1.4, C: 5.7, D: 7.3, end: 10.0 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const back = (p) => { const s = 1.70158; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+  const $ = (id) => document.getElementById(id);
+  const frames = ["fA", "fB", "fC", "fD"].map($);
+  function words(el, html, t, gap = 0.09, dur = 0.3) {
+    if (!el.dataset.built) {
+      let orange = false;
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        if (w.startsWith("*")) orange = true;
+        const cls = orange ? "w o" : "w", end = w.endsWith("*"); if (end) orange = false;
+        return `<span class="${cls}">${w.replace(/\*/g, "")}</span>`;
+      }).join(" ")).join("<br>");
+      el.dataset.built = "1";
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * 60}px)`;
+    });
+  }
+  const punch = (tt) => 1 + 0.06 * (1 - easeOut(clamp(tt / 0.45, 0, 1)));   // a quick settle at each cut
+
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    if (t < T.B) {
+      frames[0].classList.add("on"); const tt = t;
+      $("phA").style.transform = `scale(${(punch(tt) * (1 + 0.04 * tt / 1.4)).toFixed(4)})`;
+      words($("hA"), "Broncos fans in<br>the *1st quarter*", tt - 0.1);
+    } else if (t < T.C) {
+      frames[1].classList.add("on"); const tt = t - T.B, L = T.C - T.B, p = clamp(tt / L, 0, 1);
+      // Kyle drains to the aged black-and-white from 0.8 s; shake, zoom and the red pulse build with the heart rate.
+      const age = clamp((tt - 0.8) / 2.6, 0, 1); $("pold").style.opacity = age.toFixed(3);
+      const bpm = Math.round(96 + (172 - 96) * easeOut(p));
+      const shake = 0.5 + 7 * p * p, sx = Math.sin(tt * 47) * shake, sy = Math.cos(tt * 61) * shake * 0.6;
+      const zoom = 1 + 0.09 * p;
+      for (const id of ["pcol", "pold"]) $(id).style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${zoom.toFixed(4)})`;
+      const beatPh = (tt * bpm / 60) % 1;
+      $("red").style.opacity = (p * 0.6 * Math.max(0, 1 - beatPh * 3)).toFixed(3);
+      words($("hB"), "the *3rd quarter*", tt - 0.1);
+      // Score bug: Carolina 14-13, ball at the Denver 1, late 3rd; the ruling flips when the announcer says it.
+      const bp2 = clamp((tt - 0.15) / 0.4, 0, 1);
+      $("bug").style.opacity = bp2; $("bug").style.transform = `translateY(${((1 - back(bp2)) * -80).toFixed(1)}px)`;
+      const st = $("st");
+      if (tt < 0.55) { st.textContent = "UNDER REVIEW"; st.style.color = "#ffd36b"; }
+      else if (tt < 2.3) { st.textContent = "OVERTURNED"; st.style.color = Math.floor(tt * 6) % 2 === 0 ? "#fff" : "#ffd36b"; }
+      else { st.textContent = "PICKED OFF"; st.style.color = "#7CFF9A"; }
+      const mp = clamp((tt - 0.35) / 0.4, 0, 1);
+      $("mon").style.opacity = mp; $("mon").style.transform = `translateY(${((1 - back(mp)) * -80).toFixed(1)}px)`;
+      const pulse = 1 + 0.1 * Math.max(0, 1 - beatPh * 4) * p;
+      $("bpm").textContent = bpm; $("bpm").style.transform = `scale(${pulse.toFixed(3)})`;
+    } else if (t < T.D) {
+      frames[2].classList.add("on"); const tt = t - T.C;
+      $("phC").style.transform = `scale(${(punch(tt) * (1 + 0.03 * tt / 1.6)).toFixed(4)})`;
+      words($("hC"), "and then somehow…<br>*16 straight*<br>one-score wins.", tt - 0.05, 0.08);
+    } else {
+      frames[3].classList.add("on"); const tt = t - T.D;
+      $("phD").style.transform = `scale(${(punch(tt) * (1.06 - 0.05 * clamp(tt / 2.7, 0, 1))).toFixed(4)})`;
+      words($("hD"), "They pull it off.<br>*Every time.*", tt - 0.05, 0.08);
+      words($("sD"), "NFL record.<br>*My blood pressure too.*", tt - 1.1, 0.07);
+    }
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

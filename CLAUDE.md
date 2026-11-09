@@ -124,6 +124,16 @@ his standing brief. Read it before touching anything.
   the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
   head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
   he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
+- `graphics/broncos-pick/` (2026-11-08) — the **meme sequel, same night as the game** ("16 straight"): 10 s, payoff at
+  7.3 s. New trick: the composition is rendered `--alpha` with a transparent hole (y 250–1302) and ffmpeg drops his
+  screen recording of the broadcast replay into it, announcers at full level, a score bug whose status flips on the
+  announcer's words and a BPM box above, the two of them draining to black-and-white below. He sends a phone screen
+  recording of the highlight reel to Drive (five identical copies this time; take one); crop the Instagram chrome
+  out (x 0–1130, y 560–1660 on 1290x2796) and transcribe it with `npx hyperframes transcribe` to find the beats.
+  Broadcast footage he supplies is used at his request; it is Fox / NFL footage and Instagram may mute it, so say so
+  on the page. `src/music/pick-bed.py` is the second sound lane (organ charge, heartbeat, impact + roar, warm pad).
+  Facts come from web search (team sites and ESPN are blocked); put the real score and quarter on the bug and keep the
+  clock off it unless a source gives it.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
