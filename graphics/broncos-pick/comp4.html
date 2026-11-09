@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Even the toddler saw it</title>
+<style>
+  /* v4 (2026-11-09, after "come on, be creative"): the idea is the toddler as the replay analyst. Slow-mo of the catch
+     with a telestrator circle while the announcer says "never hit the ground"; "Refs said incomplete." → Asher slides
+     in pointing at it, "My toddler: interception." → the real ruling ("Overturned… interception") → smash cut to the two
+     of them → 16 straight behind the cutout → Asher alone: "He thinks this is normal." Rendered --alpha; the slow-mo
+     insert (y 600–1316, 0–2.4 s) and the replay (full frame, 4.4–7.87 s) are holes ffmpeg fills. No music. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url("../../assets/fonts/Inter-700-latin.woff2") format("woff2"); }
+  :root { --orange:#FB4F14; --navy:#002244; --ink:#06101c; --tele:#FFE14D; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
+  .frame.on { display: block; }
+  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+  .band { position: absolute; left: 0; width: 1080px; background: var(--ink); }
+  .ins { position: absolute; left: 0; top: 600px; width: 1080px; height: 716px; }
+  .ins img { position: absolute; inset: 0; width: 1080px; height: 716px; }
+  .dim { position: absolute; inset: 0; background: rgba(6,16,28,.45); }
+  .edge { position: absolute; left: 0; width: 1080px; height: 60px; }
+  .tag { position: absolute; left: 40px; top: 620px; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 30px;
+    letter-spacing: .16em; color: var(--tele); background: rgba(0,0,0,.55); padding: 8px 16px; border-radius: 8px; }
+  .big { position: absolute; left: 40px; right: 40px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    color: #fff; -webkit-text-stroke: 9px #000; paint-order: stroke fill; line-height: 1.0; text-shadow: 0 8px 20px rgba(0,0,0,.45); }
+  .big .o { color: var(--orange); }
+  .head { position: absolute; left: 40px; right: 40px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    font-size: 150px; line-height: 0.98; color: #fff; letter-spacing: -0.01em; }
+  .head .o { color: var(--orange); }
+  .head.navy { color: var(--navy); } .head.navy .o { color: #fff; }
+  .w { display: inline-block; will-change: transform, opacity; }
+  #fD .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+  .ground { position: absolute; inset: 0; }
+  .num { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    font-size: 760px; line-height: 1; color: var(--navy); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; transform-origin: 50% 60%; }
+  .cut { position: absolute; left: 0; width: 1080px; height: 1440px; transform-origin: 50% 100%; }
+  .bust { position: absolute; width: 350px; height: 480px; transform-origin: 50% 100%; }
+  .sub { position: absolute; left: 30px; right: 30px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    color: #fff; -webkit-text-stroke: 8px #000; paint-order: stroke fill; line-height: 1.05; }
+  .eyebrow { position: absolute; left: 0; right: 0; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700;
+    font-size: 46px; letter-spacing: .18em; color: #fff; text-shadow: 0 3px 10px rgba(0,0,0,.4); }
+  .shade { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.35)); }
+</style>
+</head>
+<body>
+<!-- A: slow-mo insert (hole) + telestrator + "Refs said incomplete."   B: freeze + Asher pointing + "My toddler: interception." -->
+<div class="frame" id="fAB">
+  <div class="band" style="top:0;height:600px"></div>
+  <div class="band" style="top:1316px;height:604px"></div>
+  <div class="ins" id="insB" style="display:none"><img src="freeze.png" alt=""><div class="dim"></div></div>
+  <div class="edge" style="top:600px;background:linear-gradient(rgba(6,16,28,.9),rgba(6,16,28,0))"></div>
+  <div class="edge" style="top:1256px;background:linear-gradient(rgba(6,16,28,0),rgba(6,16,28,.9))"></div>
+  <svg id="tele" style="position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible">
+    <circle id="ring" cx="640" cy="900" r="130" fill="none" stroke="#FFE14D" stroke-width="11" stroke-linecap="round"
+      stroke-dasharray="817" stroke-dashoffset="817" style="filter: drop-shadow(0 0 10px rgba(255,225,77,.8))"/>
+  </svg>
+  <div class="tag" id="tag">SLOW MOTION</div>
+  <img class="bust" id="bustB" src="asher-bust.png" alt="" style="left:230px;top:1400px;opacity:0">
+  <div class="head" id="hA" style="top:250px"></div>
+  <div class="head" id="hB" style="top:250px"></div>
+  <div class="flash" id="flashA"></div>
+</div>
+<!-- C: the replay (hole, full frame) with the ruling -->
+<div class="frame" id="fC">
+  <div class="big" id="wC" style="top:1150px;font-size:126px"></div>
+  <div class="flash" id="flashC"></div>
+</div>
+<!-- D: smash cut, the two of them -->
+<div class="frame" id="fD" style="background:#000">
+  <img class="ph" id="phD" src="hook.jpg" alt="">
+  <div class="flash" id="flashD"></div>
+</div>
+<!-- E: 16 straight behind the cutout -->
+<div class="frame" id="fE">
+  <div class="ground" style="background:var(--orange)"></div>
+  <div class="num" id="num">1</div>
+  <div class="shade"></div>
+  <img class="cut" id="cutE" src="yell-cut.png" alt="" style="top:560px">
+  <div class="sub" id="sE" style="top:1170px;font-size:96px"></div>
+  <div class="eyebrow" id="eE" style="top:1395px"></div>
+</div>
+<!-- F: Asher alone -->
+<div class="frame" id="fF">
+  <div class="ground" style="background:var(--navy)"></div>
+  <div class="head" id="hF" style="top:250px;font-size:150px"></div>
+  <div class="shade"></div>
+  <img class="bust" id="bustF" src="asher-bust.png" alt="" style="left:300px;top:1440px">
+</div>
+
+<script>
+  const T = { A: 0, B: 2.4, C: 4.4, D: 7.85, E: 8.55, F: 10.9, end: 12.6 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const back = (p) => { const s = 2.2; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+  const $ = (id) => document.getElementById(id);
+  const frames = ["fAB", "fC", "fD", "fE", "fF"].map($);
+  function words(el, html, t, gap = 0.08, dur = 0.26, rise = 70) {
+    if (el.dataset.html !== html) {
+      let orange = false;
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        if (w.startsWith("*")) orange = true;
+        const cls = orange ? "w o" : "w", end = w.endsWith("*"); if (end) orange = false;
+        return `<span class="${cls}">${w.replace(/\*/g, "")}</span>`;
+      }).join(" ")).join("<br>");
+      el.dataset.html = html;
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * rise}px)`;
+    });
+  }
+  const slam = (tt, from = 1.6, d = 0.28) => { const p = clamp(tt / d, 0, 1); return from + (1 - from) * back(p); };
+  // Where the ball is in the slow-mo insert (insert px, frame time of the slow-mo): the tangle at Key's hands.
+  const BALL = [[0.0, 650, 290], [0.8, 650, 335], [1.6, 705, 395], [2.4, 715, 410]];
+  function ball(ts) {
+    let a = BALL[0], b = BALL[BALL.length - 1];
+    for (let i = 0; i < BALL.length - 1; i++) if (ts >= BALL[i][0] && ts <= BALL[i + 1][0]) { a = BALL[i]; b = BALL[i + 1]; }
+    const p = clamp((ts - a[0]) / Math.max(1e-6, b[0] - a[0]), 0, 1);
+    return [a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p + 600];
+  }
+
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    if (t < T.C) {
+      frames[0].classList.add("on"); const inB = t >= T.B, tt = inB ? t - T.B : t;
+      $("insB").style.display = inB ? "block" : "none";
+      // Telestrator: draws on from 0.35 s, follows the ball, holds (and breathes) on the freeze.
+      const ring = $("ring"), [cx, cy] = ball(inB ? 2.4 : tt);
+      const draw = clamp((t - 0.35) / 0.5, 0, 1);
+      ring.setAttribute("cx", cx.toFixed(1)); ring.setAttribute("cy", cy.toFixed(1));
+      ring.setAttribute("r", (130 + (inB ? 8 * Math.sin(tt * 6) : 0)).toFixed(1));
+      ring.setAttribute("stroke-dashoffset", (817 * (1 - easeOut(draw))).toFixed(1));
+      $("tag").style.opacity = inB ? 0 : clamp(t / 0.2, 0, 1);
+      // A: "Refs said incomplete."   B: "My toddler: interception."
+      $("hA").style.display = inB ? "none" : "block"; $("hB").style.display = inB ? "block" : "none";
+      if (!inB) words($("hA"), "Refs said<br>*incomplete.*", tt - 0.15, 0.1, 0.28, 60);
+      else words($("hB"), "My toddler:<br>*interception.*", tt - 0.35, 0.1, 0.28, 60);
+      // Asher slides up from the bottom, pointing at the ring, with a little overshoot.
+      const bust = $("bustB"), up = inB ? back(clamp(tt / 0.5, 0, 1)) : 0;
+      bust.style.opacity = inB ? 1 : 0;
+      bust.style.transform = `translateY(${((1 - up) * 700).toFixed(1)}px) scale(2.45) rotate(${(-4 + 4 * up).toFixed(2)}deg)`;
+      $("flashA").style.opacity = clamp((t - (T.C - 0.08)) / 0.08, 0, 1).toFixed(3);
+    } else if (t < T.D) {
+      frames[1].classList.add("on"); const tt = t - T.C;
+      const w = $("wC"); let a, out, text, at;
+      if (tt < 1.3) { text = "OVERTURNED."; at = 0.05; a = clamp((tt - at) / 0.22, 0, 1); out = clamp((tt - 1.05) / 0.2, 0, 1); }
+      else { text = "INTERCEPTION."; at = 2.3; a = clamp((tt - at) / 0.2, 0, 1); out = 0; }
+      w.textContent = text; w.style.opacity = (a * (1 - out)).toFixed(3);
+      w.style.transform = `scale(${slam(tt - at, 1.7).toFixed(3)}) rotate(${(-3 * (1 - a)).toFixed(2)}deg)`;
+      $("flashC").style.opacity = Math.max(1 - clamp(tt / 0.12, 0, 1), clamp((tt - (T.D - T.C - 0.08)) / 0.08, 0, 1)).toFixed(3);
+    } else if (t < T.E) {
+      frames[2].classList.add("on"); const tt = t - T.D;
+      const z = 1.6 + 0.12 * (1 - easeOut(clamp(tt / 0.35, 0, 1)));
+      const sx = Math.sin(tt * 53) * 6, sy = Math.cos(tt * 67) * 4;
+      $("phD").style.transform = `translate(${(-300 * z + sx).toFixed(1)}px,${(-330 * z + sy).toFixed(1)}px) scale(${z.toFixed(4)})`;
+      $("flashD").style.opacity = (1 - clamp(tt / 0.12, 0, 1)).toFixed(3);
+    } else if (t < T.F) {
+      frames[3].classList.add("on"); const tt = t - T.E;
+      const num = $("num"), cut = $("cutE");
+      const k = clamp(Math.floor((tt - 0.05) / 0.1) + 1, 1, 16);
+      const landed = k === 16 && tt >= 1.55, tl = tt - 1.55;
+      num.textContent = String(k);
+      const bump = landed ? slam(tl, 1.45, 0.32) : 1 + 0.06 * (1 - clamp(((tt - 0.05) % 0.1) / 0.1, 0, 1));
+      num.style.transform = `scale(${bump.toFixed(3)}) rotate(${landed ? (-2 * (1 - clamp(tl / 0.3, 0, 1))).toFixed(2) : 0}deg)`;
+      num.style.color = landed ? "#fff" : "var(--navy)"; num.style.webkitTextStroke = landed ? "12px #002244" : "0";
+      const jolt = landed ? 1 + 0.05 * (1 - clamp(tl / 0.25, 0, 1)) : 1 + 0.015 * (1 - clamp(((tt - 0.05) % 0.1) / 0.1, 0, 1));
+      const sh = landed && tl < 0.3 ? Math.sin(tl * 90) * 10 * (1 - tl / 0.3) : 0;
+      cut.style.transform = `translateX(${sh.toFixed(1)}px) scale(${jolt.toFixed(4)})`;
+      words($("sE"), "straight<br>one-score wins", landed ? tl - 0.15 : -1, 0.07, 0.24, 60);
+      const e = $("eE"); e.textContent = "NFL RECORD"; e.style.opacity = landed ? clamp((tl - 0.6) / 0.25, 0, 1).toFixed(3) : 0;
+    } else {
+      frames[4].classList.add("on"); const tt = t - T.F;
+      const up = back(clamp(tt / 0.45, 0, 1));
+      $("bustF").style.transform = `translateY(${((1 - up) * 500).toFixed(1)}px) scale(${(2.8 + 0.03 * tt).toFixed(3)})`;
+      words($("hF"), "He thinks<br>*this is normal.*", tt - 0.3, 0.1, 0.3, 70);
+    }
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

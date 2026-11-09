@@ -142,6 +142,14 @@ his standing brief. Read it before touching anything.
   a personal-account meme**; the recording's announcers are the only sound and he adds the song in Reels. An SFX-only
   version (`src/music/pick-sfx.py`: hit, ticks, slam, whoosh) is offered beside the clean one. A sequel must be a
   different piece, not last week's shape with new words.
+  **He rejected that too** ("this is really the best you got? … come on be creative", and he considered handing the job
+  to ChatGPT/Codex). What "creative" means to him: an *idea*, not a format. `comp4.html` (the toddler as the replay
+  analyst: slow-mo insert with a telestrator ring, "Refs said incomplete." → Asher pointing, "My toddler: interception.")
+  is the kind of thing he is asking for: find the joke in the photo and the argument in the game, then build around
+  it. Lead with the controversy, make the kid the character, use the announcer's real words. A 1→16 counter and a
+  caption are decoration, not an idea. `docs/handoff-broncos-pick.md` is the brief for handing a job to another tool;
+  keep it current if he goes that way. Drive files he uploads to his **root** are private and unreachable; ask him to
+  drop them in the `Clipforge` folder (link-shared) instead.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

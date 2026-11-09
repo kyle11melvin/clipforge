@@ -93,3 +93,33 @@ round one's files stay on disk (`broncos-pick.mp4`, `comp.html`).
 Lessons: a sequel is not a template; after a hit he wants a *different* piece, not the same shape with new words.
 "Creative and art director" = lead with the strongest real asset (the broadcast moment with sound), use the photos
 as cutouts with type behind the heads, one idea per second, and leave music to him.
+
+## Round three (02:30–03:00): "this is really the best you got? … come on, be creative"
+
+Kyle's structure: the live TV call first ("I think this is an interception… it is an interception"; a new 33 MB screen
+recording in his Drive **root**, private, so unreachable: the usercontent URL returns a sign-in page, the connector
+caps at 10 MB, and copying it into the shared folder was refused by the session's permission rules; asked him to move
+it into `Broncos 11/7`), then the Fox replay, then the two of them "with our mouths open like oh", then "Broncos pull
+off another fourth-quarter victory or something". He also floated handing the job to ChatGPT / Codex.
+
+The idea that answers "be creative": **the toddler is the replay analyst.** The controversy (did the ball touch?)
+is the hook, Asher's outstretched arm in the yell photo is the punchline. `comp4.html`, 12.6 s, `toddler-analyst.mp4`:
+
+- 0–2.4 slow-motion of the catch as a landscape broadcast insert (recording 0.75–1.95 s, crop 980x650 at 150,1050,
+  0.5x: the source is 60 fps so the slow-mo has no interpolation) with a yellow telestrator ring drawing on and
+  following the ball (`BALL` keys in insert px), a SLOW MOTION tag, "Refs said *incomplete.*" above; the announcer's
+  "never hit the ground" (recording 6.70–8.40) under it.
+- 2.4–4.4 freeze (recording 1.95 s), dimmed, the ring breathes, Asher's bust (`asher-bust.png`: 350x480 from
+  `yell-cut.png` at 590,160, soft-faded bottom edge) slides up from the bottom with overshoot pointing at the ring,
+  "My toddler: *interception.*"
+- 4.4–7.85 the replay full screen (`replay-c.mp4`, 3.47 s) with "OVERTURNED." / "INTERCEPTION." on the words.
+- 7.85–8.55 smash cut to the two of them tight; 8.55–10.9 the 1→16 counter behind the yell cutout; 10.9–12.6
+  navy, Asher alone big, "He thinks *this is normal.*"
+- Sound: only the two announcer pieces (`voice4.wav`), −20.6 dB mean. He adds the song.
+
+Portrait crops of this replay put the goal-line action at the bottom of the frame (the Fox caption box sits at
+y 1680 of the 2796 recording and blocks cropping lower), so the slow-mo lives in a 1080x716 insert at y 600 with
+dark bands above and below; that also leaves room for the headline and for Asher.
+
+`docs/handoff-broncos-pick.md` is a brief another tool (ChatGPT, Codex, Grok) can work from; the cutouts are on the
+page with Save buttons so he can attach them. Page updated: toddler-analyst main tab, counter cut second tab.
