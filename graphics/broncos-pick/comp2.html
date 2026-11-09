@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Broncos 16 straight (v2)</title>
+<style>
+  /* v2 (2026-11-09), after Kyle: "way too similar to last week… be a creative and art director". Cold open on the
+     replay, smash cut to his face on "interception", a 1→16 counter ripping behind the cutout, the toddler line,
+     the bye-week button. Rendered --alpha; the first 2.35 s are a hole for replay-full.mp4. No music baked in. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url("../../assets/fonts/Inter-700-latin.woff2") format("woff2"); }
+  :root { --orange:#FB4F14; --navy:#002244; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
+  .frame.on { display: block; }
+  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+  .big { position: absolute; left: 40px; right: 40px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    color: #fff; -webkit-text-stroke: 9px #000; paint-order: stroke fill; line-height: 1.0; text-shadow: 0 8px 20px rgba(0,0,0,.45); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  #fS2 .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+  .ground { position: absolute; inset: 0; }
+  .num { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    font-size: 760px; line-height: 1; color: var(--navy); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; transform-origin: 50% 60%; }
+  .cut { position: absolute; left: 0; width: 1080px; height: 1440px; transform-origin: 50% 100%; }
+  .behind { position: absolute; left: 30px; right: 30px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    line-height: 0.98; letter-spacing: -0.01em; }
+  .behind .o { color: var(--orange); }
+  .sub { position: absolute; left: 30px; right: 30px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    color: #fff; -webkit-text-stroke: 8px #000; paint-order: stroke fill; line-height: 1.05; }
+  .eyebrow { position: absolute; left: 0; right: 0; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700;
+    font-size: 46px; letter-spacing: .18em; color: #fff; text-shadow: 0 3px 10px rgba(0,0,0,.4); }
+  .shade { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.35)); }
+</style>
+</head>
+<body>
+<!-- S1: the replay (hole). One word on the announcer's voice. -->
+<div class="frame" id="fS1">
+  <div class="big" id="w1" style="top:1150px;font-size:126px"></div>
+  <div class="flash" id="flash1"></div>
+</div>
+<!-- S2: smash cut, his face, tight. -->
+<div class="frame" id="fS2" style="background:#000">
+  <img class="ph" id="ph2" src="hook.jpg" alt="">
+  <div class="flash" id="flash2"></div>
+</div>
+<!-- S3/S4: orange ground, the counter and the lines behind the cutout. -->
+<div class="frame" id="fS3">
+  <div class="ground" style="background:var(--orange)"></div>
+  <div class="num" id="num">1</div>
+  <div class="behind" id="b3" style="top:260px;font-size:190px;color:var(--navy)"></div>
+  <div class="shade"></div>
+  <img class="cut" id="cut3" src="yell-cut.png" alt="" style="top:560px">
+  <div class="sub" id="s3" style="top:1170px;font-size:96px"></div>
+  <div class="eyebrow" id="e3" style="top:1395px"></div>
+</div>
+<!-- S5: navy ground, the smile, the button. -->
+<div class="frame" id="fS5">
+  <div class="ground" style="background:var(--navy)"></div>
+  <div class="behind" id="b5" style="top:260px;font-size:180px;color:var(--orange)"></div>
+  <div class="behind" id="b5b" style="top:470px;font-size:150px;color:#fff"></div>
+  <div class="shade"></div>
+  <img class="cut" id="cut5" src="smile-cut.png" alt="" style="top:700px">
+</div>
+
+<script>
+  const T = { S1: 0, S2: 2.35, S3: 3.05, S4: 5.0, S5: 7.0, end: 9.0 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const back = (p) => { const s = 2.2; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+  const $ = (id) => document.getElementById(id);
+  const frames = ["fS1", "fS2", "fS3", "fS5"].map($);
+  function words(el, html, t, gap = 0.08, dur = 0.26, rise = 70) {
+    if (!el.dataset.built) {
+      let orange = false;
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        if (w.startsWith("*")) orange = true;
+        const cls = orange ? "w o" : "w", end = w.endsWith("*"); if (end) orange = false;
+        return `<span class="${cls}">${w.replace(/\*/g, "")}</span>`;
+      }).join(" ")).join("<br>");
+      el.dataset.built = "1";
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * rise}px)`;
+    });
+  }
+  const slam = (tt, from = 1.6, d = 0.28) => { const p = clamp(tt / d, 0, 1); return from + (1 - from) * back(p); };
+
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    if (t < T.S2) {
+      frames[0].classList.add("on"); const tt = t;
+      // "OVERTURNED." slams in with the word (0.0–0.8 s) and is gone before "interception".
+      const w = $("w1"), a = clamp((tt - 0.05) / 0.22, 0, 1), out = clamp((tt - 1.05) / 0.2, 0, 1);
+      w.textContent = "OVERTURNED."; w.style.opacity = (a * (1 - out)).toFixed(3);
+      w.style.transform = `scale(${slam(tt - 0.05, 1.7).toFixed(3)}) rotate(${(-3 * (1 - a)).toFixed(2)}deg)`;
+      $("flash1").style.opacity = clamp((tt - (T.S2 - 0.1)) / 0.1, 0, 1).toFixed(3);          // white flash into the cut
+    } else if (t < T.S3) {
+      frames[1].classList.add("on"); const tt = t - T.S2;
+      // Tight on his face (hook.jpg region x 300–975, y 330–1530 at 1.6x), a punch that settles, a shake that doesn't.
+      const z = 1.6 + 0.12 * (1 - easeOut(clamp(tt / 0.35, 0, 1)));
+      const sx = Math.sin(tt * 53) * 6, sy = Math.cos(tt * 67) * 4;
+      $("ph2").style.transform = `translate(${(-300 * z + sx).toFixed(1)}px,${(-330 * z + sy).toFixed(1)}px) scale(${z.toFixed(4)})`;
+      $("flash2").style.opacity = (1 - clamp(tt / 0.12, 0, 1)).toFixed(3);
+    } else if (t < T.S5) {
+      frames[2].classList.add("on"); const tt = t - T.S3;
+      const num = $("num"), b3 = $("b3"), cut = $("cut3");
+      // 1 → 16, a tick every 0.1 s from 0.05 s; 16 lands at 1.55 s and slams.
+      const k = clamp(Math.floor((tt - 0.05) / 0.1) + 1, 1, 16);
+      const landed = k === 16 && tt >= 1.55, tl = tt - 1.55;
+      const inCount = t < T.S4;
+      num.style.display = inCount ? "block" : "none";
+      if (inCount) {
+        num.textContent = String(k);
+        const bump = landed ? slam(tl, 1.45, 0.32) : 1 + 0.06 * (1 - clamp(((tt - 0.05) % 0.1) / 0.1, 0, 1));
+        num.style.transform = `scale(${bump.toFixed(3)}) rotate(${landed ? (-2 * (1 - clamp(tl / 0.3, 0, 1))).toFixed(2) : 0}deg)`;
+        num.style.color = landed ? "#fff" : "var(--navy)";
+        num.style.webkitTextStroke = landed ? "12px #002244" : "0";
+      }
+      // The cutout: a small bump per tick, a hard jolt on 16, then still.
+      const jolt = landed ? 1 + 0.05 * (1 - clamp(tl / 0.25, 0, 1)) : (inCount ? 1 + 0.015 * (1 - clamp(((tt - 0.05) % 0.1) / 0.1, 0, 1)) : 1);
+      const sh = landed && tl < 0.3 ? Math.sin(tl * 90) * 10 * (1 - tl / 0.3) : 0;
+      cut.style.transform = `translateX(${sh.toFixed(1)}px) scale(${jolt.toFixed(4)})`;
+      // Under the 16: the stat, then the eyebrow.
+      words($("s3"), "straight<br>one-score wins", landed ? tl - 0.15 : -1, 0.07, 0.24, 60);
+      const e = $("e3"); e.textContent = "NFL RECORD"; e.style.opacity = landed ? clamp((tl - 0.6) / 0.25, 0, 1).toFixed(3) : 0;
+      if (!inCount) { $("s3").style.opacity = 0; e.style.opacity = 0; }
+      // S4: the lines behind the heads.
+      const t4 = t - T.S4;
+      b3.style.display = inCount ? "none" : "block";
+      if (!inCount) {
+        if (t4 < 1.0) { b3.dataset.built = ""; words(b3, "I have<br>a toddler.", t4 - 0.05, 0.1, 0.26, 50); }
+        else { b3.dataset.built = ""; words(b3, "I don't<br>need this.", t4 - 1.05, 0.1, 0.26, 50); }
+      }
+    } else {
+      frames[3].classList.add("on"); const tt = t - T.S5;
+      $("cut5").style.transform = `scale(${(1 + 0.04 * (1 - easeOut(clamp(tt / 0.4, 0, 1))) + 0.015 * tt).toFixed(4)})`;
+      words($("b5"), "Bye week.", tt - 0.05, 0.1, 0.3, 80);
+      words($("b5b"), "Thank God.", tt - 0.9, 0.1, 0.3, 60);
+    }
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

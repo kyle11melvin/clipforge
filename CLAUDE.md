@@ -134,6 +134,14 @@ his standing brief. Read it before touching anything.
   on the page. `src/music/pick-bed.py` is the second sound lane (organ charge, heartbeat, impact + roar, warm pad).
   Facts come from web search (team sites and ESPN are blocked); put the real score and quarter on the bug and keep the
   clock off it unless a source gives it.
+  **Kyle rejected the first cut** ("way too similar to last week… be a creative and art director… the organ is
+  terrible, we'll figure out music on our own"). `comp2.html` is the keeper shape for a game meme: cold open on his
+  replay recording full screen with the announcer's word slamming in, smash cut to his face on the key word, the
+  two of them cut out (`npx hyperframes remove-background` works on a still PNG) on a flat Broncos-orange ground
+  with a giant numeral or line *behind their heads*, one idea per second, a navy button card. **No music baked into
+  a personal-account meme**; the recording's announcers are the only sound and he adds the song in Reels. An SFX-only
+  version (`src/music/pick-sfx.py`: hit, ticks, slam, whoosh) is offered beside the clean one. A sequel must be a
+  different piece, not last week's shape with new words.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

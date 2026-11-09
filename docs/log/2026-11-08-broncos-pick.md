@@ -63,3 +63,33 @@ eight-frame sheet, the facts used, what is open. Files are gitignored (Asher is 
 - His read on the wording, the bed vs a song, and whether the 2016 / 2026 card stays (it can be cut; the piece is
   8.4 s without it, jump 5.7 → 7.3).
 - Whether Instagram lets the broadcast clip through.
+
+## Round two (2026-11-09, 02:00): "way too similar to last week"
+
+Kyle on the first cut: "No, no no this is way too similar to last week. I want you to be a creative and art director.
+Imagine you're trying to get more followers and more likes on your reel. You don't have to keep the same format. …
+the organ that you're doing the music is terrible. We'll figure something out on our own on Instagram reels for that."
+So: a new structure, no music in the file, and he will add the song himself (personal account, the picker works).
+
+`comp2.html`, 9.0 s, `broncos-16.mp4` (announcers only) and `broncos-16-sfx.mp4` (plus a hit on the cut, a tick per
+count, a slam on 16, a whoosh; `src/music/pick-sfx.py`):
+
+- 0–2.35 **cold open on the replay**, full screen (`replay-full.mp4`: crop 1130x1300 at 0,420 of the recording,
+  scaled to 1669x1920, a crop window pushing in 1.12 → 1.32 biased 78% down so the catch sits mid-frame), the
+  announcer's "Overturned" at 0.0 with "OVERTURNED." slamming in on the word, white flash into the cut.
+- 2.35–3.05 **smash cut to his face** on "interception": `hook.jpg` at 1.6x on the region x 300–975, y 330–1530,
+  a punch that settles, a shake that doesn't.
+- 3.05–5.0 **the counter**: orange ground, the two of them cut out (`npx hyperframes remove-background` on a still:
+  `yell-src.png` 1080x1440 → `yell-cut.png`, clean on both, 0.5 s), a 760 px navy numeral behind their heads
+  ripping 1 → 16 at 10 per second, 16 turning white with a navy stroke and slamming with a jolt, "straight /
+  one-score wins" rising over the shirt, NFL RECORD eyebrow at y 1395.
+- 5.0–7.0 **the joke**: "I have a toddler." → "I don't need this.", navy type above the heads.
+- 7.0–9.0 **the button**: navy ground, the smile cutout, "Bye week." in orange, "Thank God." in white.
+
+The 2016 / 2026 picture is out (another account's post; it slowed the piece). Cover: `still.mjs --t 4.95` (the 16).
+Mean −20.2 dB / peak −1.3 dB on the clean cut (only the announcers). The artifact page was updated in place with v2;
+round one's files stay on disk (`broncos-pick.mp4`, `comp.html`).
+
+Lessons: a sequel is not a template; after a hit he wants a *different* piece, not the same shape with new words.
+"Creative and art director" = lead with the strongest real asset (the broadcast moment with sound), use the photos
+as cutouts with type behind the heads, one idea per second, and leave music to him.
