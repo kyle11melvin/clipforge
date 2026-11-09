@@ -92,6 +92,12 @@ his standing brief. Read it before touching anything.
   ~4 s tension, payoff. **Next game meme**: ask him for his own phone recording of the TV at the final play (the
   announcers' call) plus a reaction photo of Asher, and build the same night. He wants different music next time;
   ask for the lane (or a picker song on the silent version) before building the picture.
+- `graphics/broncos-strip-sack/` (2026-11-09) — the **game clip + reaction photo** meme: his screen recording of a
+  team reel (the play with the announcers), then a hard cut to him and Asher with two words ("WAIT… WE WON?!").
+  A phone screen recording has Instagram's buttons burned in; crop to the clean window (recipe and coordinates in
+  the 2026-11-09 log), show it as a card on its own blur, and punch in to follow the ball. The comp renders with
+  `--alpha` (transparent over the clip, opaque on the photo). Check score and clock by web search before writing
+  the hook. Tell him each time that broadcast footage can get a reel muted or pulled; posting is his call.
 - `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
   data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
   1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart
