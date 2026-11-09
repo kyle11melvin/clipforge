@@ -123,3 +123,37 @@ dark bands above and below; that also leaves room for the headline and for Asher
 
 `docs/handoff-broncos-pick.md` is a brief another tool (ChatGPT, Codex, Grok) can work from; the cutouts are on the
 page with Save buttons so he can attach them. Page updated: toddler-analyst main tab, counter cut second tab.
+
+## Round four (03:00–03:40): the handoff brief, and the reaction cut
+
+Kyle came back with a written brief (apparently from a Codex / ChatGPT session that had tried its own edits in a
+`graphics/broncos-memory/` folder that is not in this repo): "Several edits have missed the mark… bring editorial
+judgment, not another caption template." What failed there: the stress format again, counters, heart monitors,
+"I have a toddler", Asher as a challenge coordinator, "You saw that too", sentimental lines, long static holds,
+isolated cutouts, footage in a small box. What he liked: the ChatGPT-treated portraits (navy ground, orange edge
+light, plain shirts) and his own direction: **"It's been ruled an interception and then show our faces. That's the
+cut."** Finish line: "Another fourth-quarter win." (his pick over the record stat). He sent the smile portrait with
+that line baked in (`smile-portrait.png`, 1080x1920); the yelling portrait (`portrait.png`) has not arrived.
+
+The new recording (moved into `Broncos 11/7`, `live.mp4`, 17.5 s) is the NFL's own reel of the play from the
+end-zone angle: 0–7.3 s slow-mo with the call "Was this intercepted? … The ball's still up there. Oh my goodness. He
+got it.", then the live angle with the original "incomplete" call and the real bug (CAR 14, DEN 13, 1st & goal,
+3rd quarter, 1:32). The NFL text box sits at y 369–643 for the first 4 s and is gone after; buttons x>1190.
+
+`comp5.html`, 11.2 s, `he-got-it.mp4`:
+- 0–2.0 NFL slow-mo full-bleed (crop 1130x1540 at 40,660 → 1409x1920, centre 1080): the ball in the air. Caption
+  "Was this intercepted?" word by word on the ASR onsets.
+- 2.0–4.1 jump ahead in the same shot (NFL 5.2–7.3, window 1130x1580 at 40,340, 8% push): Key pulls it in. "Oh my
+  goodness." / "He got it."
+- 4.1–6.38 Fox replay full-bleed (`seg-c` = `replay-c.mp4` to 2.3 s): "Overturned."
+- 6.38–8.6 **the cut on the word**: "interception" starts at Fox 2.28 → hard cut (two white frames) to
+  `yell-portrait.png` (yell cutout ×1.3 on a navy gradient matched to his portrait's #001334, soft orange rim: the
+  silhouette blurred 26 px at ±10 px, 42% alpha, plus a thin warm inner edge), punch 1.09→1.0 in 0.35 s, shake
+  dying over 0.5 s, slow push. "…for Devon Key" plays over the faces (Fox audio runs to 4.25).
+- 8.6–11.2 `smile-portrait.png` as he sent it, slow push, done.
+- Sound: `voice5.wav` = NFL 0–2.0, NFL 5.2–7.3, Fox 0–4.25, nothing else. −18.2 dB mean.
+Captions are only the announcers' words (Nunito 104 px, y 1230, centred, left of the button column); nothing on the
+portraits except his baked line. Cover `still.mjs --t 6.9` (the reaction frame).
+
+Page updated: reaction cut main tab; toddler analyst and counter cut kept as earlier tabs. When `portrait.png`
+arrives: save it over `graphics/broncos-pick/yell-portrait.png` and re-render `comp5.html` (nothing else changes).

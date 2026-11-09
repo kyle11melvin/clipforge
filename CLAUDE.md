@@ -150,6 +150,15 @@ his standing brief. Read it before touching anything.
   caption are decoration, not an idea. `docs/handoff-broncos-pick.md` is the brief for handing a job to another tool;
   keep it current if he goes that way. Drive files he uploads to his **root** are private and unreachable; ask him to
   drop them in the `Clipforge` folder (link-shared) instead.
+  **The cut that answered the brief** (`comp5.html`, `he-got-it.mp4`): real footage full-bleed from his screen recordings
+  (the NFL reel's end-zone slow-mo, then the Fox ruling), captions that are only the announcers' exact words on their ASR
+  onsets, a hard cut to the two of them **on the word "interception"** (his direction: "It's been ruled an interception
+  and then show our faces. That's the cut."), then the ChatGPT-treated smile portrait he sent with his finish line baked
+  in ("Another fourth-quarter win."). No counters, no slogans, no boxes, no isolated cutouts, nothing added to the
+  announcers. His portrait look: navy `#001334`-ish ground, soft orange edge light, plain navy shirts; `yell-portrait.png`
+  is the in-house imitation (cutout + blurred orange silhouette) until he sends the real one. For a game meme from now
+  on: footage first and full screen, the reaction cut on the announcer's key word, one closing portrait with one line,
+  10–12 s, payoff by 7 s.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

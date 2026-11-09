@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>He got it</title>
+<style>
+  /* v5 (2026-11-09, from Kyle's handoff brief): a sports moment with a reaction cut. The NFL reel's end-zone slow-mo
+     ("Was this intercepted?… Oh my goodness. He got it.") full-bleed, the Fox ruling ("Overturned. This has been ruled
+     an interception"), a hard cut to the two of them ON the word "interception", then the smile portrait with his line.
+     Rendered --alpha: 0–6.38 s is a hole ffmpeg fills with the footage. Captions are the announcers' real words. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  :root { --orange:#FB4F14; --navy:#002244; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; }
+  .frame.on { display: block; }
+  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+  .cap { position: absolute; left: 50px; right: 150px; top: 1230px; text-align: center; font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 800; font-size: 104px; line-height: 1.05; color: #fff; -webkit-text-stroke: 9px #000; paint-order: stroke fill;
+    text-shadow: 0 8px 20px rgba(0,0,0,.45); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  .ph { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 50% 45%; }
+</style>
+</head>
+<body>
+<div class="frame" id="fFoot"><div class="cap" id="cap"></div><div class="flash" id="flashF"></div></div>
+<div class="frame" id="fD" style="background:#061232"><img class="ph" id="phD" src="yell-portrait.png" alt=""><div class="flash" id="flashD"></div></div>
+<div class="frame" id="fE" style="background:#061232"><img class="ph" id="phE" src="smile-portrait.png" alt=""></div>
+
+<script>
+  // Footage timeline in ffmpeg: NFL 0–2.0 → 0; NFL 5.2–7.3 → 2.0; Fox 0–2.28 → 4.1. The word "interception" starts at 6.38.
+  const T = { A: 0, B: 2.0, C: 4.1, D: 6.38, E: 8.6, end: 11.2 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const $ = (id) => document.getElementById(id);
+  const frames = ["fFoot", "fD", "fE"].map($);
+  // Captions in the announcers' words, at the moment each word is said (ASR timings), out before the next line.
+  // [start, end, text, [word onsets relative to start]]
+  const CAPS = [
+    [0.00, 1.95, "Was this intercepted?", [0.0, 0.32, 0.74]],
+    [2.07, 3.25, "Oh my goodness.", [0.0, 0.19, 0.38]],
+    [3.30, 4.05, "He got it.", [0.0, 0.19, 0.47]],
+    [4.12, 6.30, "Overturned.", [0.0]],
+  ];
+  function caption(el, t) {
+    let c = null; for (const x of CAPS) if (t >= x[0] && t < x[1]) c = x;
+    if (!c) { el.style.opacity = 0; return; }
+    if (el.dataset.text !== c[2]) { el.innerHTML = c[2].split(" ").map((w) => `<span class="w">${w}</span>`).join(" "); el.dataset.text = c[2]; }
+    el.style.opacity = 1 - clamp((t - (c[1] - 0.12)) / 0.12, 0, 1);
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - c[0] - (c[3][i] ?? i * 0.1)) / 0.2, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${((1 - e) * 50).toFixed(1)}px) scale(${(0.9 + 0.1 * e).toFixed(3)})`;
+    });
+  }
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    if (t < T.D) {
+      frames[0].classList.add("on"); caption($("cap"), t);
+      $("flashF").style.opacity = clamp((t - (T.D - 0.07)) / 0.07, 0, 1).toFixed(3);   // 2 white frames into the reaction cut
+    } else if (t < T.E) {
+      frames[1].classList.add("on"); const tt = t - T.D;
+      // The reaction: a punch that settles in 0.35 s, a shake that dies over 0.5 s, then a slow push.
+      const z = 1.0 + 0.09 * (1 - easeOut(clamp(tt / 0.35, 0, 1))) + 0.025 * tt;
+      const k = Math.max(0, 1 - tt / 0.5), sx = Math.sin(tt * 61) * 7 * k, sy = Math.cos(tt * 77) * 5 * k;
+      $("phD").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${z.toFixed(4)})`;
+      $("flashD").style.opacity = (1 - clamp(tt / 0.1, 0, 1)).toFixed(3);
+    } else {
+      frames[2].classList.add("on"); const tt = t - T.E;
+      $("phE").style.transform = `scale(${(1.0 + 0.018 * tt).toFixed(4)})`;
+    }
+  };
+  window.seek(0);
+</script>
+</body>
+</html>
