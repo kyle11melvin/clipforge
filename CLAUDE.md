@@ -124,6 +124,12 @@ his standing brief. Read it before touching anything.
   the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
   head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
   he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
+- **Skits (2026-11-10).** Kyle's "Creative" reference (a joey_roquet reel, Instagram-labelled AI content): a loan
+  officer skit, six shots, 31 words, no graphics, no captions, two four-second silent stares and a location change
+  for the punchline. When he asks for "creative", he means a scripted joke with shot-reverse-shot coverage, not more
+  graphics on a talking head. Clipforge cannot generate actors; offer a script + shot list he can shoot (tripod, wide
+  two-shot, a close-up per person, one punchline location) and cut it with the silences held. Breakdown in the
+  2026-11-10 log.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
