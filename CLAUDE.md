@@ -124,16 +124,32 @@ his standing brief. Read it before touching anything.
   the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
   head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
   he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
-- `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**: Kyle's brief, fully specified (G1 hook → Clip A →
-  one continuous chalkboard across Clips B and C with him in a picture-in-picture → G6 "DM POINTS" CTA). `board.html`
-  draws everything on a canvas: Caveat lines in sand pre-rendered with a chalk grain (seeded noise knocked out of the
-  lettering only, the board stays flat navy), each line wiped on left to right between the spoken word's start and end
-  from transcript.json, the answer in terracotta circled by a wobbly stroke, one eraser sweep at the cut into Clip C
-  that clears only the setup lines. `assemble.sh` (kept beside the comps, run from `videos/<post>/`) joins hook, captioned Clip A, board + PiP (square
-  crop of the footage, 400 px, 16 px corners, bottom-left) with the cut's audio, and the CTA with 0.25 s cross-fades.
-  Lessons: **three 4K HLG clips in one ffmpeg graph OOM-kill the cut step**; pre-convert each clip to 1080x1920 SDR
-  30 fps on its own (`footage/<post>/sdr/`) and build from that folder. Drive's `usercontent` URL handled 213 MB fine.
-  He now sends a "Cover photo" in the Drive folder; crop it 9:16 and use the `rate-wait/cover.html` two-tone look.
+- `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**. Start from `board-box.html` and
+  `assemble-box.sh`, the version Kyle steered to in round two. Round one followed his brief to the letter (full-screen
+  chalkboard under Clips B and C with him in a small window, then a "DM POINTS" slide; `board.html`, `assemble.sh`,
+  `cta.html`) and he reversed three things: **"get rid of the slide with the DM, just cut the video after I say keep
+  the cash"**, **"start the scene with my face … bring the chalkboard up when I start talking about numbers, not at
+  the beginning of the clip"**, and **"make the chalkboard not so large … a box like a picture in picture, not take up
+  the entire screen"**. So the standing shape for a math talking head: hook slide → him full screen throughout → one
+  952x480 navy box (20 px corners) at (64, 246), above his head, rising in a beat before the first number → the reel
+  ends on his last word. The box is a canvas: Caveat lines in sand pre-rendered with a chalk grain (seeded noise
+  knocked out of the lettering only), each wiped on left to right between the spoken word's start and end from
+  transcript.json, the answer in terracotta circled by a wobbly stroke, one eraser sweep at the cut between takes that
+  clears the setup lines so the verdict lines can go in their place. Rendered `--alpha --size 952x504` from
+  `#t0=<start>` and overlaid with ffmpeg; the footage gets a 7% zoompan punch-in anchored at the top as the box rises,
+  which drops his hair ~55 px clear of the box. Captions (`--caption-y 0.66`) run until the box arrives
+  (`--caption-hide`), then the board carries the words. **A brief from the Project is a first draft, not a spec**: the
+  standing rules in this file (no DM card in a talking head, cutaways only where the words call for them) outrank it;
+  build to the rules and say what was changed. Lessons: **three 4K HLG clips in one ffmpeg graph OOM-kill the cut
+  step**; pre-convert each clip to 1080x1920 SDR 30 fps on its own (`footage/<post>/sdr/`) and build from that folder.
+  Drive's `usercontent` URL handled 213 MB fine. He now sends a "Cover photo" in the Drive folder; crop it 9:16 and use
+  the `rate-wait/cover.html` two-tone look. The page's side files cap at 15 MB each, so encode a two-pass ~3.2 Mbps
+  copy for the page and attach the full-quality master in chat.
+- `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
+  kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
+  fill the footage (`--intro 2.35 --beat 0.77 --bars 10`). Mixed by `assemble-box.sh` at -8 dB on the silent hook,
+  sliding to -18 dB (about 16 dB under his voice) before he speaks. Kyle: "willing to try that if you think that's an
+  improvement"; deliver with-music and voice-only side by side until he picks.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
@@ -264,7 +280,7 @@ stay. The short version:
 - Sora Bold headlines (sentence case, never all-caps), Manrope body and tracked uppercase eyebrows, one
   Caveat line per slide. Oversized numerals (`01`, `02`, `$203,090`, `DM`) are the signature device.
 - Hook: two-tone headline, sand line then the terracotta turn, a muted continuation line at the bottom.
-- CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN), hairline, circle portrait, name,
+- CTA: DM keyword ask (keywords in use: CONV, VA, DSCR, WAIT, BUYDOWN, POINTS), hairline, circle portrait, name,
   NMLS #1486450, disclosure line. `graphics/wait-or-buy-cm/` is the reference composition.
 - **Kyle's call (2026-10-11): ignore the guide's compliance section.** Rates and payments may appear on
   screen; he decides what he posts. Keep the sign-off and the small disclosure line unless he says otherwise.

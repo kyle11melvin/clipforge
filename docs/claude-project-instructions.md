@@ -40,7 +40,11 @@ kit, the fonts and the render pipeline.
   CTA (navy: DM keyword, hairline, portrait, name, NMLS, disclosure line).
 - The ask is always a DM keyword. In use: CONV, VA, DSCR, WAIT, BUYDOWN.
 - Talking-head reels carry no DM / name / NMLS card inside the video (Kyle, 2026-10-22). He says
-  "message me" on camera; the written caption carries the ask.
+  "message me" on camera; the written caption carries the ask. This holds even without the NMLS line: a
+  clipforge brief for a talking head has no closing CTA slide (he cut the "DM POINTS" slide on 2026-11-11);
+  the reel ends on his last spoken word and the keyword goes in the caption. Keywords now include POINTS.
+- Graphics in a talking-head brief: he stays full screen. A graphic is a box above his head that appears
+  when he reaches the numbers, not at the start of the clip and not a full-screen takeover (2026-11-11).
 - Content pillars: Mortgage IQ, OC Real Estate, Beyond the Mortgage, Life.
 
 ## Voice
