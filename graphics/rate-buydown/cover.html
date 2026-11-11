@@ -1,0 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Reel cover, Coastal Money two-tone (the look Kyle picked on 2026-11-06): his "Cover photo" from the Drive folder,
+     cropped to 9:16 (cover-frame.jpg), under a navy tint, the hook above his head, terracotta turn on the last line.
+     Headline stays inside the centre 4:5 (y 240–1680) for the grid crop. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #173F4F; }
+  .frame { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+  .tint { position: absolute; inset: 0; background: linear-gradient(rgba(23,63,79,.80) 0%, rgba(23,63,79,.58) 34%, rgba(23,63,79,.35) 60%, rgba(23,63,79,.6) 100%); }
+  .head { position: absolute; left: 64px; right: 64px; top: 250px; font-family: "Sora", sans-serif; font-weight: 700; font-size: 118px; line-height: 1.04; letter-spacing: -0.02em; color: #EFE9DE; }
+  .head .t { color: #D77B52; }
+</style></head>
+<body>
+<img class="frame" src="cover-frame.jpg">
+<div class="tint"></div>
+<div class="head">Buying down<br>your rate?<br><span class="t">Do this<br>math first.</span></div>
+<script>window.seek = () => {};</script>
+</body></html>

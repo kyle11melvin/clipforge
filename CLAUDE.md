@@ -124,6 +124,16 @@ his standing brief. Read it before touching anything.
   the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
   head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
   he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
+- `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**: Kyle's brief, fully specified (G1 hook → Clip A →
+  one continuous chalkboard across Clips B and C with him in a picture-in-picture → G6 "DM POINTS" CTA). `board.html`
+  draws everything on a canvas: Caveat lines in sand pre-rendered with a chalk grain (seeded noise knocked out of the
+  lettering only, the board stays flat navy), each line wiped on left to right between the spoken word's start and end
+  from transcript.json, the answer in terracotta circled by a wobbly stroke, one eraser sweep at the cut into Clip C
+  that clears only the setup lines. `assemble.sh` (kept beside the comps, run from `videos/<post>/`) joins hook, captioned Clip A, board + PiP (square
+  crop of the footage, 400 px, 16 px corners, bottom-left) with the cut's audio, and the CTA with 0.25 s cross-fades.
+  Lessons: **three 4K HLG clips in one ffmpeg graph OOM-kill the cut step**; pre-convert each clip to 1080x1920 SDR
+  30 fps on its own (`footage/<post>/sdr/`) and build from that folder. Drive's `usercontent` URL handled 213 MB fine.
+  He now sends a "Cover photo" in the Drive folder; crop it 9:16 and use the `rate-wait/cover.html` two-tone look.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
