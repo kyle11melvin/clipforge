@@ -177,3 +177,11 @@ a lot of cash and go ding".
   points) with the same punch and grade, then holds the last frame 0.4 s.
 
 Lesson: "bring up X" means show one clear X, not particles. When he asks for a prop, make one object first.
+
+## Round eleven: realistic hundreds, below his face
+
+Kyle: "Much better just do me a favor and make the hundred dollar bills look a little more realistic and also put them
+below my face". `cash.html` bills are now an inline SVG illustration of a hundred (pale green-grey paper, dark engraved
+print, portrait oval with a plain bust, two seals, blue ribbon, copper inkwell, Playfair numerals with the big gold 100,
+serials), still with the sand cut edge and shadow; stacks carry mustard "$10,000" straps (the cost in the reel). The
+fan pivots from y=1480 so the heap tops out just under his chin. A drawing, not a scan of currency.

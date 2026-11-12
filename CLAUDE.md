@@ -175,7 +175,8 @@ his standing brief. Read it before touching anything.
   **The ending** is a heap of cut-paper cash rising on "keep the cash" with a bell ding (`cash.html`, `ding` in
   `chalk.py`), over the unused smile at the end of the take. When he asks to "bring up" a thing, show one clear object
   ("a lot of cash and then go ding"), not a particle storm across the frame, and draw it in the reel's cut-paper style
-  ("sharpen it up to match the rest of the video"). Round nine got "perfect and so much better".
+  ("sharpen it up to match the rest of the video"), detailed enough to read as the real thing (he asked for the
+  bills "a little more realistic"), and **below his face**, never over it. Round nine got "perfect and so much better".
   **Use a real recording for real-world sounds.** Three synthesised chalk sounds missed; he then picked a CC0 clip
   (`src/music/samples/chalk-on-chalkboard.ogg`, credits beside it) and `chalk.py --sample` cuts it to each line,
   about 15 dB under his voice (he asked for "a little bit further" down from 12). Wikimedia Commons has CC0 audio; plain curl to upload.wikimedia.org gets a 429, the web
