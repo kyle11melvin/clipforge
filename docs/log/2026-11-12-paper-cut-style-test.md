@@ -193,3 +193,20 @@ Kyle: "All right, I approve this message! Good job with the graphics and everyth
 need the brand image"), now a section in CLAUDE.md and in the Project instructions, and whether older reels can be
 redone in this direction for reposting. Candidates offered: rate-wait (paper-cut test already exists; swap the navy
 cutaway), 20% down myth, IQ quiz, better deal / wait-rate.
+
+## Rate wait, redone to the new rules
+
+Kyle: "Perfect redo the rate wait". `videos/style-test/final-rate-wait-v2.mp4` (17.7 s), from the same cut, punch-ins
+and matte as the morning's test:
+
+- The navy $50,000 cutaway is gone. "Meanwhile, my buyers are getting" is type above his head; on "fifty thousand" a
+  torn-paper "$50,000" counts up there with "seller credits" / "price cuts" strips under it, and the cash heap from
+  `rate-buydown/cash.html#t0=11&go=11.12&out=13.85&stacks=5` (five $10,000 straps) rises under his chin, then
+  everything clears before "If you're waiting".
+- The sand "he didn't have a number" sticker cutaway stays (he only objected to the blue one).
+- Sounds (`graphics/paper-cut/sfx-events.json`, synthesised): whoosh and stamp thud on the cutaway, slap, whoosh and
+  ding on the $50,000, small thuds on the strips. No music.
+- `composite.py` takes `--overlay=file@seconds` and `--sfx=file@gain`; `cash.html` takes `go`, `out`, `stacks`.
+
+Not done: an ending payoff on "what rate are you waiting on?" (no room below his face in this selfie, and no spare
+footage after his last word was checked). Cover and caption are the ones on the 2026-11-06 page.

@@ -23,6 +23,11 @@ import json, os
 cfg = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--stickers=")), os.path.join(os.path.dirname(__file__), "stickers.json"))
 sys.argv = [a for a in sys.argv if not a.startswith("--stickers=")]
 STICKERS = json.load(open(cfg))
+# --overlay=file.mov@seconds  an extra alpha layer on top (e.g. the cash heap), starting at that time
+# --sfx=file.wav@gain         sound effects mixed under his voice
+OVER = [a.split("=", 1)[1].rsplit("@", 1) for a in sys.argv if a.startswith("--overlay=")]
+SFX = next((a.split("=", 1)[1].rsplit("@", 1) for a in sys.argv if a.startswith("--sfx=")), None)
+sys.argv = [a for a in sys.argv if not a.startswith(("--overlay=", "--sfx="))]
 d = sys.argv[1].rstrip("/")
 out = sys.argv[2] if len(sys.argv) > 2 else f"{d}/final-papercut.mp4"
 PAD, FPS, LEAD = 40, 12, 0.1
@@ -80,9 +85,20 @@ g = f"[0:v][1:v]overlay[x0];[x0][2:v]overlay=enable='not({off})'[x1];"
 for i, s in enumerate(STICKERS, 1):
     g += (f"[x{i}][{3 + i}:v]overlay=x={s['x'] - PAD}:y='{s['y'] - PAD}+900*pow(max(0,1-(t-{s['t0']})/0.28),3)':"
           f"eof_action=pass:enable='between(t,{s['t0']},{s['t1'] - 0.001})'[x{i + 1}];")
-g += f"[x{len(STICKERS) + 1}][3:v]overlay,format=yuv420p[v]"
+n = len(STICKERS) + 1
+g += f"[x{n}][3:v]overlay[y0];"
+k = 4 + len(STICKERS)
+for i, (f, off) in enumerate(OVER):
+    inputs += ["-itsoffset", off, "-i", f]
+    g += f"[y{i}][{k}:v]overlay=eof_action=pass:enable='gte(t,{off})'[y{i + 1}];"; k += 1
+g += f"[y{len(OVER)}]format=yuv420p[v]"
+amap = "0:a"
+if SFX:
+    inputs += ["-i", SFX[0]]
+    g += f";[0:a]aformat=sample_rates=48000:channel_layouts=stereo[vo];[{k}:a]volume={SFX[1]}[fx];[vo][fx]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[au]"
+    amap = "[au]"
 
-subprocess.run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", g, "-map", "[v]", "-map", "0:a",
-                "-c:v", "libx264", "-crf", "20", "-maxrate", "5M", "-bufsize", "10M", "-r", "30", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out],
+subprocess.run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", g, "-map", "[v]", "-map", amap,
+                "-c:v", "libx264", "-crf", "18", "-maxrate", "6M", "-bufsize", "12M", "-r", "30", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out],
                check=True)
 print("wrote", out)

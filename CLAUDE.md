@@ -133,7 +133,9 @@ his standing brief. Read it before touching anything.
   wants "more graphics like he has". **His verdict: "the fonts and new graphics are money", but "dont like the total blue
   clip"**: the type, torn paper, stamp and sand sticker cutaway are the direction for talking heads; never a full-screen
   navy ground (hook slides included). On a pale indoor wall set the type in ink, not sand. In a
-  tight selfie his face fills y 630–1475: type goes above his head, never on the chest. Ask for a seated tripod shot
+  tight selfie his face fills y 630–1475: type goes above his head, never on the chest. **Redone to the 2026-11-12 rules as
+  `final-rate-wait-v2.mp4`**: the navy cutaway replaced by torn paper above his head plus the cash heap
+  (`cash.html#...&stacks=5`) under his chin, with sounds; `composite.py --overlay=... --sfx=...` builds it. Ask for a seated tripod shot
   with room beside his head for this style.
 - `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**. Start from `board-box.html` and
   `assemble-box.sh`, the version Kyle steered to in round two. Round one followed his brief to the letter (full-screen

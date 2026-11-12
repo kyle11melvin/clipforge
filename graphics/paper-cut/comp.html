@@ -61,7 +61,6 @@
   <div id="chest"></div>
   <!-- cutaway grounds -->
   <div class="ground" id="g1" style="background:#EFE9DE"><svg><rect width="100%" height="100%" filter="url(#crumple)"/></svg><svg><rect width="100%" height="100%" filter="url(#grain)"/></svg></div>
-  <div class="ground" id="g2" style="background:#1d4d60"><svg><rect width="100%" height="100%" filter="url(#crumple)"/></svg><svg><rect width="100%" height="100%" filter="url(#grain)"/></svg></div>
 </div>
 
 <div class="layer" id="fg">
@@ -79,20 +78,19 @@
     <div class="stamp" id="c1-stamp" style="left:170px; top:1318px;">NO NUMBER</div>
   </div>
 
-  <!-- cutaway 2: "Meanwhile, my buyers are getting fifty thousand dollars in seller credits or price cuts." -->
+  <!-- "fifty thousand dollars in seller credits or price cuts": torn paper over the footage, above his head.
+       (Was a full-screen navy cutaway; Kyle, 2026-11-12: "dont like the total blue clip".) The cash heap that rises
+       under his chin at the same moment is rate-buydown/cash.html, composited as its own layer. -->
   <div id="c2">
-    <div class="abs ital" id="c2-a" style="left:90px; top:262px; font-size:84px; color:var(--glass)">Meanwhile,</div>
-    <div class="abs sora" id="c2-b" style="left:86px; top:362px; font-size:112px; color:var(--sand)">my buyers</div>
-    <div class="abs ital" id="c2-c" style="left:672px; top:398px; font-size:74px; color:var(--sand)">are getting</div>
-    <div class="paper" id="c2-num" style="left:50px; top:506px;">
-      <div style="background:var(--sand); padding:6px 44px 22px"><span class="sora" id="c2-n" style="font-size:184px; color:var(--terra); letter-spacing:-0.05em">$50,000</span></div>
+    <div class="paper" id="c2-num" style="left:56px; top:262px;">
+      <div style="background:var(--sand); padding:2px 40px 18px"><span class="sora" id="c2-n" style="font-size:156px; color:var(--terra); letter-spacing:-0.05em">$50,000</span></div>
     </div>
-    <div class="paper" id="c2-s1" style="left:50px; top:790px;">
-      <div style="background:var(--sand); color:var(--ink); font-family:Sora; font-weight:800; font-size:58px; letter-spacing:-0.02em">seller credits</div>
+    <div class="paper" id="c2-s1" style="left:50px; top:498px;">
+      <div style="background:var(--sand); color:var(--ink); font-family:Sora; font-weight:800; font-size:48px; letter-spacing:-0.02em; padding:14px 28px 18px">seller credits</div>
     </div>
-    <div class="abs ital" id="c2-or" style="left:170px; top:908px; font-size:76px; color:var(--sand)">or</div>
-    <div class="paper" id="c2-s2" style="left:40px; top:1030px;">
-      <div style="background:var(--terra); color:var(--sand); font-family:Sora; font-weight:800; font-size:58px; letter-spacing:-0.02em">price cuts</div>
+    <div class="abs ital shadowed" id="c2-or" style="left:462px; top:500px; font-size:64px; color:var(--sand)">or</div>
+    <div class="paper" id="c2-s2" style="left:548px; top:504px;">
+      <div style="background:var(--terra); color:var(--sand); font-family:Sora; font-weight:800; font-size:48px; letter-spacing:-0.02em; padding:14px 28px 18px">price cuts</div>
     </div>
   </div>
 </div>
@@ -121,7 +119,7 @@ document.querySelectorAll(".paper > div").forEach((el, k) => {
 $("c1-stamp").style.filter = "url(#rough)";
 
 // ---------- cutaway windows (seconds of cut.mp4) ----------
-const C1 = [5.2, 6.56], C2 = [9.52, 14.16];
+const C1 = [5.2, 6.56], C2 = [11.1, 14.12];     // C1 is a full-screen sand cutaway; C2 is paper over the footage
 const inWin = (t, w) => t >= w[0] && t < w[1];
 
 // ---------- chest captions: [word index, class] per group; "|" = line break ----------
@@ -133,6 +131,7 @@ const GROUPS = [
   { from: 6.56, to: 7.68, w: [[30,"m"],[31,"s"],"|",[32,"l"],[33,"l"]] },                             // Waiting with / no number
   { from: 7.68, to: 8.48, w: [[34,"s"],[35,"s"],"|",[36,"x"]] },                                      // isn't a / plan.
   { from: 8.48, to: 9.52, w: [[37,"s"],[38,"s"],"|",[39,"x"]] },                                      // It's just / waiting.
+  { from: 9.52, to: 11.1, w: [[40,"s"],"|",[41,"s"],[42,"m"],[43,"s"],[44,"s"]] },                                // Meanwhile, / my buyers are getting
   { from: 14.16, to: 15.84, w: [[54,"s"],[55,"s"],[56,"m"],[57,"s"],"|",[58,"m"],[59,"s"],[60,"l"]] }, // If you're waiting on / rates to drop,
   { from: 15.84, to: 17.8, w: [[61,"s"],[62,"x"],"|",[63,"s"],[64,"s"],[65,"m"],[66,"s"]] },          // what rate / are you waiting on?
 ];
@@ -182,11 +181,10 @@ if (!mode) document.body.classList.add("probe");
 window.seek = (t) => {
   const c1 = inWin(t, C1), c2 = inWin(t, C2);
   $("g1").style.display = c1 ? "block" : "none";
-  $("g2").style.display = c2 ? "block" : "none";
 
   // ----- chest captions -----
   let gi = -1;
-  if (!c1 && !c2) GROUPS.forEach((g, i) => { if (t >= g.from && t < g.to) gi = i; });
+  if (!c1) GROUPS.forEach((g, i) => { if (t >= g.from && t < g.to) gi = i; });
   if (gi !== curGroup) { buildGroup(gi); curGroup = gi; }
   for (const s of $("chest").querySelectorAll("span")) pop(s, t, W[+s.dataset.i].start, /^[lx]/.test(s.className));
 
@@ -198,12 +196,11 @@ window.seek = (t) => {
     paper($("c1-tag"), t, C1[0] + 0.12, 5, 500, -40);
     slam($("c1-stamp"), t, at(29) + 0.22, -7);
   }
-  // ----- cutaway 2 -----
+  // ----- the $50,000 beat (over footage) -----
   $("c2").style.display = c2 ? "block" : "none";
   if (c2) {
-    pop($("c2-a"), t, at(40), false);
-    pop($("c2-b"), t, at(41), true);
-    pop($("c2-c"), t, at(43), false);
+    const drop = Math.pow(prog(Math.floor(t * 12) / 12, C2[1] - 0.25, 0.25), 2) * 700;      // everything falls away before the next line
+    $("c2").style.transform = `translateY(${-drop}px)`;
     paper($("c2-num"), t, at(45), -2.5, -900, 0);
     const k = outCubic(prog(t, at(45) + 0.05, 0.75));
     $("c2-n").textContent = "$" + (Math.round(50000 * k / 500) * 500).toLocaleString("en-US");
