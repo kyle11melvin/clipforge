@@ -15,10 +15,17 @@
   .preload { position: absolute; left: -9999px; font-family: "Caveat"; font-weight: 600; }
 </style></head>
 <body>
-<div id="box"><canvas id="c" width="952" height="540"></canvas></div>
+<div id="box"><canvas id="tex" width="952" height="540"></canvas><canvas id="c" width="952" height="540"></canvas></div>
 <span class="preload">chalk</span>
 <script>
-  const W = 952, H = 540, SAND = '#EFE9DE', TERRA = '#D77B52';
+  // #pop (2026-11-12, Kyle: "I would like stuff to pop a little bit more ... the chalkboard, the writing ... loosen
+  // restrictions, get more creative"): a framed slate with chalk dust on it, brighter and heavier chalk in three
+  // colours (white, orange for what it costs, mint for what it saves), a soft glow, dust falling off the chalk as it
+  // writes, a scribbled highlight under the answer, a ghost left behind by the eraser, a paper note slapped on for
+  // "8 years, 4 months", a wobble as the board lands. Without #pop it is the plain Coastal Money box.
+  const POP = /pop/.test(location.hash);
+  const W = 952, H = 540, SAND = POP ? '#FBF8F1' : '#EFE9DE', TERRA = POP ? '#F28C5B' : '#D77B52', MINT = '#9BE3C7';
+  const WEIGHT = POP ? 700 : 600;
   const T0 = parseFloat((location.hash.match(/t0=([\d.]+)/) || [])[1] || '0');
   const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
   const p = (t, s, d) => clamp((t - s) / d);
@@ -31,7 +38,11 @@
   const IN_T = parseFloat((location.hash.match(/in=([\d.]+)/) || [])[1] || '9.5'), IN_D = FULL ? 0.5 : 0.4;
   const outBack = x => { const c1 = 1.25, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
   if (FULL) { document.documentElement.style.cssText = 'width:1080px;height:1920px'; document.body.style.cssText = 'width:1080px;height:1920px';
-    const b = document.getElementById('box'); b.style.left = '64px'; b.style.top = '246px'; b.style.boxShadow = '0 18px 40px rgba(8,26,34,.35)'; }
+    const b = document.getElementById('box'); b.style.left = '64px'; b.style.top = '246px'; b.style.boxShadow = '0 18px 40px rgba(8,26,34,.35)';
+    if (POP) { b.style.boxSizing = 'content-box'; b.style.left = '50px'; b.style.top = '232px'; b.style.borderRadius = '12px';
+      b.style.background = 'radial-gradient(120% 100% at 50% 40%, #1B4353 0%, #123441 70%, #0D2A35 100%)';
+      b.style.border = '14px solid #B98A55'; b.style.borderTopColor = '#C99B63'; b.style.borderBottomColor = '#A47645';
+      b.style.boxShadow = '0 26px 54px rgba(8,26,34,.5), 0 0 0 2px rgba(60,38,16,.55), inset 0 0 0 2px rgba(0,0,0,.35), inset 0 10px 26px rgba(0,0,0,.28)'; } }
   const ERASE_T = 23.1, ERASE_D = 0.7;     // the cut into Clip C
   // 2026-11-12: board 60 px taller and all the writing about 12% bigger (Kyle: "make it larger"); the last line
   // says "keep the cash", his words.
@@ -52,12 +63,18 @@
     { id: 'v2',    text: 'leaving sooner?  →',                x: 48, y: 160, size: 60, color: SAND, s: 28.8, d: 0.75, rot: 0.5 },
     { id: 'v2k',   text: 'keep the cash',                     x: 0,  y: 164, size: 90, color: SAND, s: 29.68, d: 0.65, rot: -0.6, after: 'v2', afterGap: 22 },
   ];
+  const NOTE = { s: 20.46, x: 600, y: 398, w: 318, h: 104, rot: 3.5, text: '8 years, 4 months' };
+  if (POP) {
+    const col = { costv: TERRA, savv: MINT, ans: SAND, v2k: MINT };
+    for (const l of LINES) if (col[l.id]) l.color = col[l.id];
+    LINES.splice(LINES.findIndex(l => l.id === 'yrs'), 1);          // the note carries it
+  }
   const CIRCLE = { s: 17.8, d: 0.9 };
   const UNDER  = { s: 30.3, d: 0.35 };
   const ARROWS = [ { from: 'lcost', to: 'costv_eq', s: 25.0, d: 0.25 }, { from: 'lsav', to: 'savv_eq', s: 26.05, d: 0.25 } ];
 
   const box = document.getElementById('box'), cv = document.getElementById('c'), ctx = cv.getContext('2d');
-  const font = (size) => `600 ${size}px Caveat`;
+  const font = (size) => `${WEIGHT} ${size}px Caveat`;
 
   function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function noiseTile(n, seed, pow) {
@@ -98,7 +115,48 @@
     const a = byId.ans; CIRCLE.cx = a.x + a.w / 2; CIRCLE.cy = a.y - a.size * 0.33; CIRCLE.rx = a.w / 2 + 40; CIRCLE.ry = a.size * 0.6;
     const vk = byId.v2k; UNDER.x0 = vk.x; UNDER.x1 = vk.x + vk.w; UNDER.y = vk.y + 20;
     for (const ar of ARROWS) { const l = byId[ar.from], e = eqPos[ar.to]; ar.x0 = (e.x0 + e.x1) / 2; ar.y0 = l.y + 9; ar.y1 = e.y - byId.eq.size * 0.9; }
+    if (POP) {   // chalk dust left on the slate: soft seeded blotches and a few old wipe marks
+      const tx = document.getElementById('tex').getContext('2d'), r = mulberry(5);
+      for (let i = 0; i < 46; i++) { const x = r() * W, y = r() * H, rad = 60 + r() * 170, g = tx.createRadialGradient(x, y, 0, x, y, rad);
+        g.addColorStop(0, `rgba(255,255,255,${0.02 + r() * 0.035})`); g.addColorStop(1, 'rgba(255,255,255,0)'); tx.fillStyle = g; tx.fillRect(x - rad, y - rad, rad * 2, rad * 2); }
+      tx.lineCap = 'round';
+      for (let i = 0; i < 7; i++) { tx.strokeStyle = `rgba(255,255,255,${0.018 + r() * 0.02})`; tx.lineWidth = 30 + r() * 50; const y = r() * H, x = r() * W * 0.6;
+        tx.beginPath(); tx.moveTo(x, y); tx.quadraticCurveTo(x + 200, y + (r() - 0.5) * 60, x + 320 + r() * 260, y + (r() - 0.5) * 40); tx.stroke(); }
+    }
     ready = true;
+  }
+  const hsh = (a, b) => { const x = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return x - Math.floor(x); };
+  function penAt(l, t) { return [l.x + writtenWidth(l, t), l.y - l.size * 0.3]; }
+  function dust(l, t, k) {      // specks falling off the chalk while this line is being written
+    for (let j = 0; j < 16; j++) {
+      const born = Math.floor(t * 30) / 30 - j * 0.035, age = t - born;
+      const active = (born >= l.s && born <= l.s + l.d) || (l.gap && born >= l.gap && born <= l.gap + l.gapD);
+      if (!active || age > 0.55) continue;
+      const [px, py] = penAt(l, born), id = Math.round(born * 30);
+      const x = px + (hsh(id, k) - 0.5) * 26 + (hsh(id, k + 5) - 0.5) * 30 * age, y = py + 12 + 30 * age + 260 * age * age;
+      ctx.globalAlpha = 0.55 * (1 - age / 0.55); ctx.fillStyle = l.color;
+      ctx.beginPath(); ctx.arc(x, y, 1.2 + hsh(id, k + 9) * 1.8, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  function hatch(t) {            // a quick scribble of orange chalk under the answer
+    const a = LINES.find(l => l.id === 'ans'), q = p(t, 18.75, 0.55); if (q <= 0) return;
+    const x0 = a.x - 14, x1 = a.x + a.w + 14, y0 = a.y - a.size * 0.72, y1 = a.y + 12, n = 26, pts = [];
+    for (let i = 0; i <= n; i++) { const u = i / n; pts.push([x0 + (x1 - x0) * u + (i % 2 ? 16 : -16), i % 2 ? y0 : y1]); }
+    ctx.save(); ctx.globalAlpha = 0.5; strokePath(pts, q, '#E0703C', 13); ctx.restore();
+  }
+  function note(t) {             // "8 years, 4 months" on a scrap of paper, slapped onto the board
+    const q = p(t, NOTE.s, 0.16); if (q <= 0) return;
+    const sc = 1.7 - 0.7 * (1 - Math.pow(1 - q, 3)), cx = NOTE.x + NOTE.w / 2, cy = NOTE.y + NOTE.h / 2;
+    ctx.save(); ctx.globalAlpha = Math.min(1, q * 3); ctx.translate(cx, cy); ctx.rotate(NOTE.rot * Math.PI / 180); ctx.scale(sc, sc);
+    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 8; ctx.fillStyle = '#EFE9DE';
+    ctx.beginPath(); const hw = NOTE.w / 2, hh = NOTE.h / 2, r = mulberry(21);       // torn edges, seeded
+    for (let i = 0; i <= 24; i++) ctx.lineTo(-hw + (2 * hw) * i / 24, -hh + r() * 7);
+    for (let i = 24; i >= 0; i--) ctx.lineTo(-hw + (2 * hw) * i / 24, hh - r() * 7);
+    ctx.closePath(); ctx.fill(); ctx.shadowColor = 'transparent';
+    ctx.fillStyle = 'rgba(215,123,82,.75)'; ctx.save(); ctx.rotate(-0.12); ctx.fillRect(-46, -hh - 14, 92, 30); ctx.restore();   // tape
+    ctx.fillStyle = '#0E2A35'; ctx.font = `700 45px Caveat`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(NOTE.text, 0, 6);
+    ctx.restore();
   }
 
   function writtenWidth(l, t) {
@@ -108,12 +166,16 @@
   function drawLine(l, t) {
     const w = writtenWidth(l, t); if (w <= 0) return;
     let clipL = 0;
-    if (l.erase && t > ERASE_T) { clipL = (W + 120) * easeOut(p(t, ERASE_T, ERASE_D)) - 60; if (clipL > l.x + l.w + 40) return; }
+    if (l.erase && t > ERASE_T) { clipL = (W + 120) * easeOut(p(t, ERASE_T, ERASE_D)) - 60;
+      if (POP) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, Math.max(0, clipL), H); ctx.clip(); ctx.globalAlpha = 0.09; ctx.filter = 'blur(5px)';
+        ctx.drawImage(l.canvas, l.ox + 10, l.oy); ctx.restore(); }                    // what the eraser leaves behind
+      if (clipL > l.x + l.w + 40) return; }
     ctx.save();
     ctx.translate(l.x, l.y); ctx.rotate(l.rot * Math.PI / 180); ctx.translate(-l.x, -l.y);
     const left = Math.max(l.ox, clipL);
     ctx.beginPath(); ctx.rect(left, l.oy, l.x + w + 6 - left, l.ch); ctx.clip();
-    ctx.globalAlpha = l.alpha || 1; ctx.drawImage(l.canvas, l.ox, l.oy);
+    ctx.globalAlpha = l.alpha || 1; if (POP) { ctx.shadowColor = l.color; ctx.shadowBlur = l.size > 80 ? 16 : 9; }
+    ctx.drawImage(l.canvas, l.ox, l.oy);
     ctx.restore();
   }
   const scratch = document.createElement('canvas'); scratch.width = W; scratch.height = H; const sx = scratch.getContext('2d');
@@ -137,13 +199,17 @@
     const q = easeOut(p(t, IN_T, IN_D));
     if (FULL) { const u = p(t, IN_T, IN_D), e = u <= 0 ? 0 : outBack(u);
       box.style.opacity = u > 0 ? 1 : 0;
-      box.style.transform = `translate(${1150 * (1 - e)}px, ${-330 * (1 - e) * (1 - e)}px) rotate(${16 * (1 - e)}deg) scale(${0.86 + 0.14 * e})`;
+      const tau = Math.max(0, t - IN_T - IN_D), wob = POP ? 2.4 * Math.exp(-6 * tau) * Math.sin(24 * tau) - 1.2 : 0;   // lands, wobbles, rests a touch crooked
+      box.style.transform = `translate(${1150 * (1 - e)}px, ${-330 * (1 - e) * (1 - e)}px) rotate(${16 * (1 - e) + wob * e}deg) scale(${0.86 + 0.14 * e})`;
     } else { box.style.opacity = q; box.style.transform = `translateY(${24 * (1 - q)}px)`; }
     ctx.clearRect(0, 0, W, H);
+    if (POP) hatch(t);
     for (const l of LINES) drawLine(l, t);
-    strokePath(circlePts(), p(t, CIRCLE.s, CIRCLE.d), TERRA, 6.5);
+    if (POP) LINES.forEach((l, k) => dust(l, t, k));
+    strokePath(circlePts(), p(t, CIRCLE.s, CIRCLE.d), TERRA, POP ? 8 : 6.5);
     for (const ar of ARROWS) strokePath(arrowPts(ar), p(t, ar.s, ar.d), SAND, 3.5);
-    strokePath(underPts(), p(t, UNDER.s, UNDER.d), TERRA, 5.5);
+    strokePath(underPts(), p(t, UNDER.s, UNDER.d), TERRA, POP ? 7 : 5.5);
+    if (POP) { strokePath(underPts().map(([x, y]) => [x + 10, y + 13]), p(t, UNDER.s + 0.2, 0.3), TERRA, 5); note(t); }
   };
 </script>
 </body></html>

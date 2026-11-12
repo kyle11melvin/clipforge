@@ -138,3 +138,24 @@ sits 12–13 dB under his voice. The synthesised eraser, whoosh and thuds are un
 
 Lesson: three rounds of synthesised chalk were three misses. For a sound he will judge by ear (chalk, paper, a pen),
 start from a real CC0 recording; synthesise only abstract sounds (whoosh, thud, ticks).
+
+## Round nine: quieter chalk, a board that pops
+
+Kyle on the real chalk: "Much better can we bring the decibels down just a little bit further". `--chalk-rms 0.035`
+(about 15 dB under his voice, was 12). And: "I know we're working with the coastal money brand guidelines, but I would
+like stuff to pop a little bit more maybe like the chalkboard the writing we need to start opening up the scope and
+loosen restrictions guidelines, but maybe get more creative."
+
+`board-box.html#...&full&pop` (the plain box is still there without `pop`):
+
+- A framed slate: 14 px wood frame, darker navy with a soft vignette, seeded chalk-dust blotches and old wipe marks,
+  resting 1.2 degrees crooked, a wobble as it lands, deeper shadow.
+- Three chalks: bright white (Caveat 700) with a soft glow, orange for the cost ($10,000), mint for the savings
+  ($100 / month, "keep the cash"). Colours outside the brand palette, on purpose.
+- Specks of dust fall from the chalk while a line writes; the eraser leaves a faint blurred ghost of what it wiped.
+- "100 months" in white inside a thicker orange circle with an orange scribble under it; double underline under
+  "keep the cash".
+- "8 years, 4 months" is a torn paper note with a strip of tape, slapped onto the board (thud), instead of a chalk line.
+- Footage punches in another 6% while he says "a hundred months to ever recoup that savings".
+
+Open: whether this much is right or "too busy" (his word on 2026-11-06); `pop` can be dialled back piece by piece.

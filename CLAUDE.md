@@ -167,9 +167,14 @@ his standing brief. Read it before touching anything.
   "annoying and typing"): no click per letter; soft flowing strokes with nothing above ~1.8 kHz (the brighter second try was "scratching nails on a
   chalkboard"; he wants it "smooth"), but loud enough to hear (about 6 dB under his voice; 14 dB under was inaudible to him). Claude cannot
   hear the result, so say that and ask him to listen.
+  **He asked for more pop and looser brand rules (2026-11-12)**: "I would like stuff to pop a little bit more ... the
+  chalkboard, the writing ... loosen restrictions ... get more creative". `board-box.html#...&pop` is that board: wood
+  frame, dusty slate, bright white / orange (cost) / mint (savings) chalk with a glow, falling dust, eraser ghost, a
+  taped paper note, a wobble on landing. For talking heads Coastal Money is now a starting palette, not a fence:
+  texture, extra accent colours and physical props are welcome; full-screen navy and emoji clutter still are not.
   **Use a real recording for real-world sounds.** Three synthesised chalk sounds missed; he then picked a CC0 clip
   (`src/music/samples/chalk-on-chalkboard.ogg`, credits beside it) and `chalk.py --sample` cuts it to each line,
-  12–13 dB under his voice. Wikimedia Commons has CC0 audio; plain curl to upload.wikimedia.org gets a 429, the web
+  about 15 dB under his voice (he asked for "a little bit further" down from 12). Wikimedia Commons has CC0 audio; plain curl to upload.wikimedia.org gets a 429, the web
   fetch tool works. freesound and pixabay are blocked. Only CC0 / public-domain samples go in this public repo.
 - `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
   kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
