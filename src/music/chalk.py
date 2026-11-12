@@ -23,6 +23,7 @@ a = sys.argv[1:]; out, ev_path = a[0], a[1]
 DUR = float(a[a.index("--dur") + 1]) if "--dur" in a else 30.0
 N = int(DUR * SR)
 mix = np.zeros(N + SR)
+chalk = np.zeros(N + SR)          # real-recording chalk goes here so it is levelled on its own
 rng = np.random.default_rng(12)
 
 
@@ -105,10 +106,41 @@ def ev_thud(e):
     put(e["t"], x, 0.7 * e.get("gain", 1.0))
 
 
+# ---- a real chalk recording (--sample file) replaces the synthesised writing ----
+# Three synthesised tries all missed (typing, nails on a chalkboard, too loud), so Kyle picked a real one
+# (2026-11-12): src/music/samples/chalk-on-chalkboard.ogg, CC0, see samples/CREDITS.md. Each write/stroke event plays
+# the next stretch of the recording for as long as the line takes to write, so no two lines sound the same.
+SAMPLE = a[a.index("--sample") + 1] if "--sample" in a else None
+CHALK_RMS = float(a[a.index("--chalk-rms") + 1]) if "--chalk-rms" in a else 0.05
+if SAMPLE:
+    import subprocess
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", SAMPLE, "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"],
+                         capture_output=True, check=True).stdout
+    smp = np.frombuffer(raw, np.float32).astype(np.float64)
+    smp = lowpass(signal.sosfilt(signal.butter(2, 150, btype="high", fs=SR, output="sos"), smp), 7000)
+    # keep only the stretches where chalk is on the board (drop pauses longer than 0.25 s)
+    env = np.sqrt(signal.convolve(smp ** 2, np.ones(960) / 960, mode="same"))
+    act = env > env.max() * 0.03
+    act = signal.convolve(act.astype(float), np.ones(int(0.25 * SR)), mode="same") > 0
+    smp = smp[act]
+    rms = np.sqrt(np.mean(smp ** 2))
+    smp = np.tanh(smp / (5 * rms)) * 5 * rms                    # soften the hard taps so they never read as clicks
+    smp *= CHALK_RMS / np.sqrt(np.mean(smp ** 2))
+    cur = [int(0.3 * SR)]
+
+    def from_sample(e):
+        n = int(e["d"] * SR)
+        if cur[0] + n >= len(smp): cur[0] = int(0.2 * SR)
+        x = smp[cur[0]:cur[0] + n].copy(); cur[0] += n + int(0.05 * SR)
+        f = min(int(0.03 * SR), n // 3); x[:f] *= np.linspace(0, 1, f); x[-f:] *= np.linspace(1, 0, f)
+        i = int(e["t"] * SR); chalk[i:i + n] += x[: len(chalk) - i]
+
+    ev_write = ev_stroke = from_sample
+
 for e in json.load(open(ev_path)):
     {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud}[e["type"]](e)
 
 x = mix[:N]
-x = x / max(1e-9, np.abs(x).max()) * 0.7
+x = x / max(1e-9, np.abs(x).max()) * 0.7 + chalk[:N]
 wavfile.write(out, SR, (np.stack([x, x], 1) * 32767).astype(np.int16))
 print("wrote", out, round(DUR, 2), "s")

@@ -125,3 +125,16 @@ field places a line right of another), underline under the whole phrase. `chalk.
 low-passed at 2.8 kHz, write/stroke events mixed about twice as loud as the other effects; overall 0.5, which puts the
 chalk about 6 dB under his voice (the smooth round was 14 dB under and he could not hear it). The target is now known
 from both sides: audible, mid-range, never bright.
+
+## Round eight: a real chalk recording
+
+Kyle on the louder synth: "Now the sound is going over my voice and it still does not sound like chalk", and asked how
+to get a real clip to the session. He picked `264944_chalk-on-chalkboard.wav` on Wikimedia Commons (fattirewhitey, CC0).
+`curl` to upload.wikimedia.org is refused (429 for automated clients); the session's web fetch tool got the file, and it
+now lives at `src/music/samples/chalk-on-chalkboard.ogg` with `samples/CREDITS.md`. `chalk.py --sample <file>` plays
+the next stretch of the recording under each write/stroke event (pauses over 0.25 s removed, hard taps softened with a
+tanh, low-passed at 7 kHz, 30 ms fades), levelled on its own bus (`--chalk-rms`, default 0.05). At the 0.5 mix the chalk
+sits 12–13 dB under his voice. The synthesised eraser, whoosh and thuds are unchanged.
+
+Lesson: three rounds of synthesised chalk were three misses. For a sound he will judge by ear (chalk, paper, a pen),
+start from a real CC0 recording; synthesise only abstract sounds (whoosh, thud, ticks).

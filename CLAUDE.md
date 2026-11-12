@@ -167,6 +167,10 @@ his standing brief. Read it before touching anything.
   "annoying and typing"): no click per letter; soft flowing strokes with nothing above ~1.8 kHz (the brighter second try was "scratching nails on a
   chalkboard"; he wants it "smooth"), but loud enough to hear (about 6 dB under his voice; 14 dB under was inaudible to him). Claude cannot
   hear the result, so say that and ask him to listen.
+  **Use a real recording for real-world sounds.** Three synthesised chalk sounds missed; he then picked a CC0 clip
+  (`src/music/samples/chalk-on-chalkboard.ogg`, credits beside it) and `chalk.py --sample` cuts it to each line,
+  12–13 dB under his voice. Wikimedia Commons has CC0 audio; plain curl to upload.wikimedia.org gets a 429, the web
+  fetch tool works. freesound and pixabay are blocked. Only CC0 / public-domain samples go in this public repo.
 - `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
   kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
   fill the footage (`--intro 2.35 --beat 0.77 --bars 10`). Mixed by `assemble-box.sh` at -8 dB on the silent hook,

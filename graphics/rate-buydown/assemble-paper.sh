@@ -6,7 +6,7 @@
 #               cutout-a.mov     hyperframes remove-background of the first 4.85 s of punched.mp4 (Clip A)
 #               type-bg.mov / type-fg.mov   graphics/rate-buydown/type.html#bg / #fg, --alpha, 9.9 s
 #               board-full.mov   board-box.html#t0=9.7&in=9.78&full, --alpha, 21.1 s
-#               sfx.wav          src/music/chalk.py from graphics/rate-buydown/sfx-events.json
+#               sfx.wav          src/music/chalk.py <out> graphics/rate-buydown/sfx-events.json --dur 30.8 --sample src/music/samples/chalk-on-chalkboard.ogg
 #               bed0.wav         src/music/underbed.py --intro 0 --beat 0.77 --bars 10
 # Writes final-reel-v3.mp4 (voice + chalk sounds) and final-reel-v3-music.mp4 (the bed under it as well).
 set -e
