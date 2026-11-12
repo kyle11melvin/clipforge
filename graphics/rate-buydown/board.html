@@ -1,0 +1,142 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* One continuous chalkboard under Clip B and Clip C of the rate-buydown reel (2026-11-11). Flat Pacific navy board,
+     Caveat lettering in sand with a chalk grain on the strokes only, each line written on left to right as the word is
+     spoken; the answer in terracotta, circled. One eraser swipe at the cut into Clip C clears the three setup lines.
+     Kyle sits in a picture-in-picture window bottom-left (composited by ffmpeg, the board leaves that square empty).
+     Times are board time = stitched cut.mp4 time - 4.81 (Clip B starts at 4.81 s of cut.mp4). */
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #173F4F; }
+  canvas { position: absolute; left: 0; top: 0; }
+  .preload { position: absolute; left: -9999px; font-family: "Caveat"; font-weight: 600; }
+  .preload b { font-weight: 700; }
+</style></head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<span class="preload">chalk <b>chalk</b></span>
+<script>
+  const SAND = '#EFE9DE', TERRA = '#D77B52';
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const p = (t, s, d) => clamp((t - s) / d);
+  const easeOut = x => 1 - Math.pow(1 - x, 2);
+
+  // The written lines. x,y = left baseline. Each writes on over [s, s+d] (board seconds).
+  // erase: cleared by the swipe at ERASE_T. Widths are measured at init for arrows, circle and underline.
+  const ERASE_T = 18.3, ERASE_D = 0.7;
+  const LINES = [
+    { id: 'rate',   text: '0.5% lower rate',          x: 96,  y: 350,  size: 86,  color: SAND,  s: 5.35, d: 1.9,  rot: -0.6, erase: true },
+    { id: 'costk',  text: 'cost',                     x: 96,  y: 480,  size: 86,  color: SAND,  s: 7.35, d: 0.45, rot: 0.4,  erase: true },
+    { id: 'costv',  text: '$10,000',                  x: 430, y: 480,  size: 86,  color: SAND,  s: 7.8,  d: 0.7,  rot: -0.3, erase: true },
+    { id: 'savk',   text: 'saves',                    x: 96,  y: 610,  size: 86,  color: SAND,  s: 9.6,  d: 0.45, rot: 0.5,  erase: true },
+    { id: 'savv',   text: '$100 / month',             x: 430, y: 610,  size: 86,  color: SAND,  s: 10.05, d: 1.1, rot: -0.4, erase: true },
+    { id: 'eq',     text: '$10,000 ÷ $100 =',    x: 96,  y: 790,  size: 98,  color: SAND,  s: 11.4, d: 0.65, rot: -0.5 },
+    { id: 'ans',    text: '100 months',               x: 236, y: 1095, size: 156, color: TERRA, s: 12.05, d: 0.95, rot: -1.2 },
+    { id: 'yrs',    text: '8 years, 4 months',        x: 300, y: 1226, size: 72,  color: SAND,  s: 15.65, d: 1.3, rot: 0.6 },
+    { id: 'lcost',  text: 'cost',                     x: 0,   y: 905,  size: 54,  color: SAND,  s: 19.45, d: 0.45, rot: -0.8, under: 'costv_eq', alpha: .9 },
+    { id: 'lsav',   text: 'monthly savings',          x: 0,   y: 905,  size: 54,  color: SAND,  s: 20.3,  d: 0.9,  rot: 0.7,  under: 'savv_eq', alpha: .9 },
+    { id: 'v1',     text: 'staying longer?  →  buy it down',   x: 96, y: 1338, size: 66, color: SAND, s: 21.45, d: 1.35, rot: -0.4, gap: 22.95, gapAt: 16 },
+    { id: 'v2',     text: 'leaving sooner?  →  keep your cash', x: 96, y: 1440, size: 66, color: SAND, s: 24.0,  d: 0.75, rot: 0.5,  gap: 24.9,  gapAt: 16, gapD: 0.75 },
+  ];
+  // strokes drawn progressively (circle, arrows, underline)
+  const CIRCLE = { s: 13.0, d: 0.9 };
+  const UNDER  = { s: 25.75, d: 0.5 };
+  const ARROWS = [ { from: 'lcost', to: 'costv_eq', s: 19.95, d: 0.3 }, { from: 'lsav', to: 'savv_eq', s: 21.05, d: 0.3 } ];
+
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const font = (size, w = 600) => `${w} ${size}px Caveat`;
+
+  // deterministic chalk grain: two noise tiles used as patterns, knocked out of the lettering
+  function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function noiseTile(n, seed, pow) {
+    const c = document.createElement('canvas'); c.width = c.height = n; const x = c.getContext('2d');
+    const img = x.createImageData(n, n), r = mulberry(seed);
+    for (let i = 0; i < n * n; i++) { img.data[i*4+3] = 255 * Math.pow(r(), pow); }
+    x.putImageData(img, 0, 0); return c;
+  }
+  const fine = noiseTile(256, 7, 2.2), coarse = noiseTile(128, 11, 3.5);
+  function grain(x, w, h, strength) {   // knock chalk texture out of whatever is on canvas x
+    x.save(); x.globalCompositeOperation = 'destination-out';
+    x.globalAlpha = 0.55 * strength; x.fillStyle = x.createPattern(fine, 'repeat'); x.fillRect(0, 0, w, h);
+    x.globalAlpha = 0.45 * strength; x.save(); x.scale(2.6, 1.3); x.fillStyle = x.createPattern(coarse, 'repeat'); x.fillRect(0, 0, w / 2.6, h / 1.3); x.restore();
+    x.restore();
+  }
+
+  // pre-render every line to its own canvas once (fonts are loaded before the first seek)
+  let ready = false;
+  function prep() {
+    ctx.font = font(10);
+    const measure = (l) => { ctx.font = font(l.size); return ctx.measureText(l.text).width; };
+    const byId = Object.fromEntries(LINES.map(l => [l.id, l]));
+    // the equation's parts, for the labels and arrows
+    ctx.font = font(byId.eq.size);
+    const eqParts = { costv_eq: '$10,000', savv_eq: '$100' };
+    const eqPos = {};
+    for (const [k, s] of Object.entries(eqParts)) { const i = byId.eq.text.indexOf(s); const x0 = byId.eq.x + ctx.measureText(byId.eq.text.slice(0, i)).width; eqPos[k] = { x0, x1: x0 + ctx.measureText(s).width, y: byId.eq.y }; }
+    for (const l of LINES) {
+      l.w = measure(l);
+      if (l.under) { const e = eqPos[l.under]; l.x = Math.round((e.x0 + e.x1) / 2 - l.w / 2); }
+      const pad = 40; l.cw = Math.ceil(l.w + pad * 2); l.ch = Math.ceil(l.size * 1.5);
+      const c = document.createElement('canvas'); c.width = l.cw; c.height = l.ch; const x = c.getContext('2d');
+      x.font = font(l.size); x.fillStyle = l.color; x.textBaseline = 'alphabetic';
+      x.filter = 'blur(0.5px)'; x.fillText(l.text, pad, l.size * 1.05); x.filter = 'none';
+      x.globalAlpha = .55; x.fillText(l.text, pad, l.size * 1.05); x.globalAlpha = 1;   // a second, crisper pass on top
+      grain(x, l.cw, l.ch, 1);
+      l.canvas = c; l.pad = pad; l.ox = l.x - pad; l.oy = l.y - l.size * 1.05;
+      // where the "gap" (the arrow) sits, so the verdict lines pause before the answer half
+      if (l.gap) { x.font = font(l.size); l.gapW = x.measureText(l.text.slice(0, l.gapAt)).width; }
+    }
+    // geometry for strokes
+    const a = byId.ans; CIRCLE.cx = a.x + a.w / 2; CIRCLE.cy = a.y - a.size * 0.33; CIRCLE.rx = a.w / 2 + 52; CIRCLE.ry = a.size * 0.62;
+    const v2 = byId.v2; ctx.font = font(v2.size); const i = v2.text.indexOf('keep'); UNDER.x0 = v2.x + ctx.measureText(v2.text.slice(0, i)).width; UNDER.x1 = v2.x + v2.w; UNDER.y = v2.y + 26;
+    for (const ar of ARROWS) { const l = byId[ar.from], e = eqPos[ar.to]; ar.x0 = (e.x0 + e.x1) / 2; ar.y0 = l.y - l.size * 0.78; ar.y1 = e.y + 22; }
+    ready = true;
+  }
+
+  // writing progress of a line: 0..1 of its width, with a pause at the arrow for the verdict lines
+  function writtenWidth(l, t) {
+    if (!l.gap) return l.w * p(t, l.s, l.d);
+    const first = l.gapW, rest = l.w - first;
+    const d1 = l.d, d2 = l.gapD || Math.max(0.5, l.d);
+    return first * p(t, l.s, d1) + rest * p(t, l.gap, d2);
+  }
+
+  function drawLine(l, t) {
+    const w = writtenWidth(l, t); if (w <= 0) return;
+    let clipL = 0;
+    if (l.erase && t > ERASE_T) { const q = easeOut(p(t, ERASE_T, ERASE_D)); clipL = (1080 + 120) * q - 60; if (clipL > l.x + l.w + 40) return; }
+    ctx.save();
+    ctx.translate(l.x, l.y); ctx.rotate(l.rot * Math.PI / 180); ctx.translate(-l.x, -l.y);
+    ctx.beginPath(); ctx.rect(Math.max(l.ox, clipL), l.oy, l.x + w + 6 - Math.max(l.ox, clipL), l.ch); ctx.clip();
+    ctx.globalAlpha = l.alpha || 1;
+    ctx.drawImage(l.canvas, l.ox, l.oy);
+    ctx.restore();
+  }
+
+  // a chalk stroke along a path, drawn to `q` of its length, on a scratch layer so grain can be knocked out
+  const scratch = document.createElement('canvas'); scratch.width = 1080; scratch.height = 1920; const sx = scratch.getContext('2d');
+  function strokePath(points, q, color, width) {
+    if (q <= 0) return;
+    const n = Math.max(2, Math.floor(points.length * q));
+    sx.clearRect(0, 0, 1080, 1920); sx.save(); sx.lineCap = 'round'; sx.lineJoin = 'round'; sx.strokeStyle = color; sx.lineWidth = width; sx.filter = 'blur(0.5px)';
+    sx.beginPath(); for (let i = 0; i < n; i++) { const [x, y] = points[i]; i ? sx.lineTo(x, y) : sx.moveTo(x, y); } sx.stroke();
+    sx.filter = 'none'; sx.globalAlpha = .5; sx.stroke(); sx.restore();
+    grain(sx, 1080, 1920, 1);
+    ctx.drawImage(scratch, 0, 0);
+  }
+  const circlePts = () => { const pts = []; for (let i = 0; i <= 140; i++) { const a = -1.9 + (i / 140) * (Math.PI * 2 + 0.75); const wob = 1 + 0.045 * Math.sin(a * 3.1 + 0.4) + 0.03 * Math.sin(a * 7.3); pts.push([CIRCLE.cx + CIRCLE.rx * wob * Math.cos(a), CIRCLE.cy + CIRCLE.ry * wob * Math.sin(a) + 10 * (i / 140)]); } return pts; };
+  const underPts = () => { const pts = []; for (let i = 0; i <= 60; i++) { const u = i / 60; pts.push([UNDER.x0 + (UNDER.x1 - UNDER.x0) * u, UNDER.y + 5 * Math.sin(u * 6.1) + 4 * u]); } return pts; };
+  const arrowPts = (ar) => { const pts = []; for (let i = 0; i <= 24; i++) { const u = i / 24; pts.push([ar.x0 + 6 * Math.sin(u * 3), ar.y0 + (ar.y1 - ar.y0) * u]); }
+    const [hx, hy] = pts[pts.length - 1]; pts.push([hx - 16, hy + 18]); pts.push([hx, hy]); pts.push([hx + 16, hy + 18]); return pts; };
+
+  window.seek = function (t) {
+    if (!ready) prep();
+    ctx.clearRect(0, 0, 1080, 1920);
+    for (const l of LINES) drawLine(l, t);
+    strokePath(circlePts(), p(t, CIRCLE.s, CIRCLE.d), TERRA, 8);
+    for (const ar of ARROWS) strokePath(arrowPts(ar), p(t, ar.s, ar.d), SAND, 4);
+    strokePath(underPts(), p(t, UNDER.s, UNDER.d), TERRA, 7);
+  };
+</script>
+</body></html>

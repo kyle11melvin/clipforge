@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* G6 CTA for the rate-buydown reel, 3.5 s: standard type system, no chalk. No NMLS, no disclosure (brief, 2026-11-11). */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #173F4F; }
+  body { font-family: "Manrope", sans-serif; color: #EFE9DE; position: relative; }
+  .sora { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+  .head { position: absolute; left: 64px; right: 64px; top: 420px; font-size: 84px; line-height: 1.08; }
+  .w { display: inline-block; opacity: 0; transform: translateY(24px); }
+  .dm { position: absolute; left: 64px; top: 640px; font-size: 300px; line-height: .9; letter-spacing: -0.04em; color: #D77B52; opacity: 0; transform-origin: 0 100%; white-space: nowrap; }
+  .pts { position: absolute; left: 64px; top: 930px; font-size: 196px; line-height: .9; letter-spacing: -0.03em; color: #D77B52; opacity: 0; transform-origin: 0 100%; white-space: nowrap; }
+  .sign { position: absolute; left: 64px; right: 64px; top: 1220px; opacity: 0; }
+  .rule { height: 1px; background: rgba(239,233,222,.2); }
+  .who { display: grid; grid-template-columns: 130px 1fr; gap: 28px; align-items: center; padding-top: 36px; }
+  .who img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; display: block; }
+  .name { font-size: 42px; }
+</style></head>
+<body>
+<div class="head sora"><span class="w">How</span> <span class="w">long</span> <span class="w">are</span> <span class="w">you</span> <span class="w">staying?</span></div>
+<div class="dm sora" id="dm">DM</div>
+<div class="pts sora" id="pts">POINTS</div>
+<div class="sign" id="sign"><div class="rule"></div><div class="who"><img src="../wait-or-buy-cm/portrait.png"><div class="name sora">Kyle Melvin</div></div></div>
+<script>
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const p = (t, s, d) => clamp((t - s) / d);
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+  const words = Array.from(document.querySelectorAll('.w'));
+  const $ = id => document.getElementById(id);
+  window.seek = function (t) {
+    words.forEach((w, i) => { const q = easeOut(p(t, 0.1 + i * 0.1, 0.4)); w.style.opacity = q; w.style.transform = `translateY(${24 * (1 - q)}px)`; });
+    const d = p(t, 0.9, 0.45); $('dm').style.opacity = clamp(d * 3); $('dm').style.transform = `scale(${0.8 + 0.2 * back(d)})`;
+    const k = p(t, 1.15, 0.45); $('pts').style.opacity = clamp(k * 3); $('pts').style.transform = `scale(${0.8 + 0.2 * back(k)})`;
+    const s = easeOut(p(t, 1.8, 0.5)); $('sign').style.opacity = s; $('sign').style.transform = `translateY(${18 * (1 - s)}px)`;
+  };
+</script>
+</body></html>
