@@ -3,22 +3,22 @@
 <style>
   /* The chalkboard as a box above Kyle's head (round two, 2026-11-11: "have it be a box like a picture in picture, not take
      up the entire screen", and "bring the chalkboard up when I start talking about numbers"). 952x480 flat navy box with
-     20 px corners, rendered with --alpha at 952x504 (24 px of headroom for the rise) and overlaid on the footage at
+     20 px corners (540 tall since 2026-11-12), rendered with --alpha at 952x564 (24 px of headroom for the rise) and overlaid on the footage at
      (64, 246). Same engine as board.html: Caveat lines pre-rendered with a chalk grain, wiped on left to right on the
      spoken word, terracotta answer circled, one eraser sweep at the cut into Clip C; the verdict lines then go where the
      setup lines were. Times are cut.mp4 seconds; the render starts at T0 (#t0=9.4), so seek(t) draws cut time t + T0. */
   @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 952px; height: 504px; overflow: hidden; background: transparent; }
-  #box { position: absolute; left: 0; top: 0; width: 952px; height: 480px; border-radius: 20px; background: #173F4F; overflow: hidden; opacity: 0; }
+  html, body { width: 952px; height: 564px; overflow: hidden; background: transparent; }
+  #box { position: absolute; left: 0; top: 0; width: 952px; height: 540px; border-radius: 20px; background: #173F4F; overflow: hidden; opacity: 0; }
   canvas { position: absolute; left: 0; top: 0; }
   .preload { position: absolute; left: -9999px; font-family: "Caveat"; font-weight: 600; }
 </style></head>
 <body>
-<div id="box"><canvas id="c" width="952" height="480"></canvas></div>
+<div id="box"><canvas id="c" width="952" height="540"></canvas></div>
 <span class="preload">chalk</span>
 <script>
-  const W = 952, H = 480, SAND = '#EFE9DE', TERRA = '#D77B52';
+  const W = 952, H = 540, SAND = '#EFE9DE', TERRA = '#D77B52';
   const T0 = parseFloat((location.hash.match(/t0=([\d.]+)/) || [])[1] || '0');
   const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
   const p = (t, s, d) => clamp((t - s) / d);
@@ -33,20 +33,22 @@
   if (FULL) { document.documentElement.style.cssText = 'width:1080px;height:1920px'; document.body.style.cssText = 'width:1080px;height:1920px';
     const b = document.getElementById('box'); b.style.left = '64px'; b.style.top = '246px'; b.style.boxShadow = '0 18px 40px rgba(8,26,34,.35)'; }
   const ERASE_T = 23.1, ERASE_D = 0.7;     // the cut into Clip C
+  // 2026-11-12: board 60 px taller and all the writing about 12% bigger (Kyle: "make it larger"); the last line
+  // says "keep the cash", his words.
   const LINES = [
-    { id: 'rate',  text: '0.5% lower rate',  x: 48,  y: 78,  size: 62, color: SAND,  s: 10.16, d: 1.8,  rot: -0.6, erase: true },
-    { id: 'costk', text: 'cost',             x: 48,  y: 146, size: 62, color: SAND,  s: 12.16, d: 0.4,  rot: 0.4,  erase: true },
-    { id: 'costv', text: '$10,000',          x: 290, y: 146, size: 62, color: SAND,  s: 12.55, d: 0.7,  rot: -0.3, erase: true },
-    { id: 'savk',  text: 'saves',            x: 48,  y: 214, size: 62, color: SAND,  s: 14.4,  d: 0.45, rot: 0.5,  erase: true },
-    { id: 'savv',  text: '$100 / month',     x: 290, y: 214, size: 62, color: SAND,  s: 15.1,  d: 1.0,  rot: -0.4, erase: true },
-    { id: 'eq',    text: '$10,000 ÷ $100 =', x: 48, y: 296, size: 68, color: SAND, s: 16.2, d: 0.65, rot: -0.5 },
-    { id: 'ans',   text: '100 months',       x: 70,  y: 418, size: 100, color: TERRA, s: 16.88, d: 0.9, rot: -1.2 },
-    { id: 'yrs',   text: '8 years, 4 months', x: 608, y: 406, size: 50, color: SAND,  s: 20.46, d: 1.3,  rot: 0.6 },
+    { id: 'rate',  text: '0.5% lower rate',  x: 48,  y: 86,  size: 70, color: SAND,  s: 10.16, d: 1.8,  rot: -0.6, erase: true },
+    { id: 'costk', text: 'cost',             x: 48,  y: 160, size: 70, color: SAND,  s: 12.16, d: 0.4,  rot: 0.4,  erase: true },
+    { id: 'costv', text: '$10,000',          x: 320, y: 160, size: 70, color: SAND,  s: 12.55, d: 0.7,  rot: -0.3, erase: true },
+    { id: 'savk',  text: 'saves',            x: 48,  y: 234, size: 70, color: SAND,  s: 14.4,  d: 0.45, rot: 0.5,  erase: true },
+    { id: 'savv',  text: '$100 / month',     x: 320, y: 234, size: 70, color: SAND,  s: 15.1,  d: 1.0,  rot: -0.4, erase: true },
+    { id: 'eq',    text: '$10,000 ÷ $100 =', x: 48, y: 330, size: 78, color: SAND, s: 16.2, d: 0.65, rot: -0.5 },
+    { id: 'ans',   text: '100 months',       x: 70,  y: 468, size: 104, color: TERRA, s: 16.88, d: 0.9, rot: -1.2 },
+    { id: 'yrs',   text: '8 years, 4 months', x: 606, y: 454, size: 50, color: SAND,  s: 20.46, d: 1.3,  rot: 0.6 },
     // Clip C, in the space the eraser cleared
-    { id: 'lcost', text: 'cost',             x: 0,   y: 202, size: 40, color: SAND,  s: 24.6,  d: 0.4,  rot: -0.8, over: 'costv_eq', alpha: .9 },
-    { id: 'lsav',  text: 'monthly savings',  x: 0,   y: 202, size: 40, color: SAND,  s: 25.25, d: 0.8,  rot: 0.7,  over: 'savv_eq', alpha: .9 },
-    { id: 'v1',    text: 'staying longer?  →  buy it down',    x: 48, y: 72,  size: 56, color: SAND, s: 26.4, d: 1.1,  rot: -0.4, gap: 27.76, gapAt: 16, gapD: 0.7 },
-    { id: 'v2',    text: 'leaving sooner?  →  keep your cash', x: 48, y: 138, size: 56, color: SAND, s: 28.8, d: 0.75, rot: 0.5,  gap: 29.68, gapAt: 16, gapD: 0.65 },
+    { id: 'lcost', text: 'cost',             x: 0,   y: 232, size: 44, color: SAND,  s: 24.6,  d: 0.4,  rot: -0.8, over: 'costv_eq', alpha: .9 },
+    { id: 'lsav',  text: 'monthly savings',  x: 0,   y: 232, size: 44, color: SAND,  s: 25.25, d: 0.8,  rot: 0.7,  over: 'savv_eq', alpha: .9 },
+    { id: 'v1',    text: 'staying longer?  →  buy it down',   x: 48, y: 78,  size: 64, color: SAND, s: 26.4, d: 1.1,  rot: -0.4, gap: 27.76, gapAt: 16, gapD: 0.7 },
+    { id: 'v2',    text: 'leaving sooner?  →  keep the cash', x: 48, y: 156, size: 68, color: SAND, s: 28.8, d: 0.75, rot: 0.5,  gap: 29.68, gapAt: 16, gapD: 0.65 },
   ];
   const CIRCLE = { s: 17.8, d: 0.9 };
   const UNDER  = { s: 30.3, d: 0.35 };

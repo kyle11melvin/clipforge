@@ -161,6 +161,8 @@ his standing brief. Read it before touching anything.
   with `board-box.html#...&full` so it **swoops in** from the upper right, and `src/music/chalk.py` for **chalk-writing,
   eraser, whoosh and stamp sounds** driven by `sfx-events.json` (Kyle: "I want the chalk board to swoop in and writing
   on the chalkboard to make sounds ... and the eraser to make a noise"). Sound effects go on every graphic that moves.
+  The box is 952x540 with 64–78 px writing since he asked for it "larger" (2026-11-12); board text uses his spoken
+  words ("keep the cash"), not the brief's.
   **He picked the no-music cut** ("2 is better"). **Chalk must not sound like typing** (his words on the first try:
   "annoying and typing"): no click per letter; soft flowing strokes with nothing above ~1.8 kHz (the brighter second try was "scratching nails on a
   chalkboard"; he wants it "smooth"), quiet. Claude cannot

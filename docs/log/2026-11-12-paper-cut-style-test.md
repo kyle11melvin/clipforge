@@ -109,3 +109,10 @@ Kyle on the second chalk sound: "that's the most annoying chalk sound. come on m
 a chalkboard". The hiss (3.5–9 kHz) and the 2.6 kHz ring were the nails. `chalk.py` strokes are now low-passed at
 1.8 kHz (band 280–1500 Hz), 0.2–0.42 s each, overlapping so the hand flows, no touch clicks; the eraser lost its
 highs too. Mixed at 0.36 (about 14 dB under his voice). Rule: board sounds are soft and low, never bright.
+
+## Round six: bigger board, "keep the cash"
+
+Kyle: "change the board to say keep the cash and make it larger". Read as the board and its writing (the round-two box
+text was small on a phone): `board-box.html` is 952x540 (was 480; bottom edge at y=786, hair at ~820 in Clip C), setup
+lines 70 px, equation 78, answer 104, verdict lines 64/68, labels 44. Last line: "leaving sooner? → keep the cash".
+Caption on the page matched. If he meant only that one line bigger, the verdict lines have room to grow to ~72.
