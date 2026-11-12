@@ -162,7 +162,8 @@ his standing brief. Read it before touching anything.
   eraser, whoosh and stamp sounds** driven by `sfx-events.json` (Kyle: "I want the chalk board to swoop in and writing
   on the chalkboard to make sounds ... and the eraser to make a noise"). Sound effects go on every graphic that moves.
   **He picked the no-music cut** ("2 is better"). **Chalk must not sound like typing** (his words on the first try:
-  "annoying and typing"): no click per letter; long grainy strokes in an uneven handwriting rhythm, quiet. Claude cannot
+  "annoying and typing"): no click per letter; soft flowing strokes with nothing above ~1.8 kHz (the brighter second try was "scratching nails on a
+  chalkboard"; he wants it "smooth"), quiet. Claude cannot
   hear the result, so say that and ask him to listen.
 - `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
   kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars

@@ -47,17 +47,14 @@ def scrape(d, speed=1.0):
     hand: it swells through the middle of the stroke and dies at the ends. The grain is irregular (random flutter),
     never a steady buzz, and there is no click at the start. Round one had a tap per letter and a sawtooth chatter,
     and Kyle heard typing (2026-11-12: "sounds like annoying and typing not chalk board writing")."""
-    n = max(int(d * SR), 256)
+    # Round three (Kyle: "make it smooth, not scratching nails on a chalkboard"): nothing above ~1.8 kHz, no resonant
+    # ring, slow soft edges. A muffled brush of soft chalk, closer to felt on slate than to a scrape.
+    n = max(int(d * SR), 512)
     t = np.arange(n) / SR
-    v = np.sin(np.pi * np.clip(t / d, 0, 1)) ** 0.8                      # hand speed through the stroke
-    w = rng.standard_normal(n)
-    body = band(w, 900, 3800, order=1)                                   # the dry scrape
-    air = band(rng.standard_normal(n), 3500, 9000, order=1)              # brighter when the hand moves fast
-    ring = signal.sosfilt(signal.butter(2, [2300, 2900], btype="band", fs=SR, output="sos"), w) * 0.5   # chalky tone
-    flutter = lowpass(rng.standard_normal(n), 140); flutter = 0.6 + 0.4 * flutter / (np.abs(flutter).max() + 1e-9)
-    x = (body + ring + air * 0.7 * v * speed) * flutter * v
-    edge = min(int(0.012 * SR), n // 4); x[:edge] *= np.linspace(0, 1, edge); x[-edge:] *= np.linspace(1, 0, edge)
-    return x
+    v = np.sin(np.pi * np.clip(t / d, 0, 1))                             # hand speed: swell and fade, no hard start
+    x = lowpass(band(rng.standard_normal(n), 280, 1500, order=2), 1800)
+    flutter = lowpass(rng.standard_normal(n), 40); flutter = 0.8 + 0.2 * flutter / (np.abs(flutter).max() + 1e-9)
+    return x * flutter * v ** 1.2 * (0.85 + 0.15 * speed)
 
 
 def touch():
@@ -67,27 +64,24 @@ def touch():
 
 
 def ev_write(e):
-    """Handwriting rhythm, not one hit per letter: four or five strokes a second, uneven lengths, short lifts."""
+    """Handwriting rhythm, not one hit per letter: about three soft strokes a second that run into each other."""
     t, end = e["t"], e["t"] + e["d"]
     first = True
     while t < end - 0.06:
-        ln = min(rng.uniform(0.11, 0.26), end - t)
-        if first or rng.random() < 0.2: put(t, touch(), 0.10)
-        put(t, scrape(ln, speed=rng.uniform(0.7, 1.2)), rng.uniform(0.42, 0.6))
-        t += ln + rng.uniform(0.015, 0.07) + (0.09 if rng.random() < 0.15 else 0)   # now and then a longer lift
+        ln = min(rng.uniform(0.2, 0.42), end - t)
+        put(t, scrape(ln, speed=rng.uniform(0.7, 1.2)), rng.uniform(0.45, 0.6))
+        t += ln * 0.85 + rng.uniform(0.0, 0.05)                           # strokes overlap a little: one flowing hand
         first = False
 
 
 def ev_stroke(e):
-    put(e["t"], touch(), 0.10)
     put(e["t"], scrape(e["d"], speed=1.1), 0.6)
 
 
 def ev_erase(e):
     t, d = e["t"], e["d"]
     for k, (off, ln) in enumerate([(0, 0.55), (0.42, 0.45)]):
-        n = int(d * ln * SR); x = band(rng.standard_normal(n), 250, 2600)
-        x += 0.25 * band(rng.standard_normal(n), 3000, 7000)
+        n = int(d * ln * SR); x = lowpass(band(rng.standard_normal(n), 200, 1300), 1500)       # soft felt, no hiss
         tt = np.linspace(0, 1, n)
         put(t + d * off, x * np.sin(np.pi * tt) ** 1.3, 0.8 if k == 0 else 0.62)
 

@@ -102,3 +102,10 @@ chalk board writing". The first synth put a click and a short buzzy scrape on ev
 lifts, each a grainy band-passed hiss that swells and brightens through the stroke (random flutter, no periodic
 chatter), a dull touch only on the first stroke and now and then, and no per-letter anything. Mixed at 0.45. Music is
 off; the page carries the new cut and yesterday's cut. Still set by level and spectrogram, not by ear.
+
+## Round five: smooth chalk
+
+Kyle on the second chalk sound: "that's the most annoying chalk sound. come on make it smooth, not scratching nails on
+a chalkboard". The hiss (3.5–9 kHz) and the 2.6 kHz ring were the nails. `chalk.py` strokes are now low-passed at
+1.8 kHz (band 280–1500 Hz), 0.2–0.42 s each, overlapping so the hand flows, no touch clicks; the eraser lost its
+highs too. Mixed at 0.36 (about 14 dB under his voice). Rule: board sounds are soft and low, never bright.

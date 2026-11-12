@@ -11,7 +11,7 @@
 # Writes final-reel-v3.mp4 (voice + chalk sounds) and final-reel-v3-music.mp4 (the bed under it as well).
 set -e
 cd "$(dirname "$0")/../../videos/rate-buydown"
-SFX=${SFX:-0.45}; BED=${BED:-0.126}
+SFX=${SFX:-0.36}; BED=${BED:-0.126}
 ffmpeg -v error -y -i punched.mp4 -i type-bg.mov -i cutout-a.mov -i type-fg.mov -itsoffset 9.7 -i board-full.mov -i sfx.wav -filter_complex "\
 [0:v][1:v]overlay=eof_action=pass[a];\
 [a][2:v]overlay=eof_action=pass:enable='lt(t,4.80)'[b];\
