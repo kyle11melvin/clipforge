@@ -116,3 +116,12 @@ Kyle: "change the board to say keep the cash and make it larger". Read as the bo
 text was small on a phone): `board-box.html` is 952x540 (was 480; bottom edge at y=786, hair at ~820 in Clip C), setup
 lines 70 px, equation 78, answer 104, verdict lines 64/68, labels 44. Last line: "leaving sooner? → keep the cash".
 Caption on the page matched. If he meant only that one line bigger, the verdict lines have room to grow to ~72.
+
+## Round seven: "keep the cash" bigger, chalk audible
+
+Kyle: "make the keep the cash line bigger. also i want to hear the chalk just dont make it high pitch like earlier".
+`board-box.html`: "keep the cash" is its own 90 px piece of writing after a 60 px "leaving sooner? →" (new `after`
+field places a line right of another), underline under the whole phrase. `chalk.py`: stroke body 380–2400 Hz,
+low-passed at 2.8 kHz, write/stroke events mixed about twice as loud as the other effects; overall 0.5, which puts the
+chalk about 6 dB under his voice (the smooth round was 14 dB under and he could not hear it). The target is now known
+from both sides: audible, mid-range, never bright.

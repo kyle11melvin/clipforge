@@ -52,7 +52,10 @@ def scrape(d, speed=1.0):
     n = max(int(d * SR), 512)
     t = np.arange(n) / SR
     v = np.sin(np.pi * np.clip(t / d, 0, 1))                             # hand speed: swell and fade, no hard start
-    x = lowpass(band(rng.standard_normal(n), 280, 1500, order=2), 1800)
+    # Round four (Kyle: "i want to hear the chalk just dont make it high pitch like earlier"): the muffled version was
+    # too quiet to notice. Body up to ~2.6 kHz so it reads as chalk on a phone speaker, still nothing bright, and
+    # write/stroke events are mixed louder than the other effects.
+    x = lowpass(band(rng.standard_normal(n), 380, 2400, order=2), 2800)
     flutter = lowpass(rng.standard_normal(n), 40); flutter = 0.8 + 0.2 * flutter / (np.abs(flutter).max() + 1e-9)
     return x * flutter * v ** 1.2 * (0.85 + 0.15 * speed)
 
@@ -69,13 +72,13 @@ def ev_write(e):
     first = True
     while t < end - 0.06:
         ln = min(rng.uniform(0.2, 0.42), end - t)
-        put(t, scrape(ln, speed=rng.uniform(0.7, 1.2)), rng.uniform(0.45, 0.6))
+        put(t, scrape(ln, speed=rng.uniform(0.7, 1.2)), rng.uniform(1.0, 1.3))
         t += ln * 0.85 + rng.uniform(0.0, 0.05)                           # strokes overlap a little: one flowing hand
         first = False
 
 
 def ev_stroke(e):
-    put(e["t"], scrape(e["d"], speed=1.1), 0.6)
+    put(e["t"], scrape(e["d"], speed=1.1), 1.2)
 
 
 def ev_erase(e):

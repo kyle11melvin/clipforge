@@ -47,8 +47,10 @@
     // Clip C, in the space the eraser cleared
     { id: 'lcost', text: 'cost',             x: 0,   y: 232, size: 44, color: SAND,  s: 24.6,  d: 0.4,  rot: -0.8, over: 'costv_eq', alpha: .9 },
     { id: 'lsav',  text: 'monthly savings',  x: 0,   y: 232, size: 44, color: SAND,  s: 25.25, d: 0.8,  rot: 0.7,  over: 'savv_eq', alpha: .9 },
-    { id: 'v1',    text: 'staying longer?  →  buy it down',   x: 48, y: 78,  size: 64, color: SAND, s: 26.4, d: 1.1,  rot: -0.4, gap: 27.76, gapAt: 16, gapD: 0.7 },
-    { id: 'v2',    text: 'leaving sooner?  →  keep the cash', x: 48, y: 156, size: 68, color: SAND, s: 28.8, d: 0.75, rot: 0.5,  gap: 29.68, gapAt: 16, gapD: 0.65 },
+    { id: 'v1',    text: 'staying longer?  →  buy it down',   x: 48, y: 68,  size: 60, color: SAND, s: 26.4, d: 1.1,  rot: -0.4, gap: 27.76, gapAt: 16, gapD: 0.7 },
+    // "keep the cash" is its own, bigger piece of writing on the same line (Kyle: "make the keep the cash line bigger")
+    { id: 'v2',    text: 'leaving sooner?  →',                x: 48, y: 160, size: 60, color: SAND, s: 28.8, d: 0.75, rot: 0.5 },
+    { id: 'v2k',   text: 'keep the cash',                     x: 0,  y: 164, size: 90, color: SAND, s: 29.68, d: 0.65, rot: -0.6, after: 'v2', afterGap: 22 },
   ];
   const CIRCLE = { s: 17.8, d: 0.9 };
   const UNDER  = { s: 30.3, d: 0.35 };
@@ -81,6 +83,7 @@
     for (const l of LINES) {
       ctx.font = font(l.size); l.w = ctx.measureText(l.text).width;
       if (l.over) { const e = eqPos[l.over]; l.x = Math.round((e.x0 + e.x1) / 2 - l.w / 2); }
+      if (l.after) { const b = byId[l.after]; l.x = Math.round(b.x + b.w + l.afterGap); }
       const pad = 30; l.cw = Math.ceil(l.w + pad * 2); l.ch = Math.ceil(l.size * 1.5);
       const c = document.createElement('canvas'); c.width = l.cw; c.height = l.ch; const x = c.getContext('2d');
       x.font = font(l.size); x.fillStyle = l.color;
@@ -93,7 +96,7 @@
     // keep the two label words apart if the equation's numbers sit close together
     const a1 = byId.lcost, a2 = byId.lsav; if (a1.x + a1.w + 28 > a2.x) a2.x = a1.x + a1.w + 28;
     const a = byId.ans; CIRCLE.cx = a.x + a.w / 2; CIRCLE.cy = a.y - a.size * 0.33; CIRCLE.rx = a.w / 2 + 40; CIRCLE.ry = a.size * 0.6;
-    const v2 = byId.v2; ctx.font = font(v2.size); const i = v2.text.indexOf('keep'); UNDER.x0 = v2.x + ctx.measureText(v2.text.slice(0, i)).width; UNDER.x1 = v2.x + v2.w; UNDER.y = v2.y + 18;
+    const vk = byId.v2k; UNDER.x0 = vk.x; UNDER.x1 = vk.x + vk.w; UNDER.y = vk.y + 20;
     for (const ar of ARROWS) { const l = byId[ar.from], e = eqPos[ar.to]; ar.x0 = (e.x0 + e.x1) / 2; ar.y0 = l.y + 9; ar.y1 = e.y - byId.eq.size * 0.9; }
     ready = true;
   }
