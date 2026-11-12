@@ -124,6 +124,15 @@ his standing brief. Read it before touching anything.
   the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
   head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
   he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
+- `graphics/paper-cut/` (2026-11-12) — a **style test** after three Claude-edited reels by another creator that Kyle
+  recorded into Drive `Clipforge/Competition`: mixed-size word-by-word type (Playfair italic for small words, Sora for the
+  big ones, terracotta key word) sitting above and partly behind his head, and paper cutaways (Kyle as a white-edged
+  sticker on a paper ground, torn strips, a stamp, moving on twos). Recipe in the 2026-11-12 log: punch-ins first, matte
+  the punched footage, render `comp.html#bg` and `#fg` with `--alpha`, then `composite.py` (needs scipy). He said he is
+  open to "blowing the lid off" the Coastal Money rules for talking heads as long as the brand image mostly holds and
+  wants "more graphics like he has"; his verdict on this test is still open, so check the log before reusing it. In a
+  tight selfie his face fills y 630–1475: type goes above his head, never on the chest. Ask for a seated tripod shot
+  with room beside his head for this style.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid

@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  paper-cut: the "paper cutout" talking-head style (after a Luke Shankula reel Kyle sent, 2026-11-12),
+  in Coastal Money colours. Three layers, composited by ffmpeg (see docs/log/2026-11-12):
+    comp.html#bg  behind Kyle: oversized words his head overlaps, and the paper grounds of the cutaways
+    cutout.mov    Kyle, matted (full frame on footage, a white-edged sticker inside the cutaways)
+    comp.html#fg  in front: mixed-size word-by-word type, torn paper strips, the stamp
+  No hash = both layers over grey, for probing the layout.
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  :root { --navy:#173F4F; --sand:#EFE9DE; --terra:#D77B52; --ink:#0E2A35; --glass:#A9C0B9; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:transparent; }
+  body.probe { background:#6f7a80; }
+  .layer { position:absolute; inset:0; }
+  .abs { position:absolute; }
+  .sora { font-family:"Sora"; font-weight:800; letter-spacing:-0.035em; line-height:0.95; }
+  .ital { font-family:"Playfair"; font-style:italic; letter-spacing:-0.01em; }
+  .ground { position:absolute; inset:0; }
+  .ground svg { position:absolute; inset:0; width:100%; height:100%; mix-blend-mode:multiply; }
+  .shadowed { text-shadow: 0 4px 26px rgba(8,26,34,.6), 0 1px 3px rgba(8,26,34,.45); }
+  /* chest caption block */
+  #chest { position:absolute; left:70px; width:860px; bottom:1345px; display:flex; flex-wrap:wrap;
+           justify-content:center; align-items:baseline; column-gap:22px; row-gap:0px; text-align:center; }
+  #chest span { display:inline-block; color:var(--sand); will-change:transform; }
+  #chest .s { font-family:"Playfair"; font-style:italic; font-size:72px; }
+  #chest .m { font-family:"Sora"; font-weight:800; font-size:112px; letter-spacing:-0.035em; line-height:1; }
+  #chest .l { font-family:"Sora"; font-weight:800; font-size:150px; letter-spacing:-0.04em; line-height:0.95; color:var(--terra); }
+  #chest .x { font-family:"Sora"; font-weight:800; font-size:200px; letter-spacing:-0.045em; line-height:0.92; color:var(--terra); }
+  #chest .br { flex-basis:100%; height:0; }
+  .paper { position:absolute; filter: drop-shadow(0 10px 14px rgba(8,26,34,.38)); }
+  .paper > div { padding:18px 34px 22px; white-space:nowrap; }
+  .stamp { position:absolute; border:9px solid var(--terra); color:var(--terra); padding:10px 34px 14px; border-radius:10px;
+           font-family:"Sora"; font-weight:800; font-size:92px; letter-spacing:0.02em; white-space:nowrap; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.3  0 0 0 0 0.25  0 0 0 0.55 -0.12"/>
+  </filter>
+  <filter id="crumple" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0045 0.007" numOctaves="3" seed="11" result="t"/>
+    <feDiffuseLighting in="t" surfaceScale="9" diffuseConstant="1.05" lighting-color="#ffffff" result="l">
+      <feDistantLight azimuth="235" elevation="62"/>
+    </feDiffuseLighting>
+  </filter>
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="r"/>
+    <feDisplacementMap in="SourceGraphic" in2="r" scale="7"/></filter>
+</svg>
+
+<div class="layer" id="bg">
+  <!-- word-by-word type: sits above his head, the cutout overlaps its bottom edge -->
+  <div class="abs" id="scrim" style="left:0; top:0; width:1080px; height:900px; background:linear-gradient(180deg, rgba(14,42,53,.72) 0%, rgba(14,42,53,.5) 45%, rgba(14,42,53,0) 100%)"></div>
+  <div id="chest"></div>
+  <!-- cutaway grounds -->
+  <div class="ground" id="g1" style="background:#EFE9DE"><svg><rect width="100%" height="100%" filter="url(#crumple)"/></svg><svg><rect width="100%" height="100%" filter="url(#grain)"/></svg></div>
+  <div class="ground" id="g2" style="background:#1d4d60"><svg><rect width="100%" height="100%" filter="url(#crumple)"/></svg><svg><rect width="100%" height="100%" filter="url(#grain)"/></svg></div>
+</div>
+
+<div class="layer" id="fg">
+
+  <!-- cutaway 1: "and he didn't have a number." -->
+  <div id="c1">
+    <div class="abs ital" id="c1-a" style="left:90px; top:270px; font-size:92px; color:var(--ink)">and he didn't have</div>
+    <div class="abs sora" id="c1-b" style="left:84px; top:376px; font-size:168px; color:var(--ink)">a <span style="color:var(--terra)">number.</span></div>
+    <div class="paper" id="c1-tag" style="left:640px; top:610px;">
+      <div style="background:var(--navy); color:var(--sand); padding:26px 34px 30px">
+        <div style="font-family:Manrope; font-weight:800; font-size:30px; letter-spacing:0.18em; color:var(--glass)">HIS RATE</div>
+        <div class="sora" style="font-size:96px; margin-top:8px; letter-spacing:0"><span style="color:var(--terra)">?.??</span>%</div>
+      </div>
+    </div>
+    <div class="stamp" id="c1-stamp" style="left:170px; top:1318px;">NO NUMBER</div>
+  </div>
+
+  <!-- cutaway 2: "Meanwhile, my buyers are getting fifty thousand dollars in seller credits or price cuts." -->
+  <div id="c2">
+    <div class="abs ital" id="c2-a" style="left:90px; top:262px; font-size:84px; color:var(--glass)">Meanwhile,</div>
+    <div class="abs sora" id="c2-b" style="left:86px; top:362px; font-size:112px; color:var(--sand)">my buyers</div>
+    <div class="abs ital" id="c2-c" style="left:672px; top:398px; font-size:74px; color:var(--sand)">are getting</div>
+    <div class="paper" id="c2-num" style="left:50px; top:506px;">
+      <div style="background:var(--sand); padding:6px 44px 22px"><span class="sora" id="c2-n" style="font-size:184px; color:var(--terra); letter-spacing:-0.05em">$50,000</span></div>
+    </div>
+    <div class="paper" id="c2-s1" style="left:50px; top:790px;">
+      <div style="background:var(--sand); color:var(--ink); font-family:Sora; font-weight:800; font-size:58px; letter-spacing:-0.02em">seller credits</div>
+    </div>
+    <div class="abs ital" id="c2-or" style="left:170px; top:908px; font-size:76px; color:var(--sand)">or</div>
+    <div class="paper" id="c2-s2" style="left:40px; top:1030px;">
+      <div style="background:var(--terra); color:var(--sand); font-family:Sora; font-weight:800; font-size:58px; letter-spacing:-0.02em">price cuts</div>
+    </div>
+  </div>
+</div>
+
+<script src="words.js"></script>
+<script>
+// ---------- helpers ----------
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, t0, d) => clamp((t - t0) / d);
+const outBack = (p) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+const hash = (a, b) => { const x = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return x - Math.floor(x); };
+const W = window.WORDS;
+const at = (i) => W[i].start;
+
+// Torn paper: a jagged clip-path, seeded per element so it never changes between frames.
+document.querySelectorAll(".paper > div").forEach((el, k) => {
+  const pts = [], n = 26;
+  for (let i = 0; i <= n; i++) pts.push(`${(i / n * 100).toFixed(2)}% ${(hash(i, k + 1) * 9).toFixed(2)}%`);
+  for (let i = 1; i < 5; i++) pts.push(`${(100 - hash(i, k + 7) * 1.6).toFixed(2)}% ${(i * 20).toFixed(2)}%`);
+  for (let i = n; i >= 0; i--) pts.push(`${(i / n * 100).toFixed(2)}% ${(100 - hash(i, k + 13) * 9).toFixed(2)}%`);
+  for (let i = 4; i > 0; i--) pts.push(`${(hash(i, k + 19) * 1.6).toFixed(2)}% ${(i * 20).toFixed(2)}%`);
+  el.style.clipPath = `polygon(${pts.join(",")})`;
+});
+$("c1-stamp").style.filter = "url(#rough)";
+
+// ---------- cutaway windows (seconds of cut.mp4) ----------
+const C1 = [5.2, 6.56], C2 = [9.52, 14.16];
+const inWin = (t, w) => t >= w[0] && t < w[1];
+
+// ---------- chest captions: [word index, class] per group; "|" = line break ----------
+const GROUPS = [
+  { from: 0,    to: 1.6,  w: [[0,"s"],[1,"x"],"|",[2,"s"],[3,"s"],[4,"m"],[5,"s"]] },                 // What rate / are you waiting for?
+  { from: 1.6,  to: 2.56, w: [[6,"s"],[7,"s"],[8,"s"],[9,"s"],"|",[10,"m"],[11,"m"]] },               // I was talking to / a friend
+  { from: 2.56, to: 3.9,  w: [[12,"s"],[13,"s"],[14,"s"],"|",[15,"l"],[16,"s"],[17,"s"]] },           // that's looking at / buying this year
+  { from: 3.9,  to: 5.2,  w: [[18,"s"],[19,"s"],[20,"m"],[21,"m"],"|",[22,"s"],[23,"l"]] },           // and I asked him / that question
+  { from: 6.56, to: 7.68, w: [[30,"m"],[31,"s"],"|",[32,"l"],[33,"l"]] },                             // Waiting with / no number
+  { from: 7.68, to: 8.48, w: [[34,"s"],[35,"s"],"|",[36,"x"]] },                                      // isn't a / plan.
+  { from: 8.48, to: 9.52, w: [[37,"s"],[38,"s"],"|",[39,"x"]] },                                      // It's just / waiting.
+  { from: 14.16, to: 15.84, w: [[54,"s"],[55,"s"],[56,"m"],[57,"s"],"|",[58,"m"],[59,"s"],[60,"l"]] }, // If you're waiting on / rates to drop,
+  { from: 15.84, to: 17.8, w: [[61,"s"],[62,"x"],"|",[63,"s"],[64,"s"],[65,"m"],[66,"s"]] },          // what rate / are you waiting on?
+];
+const SAND_L = new Set([23, 39]);          // "question" big but sand
+let curGroup = -1;
+function buildGroup(gi) {
+  const c = $("chest"); c.innerHTML = "";
+  if (gi < 0) return;
+  for (const it of GROUPS[gi].w) {
+    if (it === "|") { const b = document.createElement("i"); b.className = "br"; c.appendChild(b); continue; }
+    const s = document.createElement("span");
+    s.className = it[1] + (it[1] === "s" ? " shadowed" : " shadowed");
+    s.textContent = W[it[0]].text; s.dataset.i = it[0];
+    if (SAND_L.has(it[0])) s.style.color = "var(--sand)";
+    c.appendChild(s);
+  }
+}
+function pop(el, t, t0, big) {
+  const p = prog(t, t0 - 0.04, big ? 0.2 : 0.15);
+  if (p <= 0) { el.style.opacity = 0; return; }
+  const s = big ? 1.5 - 0.5 * outBack(p) : 1.22 - 0.22 * outCubic(p);
+  el.style.opacity = clamp(p * 4);
+  el.style.transform = `translateY(${(1 - outCubic(p)) * (big ? 0 : 18)}px) scale(${s})`;
+}
+// stop-motion: paper pieces move on twos (12 fps) with a little wobble
+function paper(el, t, t0, rot, fromX, fromY) {
+  const ts = Math.floor(t * 12) / 12;
+  const p = prog(ts, t0 - 0.04, 0.25);
+  if (p <= 0) { el.style.opacity = 0; return; }
+  const e = outBack(p), step = Math.floor(t * 6), id = el.id.length * 7 + el.id.charCodeAt(3);
+  const wob = (hash(step, id) - 0.5) * 1.6;
+  el.style.opacity = 1;
+  el.style.transform = `translate(${(1 - e) * fromX + (hash(step, id + 3) - 0.5) * 3}px, ${(1 - e) * fromY}px) rotate(${rot + wob + (1 - e) * 8}deg)`;
+}
+function slam(el, t, t0, rot) {
+  const p = prog(t, t0, 0.14);
+  if (p <= 0) { el.style.opacity = 0; return; }
+  el.style.opacity = 1;
+  el.style.transform = `rotate(${rot}deg) scale(${3.2 - 2.2 * outCubic(p)})`;
+}
+
+const mode = location.hash.replace("#", "");
+if (mode === "bg") $("fg").style.display = "none";
+if (mode === "fg") $("bg").style.display = "none";
+if (!mode) document.body.classList.add("probe");
+
+window.seek = (t) => {
+  const c1 = inWin(t, C1), c2 = inWin(t, C2);
+  $("g1").style.display = c1 ? "block" : "none";
+  $("g2").style.display = c2 ? "block" : "none";
+
+  // ----- chest captions -----
+  let gi = -1;
+  if (!c1 && !c2) GROUPS.forEach((g, i) => { if (t >= g.from && t < g.to) gi = i; });
+  if (gi !== curGroup) { buildGroup(gi); curGroup = gi; }
+  for (const s of $("chest").querySelectorAll("span")) pop(s, t, W[+s.dataset.i].start, /^[lx]/.test(s.className));
+
+  // ----- cutaway 1 -----
+  $("c1").style.display = c1 ? "block" : "none";
+  if (c1) {
+    pop($("c1-a"), t, C1[0] + 0.02, false);
+    pop($("c1-b"), t, at(28), true);
+    paper($("c1-tag"), t, C1[0] + 0.12, 5, 500, -40);
+    slam($("c1-stamp"), t, at(29) + 0.22, -7);
+  }
+  // ----- cutaway 2 -----
+  $("c2").style.display = c2 ? "block" : "none";
+  if (c2) {
+    pop($("c2-a"), t, at(40), false);
+    pop($("c2-b"), t, at(41), true);
+    pop($("c2-c"), t, at(43), false);
+    paper($("c2-num"), t, at(45), -2.5, -900, 0);
+    const k = outCubic(prog(t, at(45) + 0.05, 0.75));
+    $("c2-n").textContent = "$" + (Math.round(50000 * k / 500) * 500).toLocaleString("en-US");
+    paper($("c2-s1"), t, at(45 + 4), 3, -700, 30);
+    pop($("c2-or"), t, at(45 + 6), false);
+    paper($("c2-s2"), t, at(45 + 7), -4, 800, 30);
+  }
+};
+window.seek(0);
+</script>
+</body>
+</html>
