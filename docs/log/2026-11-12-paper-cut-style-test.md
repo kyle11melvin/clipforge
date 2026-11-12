@@ -159,3 +159,21 @@ loosen restrictions guidelines, but maybe get more creative."
 - Footage punches in another 6% while he says "a hundred months to ever recoup that savings".
 
 Open: whether this much is right or "too busy" (his word on 2026-11-06); `pop` can be dialled back piece by piece.
+
+## Round ten: cash and a ding on "keep the cash"
+
+Kyle on round nine: "perfect and so much better". Then: "at the very end when I say keep the cash, just bring up like
+a lot of cash and go ding".
+
+- First try: 64 bills thrown up across the whole frame. He saw the stills mid-build: "I do not mean like that ... I
+  just mean like a lot of cash and then go ding". One object, not a storm.
+- Second try (`cash.html`): one heap rising from the bottom on "cash": a fan of eleven hundreds opening behind seven
+  banded stacks. He said "sharpen it up to match the rest of the video", so the bills became cut paper like the
+  stickers and strips: pale mint paper, dark crisp print, double rule, engraving lines, a sand cut edge, a hard shadow,
+  moving on twos with a wobble. The heap sits 120 px lower so his mouth stays clear.
+- `chalk.py` has a `ding` event (counter bell: 1318 Hz and partials, struck attack, long tail) at 30.42 s as the heap
+  lands, and a whoosh as it rises.
+- The reel is 31.75 s: `assemble-paper.sh` appends the unused 0.65 s of Clip C after his last word (he smiles and
+  points) with the same punch and grade, then holds the last frame 0.4 s.
+
+Lesson: "bring up X" means show one clear X, not particles. When he asks for a prop, make one object first.

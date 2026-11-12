@@ -9,6 +9,7 @@ events.json is a list of {"type", "t", "d", ...} in seconds of the picture:
   erase    a felt eraser: two soft back-and-forth rubs
   whoosh   air, for something flying in
   thud     a soft knock, for the board landing or a stamp hitting
+  ding     a counter bell
 
 Kyle, 2026-11-12: "writing on the chalkboard to make sounds like you're writing on a chalkboard, and the eraser to
 make a noise."
@@ -106,6 +107,16 @@ def ev_thud(e):
     put(e["t"], x, 0.7 * e.get("gain", 1.0))
 
 
+def ev_ding(e):
+    """A counter bell: warm struck-metal partials with a quick attack and a long tail (the "ding" on "keep the cash")."""
+    n = int(1.6 * SR); t = np.arange(n) / SR
+    x = sum(g * np.sin(2 * np.pi * f * t) * np.exp(-t * dec) for f, g, dec in
+            [(1318.5, 1.0, 3.2), (2637.0, 0.55, 4.5), (3520.0, 0.22, 7.0), (5274.0, 0.12, 11.0)])
+    x += 0.35 * band(rng.standard_normal(n), 2000, 6000) * np.exp(-t * 180)        # the strike
+    x *= np.minimum(1, t / 0.002)
+    put(e["t"], x, 0.5 * e.get("gain", 1.0))
+
+
 # ---- a real chalk recording (--sample file) replaces the synthesised writing ----
 # Three synthesised tries all missed (typing, nails on a chalkboard, too loud), so Kyle picked a real one
 # (2026-11-12): src/music/samples/chalk-on-chalkboard.ogg, CC0, see samples/CREDITS.md. Each write/stroke event plays
@@ -138,7 +149,7 @@ if SAMPLE:
     ev_write = ev_stroke = from_sample
 
 for e in json.load(open(ev_path)):
-    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud}[e["type"]](e)
+    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding}[e["type"]](e)
 
 x = mix[:N]
 x = x / max(1e-9, np.abs(x).max()) * 0.7 + chalk[:N]

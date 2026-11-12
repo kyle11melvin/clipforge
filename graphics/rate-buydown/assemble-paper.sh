@@ -6,20 +6,29 @@
 #               cutout-a.mov     hyperframes remove-background of the first 4.85 s of punched.mp4 (Clip A)
 #               type-bg.mov / type-fg.mov   graphics/rate-buydown/type.html#bg / #fg, --alpha, 9.9 s
 #               board-full.mov   board-box.html#t0=9.7&in=9.78&full&pop, --alpha, 21.1 s
-#               sfx.wav          src/music/chalk.py <out> graphics/rate-buydown/sfx-events.json --dur 30.8 --sample src/music/samples/chalk-on-chalkboard.ogg --chalk-rms 0.035
+#               cash.mov         cash.html#t0=30.1, --alpha, 1.65 s (the bills on "keep the cash")
+#               sfx.wav          src/music/chalk.py <out> graphics/rate-buydown/sfx-events.json --dur 31.75 --sample src/music/samples/chalk-on-chalkboard.ogg --chalk-rms 0.035
 #               bed0.wav         src/music/underbed.py --intro 0 --beat 0.77 --bars 10
 # Writes final-reel-v3.mp4 (voice + chalk sounds) and final-reel-v3-music.mp4 (the bed under it as well).
 set -e
 cd "$(dirname "$0")/../../videos/rate-buydown"
 SFX=${SFX:-0.5}; BED=${BED:-0.126}
-ffmpeg -v error -y -i punched.mp4 -i type-bg.mov -i cutout-a.mov -i type-fg.mov -itsoffset 9.7 -i board-full.mov -i sfx.wav -filter_complex "\
+# The ending: 0.65 s more of Clip C after "keep the cash" (he smiles and points; same 7% top-anchored punch and grade
+# as punched.mp4), then the last frame held 0.3 s, so the cash burst and the ding have room. DUR is the new length.
+DUR=31.75
+ffmpeg -v error -y -ss 8.73883 -t 0.65 -i ../../footage/rate-buydown/sdr/c.mp4 -vf "fps=30,scale=1156:2054:flags=bicubic,crop=1080:1920:38:0,eq=contrast=1.04:saturation=1.06,tpad=stop_mode=clone:stop_duration=0.4" \
+ -af "aformat=sample_rates=48000:channel_layouts=stereo,apad=pad_dur=0.4" -c:v libx264 -crf 15 -pix_fmt yuv420p -c:a aac -b:a 256k tail.mp4
+ffmpeg -v error -y -i punched.mp4 -i tail.mp4 -filter_complex "[0:v]fps=30,format=yuv420p,setsar=1[a];[1:v]fps=30,format=yuv420p,setsar=1[b];[a][b]concat=n=2:v=1:a=0[v];[0:a]aformat=sample_rates=48000:channel_layouts=stereo[x];[1:a]afade=t=in:d=0.03[y];[x][y]concat=n=2:v=0:a=1[au]" \
+ -map "[v]" -map "[au]" -c:v libx264 -crf 15 -pix_fmt yuv420p -c:a aac -b:a 256k punched-ext.mp4
+ffmpeg -v error -y -i punched-ext.mp4 -i type-bg.mov -i cutout-a.mov -i type-fg.mov -itsoffset 9.7 -i board-full.mov -i sfx.wav -itsoffset 30.1 -i cash.mov -filter_complex "\
 [0:v][1:v]overlay=eof_action=pass[a];\
 [a][2:v]overlay=eof_action=pass:enable='lt(t,4.80)'[b];\
 [b][3:v]overlay=eof_action=pass[c];\
-[c][4:v]overlay=eof_action=repeat:enable='gte(t,9.7)',format=yuv420p[v];\
+[c][4:v]overlay=eof_action=repeat:enable='gte(t,9.7)'[d];\
+[d][6:v]overlay=eof_action=pass:enable='gte(t,30.1)',format=yuv420p[v];\
 [0:a]aformat=sample_rates=48000:channel_layouts=stereo[vo];[5:a]volume=$SFX[fx];\
 [vo][fx]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[au]" \
- -map "[v]" -map "[au]" -t 30.8 -c:v libx264 -crf 17 -preset medium -r 30 -movflags +faststart -c:a aac -b:a 192k final-reel-v3.mp4
+ -map "[v]" -map "[au]" -t $DUR -c:v libx264 -crf 17 -preset medium -r 30 -movflags +faststart -c:a aac -b:a 192k final-reel-v3.mp4
 ffmpeg -v error -y -i final-reel-v3.mp4 -i bed0.wav -filter_complex "\
 [1:a]aformat=sample_rates=48000:channel_layouts=stereo,volume=$BED,afade=t=in:d=0.3[bed];\
 [0:a][bed]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[au]" \

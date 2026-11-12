@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!--
+  The payoff of the rate-buydown reel (Kyle, 2026-11-12: "at the very end when I say keep the cash, just bring up like
+  a lot of cash and go ding"). First try was a storm of bills across the whole frame; he saw the stills and said "I do
+  not mean like that ... I just mean like a lot of cash and then go ding". So: one heap. A fan of hundreds opens behind
+  a row of banded stacks, and the whole thing rises from the bottom of the frame on the word "cash". His face stays
+  clear. Drawn bills (mint paper, dark-green print), no emoji. Render with alpha:
+    node src/graphics/render.mjs "graphics/rate-buydown/cash.html#t0=30.1" videos/rate-buydown/cash.mov --alpha --duration 1.65
+  seek(t) draws cut time t + T0. GO is the moment it starts to rise.
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  #heap { position: absolute; left: 0; top: 120px; width: 1080px; height: 1920px; }   /* 120 px down: clear of his mouth */
+  /* Round three (Kyle: "sharpen it up to match the rest of the video"): cut-paper bills like the stickers and torn
+     strips elsewhere in the reel. Pale paper, dark crisp print, a double rule, fine engraving lines, a sand cut edge
+     and a hard-ish shadow; the heap moves on twos with a small wobble. */
+  .bill { position: absolute; border-radius: 6px; background: #C9F1DC; outline: 5px solid #F7F3EA;
+          box-shadow: 0 0 0 6px rgba(14,42,53,.10), 0 10px 0 -2px rgba(8,26,34,.22), 0 14px 18px rgba(8, 26, 34, .38); }
+  .bill::before { content: ""; position: absolute; inset: 11px; border: 4px solid #1F5E43; border-radius: 3px;
+                  box-shadow: inset 0 0 0 4px #C9F1DC, inset 0 0 0 6px #1F5E43;
+                  background: repeating-linear-gradient(90deg, rgba(31,94,67,.16) 0 2px, transparent 2px 7px); }
+  .bill .o { position: absolute; left: 50%; top: 50%; border-radius: 50%; background: #1F5E43; color: #DDF7EA; font-family: "Sora"; font-weight: 800; text-align: center;
+             box-shadow: 0 0 0 5px #C9F1DC, 0 0 0 8px #1F5E43; }
+  .bill .c { position: absolute; font: 800 30px "Sora"; color: #1F5E43; background: #C9F1DC; padding: 0 6px; border-radius: 3px; }
+  /* fan: tall bills pivoting on a point below the frame */
+  .fan { left: 420px; top: 1330px; width: 240px; height: 560px; transform-origin: 120px 640px; }
+  .fan .o { width: 130px; height: 130px; margin: -65px 0 0 -65px; font-size: 88px; line-height: 130px; top: 38%; }
+  .fan .c.a { left: 24px; top: 24px; } .fan .c.b { right: 24px; top: 24px; }
+  /* stacks: landscape bundles with a paper band */
+  .stack { position: absolute; width: 330px; height: 150px; }
+  .stack .bill { left: 0; width: 330px; height: 150px; }
+  .stack .o { width: 84px; height: 84px; margin: -42px 0 0 -42px; font-size: 56px; line-height: 84px; }
+  .stack .c.a { left: 22px; top: 20px; font-size: 24px; } .stack .c.b { right: 22px; bottom: 20px; font-size: 24px; }
+  .stack .band { position: absolute; left: 118px; top: -4px; width: 94px; height: 158px; background: #F7F3EA; box-shadow: 0 0 0 2px rgba(14,42,53,.28); }
+  .stack .band::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 26px; margin-top: -13px; background: #D77B52; }
+</style></head>
+<body>
+<div id="heap"></div>
+<script>
+  const T0 = parseFloat((location.hash.match(/t0=([\d.]+)/) || [])[1] || '0');
+  const GO = 30.2;
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const outBack = (p) => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+  const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+  const heap = document.getElementById('heap');
+  const billHTML = '<span class="c a">100</span><span class="o">$</span><span class="c b">100</span>';
+
+  // the fan: 11 bills from -60 to +60 degrees
+  const fan = [];
+  for (let i = 0; i < 11; i++) {
+    const el = document.createElement('div'); el.className = 'bill fan'; el.innerHTML = billHTML; heap.appendChild(el);
+    fan.push({ el, ang: -60 + i * 12 });
+  }
+  // the stacks in front: [x, y, rotation, how many bills deep]
+  const stacks = [[-40, 1640, -9, 5], [215, 1560, 5, 7], [470, 1600, -4, 6], [735, 1570, 8, 7], [880, 1690, -6, 5], [330, 1730, -3, 6], [620, 1745, 6, 6]].map(([x, y, rot, n], k) => {
+    const el = document.createElement('div'); el.className = 'stack'; el.style.left = x + 'px'; el.style.top = y + 'px';
+    for (let j = n - 1; j >= 0; j--) { const b = document.createElement('div'); b.className = 'bill'; b.style.top = (-j * 9) + 'px'; b.style.left = ((j % 2) * 4 - 2) + 'px'; if (j === 0) b.innerHTML = billHTML; el.appendChild(b); }
+    const band = document.createElement('div'); band.className = 'band'; el.appendChild(band);
+    heap.appendChild(el);
+    return { el, rot, delay: 0.03 * k };
+  });
+
+  window.seek = (tt) => {
+    const t = tt + T0, a = Math.floor((t - GO) * 12) / 12, step = Math.floor(t * 6);     // on twos
+    const hs = (i) => { const x = Math.sin(step * 127.1 + i * 311.7) * 43758.5453; return (x - Math.floor(x) - 0.5); };
+    if (t - GO < 0) { heap.style.opacity = 0; return; }
+    heap.style.opacity = 1;
+    const open = outCubic(clamp((a - 0.1) / 0.4));                       // the fan spreads as it comes up
+    const riseF = outBack(clamp(a / 0.42));
+    fan.forEach((f, i) => f.el.style.transform = `translateY(${(1 - riseF) * 760}px) rotate(${f.ang * open + hs(i) * 1.2}deg)`);
+    stacks.forEach((s, i) => { const r = outBack(clamp((a - s.delay) / 0.38)); s.el.style.transform = `translateY(${(1 - r) * 620}px) rotate(${s.rot + hs(i + 20) * 1.4}deg)`; });
+  };
+  window.seek(0);
+</script>
+</body></html>
