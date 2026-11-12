@@ -24,7 +24,14 @@
   const p = (t, s, d) => clamp((t - s) / d);
   const easeOut = x => 1 - Math.pow(1 - x, 2);
 
-  const IN_T = 9.5, IN_D = 0.4;            // the box rises in as he says "rate, and", a beat before "half a percent"
+  // #in=<s> moves the entrance. #full renders on the whole 1080x1920 frame with the box at (64, 246) and a swoop:
+  // it flies in from the upper right, tilted, and settles with a small overshoot (Kyle, 2026-11-12: "I want the
+  // chalkboard to swoop in"). Without #full it is the round-two rise inside a 952x504 render.
+  const FULL = /full/.test(location.hash);
+  const IN_T = parseFloat((location.hash.match(/in=([\d.]+)/) || [])[1] || '9.5'), IN_D = FULL ? 0.5 : 0.4;
+  const outBack = x => { const c1 = 1.25, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+  if (FULL) { document.documentElement.style.cssText = 'width:1080px;height:1920px'; document.body.style.cssText = 'width:1080px;height:1920px';
+    const b = document.getElementById('box'); b.style.left = '64px'; b.style.top = '246px'; b.style.boxShadow = '0 18px 40px rgba(8,26,34,.35)'; }
   const ERASE_T = 23.1, ERASE_D = 0.7;     // the cut into Clip C
   const LINES = [
     { id: 'rate',  text: '0.5% lower rate',  x: 48,  y: 78,  size: 62, color: SAND,  s: 10.16, d: 1.8,  rot: -0.6, erase: true },
@@ -123,7 +130,10 @@
     if (!ready) prep();
     const t = tt + T0;
     const q = easeOut(p(t, IN_T, IN_D));
-    box.style.opacity = q; box.style.transform = `translateY(${24 * (1 - q)}px)`;
+    if (FULL) { const u = p(t, IN_T, IN_D), e = u <= 0 ? 0 : outBack(u);
+      box.style.opacity = u > 0 ? 1 : 0;
+      box.style.transform = `translate(${1150 * (1 - e)}px, ${-330 * (1 - e) * (1 - e)}px) rotate(${16 * (1 - e)}deg) scale(${0.86 + 0.14 * e})`;
+    } else { box.style.opacity = q; box.style.transform = `translateY(${24 * (1 - q)}px)`; }
     ctx.clearRect(0, 0, W, H);
     for (const l of LINES) drawLine(l, t);
     strokePath(circlePts(), p(t, CIRCLE.s, CIRCLE.d), TERRA, 6.5);

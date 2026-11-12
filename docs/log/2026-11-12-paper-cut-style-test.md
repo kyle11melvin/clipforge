@@ -59,3 +59,37 @@ Page https://claude.ai/artifact/Nromc5S3qZrnVJj1RMohW3 (video, Save MP4, six-fra
 - His reaction: is this the direction, or too much (he called the Nov 6 emoji pass "too busy and gimmicky")?
 - No sound design yet (whooshes, paper, stamp hit). No cover, no caption: this is a style test, not a post.
 - Not attempted: the 2x2 four-styles grid, the hand-tracked 3D logo.
+
+## Kyle's verdict on the test, and round three of the rate-buydown reel
+
+Kyle: "its good just dont like the total blue clip. but the fonts and new graphics are money." So the mixed type, the
+torn paper, the stamp and the sand sticker cutaway are in; a full-screen navy ground is out (third time he has said it:
+price-cuts, rate-wait, now this).
+
+He then asked for the same direction on the unposted rate-buydown reel (2026-11-11 log), and while that was building:
+**"I want the chalk board to swoop in and writing on the chalkboard to make sounds like you're writing on a chalkboard
+and the eraser to make a noise."** The board stays; the new type goes on the ten seconds before it.
+
+Round three (`graphics/rate-buydown/assemble-paper.sh`, 30.8 s):
+
+- No hook slide (it was 2.6 s of full-screen navy). The reel opens on his face; the hook is his own first line as type.
+- `type.html`: ink type on his cream office wall (sand type vanishes there), terracotta turn, left-aligned. Clip A block
+  bottom at y=770/820 with the Clip A cutout laid back over it; Clip B block kept above y=600 and left of x=700 because
+  a framed picture and a bookcase sit behind him. "OFFER ACCEPTED" stamp on "accepted". Replaces the rounded captions.
+- `board-box.html#t0=9.7&in=9.78&full`: rendered on the full frame, the box flies in from the upper right tilted 16
+  degrees and settles with a small overshoot (0.5 s), drop shadow under it. Entrance moved from 9.5 to 9.78 so "rate"
+  has time to land before the board covers it.
+- Punch-ins in one top-anchored zoompan: +10% on "and still lose money", +8% on "That's exciting", +7% eased as the
+  board lands.
+- `src/music/chalk.py` + `sfx-events.json`: synthesised chalk strokes (one per letter, tap + band-passed scrape with
+  stick-slip chatter) on every line, long strokes for circle/arrows/underline, a two-rub felt eraser at 23.1 s, a whoosh
+  and knock for the swoop, a thud for the stamp. Mixed at 0.55 (chalk about 8 dB under his voice).
+- With-music cut uses `underbed.py --intro 0`.
+
+The three 4K clips were pre-converted one at a time (zscale/hable, 1080x1920, 30 fps) before `clipforge build`.
+
+Page https://claude.ai/artifact/TUb1JogTpCR8eiUCtesQAL (same link as round two): New with music / New no music /
+Yesterday's cut.
+
+Open: nobody has listened to the chalk and eraser sounds; they were set by level, not by ear. Music or no music. The
+board still says "keep your cash" where he says "keep the cash".

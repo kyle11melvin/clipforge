@@ -130,7 +130,9 @@ his standing brief. Read it before touching anything.
   sticker on a paper ground, torn strips, a stamp, moving on twos). Recipe in the 2026-11-12 log: punch-ins first, matte
   the punched footage, render `comp.html#bg` and `#fg` with `--alpha`, then `composite.py` (needs scipy). He said he is
   open to "blowing the lid off" the Coastal Money rules for talking heads as long as the brand image mostly holds and
-  wants "more graphics like he has"; his verdict on this test is still open, so check the log before reusing it. In a
+  wants "more graphics like he has". **His verdict: "the fonts and new graphics are money", but "dont like the total blue
+  clip"**: the type, torn paper, stamp and sand sticker cutaway are the direction for talking heads; never a full-screen
+  navy ground (hook slides included). On a pale indoor wall set the type in ink, not sand. In a
   tight selfie his face fills y 630–1475: type goes above his head, never on the chest. Ask for a seated tripod shot
   with room beside his head for this style.
 - `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**. Start from `board-box.html` and
@@ -154,6 +156,11 @@ his standing brief. Read it before touching anything.
   Drive's `usercontent` URL handled 213 MB fine. He now sends a "Cover photo" in the Drive folder; crop it 9:16 and use
   the `rate-wait/cover.html` two-tone look. The page's side files cap at 15 MB each, so encode a two-pass ~3.2 Mbps
   copy for the page and attach the full-quality master in chat.
+- **Rate-buydown round three (2026-11-12)**: `graphics/rate-buydown/assemble-paper.sh` is now the version to start a
+  chalkboard reel from. No hook slide, `type.html` (paper-cut type + stamp) until the board arrives, the board rendered
+  with `board-box.html#...&full` so it **swoops in** from the upper right, and `src/music/chalk.py` for **chalk-writing,
+  eraser, whoosh and stamp sounds** driven by `sfx-events.json` (Kyle: "I want the chalk board to swoop in and writing
+  on the chalkboard to make sounds ... and the eraser to make a noise"). Sound effects go on every graphic that moves.
 - `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
   kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
   fill the footage (`--intro 2.35 --beat 0.77 --bars 10`). Mixed by `assemble-box.sh` at -8 dB on the silent hook,

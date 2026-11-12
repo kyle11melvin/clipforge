@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Composite the paper-cut layers into one MP4.
 
-  python3 graphics/paper-cut/composite.py videos/<post> [out.mp4]
+  python3 graphics/paper-cut/composite.py videos/<post> [out.mp4] [--stickers=path/to/stickers.json]
 
 Expects in that folder: punched.mp4 (footage with punch-ins), bg.mov and fg.mov (comp.html#bg / #fg
 rendered with --alpha), cutout.mov (hyperframes remove-background of punched.mp4).
@@ -14,15 +14,17 @@ import subprocess, sys
 import numpy as np
 from scipy import ndimage as ndi
 
+
+# Stickers: one per full-screen paper cutaway, listed in a JSON file (default: stickers.json beside this script).
+#   {"tag": "A", "t0": 5.2, "t1": 6.56, "crop": [x, y, w, h], "scale": 0.74, "x": 150, "y": 590}
+# t0/t1 are the cutaway window in seconds and must match the comp; crop is the part of the 1080x1920 frame kept;
+# x, y is where the sticker's top-left lands. An empty list means type and paper over footage only.
+import json, os
+cfg = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--stickers=")), os.path.join(os.path.dirname(__file__), "stickers.json"))
+sys.argv = [a for a in sys.argv if not a.startswith("--stickers=")]
+STICKERS = json.load(open(cfg))
 d = sys.argv[1].rstrip("/")
 out = sys.argv[2] if len(sys.argv) > 2 else f"{d}/final-papercut.mp4"
-
-# Cutaway windows (seconds) must match C1 / C2 in comp.html.
-# crop = x, y, w, h of the 1080x1920 frame kept for the sticker; scale; where its top-left lands.
-STICKERS = [
-    dict(tag="A", t0=5.2, t1=6.56, crop=(170, 520, 830, 1180), scale=0.74, x=150, y=590),
-    dict(tag="B", t0=9.52, t1=14.16, crop=(170, 520, 830, 1040), scale=0.60, x=400, y=880),
-]
 PAD, FPS, LEAD = 40, 12, 0.1
 
 
@@ -30,6 +32,7 @@ def build_sticker(s):
     """Cut the bust out of cutout.mov, keep only the biggest matte region (drops ceiling lights, signs
     and the selfie arm the matte sometimes grabs), add a white cut edge and a soft shadow."""
     cx, cy, cw, ch = s["crop"]
+    s.setdefault("slide", 900)
     w, h = int(cw * s["scale"]) // 2 * 2, int(ch * s["scale"]) // 2 * 2
     W, H = w + 2 * PAD, h + 2 * PAD
     path = f"{d}/sticker-{s['tag']}.mov"
