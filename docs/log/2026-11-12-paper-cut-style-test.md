@@ -93,3 +93,12 @@ Yesterday's cut.
 
 Open: nobody has listened to the chalk and eraser sounds; they were set by level, not by ear. Music or no music. The
 board still says "keep your cash" where he says "keep the cash".
+
+## Round four: the chalk sound
+
+Kyle: "2 is better" (the no-music cut) "but that does not sound like chalk. it's sounds like annoying and typing not
+chalk board writing". The first synth put a click and a short buzzy scrape on every letter, which is a keyboard.
+`chalk.py` now writes in a handwriting rhythm: four or five strokes a second of uneven length (0.11–0.26 s) with short
+lifts, each a grainy band-passed hiss that swells and brightens through the stroke (random flutter, no periodic
+chatter), a dull touch only on the first stroke and now and then, and no per-letter anything. Mixed at 0.45. Music is
+off; the page carries the new cut and yesterday's cut. Still set by level and spectrogram, not by ear.

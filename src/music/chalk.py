@@ -4,7 +4,7 @@
   python3 -I src/music/chalk.py <out.wav> <events.json> --dur 30.8
 
 events.json is a list of {"type", "t", "d", ...} in seconds of the picture:
-  write    chalk lettering: short scraping strokes with a tap at the start of each, about one per letter ("n")
+  write    chalk lettering: grainy strokes in a handwriting rhythm (four or five a second, no click per letter)
   stroke   one continuous chalk line (a circle, an underline, an arrow)
   erase    a felt eraser: two soft back-and-forth rubs
   whoosh   air, for something flying in
@@ -38,36 +38,49 @@ def put(t, x, gain=1.0):
     mix[i:i + len(x)] += x * gain
 
 
-def scrape(d, centre, grit=1.0):
-    """One chalk stroke: band-passed noise with the stick-slip chatter chalk makes on slate."""
-    n = max(int(d * SR), 64)
-    x = band(rng.standard_normal(n), centre * 0.6, min(centre * 1.7, 11000))
-    x += 0.35 * band(rng.standard_normal(n), 5500, 10500)          # the dry hiss on top
+def lowpass(x, hz):
+    return signal.sosfilt(signal.butter(2, hz, btype="low", fs=SR, output="sos"), x)
+
+
+def scrape(d, speed=1.0):
+    """One chalk stroke. Chalk on a board is a dry, grainy hiss whose loudness and brightness follow the speed of the
+    hand: it swells through the middle of the stroke and dies at the ends. The grain is irregular (random flutter),
+    never a steady buzz, and there is no click at the start. Round one had a tap per letter and a sawtooth chatter,
+    and Kyle heard typing (2026-11-12: "sounds like annoying and typing not chalk board writing")."""
+    n = max(int(d * SR), 256)
     t = np.arange(n) / SR
-    chatter = 0.62 + 0.38 * signal.sawtooth(2 * np.pi * rng.uniform(55, 95) * t + rng.uniform(0, 6), 0.3) * grit
-    env = np.minimum(1, t / 0.006) * np.minimum(1, (d - t) / 0.02).clip(0) * (0.75 + 0.25 * np.sin(np.pi * t / d))
-    return x * chatter * env
+    v = np.sin(np.pi * np.clip(t / d, 0, 1)) ** 0.8                      # hand speed through the stroke
+    w = rng.standard_normal(n)
+    body = band(w, 900, 3800, order=1)                                   # the dry scrape
+    air = band(rng.standard_normal(n), 3500, 9000, order=1)              # brighter when the hand moves fast
+    ring = signal.sosfilt(signal.butter(2, [2300, 2900], btype="band", fs=SR, output="sos"), w) * 0.5   # chalky tone
+    flutter = lowpass(rng.standard_normal(n), 140); flutter = 0.6 + 0.4 * flutter / (np.abs(flutter).max() + 1e-9)
+    x = (body + ring + air * 0.7 * v * speed) * flutter * v
+    edge = min(int(0.012 * SR), n // 4); x[:edge] *= np.linspace(0, 1, edge); x[-edge:] *= np.linspace(1, 0, edge)
+    return x
 
 
-def tap():
-    n = int(0.03 * SR); t = np.arange(n) / SR
-    return (np.sin(2 * np.pi * 240 * t) * np.exp(-t * 160) + 0.5 * band(rng.standard_normal(n), 1500, 6000) * np.exp(-t * 260))
+def touch():
+    """Chalk meeting the board: a dull, quiet knock, used sparingly."""
+    n = int(0.04 * SR); t = np.arange(n) / SR
+    return lowpass(rng.standard_normal(n), 900) * np.exp(-t * 120) * 0.6 + np.sin(2 * np.pi * 170 * t) * np.exp(-t * 90) * 0.4
 
 
 def ev_write(e):
-    t, d, n = e["t"], e["d"], max(2, int(e.get("n", 6)))
-    slot = d / n
-    for k in range(n):
-        if rng.random() < 0.12: continue                            # a space between words
-        s = t + k * slot + rng.uniform(0, slot * 0.15)
-        ln = slot * rng.uniform(0.55, 0.9)
-        put(s, tap(), 0.22)
-        put(s + 0.004, scrape(ln, rng.uniform(2300, 3900)), 0.55)
+    """Handwriting rhythm, not one hit per letter: four or five strokes a second, uneven lengths, short lifts."""
+    t, end = e["t"], e["t"] + e["d"]
+    first = True
+    while t < end - 0.06:
+        ln = min(rng.uniform(0.11, 0.26), end - t)
+        if first or rng.random() < 0.2: put(t, touch(), 0.10)
+        put(t, scrape(ln, speed=rng.uniform(0.7, 1.2)), rng.uniform(0.42, 0.6))
+        t += ln + rng.uniform(0.015, 0.07) + (0.09 if rng.random() < 0.15 else 0)   # now and then a longer lift
+        first = False
 
 
 def ev_stroke(e):
-    put(e["t"], tap(), 0.25)
-    put(e["t"], scrape(e["d"], 2800, grit=0.7), 0.6)
+    put(e["t"], touch(), 0.10)
+    put(e["t"], scrape(e["d"], speed=1.1), 0.6)
 
 
 def ev_erase(e):

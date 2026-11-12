@@ -161,6 +161,9 @@ his standing brief. Read it before touching anything.
   with `board-box.html#...&full` so it **swoops in** from the upper right, and `src/music/chalk.py` for **chalk-writing,
   eraser, whoosh and stamp sounds** driven by `sfx-events.json` (Kyle: "I want the chalk board to swoop in and writing
   on the chalkboard to make sounds ... and the eraser to make a noise"). Sound effects go on every graphic that moves.
+  **He picked the no-music cut** ("2 is better"). **Chalk must not sound like typing** (his words on the first try:
+  "annoying and typing"): no click per letter; long grainy strokes in an uneven handwriting rhythm, quiet. Claude cannot
+  hear the result, so say that and ask him to listen.
 - `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
   kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
   fill the footage (`--intro 2.35 --beat 0.77 --bars 10`). Mixed by `assemble-box.sh` at -8 dB on the silent hook,
