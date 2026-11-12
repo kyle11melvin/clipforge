@@ -213,6 +213,28 @@ his standing brief. Read it before touching anything.
   but Kyle's look and tone in this file win over any skill's defaults. HyperFrames skills want to update
   themselves on first use; ask before letting them.
 
+## Talking-head rules from 2026-11-12 (Kyle approved the rate-buydown reel: "I approve this message")
+
+He wants the rules "a little bit loose" while the brand image stays. These win over the older, stricter Coastal Money
+rules for talking-head reels (carousels and graphics-only posts still follow the guide).
+
+- **Fixed: the brand image.** Navy, sand, terracotta as the base; Sora for big words, Playfair italic for small ones,
+  Caveat for handwriting; his plain first-person voice; no logo, no emoji, no DM/NMLS card in a talking head.
+- **Loose: everything that makes it pop.** Extra accent colours with a meaning (orange = cost, mint = savings/cash),
+  texture, props that look like real things (a framed chalkboard, a taped note, a stamp, strapped hundreds), glow,
+  dust, wobble, punch-ins. One prop at a time, each tied to what he is saying at that moment.
+- **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
+- **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
+- **Every graphic that moves makes a sound**, under his voice (about 15 dB under for a running sound like chalk).
+  Real-world sounds come from real CC0 recordings; only abstract ones (whoosh, thud, ding) are synthesised.
+- **One clear object beats a storm** ("a lot of cash and then go ding", not bills everywhere), drawn crisp and
+  detailed enough to read as the real thing.
+- **Board and caption use his spoken words**, not the brief's.
+- **End with a payoff** on his last line (a prop and a sound), over the unused second of smile after he stops talking.
+- **No music** unless he asks; he picked the voice-only cut.
+- **How he reviews:** he reacts to one thing per message and sees stills mid-build. Ship a cut, expect five to ten
+  small rounds, change only what he named, and say plainly that Claude cannot hear audio.
+
 ## The look Kyle approved (use it unless he asks for something else)
 
 - 1080x1920, 30 fps, 9:16. Navy background `#0E1A2B`, gold accent `#C9A96A`, off-white text `#F3EFE6`,

@@ -47,6 +47,14 @@ kit, the fonts and the render pipeline.
   when he reaches the numbers, not at the start of the clip and not a full-screen takeover (2026-11-11).
 - Content pillars: Mortgage IQ, OC Real Estate, Beyond the Mortgage, Life.
 
+## Talking-head reels since 2026-11-12
+
+Kyle loosened the rules for talking-head reels: the brand image stays (navy, sand, terracotta, Sora, his voice), but
+clipforge now adds props that look like real things (a framed chalkboard, a taped note, a stamp, a heap of cash),
+extra accent colours with a meaning (orange for cost, mint for savings), and a sound on every graphic that moves. A
+brief for a talking head should: open on his face with his own first line (no hook slide), name one prop per beat tied
+to a spoken phrase, end on a payoff line that a prop and a sound can land on, and leave out music and any CTA slide.
+
 ## Voice
 
 First person, direct, no hedging. The reader is "you". Short sentences that land flat. Rhetorical

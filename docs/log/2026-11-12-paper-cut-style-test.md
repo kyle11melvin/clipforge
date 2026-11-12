@@ -185,3 +185,11 @@ below my face". `cash.html` bills are now an inline SVG illustration of a hundre
 print, portrait oval with a plain bust, two seals, blue ribbon, copper inkwell, Playfair numerals with the big gold 100,
 serials), still with the sand cut edge and shadow; stacks carry mustard "$10,000" straps (the cost in the reel). The
 fan pivots from y=1480 so the heap tops out just under his chin. A drawing, not a scan of currency.
+
+## Approved
+
+Kyle: "All right, I approve this message! Good job with the graphics and everything else." `final-reel-v3.mp4`
+(31.75 s) is the approved rate-buydown reel. He asked what was learned and for looser rules going forward ("I just
+need the brand image"), now a section in CLAUDE.md and in the Project instructions, and whether older reels can be
+redone in this direction for reposting. Candidates offered: rate-wait (paper-cut test already exists; swap the navy
+cutaway), 20% down myth, IQ quiz, better deal / wait-rate.
