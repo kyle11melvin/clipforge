@@ -102,6 +102,10 @@ his standing brief. Read it before touching anything.
   got 266 likes and 88 replies in a day. Threads ranks by replies, not follows; a plain question in his caption voice
   ("am I the only one?") travels on its own. For the lender account: text posts there, Real Estate topic tag, reply to
   comments early. On Instagram, reach comes from Reels; Stories only reach followers.
+- `graphics/family-growing/` (2026-11-13) — the **photo + type + music** reel for the lender account: one family photo
+  full-bleed with a slow push-in, navy scrim top and bottom (write the scrim stops in px, not %), three beats of Sora type
+  in the lower safe-zone window, Caveat "message me." at the end. `src/music/warm.py` is a soft numpy-only bed (no scipy
+  in the session); ship a silent cut for the picker and a bed cut for Original audio. Family photos stay gitignored.
 - `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
   data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
   1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart

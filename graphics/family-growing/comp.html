@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Is your family growing?</title>
+<style>
+  /* Coastal Money photo reel: his family photo full-bleed with a slow push-in, a navy scrim at the bottom, three
+     beats of type in the lower window of the Reels safe zone (y 1120–1420). No cards, no icons, no sign-off. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage:#A9C0B9; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  #ph { position: absolute; top: 150px; left: -60px; width: 1200px; height: 1800px; object-fit: cover; transform-origin: 50% 40%; }
+  .scrim { position: absolute; inset: 0; background:
+      linear-gradient(180deg, rgba(23,63,79,1) 0px, rgba(23,63,79,.85) 150px, rgba(23,63,79,0) 420px),
+      linear-gradient(0deg, rgba(23,63,79,1) 0px, rgba(23,63,79,.97) 400px, rgba(23,63,79,.85) 620px, rgba(23,63,79,.45) 800px, rgba(23,63,79,0) 980px); }
+  .beat { position: absolute; left: 64px; right: 140px; bottom: 500px; opacity: 0; }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; font-size: 96px; line-height: 1.05; letter-spacing: -0.02em; color: var(--sand); }
+  .h .t { color: var(--terra); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; font-size: 72px; color: var(--sand); margin-top: 26px; opacity: 0; transform: rotate(-2deg); transform-origin: 0 50%; }
+  .note .t { color: var(--terra); }
+</style>
+</head>
+<body>
+<img id="ph" src="photo.jpg" alt="">
+<div class="scrim"></div>
+<div class="beat" id="b1"><div class="h" id="h1"></div></div>
+<div class="beat" id="b2"><div class="h" id="h2"></div></div>
+<div class="beat" id="b3"><div class="h" id="h3"></div><div class="note" id="n3">message me.</div></div>
+
+<script>
+  // Beats in seconds. Each line rises in word by word, holds, and fades out over 0.3 s as the next comes.
+  const T = [0, 3.5, 7.0], END = 10.5;
+  window.DURATION = END;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  function words(el, html, t, gap = 0.11, dur = 0.38) {
+    if (!el.dataset.built) {
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        const terra = w.startsWith("*"); return `<span class="w${terra ? " t" : ""}">${w.replace(/\*/g, "")}</span>`;
+      }).join(" ")).join("<br>");
+      el.dataset.built = "1";
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * 50}px)`;
+    });
+  }
+  const lines = ["Is your family<br>*growing?*", "Need another<br>*bedroom?*", "I work with some<br>*amazing agents.*"];
+  window.seek = (t) => {
+    document.getElementById("ph").style.transform = `scale(${(1 + 0.08 * t / END).toFixed(4)})`;
+    T.forEach((t0, i) => {
+      const el = document.getElementById("b" + (i + 1)), tt = t - t0;
+      const t1 = i < 2 ? T[i + 1] : END + 1;
+      const out = clamp((t - (t1 - 0.3)) / 0.3, 0, 1);
+      el.style.opacity = tt < 0 ? 0 : (1 - out).toFixed(3);
+      words(document.getElementById("h" + (i + 1)), lines[i], tt - 0.1);
+    });
+    const n = document.getElementById("n3"), tn = t - T[2] - 1.1, pn = clamp(tn / 0.4, 0, 1);
+    n.style.opacity = pn; n.style.transform = `rotate(-2deg) translateY(${((1 - easeOut(pn)) * 30).toFixed(1)}px)`;
+  };
+  window.seek(0);
+</script>
+</body>
+</html>
