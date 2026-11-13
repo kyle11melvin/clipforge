@@ -107,6 +107,13 @@ def ev_thud(e):
     put(e["t"], x, 0.7 * e.get("gain", 1.0))
 
 
+def ev_pop(e):
+    """A soft interface blip: a short rising tone, for a node lighting up or a badge appearing."""
+    n = int(0.09 * SR); t = np.arange(n) / SR
+    f = 520 + 360 * (t / 0.09)
+    put(e["t"], np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 38) * np.minimum(1, t / 0.004), 0.35 * e.get("gain", 1.0))
+
+
 def ev_ding(e):
     """A counter bell: warm struck-metal partials with a quick attack and a long tail (the "ding" on "keep the cash")."""
     n = int(1.6 * SR); t = np.arange(n) / SR
@@ -149,7 +156,7 @@ if SAMPLE:
     ev_write = ev_stroke = from_sample
 
 for e in json.load(open(ev_path)):
-    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding}[e["type"]](e)
+    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding, "pop": ev_pop}[e["type"]](e)
 
 x = mix[:N]
 x = x / max(1e-9, np.abs(x).max()) * 0.7 + chalk[:N]

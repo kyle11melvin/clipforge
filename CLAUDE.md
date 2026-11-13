@@ -64,6 +64,11 @@ his standing brief. Read it before touching anything.
   cards, "20% down" with a terracotta X slamming through it, "3% down", "Seller credit / Buys your rate
   down." Start the next Instagram talking-head post from this one. **Kyle picked the no-card version**
   (`comp.html#nocard`, rendered with `--alpha`): type floating over the footage, no navy panel.
+  **Mock-app props (2026-11-13)**: `ui.html` + `assemble-ui.sh` rebuild this reel with a fake app window above his
+  head (a down payment calculator whose slider runs 20% → 3% and whose cash figure rolls $160,000 → $24,000) and a
+  flow diagram (Seller credit → Buys your rate down → Lower payment), after a system-diagram reel in Drive
+  `Clipforge/Competition`. Start a "fake app screen", counter or flow-diagram prop from here. Render it with a hash
+  (`ui.html#render`); with no hash it paints a probe background. His verdict is in the 2026-11-13 log.
 - `graphics/iq-quiz/` (2026-10-23) — the first full-screen cutaway in a talking head: a sand slide with the
   real quiz-page screenshot while he pitches the quiz, then a floating "Comment IQ" when he gives the CTA.
   Kyle wants cutaways "so the camera's not just on my face the entire time"; he cut the numeral rows from
