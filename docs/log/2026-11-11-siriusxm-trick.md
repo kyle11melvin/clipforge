@@ -47,3 +47,8 @@ a Threads feed mock (avatar, handle, the post, a first reply) with copy buttons 
 you think it was?"), the OC price-vs-rate math from rate-wait, and the $458K price-cuts total. Quiz link goes in his own
 first reply, placeholder `[quiz link]`; the real link has never been given to this repo. Drafts live in
 `videos/threads-draft/` (gitignored, like all deliverables).
+
+Kyle: "this is sweet". Scheduled task "Threads post reminder" (trig_013jrEPfvqc6LYKKzDxEVncr): daily 11:40 Pacific,
+fresh session with a push notification, quiet until Wednesday 2026-11-18, then post 1 / 2 / 3 on Wed / Thu / Fri and a
+generic "post one text take today" after that. He also asked how the same thing works on Instagram: answered that text
+reaches new people there as a carousel (or a text-only reel), not a Story.
