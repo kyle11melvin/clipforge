@@ -27,3 +27,14 @@ instruction: "let's take out the personal information". He asked whether it shou
 - His reaction to the wording (stamp, closing question) and the caption.
 - Music from the Reels picker (personal account, so the picker works). No bed baked in.
 - Whether the car model may show; it is barred by default.
+
+## Result (2026-11-13)
+
+Kyle posted the idea as **plain text on Threads** (ke_melvin, no followers there): "Does anyone else do this with
+SiriusXM? I pay $7.99/mo. Every year the promo ends and it jumps to $24.99. Every year I hop on a chat, say I want to
+cancel, and they drop it right back to $7.99. 7 years running.... Is this just a thing everybody knows or am I the only
+one?" 266 likes, 88 replies, 12 shares in 21 h, more than any of his reels except the Broncos one. No video, no
+screenshots. He asked how Threads works and whether to do the same for the lender account. Answer given: Threads ranks
+by replies, not followers, so a relatable question in plain text can travel from zero; post the lender takes there as
+text with the Real Estate topic tag and reply to every comment early. On Instagram the discovery format is a Reel
+(Stories only reach followers), so the video goes up as a Reel on the personal account.

@@ -98,6 +98,10 @@ his standing brief. Read it before touching anything.
   that identifies him (car model) with a grey rounded bar in PIL, keep the raw screenshots out of the repo, and leave out
   any bubble that would need a bar through most of it. Hook on the number, his real message, a black beat, the payoff
   bubble with a stamp, one question at the end.
+  **Threads (2026-11-13):** the same idea as a plain-text post on his personal Threads account, with no followers,
+  got 266 likes and 88 replies in a day. Threads ranks by replies, not follows; a plain question in his caption voice
+  ("am I the only one?") travels on its own. For the lender account: text posts there, Real Estate topic tag, reply to
+  comments early. On Instagram, reach comes from Reels; Stories only reach followers.
 - `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
   data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
   1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart
