@@ -44,3 +44,9 @@ Gotcha: `ui.html` paints a blue probe ground when the URL has no hash; render wi
 layer comes out opaque (first composite was a flat blue screen).
 
 Not in it: any AI-generated image or extra camera angle from the reference; no cover or caption (a look test).
+
+## Verdict
+
+Kyle: "Yes, that is absolutely money! I like how you still kept the same brand image and guidelines good work."
+Mock-app props (fake app window, slider and rolling counter, flow diagram) are approved for future talking heads, in
+his layout. Not yet asked: reposting this cut (it would need the 2026-10-22 cover and his caption put on the page).

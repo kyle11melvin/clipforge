@@ -68,7 +68,8 @@ his standing brief. Read it before touching anything.
   head (a down payment calculator whose slider runs 20% → 3% and whose cash figure rolls $160,000 → $24,000) and a
   flow diagram (Seller credit → Buys your rate down → Lower payment), after a system-diagram reel in Drive
   `Clipforge/Competition`. Start a "fake app screen", counter or flow-diagram prop from here. Render it with a hash
-  (`ui.html#render`); with no hash it paints a probe background. His verdict is in the 2026-11-13 log.
+  (`ui.html#render`); with no hash it paints a probe background. **Kyle: "that is absolutely money ... you still kept the same brand
+  image and guidelines"**, so fake app screens, rolling counters and flow diagrams are approved props for talking heads.
 - `graphics/iq-quiz/` (2026-10-23) — the first full-screen cutaway in a talking head: a sand slide with the
   real quiz-page screenshot while he pitches the quiz, then a floating "Comment IQ" when he gives the CTA.
   Kyle wants cutaways "so the camera's not just on my face the entire time"; he cut the numeral rows from
@@ -228,7 +229,8 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
 - **Fixed: the brand image.** Navy, sand, terracotta as the base; Sora for big words, Playfair italic for small ones,
   Caveat for handwriting; his plain first-person voice; no logo, no emoji, no DM/NMLS card in a talking head.
 - **Loose: everything that makes it pop.** Extra accent colours with a meaning (orange = cost, mint = savings/cash),
-  texture, props that look like real things (a framed chalkboard, a taped note, a stamp, strapped hundreds), glow,
+  texture, props that look like real things (a framed chalkboard, a taped note, a stamp, strapped hundreds, a fake
+  app window with a slider and a rolling number, a flow diagram whose boxes light on his words), glow,
   dust, wobble, punch-ins. One prop at a time, each tied to what he is saying at that moment.
 - **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
 - **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
