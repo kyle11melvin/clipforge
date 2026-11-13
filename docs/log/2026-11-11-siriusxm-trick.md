@@ -38,3 +38,12 @@ screenshots. He asked how Threads works and whether to do the same for the lende
 by replies, not followers, so a relatable question in plain text can travel from zero; post the lender takes there as
 text with the Real Estate topic tag and reply to every comment early. On Instagram the discovery format is a Reel
 (Stories only reach followers), so the video goes up as a Reel on the personal account.
+
+## Threads drafts for the lender account (2026-11-13)
+
+Kyle asked for an example of a past post turned into a Threads text post. Page: https://claude.ai/artifact/XAUtogJHidw6rvSqa4GoYk,
+a Threads feed mock (avatar, handle, the post, a first reply) with copy buttons and character counts. Three drafts: his
+20% down caption cut to the SiriusXM shape (hook, short lines, $24,000 on $800,000, veterans zero down, "What number did
+you think it was?"), the OC price-vs-rate math from rate-wait, and the $458K price-cuts total. Quiz link goes in his own
+first reply, placeholder `[quiz link]`; the real link has never been given to this repo. Drafts live in
+`videos/threads-draft/` (gitignored, like all deliverables).
