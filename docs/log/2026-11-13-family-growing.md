@@ -22,3 +22,13 @@ bedroom I have some amazing agents I work with." Lender account, so Coastal Mone
 
 - His call on the wording (lightly trimmed from his dictation) and the caption.
 - Which audio: picker song on the creator account, or the bed from the business account.
+
+## Result (2026-11-14)
+
+46 views as a story, 2 likes as a reel. Kyle: "I thought the video was good but we need to figure out what the sweet
+spot is", against the SiriusXM text on Threads (now ~300 likes, ~120 comments from strangers). Pattern across the whole
+log: what travelled was unbranded, personal, about something he actually did, with a number and a question, and no
+pitch (Broncos meme ~15K, SiriusXM text ~300 likes). The polished Coastal Money reels with a CTA sit in the hundreds of
+views: price-cuts 333, this one 2 likes. Reach is not coming from the graphics; it comes from the relatable premise and
+the question. Plan given: Threads text daily on the lender account (reminders already running), phone-shot ten-second
+talking heads about a real client this week ending in a question, brand graphics kept for the grid, not for discovery.
