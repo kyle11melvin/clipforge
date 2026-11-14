@@ -110,7 +110,10 @@ his standing brief. Read it before touching anything.
   pitch does not travel; the unbranded, personal, number-plus-question post does (Broncos ~15K, SiriusXM text ~300 likes
   and ~120 comments from strangers). **Reach formula:** something he actually did or saw, one real number, a question
   back ("am I the only one?"), no CTA in the post, the ask in a reply or the caption. Brand graphics are for the grid and
-  credibility, not for discovery. Default a new lender post to that formula before reaching for cards.
+  credibility, not for discovery. **Kyle, 2026-11-14: keep the graphics machine; the ideas have to get better.** So the
+  rule is about the premise, not the tooling: every post starts from the formula above, and the graphics serve it the way
+  they did in the winners (real screenshots, the real score bug, big type, one number, a question), not as cards with a
+  sign-off. Pitch him premises before building.
 - `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
   data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
   1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart
