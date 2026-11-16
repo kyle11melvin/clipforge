@@ -150,6 +150,9 @@
     box-shadow: 0 12px 26px rgba(0,0,0,.4); }
   .honey::before { content: ""; position: absolute; left: 50%; top: -16px; width: 130px; height: 36px; margin-left: -65px; background: rgba(240,236,220,.85); transform: rotate(-3deg); box-shadow: 0 2px 4px rgba(0,0,0,.15); }
   .honey i { font-weight: 700; font-style: normal; font-family: "Caveat", cursive; } .honey small { font-size: 18px; margin-bottom: 2px; }
+  /* Round 30: "too hard to read right now" - the note is bigger, darker ink, and sits lower in clear view. */
+  .honey { width: 620px; left: 300px; top: 300px; font-size: 104px; line-height: 1.0; padding: 44px 34px 30px; color: #0B1F29; }
+  .honey small { font-size: 24px; margin-bottom: 6px; }
 </style>
 </head>
 <body>
@@ -170,13 +173,13 @@
 <div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4" style="font-size:56px"></div><div class="bug2" id="bF"></div></div>
 
 <script>
-  const LG = 165, lg = document.getElementById("lg");
+  const LG = 0, lg = document.getElementById("lg");
   lg.innerHTML = Array.from({ length: LG }, (_, i) => `<img style="visibility:hidden" src="logan/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const lgImgs = [...lg.children];
-  const ST = 132, stEl = document.getElementById("st");
+  const ST = 0, stEl = document.getElementById("st");
   stEl.innerHTML = Array.from({ length: ST }, (_, i) => `<img style="visibility:hidden" src="strip/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const stImgs = [...stEl.children];
-  const T = { O: 0, A: 1.5, B: 8.2, C: 13.9, wife: 15.3, E: 16.7, F: 17.7, end: 26.2 };   // round 28: game one trimmed by 1.2 s   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
+  const T = { O: 0, A: 1.3, B: 7.5, C: 12.7, wife: 14.1, E: 16.1, F: 16.9, end: 21.9 };   // round 30: tightened to ~22 s; her note holds 2 s   // round 28: game one trimmed by 1.2 s   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -227,28 +230,28 @@
   const scenes = [
     { id: "fO", at: T.O, draw(tt) {
       $("imO").style.transform = `${drift(tt, 0.5)} scale(${(1.0 + 0.05 * ease(clamp(tt / 2.6, 0, 1))).toFixed(4)})`;
-      $("subO").innerHTML = paper("Being a | ^*Broncos* fan…^", tt - 0.15, -2); $("subO").style.opacity = 1 - clamp((tt - 1.3) / 0.4, 0, 1); } },
+      $("subO").innerHTML = paper("Being a | ^*Broncos* fan…^", tt - 0.15, -2); $("subO").style.opacity = 1 - clamp((tt - 1.25) / 0.4, 0, 1); } },
     { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomA").style.transform = `${drift(tt, 0.6)} scale(${(1.0 + 0.10 * ease(clamp(tt / 3.4, 0, 1))).toFixed(4)})`; $("roomA").style.transformOrigin = "50% 30%";   // the push speeds up with the call
       $("roomA").style.filter = "";
       // Logan's call from midfield (1.0 s into Kyle's recording = 0 here): "Here we go" 0.0, "Midfield" 0.5, "Coleman, 45, 40" 1.1,
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
-      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 2.9, 0, 0, 1080, 0.7, []), br = breathe($("brA"), tt, 5.3);   // round 29: pacing (pace.jpg) until "25, 20… foot race", then the fist   // Logan now starts at "Coleman, 45, 40" (2.1 s of the recording)   // round 24: up on "45, 40", a pump per yard line
+      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 2.4, 0, 0, 1080, 0.7, []), br = breathe($("brA"), tt, 4.8);   // round 29: pacing (pace.jpg) until "25, 20… foot race", then the fist   // Logan now starts at "Coleman, 45, 40" (2.1 s of the recording)   // round 24: up on "45, 40", a pump per yard line
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
-      const [la, lt] = said([[3.8, "^*YES!*^"], [5.8, "Phew."]], tt);
-      $("subA").innerHTML = paper(lt, tt - la, la === 5.8 ? 1.5 : -2);
-      $("subA").style.opacity = tt < 5.8 ? 1 - clamp((tt - 5.2) / 0.4, 0, 1) : 1 - clamp((tt - 6.4) / 0.3, 0, 1);
-      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 4.6) / 0.5, 0, 1)); } },
+      const [la, lt] = said([[3.3, "^*YES!*^"], [5.2, "Phew."]], tt);
+      $("subA").innerHTML = paper(lt, tt - la, la === 5.2 ? 1.5 : -2);
+      $("subA").style.opacity = tt < 5.2 ? 1 - clamp((tt - 4.7) / 0.4, 0, 1) : 1 - clamp((tt - 5.9) / 0.3, 0, 1);
+      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 4.1) / 0.5, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomB").style.transform = `${drift(tt + 6.7, 0.6)} scale(${(1.0 + 0.12 * ease(clamp(tt / 3.6, 0, 1))).toFixed(4)})`; $("roomB").style.transformOrigin = "50% 36%";
+      $("roomB").style.transform = `${drift(tt + 6.2, 0.6)} scale(${(1.0 + 0.12 * ease(clamp(tt / 3.6, 0, 1))).toFixed(4)})`; $("roomB").style.transformOrigin = "50% 36%";
       $("roomB").style.filter = "";
       $("yesB").style.opacity = 0; $("midB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 3.7);   // round 29: nails.jpg through the play, then he sits back   // round 27: the arms-up crop is gone; one shot, the win is the type
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - clamp((tt - 2.2) / 0.4, 0, 1));
-      const [lb, lt] = said([[2.6, "Oh my God… | ^we won *again.*^"], [5.0, "Phew."]], tt);
-      $("subB").innerHTML = paper(lt, tt - lb, lb === 5.0 ? 1.5 : -2);
-      $("subB").style.opacity = tt < 5.0 ? 1 - clamp((tt - 4.4) / 0.4, 0, 1) : 1 - clamp((tt - 5.4) / 0.3, 0, 1);
+      const [lb, lt] = said([[2.6, "Oh my God… | ^we won *again.*^"], [4.5, "Phew."]], tt);
+      $("subB").innerHTML = paper(lt, tt - lb, lb === 4.5 ? 1.5 : -2);
+      $("subB").style.opacity = tt < 4.5 ? 1 - clamp((tt - 4.0) / 0.4, 0, 1) : 1 - clamp((tt - 5.0) / 0.3, 0, 1);
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.9) / 0.5, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
@@ -259,15 +262,13 @@
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
       const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px) rotate(3deg)`; $("honey").style.transformOrigin = "100% 0";
       $("ht").textContent = "Honey… my water broke."; } },
-    { id: "fE", at: T.E, tr: "dissolve", dur: 1.0, draw(tt) {
-      $("nx").innerHTML = `<span class="s">Next</span> <span class="b">Sunday…</span>`; $("nx").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1);
+    { id: "fE", at: T.E, tr: "dissolve", dur: 0.8, draw(tt) {
+      $("nx").innerHTML = `<span class="s">Next</span> <span class="b">Sunday…</span>`; $("nx").style.opacity = clamp((tt - 0.25) / 0.3, 0, 1);
       $("nx2").style.opacity = clamp((tt - 0.6) / 0.2, 0, 1); } },
-    { id: "fF", at: T.F, tr: "dissolve", dur: 1.8, draw(tt) {
+    { id: "fF", at: T.F, tr: "dissolve", dur: 1.4, draw(tt) {
       // Round 26: "I want that to be a peaceful, long lasting moment." 8.5 s, one very slow push, two unhurried lines, no score bug.
-      $("imF").style.transform = `${drift(tt, 0.35)} scale(${(1.0 + 0.10 * ease(clamp(tt / 8.5, 0, 1))).toFixed(4)})`;
-      const late = tt >= 5.4;
-      $("sub4").innerHTML = late ? paper("And it’s the Raiders. | ^I can still *relax.*^", tt - 5.4, 1.5) : paper("Welcome to | ^*Broncos Country,*^ | ^baby girl.^", tt - 1.6, -2);
-      $("sub4").style.opacity = late ? 1 : 1 - clamp((tt - 4.7) / 0.6, 0, 1);
+      $("imF").style.transform = `${drift(tt, 0.35)} scale(${(1.0 + 0.10 * ease(clamp(tt / 5.0, 0, 1))).toFixed(4)})`;
+      $("sub4").innerHTML = paper("Welcome to | ^*Broncos Country,*^ | ^baby girl.^", tt - 1.3, -2); $("sub4").style.opacity = 1;
       $("bF").style.opacity = 0; } },
   ];
   window.seek = (t) => {

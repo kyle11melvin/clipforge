@@ -379,6 +379,14 @@ at 2.9 s ("25, 20… foot race"), "YES!" 3.8, bug 4.6, breather 5.3. Beat B: `na
 line at 2.6, breather 3.7, bug 3.9. The `.tv` overlays are hidden (`display:none`) since these frames carry their own
 TV picture; the real calls are audio only now. Poses per game: nervous → win → sits back.
 
+## Round thirty: tighten
+
+Kyle: drop the Raiders line; the clip is a little long; give "honey my water broke" another half second and make it
+easier to read; trim the Logan clip "a tiny tiny bit"; around 20 s if it does not ruin it. Done: ending is one line and
+5 s; the note is 620 px wide at 104 px Caveat and holds 2.0 s; Logan audio starts at 2.6 s of the recording; opener
+1.3 s, the second breather shorter. T: O 0, A 1.3, B 7.5, C 12.7, wife 14.1, E 16.1, F 16.9, end 21.9. The unused
+`logan/` and `strip/` frame folders are empty now (LG = ST = 0) since the pose frames carry their own TV picture.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
