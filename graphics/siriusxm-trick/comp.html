@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SiriusXM renewal trick</title>
+<style>
+  /* Personal-account meme (no Coastal Money): Kyle's reel-cover type, white Nunito ExtraBold with a black stroke,
+     over his own redacted SiriusXM screenshots. Account number, name, email and car model are cropped or barred. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  :root { --red:#FF4A4A; --green:#3DDC84; --blue:#1266FF; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; background: #06080f url(bg.jpg) center/cover; }
+  .frame.on { display: block; }
+  .frame.black { background: #000; }
+  .head { position: absolute; left: 50px; right: 160px; text-align: center;
+    font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 104px; line-height: 1.1; color: #fff;
+    -webkit-text-stroke: 8px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,.45); }
+  .head .r { color: var(--red); } .head .g { color: var(--green); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  .card { position: absolute; left: 70px; width: 940px; border-radius: 28px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6); will-change: transform, opacity; }
+  .card img { display: block; width: 100%; height: auto; }
+  .chat { position: absolute; left: 70px; width: 940px; will-change: transform, opacity; }
+  .chat .hdr { width: 940px; border-radius: 28px 28px 0 0; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .chat .hdr img { display: block; width: 100%; }
+  .chat .pane { background: #fff; border-radius: 0 0 28px 28px; padding: 34px 30px 30px; min-height: 120px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .bub { display: block; height: auto; border-radius: 26px; will-change: transform, opacity; }
+  .bub.me { margin-left: auto; }
+  .stamp { position: absolute; left: 50%; top: 1080px; transform-origin: 50% 50%;
+    font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 120px; line-height: 1; color: #fff;
+    -webkit-text-stroke: 8px #000; paint-order: stroke fill; white-space: nowrap;
+    background: var(--red); padding: 18px 44px 26px; border-radius: 22px; border: 8px solid #000;
+    box-shadow: 0 20px 50px rgba(0,0,0,.6); }
+  .mid { position: absolute; left: 60px; right: 160px; top: 50%; transform: translateY(-50%); text-align: center; }
+  .dim { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+</style>
+</head>
+<body>
+<!-- 1. the hook: the renewal bill -->
+<div class="frame" id="f1">
+  <div class="head" style="top:300px" id="h1"></div>
+  <div class="card" id="bill" style="top:760px"><img src="billing.png" alt=""></div>
+  <div class="head" style="top:1280px" id="h1b"></div>
+</div>
+<!-- 2. what I tell the chatbot -->
+<div class="frame" id="f2">
+  <div class="head" style="top:300px" id="h2"></div>
+  <div class="chat" id="chat2" style="top:700px">
+    <div class="hdr"><img src="header.png" alt=""></div>
+    <div class="pane"><img class="bub" id="b2" src="cancel.png" alt="" style="width:860px"></div>
+  </div>
+</div>
+<!-- 3. the beat -->
+<div class="frame black" id="f3"><div class="mid"><div class="head" style="position:static" id="h3"></div></div></div>
+<!-- 4. the offer -->
+<div class="frame" id="f4">
+  <div class="head" style="top:260px" id="h4"></div>
+  <div class="chat" id="chat4" style="top:520px">
+    <div class="hdr"><img src="header.png" alt=""></div>
+    <div class="pane">
+      <img class="bub" id="b4" src="offer.png" alt="" style="width:800px">
+      <img class="bub me" id="b4b" src="yes.png" alt="" style="width:360px;margin-top:20px">
+    </div>
+  </div>
+  <div class="stamp" id="stamp">7 YEARS</div>
+</div>
+<!-- 5. the question -->
+<div class="frame" id="f5">
+  <div class="dim"></div>
+  <div class="mid"><div class="head" style="position:static;font-size:108px" id="h5"></div></div>
+</div>
+
+<script>
+  const T = { f1: 0, f2: 2.6, f3: 5.8, f4: 6.6, f5: 10.2, end: 12.4 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const back = (p) => { const s = 1.70158; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+  const frames = ["f1", "f2", "f3", "f4", "f5"].map((id) => document.getElementById(id));
+
+  // Words rise in one by one. *red* and _green_ mark the coloured words.
+  function words(el, html, t, gap = 0.09, dur = 0.3) {
+    if (!el.dataset.built) {
+      let cls = "";
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        if (w.startsWith("*")) cls = "r"; if (w.startsWith("_")) cls = "g";
+        const out = `<span class="w ${cls}">${w.replace(/[*_]/g, "")}</span>`;
+        if (w.endsWith("*") || w.endsWith("_")) cls = "";
+        return out;
+      }).join(" ")).join("<br>");
+      el.dataset.built = "1";
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * 60}px)`;
+    });
+  }
+  // A screenshot slides up into place, then drifts slowly (the approved motion).
+  function slide(el, t, dur = 0.5, drift = 0.0) {
+    const p = clamp(t / dur, 0, 1), e = easeOut(p);
+    el.style.opacity = p; el.style.transform = `translateY(${((1 - e) * 140 - Math.max(0, t - dur) * drift).toFixed(1)}px)`;
+  }
+  // A bubble pops in with overshoot.
+  function pop(el, t, dur = 0.4) {
+    const p = clamp(t / dur, 0, 1);
+    el.style.opacity = p; el.style.transform = `scale(${(0.7 + 0.3 * back(p)).toFixed(3)})`;
+  }
+
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    if (t < T.f2) {
+      frames[0].classList.add("on"); const tt = t;
+      words(document.getElementById("h1"), "SiriusXM<br>every year:", tt - 0.05);
+      slide(document.getElementById("bill"), tt - 0.45, 0.5, 6);
+      words(document.getElementById("h1b"), "_$7.99_ → *$25.99*", tt - 1.1, 0.14, 0.3);
+    } else if (t < T.f3) {
+      frames[1].classList.add("on"); const tt = t - T.f2;
+      words(document.getElementById("h2"), "Every year<br>I tell the chatbot:", tt - 0.05);
+      slide(document.getElementById("chat2"), tt - 0.4, 0.45, 4);
+      pop(document.getElementById("b2"), tt - 0.95);
+    } else if (t < T.f4) {
+      frames[2].classList.add("on"); const tt = t - T.f3;
+      words(document.getElementById("h3"), "30 seconds later…", tt - 0.05, 0.12);
+    } else if (t < T.f5) {
+      frames[3].classList.add("on"); const tt = t - T.f4;
+      words(document.getElementById("h4"), "Same plan.<br>_$7.99_ again.", tt - 0.05);
+      slide(document.getElementById("chat4"), tt - 0.3, 0.45, 3);
+      document.getElementById("b4").style.opacity = 1;
+      pop(document.getElementById("b4b"), tt - 1.5);
+      // The stamp slams in from large to small, rotated, after the yes.
+      const sp = clamp((tt - 2.2) / 0.3, 0, 1), st = document.getElementById("stamp");
+      st.style.opacity = sp;
+      st.style.transform = `translate(-50%,-50%) rotate(-7deg) scale(${(3 - 2 * easeOut(sp)).toFixed(3)})`;
+    } else {
+      frames[4].classList.add("on"); const tt = t - T.f5;
+      words(document.getElementById("h5"), "Anyone else<br>do this every year?", tt - 0.05, 0.08);
+    }
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

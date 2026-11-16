@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  The 20% down myth reel with "mock app" props (2026-11-13), after a system-diagram reel Kyle put in Drive
+  Clipforge/Competition and asked to see on one of his own past videos. His layout rules still hold: he is full frame,
+  everything sits above his head (hair at y≈675, pushed to ~730 by an 8% punch-in while a card is up).
+    - word-by-word type (the 2026-11-12 style) wherever no card is up
+    - a fake app window, "Down payment calculator": $800,000 home, the slider at 20% = $160,000, an X on the 20%, then
+      the slider runs down to 3% and the cash needed rolls to $24,000 (orange = cost, mint = savings)
+    - a flow diagram: Seller credit → Buys your rate down → Lower payment, each node lighting on his word
+  One alpha layer; render:  node src/graphics/render.mjs "graphics/20-down-myth/ui.html#render" videos/20-down/ui.mov --alpha --duration 30.8   (any hash turns the blue probe ground off)
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  :root { --navy:#173F4F; --deep:#0F2E3A; --sand:#EFE9DE; --terra:#F28C5B; --mint:#9BE3C7; --glass:#A9C0B9; --ink:#0E2A35; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:transparent; }
+  body.probe { background:#3f7fd0; }
+  .abs { position:absolute; }
+  #scrim { left:0; top:0; width:1080px; height:900px; background:linear-gradient(180deg, rgba(14,42,53,.70) 0%, rgba(14,42,53,.45) 45%, rgba(14,42,53,0) 100%); }
+  /* word-by-word type */
+  #block { position:absolute; left:70px; width:860px; bottom:1310px; display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:22px; row-gap:0; }
+  #block span { display:inline-block; color:var(--sand); text-shadow:0 4px 26px rgba(8,26,34,.6), 0 1px 3px rgba(8,26,34,.45); }
+  #block .s { font-family:"Playfair"; font-style:italic; font-size:72px; }
+  #block .m { font-family:"Sora"; font-weight:800; font-size:112px; letter-spacing:-0.035em; line-height:1; }
+  #block .l { font-family:"Sora"; font-weight:800; font-size:150px; letter-spacing:-0.04em; line-height:0.95; color:var(--terra); }
+  #block .br { flex-basis:100%; height:0; }
+  /* app window */
+  .win { position:absolute; left:64px; width:952px; border-radius:30px; background:linear-gradient(160deg, #1A4656 0%, #0F2E3A 100%);
+         box-shadow:0 26px 60px rgba(8,26,34,.55), 0 0 0 2px rgba(169,192,185,.28), inset 0 1px 0 rgba(255,255,255,.12); overflow:hidden; }
+  .bar { position:absolute; left:0; right:0; top:0; height:66px; background:rgba(8,26,34,.35); border-bottom:1px solid rgba(169,192,185,.18); }
+  .dots { position:absolute; left:28px; top:25px; display:flex; gap:10px; } .dots i { width:15px; height:15px; border-radius:50%; background:#F28C5B; } .dots i:nth-child(2){ background:#E9C46A; } .dots i:nth-child(3){ background:#9BE3C7; }
+  .ttl { position:absolute; left:120px; top:17px; font:800 27px "Manrope"; letter-spacing:.02em; color:var(--sand); }
+  .chip { position:absolute; right:26px; top:13px; height:40px; padding:0 18px; border-radius:20px; background:rgba(169,192,185,.16); font:800 23px/40px "Manrope"; color:var(--glass); }
+  .lab { position:absolute; font:800 22px "Manrope"; letter-spacing:.16em; color:var(--glass); }
+  .big { position:absolute; font-family:"Sora"; font-weight:800; letter-spacing:-0.04em; line-height:1; }
+  #track { position:absolute; left:48px; top:352px; width:856px; height:16px; border-radius:8px; background:rgba(169,192,185,.22); }
+  #fill { position:absolute; left:0; top:0; height:16px; border-radius:8px; }
+  #thumb { position:absolute; top:-17px; width:50px; height:50px; margin-left:-25px; border-radius:50%; background:var(--sand); box-shadow:0 6px 14px rgba(0,0,0,.45), 0 0 0 6px rgba(239,233,222,.18); }
+  .tick { position:absolute; top:26px; font:800 20px "Manrope"; color:rgba(169,192,185,.75); transform:translateX(-50%); }
+  #x { position:absolute; left:30px; top:112px; width:320px; height:180px; }
+  #badge { position:absolute; right:48px; top:268px; height:50px; padding:0 22px 0 16px; border-radius:25px; background:var(--mint); color:var(--ink); font:800 26px/50px "Manrope"; }
+  /* flow */
+  .node { position:absolute; top:112px; width:240px; height:150px; border-radius:22px; background:rgba(8,26,34,.45); box-shadow:inset 0 0 0 2px rgba(169,192,185,.28);
+          display:flex; align-items:center; justify-content:center; text-align:center; font:800 34px/1.12 "Sora"; letter-spacing:-0.02em; color:rgba(239,233,222,.45); }
+  .node .ck { position:absolute; right:-14px; top:-14px; width:46px; height:46px; border-radius:50%; background:var(--mint); color:var(--ink); font:800 30px/46px "Manrope"; text-align:center; }
+  .link { position:absolute; top:184px; height:6px; border-radius:3px; background:repeating-linear-gradient(90deg, rgba(169,192,185,.55) 0 12px, transparent 12px 22px); }
+  .dot { position:absolute; top:-8px; width:22px; height:22px; margin-left:-11px; border-radius:50%; background:var(--mint); box-shadow:0 0 18px var(--mint); }
+</style>
+</head>
+<body>
+<div class="abs" id="scrim"></div>
+<div id="block"></div>
+
+<!-- fake app: down payment calculator -->
+<div class="win" id="calc" style="top:250px; height:420px;">
+  <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="ttl">Down payment calculator</div><div class="chip">Home price $800,000</div></div>
+  <div class="lab" style="left:48px; top:92px;">DOWN PAYMENT</div>
+  <div class="big" id="pct" style="left:44px; top:132px; font-size:150px; color:var(--terra)">20%</div>
+  <div class="lab" style="right:48px; top:92px;">CASH NEEDED</div>
+  <div class="big" id="amt" style="right:44px; top:150px; font-size:104px; color:var(--terra)">$160,000</div>
+  <svg id="x" viewBox="0 0 330 200"><path id="x1" d="M24 22 L306 180" stroke="#EFE9DE" stroke-width="20" stroke-linecap="round" fill="none"/><path id="x2" d="M306 22 L24 180" stroke="#EFE9DE" stroke-width="20" stroke-linecap="round" fill="none"/></svg>
+  <div id="badge">✓ as little as 3% down</div>
+  <div id="track"><div id="fill"></div><div id="thumb"></div>
+    <span class="tick" style="left:0%">0%</span><span class="tick" style="left:12%">3%</span><span class="tick" style="left:40%">10%</span><span class="tick" style="left:80%">20%</span><span class="tick" style="left:100%">25%</span></div>
+</div>
+
+<!-- flow diagram: seller credit -->
+<div class="win" id="flow" style="top:300px; height:320px;">
+  <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="ttl">How a seller credit works</div></div>
+  <div class="node" id="n1" style="left:40px;">Seller<br>credit</div>
+  <div class="link" id="l1" style="left:288px; width:60px;"><div class="dot" id="d1"></div></div>
+  <div class="node" id="n2" style="left:356px;">Buys your<br>rate down</div>
+  <div class="link" id="l2" style="left:604px; width:60px;"><div class="dot" id="d2"></div></div>
+  <div class="node" id="n3" style="left:672px;">Lower<br>payment</div>
+</div>
+
+<script src="words-ui.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, t0, d) => clamp((t - t0) / d);
+const outBack = (p) => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+const inOut = (p) => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const W = window.WORDS, at = (i) => W[i].start;
+
+// card windows (seconds of cut.mp4)
+const CALC = [12.3, 21.6], FLOW = [25.05, 28.7];
+const X_AT = 14.0, SLIDE = [18.5, 19.45];                 // the X lands just after "20%"; the slider runs through "as 3% down"
+
+// type: [word index, class]; "|" = line break
+const GROUPS = [
+  { from: 0.5,   to: 3.4,   w: [[0,"s"],[1,"s"],"|",[2,"s"],[3,"l"],"|",[4,"s"],[5,"m"],[6,"m"]] },                 // Hey guys, / it's Kyle / your lender guy.
+  { from: 3.84,  to: 6.75,  w: [[7,"s"],[8,"s"],[9,"s"],[10,"s"],"|",[11,"m"],"|",[12,"l"]] },                       // I am currently in / downtown / Carlsbad
+  { from: 6.75,  to: 7.9,   w: [[13,"s"],[14,"s"],[15,"s"],"|",[16,"m"]] },                                         // meeting with some / clients
+  { from: 7.9,   to: 9.42,  w: [[17,"s"],[18,"s"],[19,"s"],"|",[20,"m"],[21,"s"],[22,"s"]] },                         // and while I'm / waiting on them
+  { from: 9.42,  to: 10.65, w: [[23,"s"],[24,"s"],[25,"s"],[26,"s"],"|",[27,"m"],[28,"m"]] },                         // thought I'd do a / little post.
+  { from: 10.7,  to: 12.25, w: [[29,"s"],[30,"s"],[31,"s"],"|",[32,"m"],"|",[33,"s"],[34,"s"],[35,"s"]] },           // I posted on / Facebook / earlier this week
+  { from: 21.84, to: 23.66, w: [[71,"s"],[72,"s"],[73,"s"],"|",[74,"s"],[75,"s"],[76,"s"],[77,"s"],"|",[78,"l"],[79,"l"]] }, // And then also / right now is a / great time
+  { from: 23.66, to: 25.0,  w: [[80,"s"],[81,"s"],[82,"s"],"|",[83,"m"],[84,"m"]] },                                 // because that little / down payment
+  { from: 28.78, to: 31,    w: [[101,"m"],[102,"m"],"|",[103,"s"],[104,"s"],[105,"s"]] },                            // Message me / for more details
+];
+let cur = -1;
+function build(gi) {
+  const c = $("block"); c.innerHTML = "";
+  if (gi < 0) return;
+  for (const it of GROUPS[gi].w) {
+    if (it === "|") { const b = document.createElement("i"); b.className = "br"; c.appendChild(b); continue; }
+    const s = document.createElement("span"); s.className = it[1]; s.textContent = W[it[0]].text; s.dataset.i = it[0]; c.appendChild(s);
+  }
+}
+function pop(el, t, t0, big) {
+  const p = prog(t, t0 - 0.04, big ? 0.2 : 0.15);
+  if (p <= 0) { el.style.opacity = 0; return; }
+  el.style.opacity = clamp(p * 4);
+  el.style.transform = `translateY(${(1 - outCubic(p)) * (big ? 0 : 18)}px) scale(${big ? 1.4 - 0.4 * outBack(p) : 1.2 - 0.2 * outCubic(p)})`;
+}
+// a card drops in from above with a small bounce and lifts back out
+function card(el, t, win) {
+  if (t < win[0] || t > win[1] + 0.3) { el.style.opacity = 0; return false; }
+  const a = outBack(prog(t, win[0], 0.42)), b = Math.pow(prog(t, win[1], 0.28), 2);
+  el.style.opacity = 1;
+  el.style.transform = `translateY(${-(1 - a) * 760 - b * 820}px) rotate(${(1 - a) * -5 + b * 4}deg)`;
+  return true;
+}
+const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+
+if (!location.hash) document.body.classList.add("probe");
+
+window.seek = (t) => {
+  // ---- type ----
+  let gi = -1;
+  GROUPS.forEach((g, i) => { if (t >= g.from && t < g.to) gi = i; });
+  if (gi !== cur) { build(gi); cur = gi; }
+  for (const s of $("block").querySelectorAll("span")) pop(s, t, W[+s.dataset.i].start, s.className === "l");
+
+  // ---- calculator ----
+  if (card($("calc"), t, CALC)) {
+    const k = inOut(prog(t, SLIDE[0], SLIDE[1] - SLIDE[0]));
+    const pct = 20 - 17 * k, done = k >= 1;
+    $("pct").textContent = (pct < 9.95 ? pct.toFixed(k >= 1 ? 0 : 0) : Math.round(pct)) + "%";
+    $("amt").textContent = money(Math.round(800000 * pct / 100 / 1000) * 1000);
+    const col = done ? "var(--mint)" : "var(--terra)";
+    $("pct").style.color = $("amt").style.color = col;
+    $("fill").style.width = (pct / 25 * 100) + "%"; $("fill").style.background = col;
+    $("thumb").style.left = (pct / 25 * 100) + "%";
+    const land = prog(t, SLIDE[1], 0.22);                                        // the numbers bump as they land
+    $("amt").style.transform = `scale(${1 + 0.12 * Math.sin(Math.PI * land)})`; $("amt").style.transformOrigin = "right center";
+    $("pct").style.transform = `scale(${1 + 0.10 * Math.sin(Math.PI * land)})`; $("pct").style.transformOrigin = "left center";
+    // the X over "20%": two strokes slammed on, gone before the slider moves
+    const xo = t < SLIDE[0] - 0.15 ? 1 : 1 - prog(t, SLIDE[0] - 0.15, 0.15);
+    for (const [id, d] of [["x1", 0], ["x2", 0.1]]) { const q = outCubic(prog(t, X_AT + d, 0.12)); $(id).style.strokeDasharray = 330; $(id).style.strokeDashoffset = 330 * (1 - q); $(id).style.opacity = q > 0 ? xo : 0; }
+    const bp = prog(t, SLIDE[1] + 0.1, 0.2);
+    $("badge").style.opacity = bp > 0 ? 1 : 0; $("badge").style.transform = `scale(${bp > 0 ? 1.35 - 0.35 * outBack(bp) : 1})`;
+  }
+
+  // ---- flow ----
+  if (card($("flow"), t, FLOW)) {
+    const T = [at(92), at(97), at(99) + 0.25];                                   // "seller", "buy", just after "rate"
+    [["n1", T[0]], ["n2", T[1]], ["n3", T[2]]].forEach(([id, t0]) => {
+      const p = prog(t, t0, 0.2), on = p > 0, el = $(id);
+      el.style.color = on ? "var(--sand)" : "rgba(239,233,222,.45)";
+      el.style.boxShadow = on ? "inset 0 0 0 3px var(--mint), 0 0 34px rgba(155,227,199,.45)" : "inset 0 0 0 2px rgba(169,192,185,.28)";
+      el.style.background = on ? "rgba(155,227,199,.14)" : "rgba(8,26,34,.45)";
+      el.style.transform = `scale(${on ? 1.18 - 0.18 * outBack(p) : 1})`;
+      let ck = el.querySelector(".ck"); if (!ck) { ck = document.createElement("div"); ck.className = "ck"; ck.textContent = "✓"; el.appendChild(ck); }
+      ck.style.opacity = on ? 1 : 0;
+    });
+    [["d1", T[0] + 0.15, T[1]], ["d2", T[1] + 0.1, T[2]]].forEach(([id, a, b]) => { const p = prog(t, a, Math.max(0.2, b - a)); $(id).style.left = (p * 100) + "%"; $(id).style.opacity = p > 0 && p < 1 ? 1 : 0; });
+  }
+};
+window.seek(0);
+</script>
+</body>
+</html>

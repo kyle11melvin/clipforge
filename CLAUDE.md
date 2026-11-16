@@ -64,6 +64,12 @@ his standing brief. Read it before touching anything.
   cards, "20% down" with a terracotta X slamming through it, "3% down", "Seller credit / Buys your rate
   down." Start the next Instagram talking-head post from this one. **Kyle picked the no-card version**
   (`comp.html#nocard`, rendered with `--alpha`): type floating over the footage, no navy panel.
+  **Mock-app props (2026-11-13)**: `ui.html` + `assemble-ui.sh` rebuild this reel with a fake app window above his
+  head (a down payment calculator whose slider runs 20% → 3% and whose cash figure rolls $160,000 → $24,000) and a
+  flow diagram (Seller credit → Buys your rate down → Lower payment), after a system-diagram reel in Drive
+  `Clipforge/Competition`. Start a "fake app screen", counter or flow-diagram prop from here. Render it with a hash
+  (`ui.html#render`); with no hash it paints a probe background. **Kyle: "that is absolutely money ... you still kept the same brand
+  image and guidelines"**, so fake app screens, rolling counters and flow diagrams are approved props for talking heads.
 - `graphics/iq-quiz/` (2026-10-23) — the first full-screen cutaway in a talking head: a sand slide with the
   real quiz-page screenshot while he pitches the quiz, then a floating "Comment IQ" when he gives the CTA.
   Kyle wants cutaways "so the camera's not just on my face the entire time"; he cut the numeral rows from
@@ -98,6 +104,20 @@ his standing brief. Read it before touching anything.
   the 2026-11-09 log), show it as a card on its own blur, and punch in to follow the ball. The comp renders with
   `--alpha` (transparent over the clip, opaque on the photo). Check score and clock by web search before writing
   the hook. Tell him each time that broadcast footage can get a reel muted or pulled; posting is his call.
+- `graphics/siriusxm-trick/` (2026-11-11) — a **screenshot meme for the personal account** (his SiriusXM renewal trick:
+  tell the chatbot you're cancelling, get the $7.99 promo back; 12 s, silent, reel-cover type, no brand). When he sends
+  screenshots of his own accounts, **redact before composing**: crop out account numbers, names and emails, bar anything
+  that identifies him (car model) with a grey rounded bar in PIL, keep the raw screenshots out of the repo, and leave out
+  any bubble that would need a bar through most of it. Hook on the number, his real message, a black beat, the payoff
+  bubble with a stamp, one question at the end.
+  **Threads (2026-11-13):** the same idea as a plain-text post on his personal Threads account, with no followers,
+  got 266 likes and 88 replies in a day. Threads ranks by replies, not follows; a plain question in his caption voice
+  ("am I the only one?") travels on its own. For the lender account: text posts there, Real Estate topic tag, reply to
+  comments early. On Instagram, reach comes from Reels; Stories only reach followers.
+- `graphics/family-growing/` (2026-11-13) — the **photo + type + music** reel for the lender account: one family photo
+  full-bleed with a slow push-in, navy scrim top and bottom (write the scrim stops in px, not %), three beats of Sora type
+  in the lower safe-zone window, Caveat "message me." at the end. `src/music/warm.py` is a soft numpy-only bed (no scipy
+  in the session); ship a silent cut for the picker and a bed cut for Original audio. Family photos stay gitignored.
 - `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
   data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
   1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart
@@ -171,6 +191,19 @@ his standing brief. Read it before touching anything.
   graphics on a talking head. Clipforge cannot generate actors; offer a script + shot list he can shoot (tripod, wide
   two-shot, a close-up per person, one punchline location) and cut it with the silences held. Breakdown in the
   2026-11-10 log.
+- `graphics/paper-cut/` (2026-11-12) — a **style test** after three Claude-edited reels by another creator that Kyle
+  recorded into Drive `Clipforge/Competition`: mixed-size word-by-word type (Playfair italic for small words, Sora for the
+  big ones, terracotta key word) sitting above and partly behind his head, and paper cutaways (Kyle as a white-edged
+  sticker on a paper ground, torn strips, a stamp, moving on twos). Recipe in the 2026-11-12 log: punch-ins first, matte
+  the punched footage, render `comp.html#bg` and `#fg` with `--alpha`, then `composite.py` (needs scipy). He said he is
+  open to "blowing the lid off" the Coastal Money rules for talking heads as long as the brand image mostly holds and
+  wants "more graphics like he has". **His verdict: "the fonts and new graphics are money", but "dont like the total blue
+  clip"**: the type, torn paper, stamp and sand sticker cutaway are the direction for talking heads; never a full-screen
+  navy ground (hook slides included). On a pale indoor wall set the type in ink, not sand. In a
+  tight selfie his face fills y 630–1475: type goes above his head, never on the chest. **Redone to the 2026-11-12 rules as
+  `final-rate-wait-v2.mp4`**: the navy cutaway replaced by torn paper above his head plus the cash heap
+  (`cash.html#...&stacks=5`) under his chin, with sounds; `composite.py --overlay=... --sfx=...` builds it. Ask for a seated tripod shot
+  with room beside his head for this style.
 - `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**. Start from `board-box.html` and
   `assemble-box.sh`, the version Kyle steered to in round two. Round one followed his brief to the letter (full-screen
   chalkboard under Clips B and C with him in a small window, then a "DM POINTS" slide; `board.html`, `assemble.sh`,
@@ -192,6 +225,31 @@ his standing brief. Read it before touching anything.
   Drive's `usercontent` URL handled 213 MB fine. He now sends a "Cover photo" in the Drive folder; crop it 9:16 and use
   the `rate-wait/cover.html` two-tone look. The page's side files cap at 15 MB each, so encode a two-pass ~3.2 Mbps
   copy for the page and attach the full-quality master in chat.
+- **Rate-buydown round three (2026-11-12)**: `graphics/rate-buydown/assemble-paper.sh` is now the version to start a
+  chalkboard reel from. No hook slide, `type.html` (paper-cut type + stamp) until the board arrives, the board rendered
+  with `board-box.html#...&full` so it **swoops in** from the upper right, and `src/music/chalk.py` for **chalk-writing,
+  eraser, whoosh and stamp sounds** driven by `sfx-events.json` (Kyle: "I want the chalk board to swoop in and writing
+  on the chalkboard to make sounds ... and the eraser to make a noise"). Sound effects go on every graphic that moves.
+  The box is 952x540 with 64–78 px writing since he asked for it "larger" (2026-11-12); board text uses his spoken
+  words ("keep the cash"), not the brief's.
+  **He picked the no-music cut** ("2 is better"). **Chalk must not sound like typing** (his words on the first try:
+  "annoying and typing"): no click per letter; soft flowing strokes with nothing above ~1.8 kHz (the brighter second try was "scratching nails on a
+  chalkboard"; he wants it "smooth"), but loud enough to hear (about 6 dB under his voice; 14 dB under was inaudible to him). Claude cannot
+  hear the result, so say that and ask him to listen.
+  **He asked for more pop and looser brand rules (2026-11-12)**: "I would like stuff to pop a little bit more ... the
+  chalkboard, the writing ... loosen restrictions ... get more creative". `board-box.html#...&pop` is that board: wood
+  frame, dusty slate, bright white / orange (cost) / mint (savings) chalk with a glow, falling dust, eraser ghost, a
+  taped paper note, a wobble on landing. For talking heads Coastal Money is now a starting palette, not a fence:
+  texture, extra accent colours and physical props are welcome; full-screen navy and emoji clutter still are not.
+  **The ending** is a heap of cut-paper cash rising on "keep the cash" with a bell ding (`cash.html`, `ding` in
+  `chalk.py`), over the unused smile at the end of the take. When he asks to "bring up" a thing, show one clear object
+  ("a lot of cash and then go ding"), not a particle storm across the frame, and draw it in the reel's cut-paper style
+  ("sharpen it up to match the rest of the video"), detailed enough to read as the real thing (he asked for the
+  bills "a little more realistic"), and **below his face**, never over it. Round nine got "perfect and so much better".
+  **Use a real recording for real-world sounds.** Three synthesised chalk sounds missed; he then picked a CC0 clip
+  (`src/music/samples/chalk-on-chalkboard.ogg`, credits beside it) and `chalk.py --sample` cuts it to each line,
+  about 15 dB under his voice (he asked for "a little bit further" down from 12). Wikimedia Commons has CC0 audio; plain curl to upload.wikimedia.org gets a 429, the web
+  fetch tool works. freesound and pixabay are blocked. Only CC0 / public-domain samples go in this public repo.
 - `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
   kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
   fill the footage (`--intro 2.35 --beat 0.77 --bars 10`). Mixed by `assemble-box.sh` at -8 dB on the silent hook,
@@ -223,6 +281,29 @@ his standing brief. Read it before touching anything.
   (GSAP timeline recipes). They route through `/hyperframes`. Use them for structure and caption styles,
   but Kyle's look and tone in this file win over any skill's defaults. HyperFrames skills want to update
   themselves on first use; ask before letting them.
+
+## Talking-head rules from 2026-11-12 (Kyle approved the rate-buydown reel: "I approve this message")
+
+He wants the rules "a little bit loose" while the brand image stays. These win over the older, stricter Coastal Money
+rules for talking-head reels (carousels and graphics-only posts still follow the guide).
+
+- **Fixed: the brand image.** Navy, sand, terracotta as the base; Sora for big words, Playfair italic for small ones,
+  Caveat for handwriting; his plain first-person voice; no logo, no emoji, no DM/NMLS card in a talking head.
+- **Loose: everything that makes it pop.** Extra accent colours with a meaning (orange = cost, mint = savings/cash),
+  texture, props that look like real things (a framed chalkboard, a taped note, a stamp, strapped hundreds, a fake
+  app window with a slider and a rolling number, a flow diagram whose boxes light on his words), glow,
+  dust, wobble, punch-ins. One prop at a time, each tied to what he is saying at that moment.
+- **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
+- **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
+- **Every graphic that moves makes a sound**, under his voice (about 15 dB under for a running sound like chalk).
+  Real-world sounds come from real CC0 recordings; only abstract ones (whoosh, thud, ding) are synthesised.
+- **One clear object beats a storm** ("a lot of cash and then go ding", not bills everywhere), drawn crisp and
+  detailed enough to read as the real thing.
+- **Board and caption use his spoken words**, not the brief's.
+- **End with a payoff** on his last line (a prop and a sound), over the unused second of smile after he stops talking.
+- **No music** unless he asks; he picked the voice-only cut.
+- **How he reviews:** he reacts to one thing per message and sees stills mid-build. Ship a cut, expect five to ten
+  small rounds, change only what he named, and say plainly that Claude cannot hear audio.
 
 ## The look Kyle approved (use it unless he asks for something else)
 

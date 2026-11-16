@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Is your family growing? (v2)</title>
+<!--
+  The family-growing photo reel, rebuilt to the 2026-11-12 rules (2026-11-13). What changed from comp.html:
+    - the photo fills the whole frame (cover); no navy slab under it, only a soft scrim where the type sits
+    - the camera reframes on each line: her belly on "growing?", Asher's face on "another bedroom?", the three of them
+      on "amazing agents"
+    - mixed type: Playfair italic lead-in, big Sora key word in terracotta
+    - one prop: an app-style "Bedrooms" stepper that ticks 3 → 4 on the second line
+    - "Message me" is a sand button, the easiest thing to read on the last beat
+    - 8.5 s (was 10.5): beats at 0 / 2.7 / 5.4
+  photo.jpg is gitignored (family photo, public repo). FOCUS points are fractions of the photo.
+  Render:  node src/graphics/render.mjs graphics/family-growing/comp2.html videos/family-growing/v2.mp4 --duration 8.5
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  :root { --navy:#173F4F; --terra:#F28C5B; --sand:#EFE9DE; --mint:#9BE3C7; --glass:#A9C0B9; --ink:#0E2A35; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:#0E2A35; }
+  #ph { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; will-change:transform; }
+  #scrim { position:absolute; inset:0; background:
+     linear-gradient(0deg, rgba(14,42,53,.88) 0px, rgba(14,42,53,.80) 420px, rgba(14,42,53,.50) 680px, rgba(14,42,53,0) 960px),
+     linear-gradient(180deg, rgba(14,42,53,.45) 0px, rgba(14,42,53,0) 300px); }
+  .beat { position:absolute; left:64px; width:870px; bottom:500px; }
+  .beat .ln { display:flex; flex-wrap:wrap; align-items:baseline; column-gap:22px; }
+  .w { display:inline-block; color:var(--sand); transform-origin:left bottom; text-shadow:0 4px 26px rgba(8,26,34,.55), 0 1px 3px rgba(8,26,34,.4); }
+  .s { font-family:"Playfair"; font-style:italic; font-size:88px; }
+  .m { font-family:"Sora"; font-weight:800; font-size:96px; letter-spacing:-0.035em; line-height:1.02; }
+  .x { font-family:"Sora"; font-weight:800; font-size:196px; letter-spacing:-0.045em; line-height:0.95; color:var(--terra); }
+  .t { color:var(--terra); }
+  #btn { display:inline-block; margin-top:34px; padding:22px 48px 26px; border-radius:60px; background:var(--sand); color:var(--ink);
+         font:800 68px "Sora"; letter-spacing:-0.02em; box-shadow:0 14px 34px rgba(8,26,34,.45); transform-origin:left center; }
+  #btn i { font-style:normal; color:#C2643B; }
+  /* the Bedrooms stepper: a small app card */
+  #beds { position:absolute; left:560px; top:300px; width:400px; height:176px; border-radius:30px; background:linear-gradient(160deg, #1A4656 0%, #0F2E3A 100%);
+          box-shadow:0 22px 50px rgba(8,26,34,.55), 0 0 0 2px rgba(169,192,185,.28), inset 0 1px 0 rgba(255,255,255,.12); transform-origin:right top; }
+  #beds .lab { position:absolute; left:34px; top:28px; font:800 24px "Manrope"; letter-spacing:.16em; color:var(--glass); }
+  #beds .num { position:absolute; left:30px; top:58px; width:120px; height:104px; overflow:hidden; }
+  #beds .num div { position:absolute; left:0; width:120px; font:800 104px/104px "Sora"; letter-spacing:-0.04em; }
+  #beds .unit { position:absolute; left:112px; top:104px; font:800 34px "Manrope"; color:var(--sand); }
+  #plus { position:absolute; right:30px; top:50px; width:84px; height:84px; border-radius:50%; background:var(--mint); color:var(--ink); font:800 70px/78px "Manrope"; text-align:center; }
+  #minus { position:absolute; right:130px; top:62px; width:60px; height:60px; border-radius:50%; box-shadow:inset 0 0 0 3px rgba(169,192,185,.45); color:var(--glass); font:800 50px/52px "Manrope"; text-align:center; }
+</style>
+</head>
+<body>
+<img id="ph" src="photo.jpg" alt="">
+<div id="scrim"></div>
+
+<div class="beat" id="b1"><div class="ln"><span class="w s">Is</span><span class="w s">your</span><span class="w s">family</span></div><div class="ln"><span class="w x">growing?</span></div></div>
+<div class="beat" id="b2"><div class="ln"><span class="w s">Need</span><span class="w s">another</span></div><div class="ln"><span class="w x">bedroom?</span></div></div>
+<div class="beat" id="b3"><div class="ln"><span class="w s">I</span><span class="w s">work</span><span class="w s">with</span><span class="w s">some</span></div>
+  <div class="ln"><span class="w m t">amazing</span><span class="w m">agents.</span></div><div id="btn">Message me <i>→</i></div></div>
+
+<div id="beds"><div class="lab">BEDROOMS</div><div class="num"><div id="n3" style="color:var(--sand)">3</div><div id="n4" style="color:var(--mint)">4</div></div><div class="unit">beds</div><div id="minus">–</div><div id="plus">+</div></div>
+
+<script>
+  const T = [0, 2.7, 5.4], END = 8.5;
+  window.DURATION = END;
+  const $ = (id) => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const prog = (t, t0, d) => clamp((t - t0) / d);
+  const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+  const outBack = (p) => { const c1 = 1.6, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+  const inOut = (p) => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+  const lerp = (a, b, k) => a + (b - a) * k;
+
+  // Where things are in the photo (fractions of its width / height) and where each should land in the frame.
+  // u, v: focal point; s0 → s1: zoom over the beat; (tx, ty): where the focal point sits on the 1080x1920 frame.
+  const FOCUS = window.FOCUS || [
+    { u: 0.43, v: 0.39, s0: 1.02, s1: 1.14, tx: 500, ty: 760 },     // her belly, slow push
+    { u: 0.56, v: 0.31, s0: 1.55, s1: 1.66, tx: 470, ty: 800 },     // Asher's face
+    { u: 0.47, v: 0.36, s0: 1.10, s1: 1.00, tx: 530, ty: 700 },     // all three, easing back out to the full photo
+  ];
+  const MOVE = 0.42;                                                  // seconds to travel between framings
+  let geo = null;
+  function geometry() {                                               // object-fit: cover, worked out by hand so focal points map exactly
+    const im = $("ph"), r = Math.max(1080 / im.naturalWidth, 1920 / im.naturalHeight);
+    const w = im.naturalWidth * r, h = im.naturalHeight * r;
+    geo = { w, h, x: (1080 - w) / 2, y: (1920 - h) / 2 };
+    Object.assign(im.style, { width: w + "px", height: h + "px", left: geo.x + "px", top: geo.y + "px", objectFit: "fill", transformOrigin: "0 0" });
+  }
+  function framing(i, t) {
+    const f = FOCUS[i], t0 = T[i], t1 = i < 2 ? T[i + 1] : END;
+    return { s: lerp(f.s0, f.s1, clamp((t - t0) / (t1 - t0))), u: f.u, v: f.v, tx: f.tx, ty: f.ty };
+  }
+  function camera(t) {
+    let i = t >= T[2] ? 2 : t >= T[1] ? 1 : 0;
+    let a = framing(i, t);
+    if (i > 0 && t < T[i] + MOVE) {                                    // glide from the previous framing
+      const p = framing(i - 1, t), k = inOut(prog(t, T[i], MOVE));
+      a = { s: lerp(p.s, a.s, k), u: lerp(p.u, a.u, k), v: lerp(p.v, a.v, k), tx: lerp(p.tx, a.tx, k), ty: lerp(p.ty, a.ty, k) };
+    }
+    // keep the photo covering the frame: clamp the pan
+    const W = geo.w * a.s, H = geo.h * a.s;
+    const x = clamp(a.tx - a.u * W, 1080 - W, 0), y = clamp(a.ty - a.v * H, 1920 - H, 0);
+    $("ph").style.transform = `translate(${x - geo.x}px, ${y - geo.y}px) scale(${a.s})`;
+  }
+  function pop(el, t, t0, big) {
+    const p = prog(t, t0, big ? 0.22 : 0.16);
+    if (p <= 0) { el.style.opacity = 0; return; }
+    el.style.opacity = clamp(p * 4);
+    el.style.transform = `translateY(${(1 - outCubic(p)) * (big ? 0 : 20)}px) scale(${big ? 1.35 - 0.35 * outBack(p) : 1.18 - 0.18 * outCubic(p)})`;
+  }
+
+  window.seek = (t) => {
+    if (!geo) { if (!$("ph").naturalWidth) return; geometry(); }
+    camera(t);
+    T.forEach((t0, i) => {
+      const el = $("b" + (i + 1)), t1 = i < 2 ? T[i + 1] : END + 1;
+      const out = prog(t, t1 - 0.2, 0.2);
+      el.style.opacity = t < t0 ? 0 : 1 - out;
+      [...el.querySelectorAll(".w")].forEach((w, k) => pop(w, t, t0 + 0.25 + k * 0.13, /x|m/.test(w.className)));
+    });
+    // the button
+    const bp = prog(t, T[2] + 1.25, 0.24);
+    $("btn").style.opacity = bp > 0 ? 1 : 0; $("btn").style.transform = `scale(${bp > 0 ? 1.3 - 0.3 * outBack(bp) : 1})`;
+    // the Bedrooms stepper: drops in on beat two, the + is pressed, 3 rolls to 4
+    const b = $("beds"), a = t - T[1];
+    if (a < 0.45 || t > T[2] - 0.05) b.style.opacity = 0;
+    else {
+      const inn = outBack(prog(a, 0.45, 0.32)), out = Math.pow(prog(t, T[2] - 0.3, 0.25), 2);
+      b.style.opacity = 1; b.style.transform = `translateY(${-(1 - inn) * 420 - out * 460}px) rotate(${(1 - inn) * 6}deg)`;
+      const press = prog(a, 1.15, 0.22), roll = outCubic(prog(a, 1.22, 0.3));
+      $("plus").style.transform = `scale(${1 - 0.16 * Math.sin(Math.PI * press)})`;
+      $("n3").style.top = (-104 * roll) + "px"; $("n4").style.top = (104 - 104 * roll) + "px";
+    }
+  };
+  $("ph").addEventListener("load", () => window.seek(0));
+  window.seek(0);
+</script>
+</body>
+</html>

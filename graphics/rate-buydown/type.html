@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  Round three of the rate-buydown reel (2026-11-12): the paper-cut type on the part of the reel before the
+  chalkboard arrives. No hook slide; the reel opens on his face with the hook as word-by-word type.
+    type.html#bg  the words (ink on his cream office wall, terracotta for the turn). In Clip A the block sits low
+                  enough that his hair overlaps its bottom edge once the cutout is laid back over it.
+    type.html#fg  the "OFFER ACCEPTED" stamp.
+  Times are cut.mp4 seconds. Everything is gone by OUT, when the board swoops in.
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  :root { --navy:#173F4F; --sand:#EFE9DE; --terra:#D2693B; --ink:#0E2A35; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:transparent; }
+  body.probe { background:#e9e4d6; }
+  .layer { position:absolute; inset:0; }
+  #block { position:absolute; left:70px; display:flex; flex-wrap:wrap; justify-content:flex-start; align-items:baseline;
+           column-gap:20px; row-gap:0; }
+  #block span { display:inline-block; color:var(--ink); transform-origin:left bottom;
+                text-shadow: 0 0 22px rgba(239,233,222,.95), 0 0 6px rgba(239,233,222,.8); }
+  #block .s { font-family:"Playfair"; font-style:italic; font-size:74px; }
+  #block .m { font-family:"Sora"; font-weight:800; font-size:116px; letter-spacing:-0.035em; line-height:1; }
+  #block .l { font-family:"Sora"; font-weight:800; font-size:156px; letter-spacing:-0.04em; line-height:0.95; color:var(--terra); }
+  #block .x { font-family:"Sora"; font-weight:800; font-size:196px; letter-spacing:-0.045em; line-height:0.9; color:var(--terra); }
+  #block .br { flex-basis:100%; height:0; }
+  .stamp { position:absolute; left:92px; top:392px; border:10px solid var(--terra); color:var(--terra); padding:12px 34px 16px;
+           border-radius:12px; font-family:"Sora"; font-weight:800; font-size:86px; line-height:1.02; letter-spacing:0.02em;
+           transform-origin:center; background:rgba(239,233,222,.55); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="r"/>
+    <feDisplacementMap in="SourceGraphic" in2="r" scale="7"/></filter>
+</svg>
+<div class="layer" id="bg"><div id="block"></div></div>
+<div class="layer" id="fg"><div class="stamp" id="stamp" style="filter:url(#rough)">OFFER<br>ACCEPTED</div></div>
+
+<script src="words.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, t0, d) => clamp((t - t0) / d);
+const outBack = (p) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+const W = window.WORDS;
+const OUT = 9.76;                        // the board starts its swoop at 9.78
+
+// [word index, class]; "|" = line break. `bottom` = y of the block's bottom edge, `w` = block width.
+// Clip A (to 4.81): clear wall to x≈900, hair at y≈720, so the block tucks behind his head.
+// Clip B: a framed picture and a bookcase start at y≈580, so the block stays above them and left of x≈700.
+const GROUPS = [
+  { from: 0.3,  to: 1.44, bottom: 770, w: 820, words: [[0,"s"],[1,"m"]] },                                              // Hey there.
+  { from: 1.44, to: 3.6,  bottom: 770, w: 820, words: [[2,"s"],[3,"s"],[4,"s"],"|",[6,"s"],[7,"s"],[8,"m"],[9,"s"],[10,"s"],"|",[11,"m"],[12,"m"]] }, // Did you know / you can pay for a / lower rate
+  { from: 3.6,  to: 4.81, bottom: 820, w: 860, words: [[13,"s"],[14,"s"],"|",[15,"x"],"|",[16,"x"]] },                  // and still / lose / money?
+  { from: 5.1,  to: 7.2,  bottom: 372, w: 700, words: [[17,"s"],[18,"s"],[19,"s"],[20,"s"],[21,"s"]] },                 // Let's say you just got  (+ stamp)
+  { from: 7.2,  to: 8.0,  bottom: 600, w: 700, words: [[25,"s"],"|",[26,"l"]] },                                        // That's / exciting.
+  { from: 8.0,  to: OUT,  bottom: 570, w: 660, words: [[27,"s"],[28,"s"],[29,"s"],[30,"s"],[31,"s"],"|",[32,"m"],[33,"s"],"|",[34,"s"],[35,"l"]] }, // But then you go to / lock your / interest rate
+];
+const INK = new Set([26]);              // "exciting." big but ink
+const STAMP_AT = W[23].start;           // "accepted"
+
+let cur = -1;
+function build(gi) {
+  const c = $("block"); c.innerHTML = "";
+  if (gi < 0) return;
+  const g = GROUPS[gi];
+  c.style.bottom = (1920 - g.bottom) + "px"; c.style.width = g.w + "px";
+  for (const it of g.words) {
+    if (it === "|") { const b = document.createElement("i"); b.className = "br"; c.appendChild(b); continue; }
+    const s = document.createElement("span"); s.className = it[1]; s.textContent = W[it[0]].text; s.dataset.i = it[0];
+    if (INK.has(it[0])) s.style.color = "var(--ink)";
+    c.appendChild(s);
+  }
+}
+function pop(el, t, t0, big) {
+  const p = prog(t, t0 - 0.04, big ? 0.2 : 0.15);
+  if (p <= 0) { el.style.opacity = 0; return; }
+  el.style.opacity = clamp(p * 4);
+  el.style.transform = `translateY(${(1 - outCubic(p)) * (big ? 0 : 18)}px) scale(${big ? 1.4 - 0.4 * outBack(p) : 1.2 - 0.2 * outCubic(p)})`;
+}
+
+const mode = location.hash.replace("#", "");
+if (mode === "bg") $("fg").style.display = "none";
+if (mode === "fg") $("bg").style.display = "none";
+if (!mode) document.body.classList.add("probe");
+
+window.seek = (t) => {
+  let gi = -1;
+  GROUPS.forEach((g, i) => { if (t >= g.from && t < g.to) gi = i; });
+  if (gi !== cur) { build(gi); cur = gi; }
+  for (const s of $("block").querySelectorAll("span")) pop(s, t, W[+s.dataset.i].start, /^[lx]/.test(s.className));
+  // stamp: slams in from large on "accepted", holds to the end of the sentence
+  const st = $("stamp"), p = prog(t, STAMP_AT, 0.14);
+  if (p <= 0 || t >= 7.2) st.style.opacity = 0;
+  else { st.style.opacity = 1; st.style.transform = `rotate(-6deg) scale(${3 - 2 * outCubic(p)})`; }
+};
+window.seek(0);
+</script>
+</body>
+</html>
