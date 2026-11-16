@@ -126,6 +126,11 @@
   .tv { position: absolute; left: 497px; top: 387px; width: 590px; height: 380px; overflow: hidden; background: #000; }
   .tv img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
   #lg img { object-position: 50% 100%; } #st img { object-position: 50% 62%; }
+  /* Round 26: Kyle did not like the font. Captions go back to the look of his own reels: Nunito ExtraBold, soft shadow. */
+  .sub { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 62px; letter-spacing: 0; text-shadow: 0 4px 16px rgba(0,0,0,.75), 0 1px 3px rgba(0,0,0,.6); }
+  .next { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 84px; letter-spacing: 0; }
+  .honey { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; } .honey i { font-weight: 800; font-style: normal; }
+  .honey small { font-family: "Inter", system-ui, sans-serif; }
 </style>
 </head>
 <body>
@@ -136,14 +141,14 @@
 <!-- Beats A and B (Kyle, round 13: "have the guy sitting in front of the TV with the Broncos game ... you don't need to
      go to the actual game footage ... make it more smooth"): the same living room, the real clips playing small on the TV
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
-<div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:72px;top:960px"></div></div>
+<div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:76px;top:960px"></div></div>
 <div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1290px"></div></div>
 <div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="midB" src="side-fall.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
 <div class="frame black" id="fE"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
-<div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4"></div><div class="bug2" id="bF"></div></div>
+<div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4" style="font-size:56px"></div><div class="bug2" id="bF"></div></div>
 
 <script>
   const LG = 198, lg = document.getElementById("lg");
@@ -152,7 +157,7 @@
   const ST = 132, stEl = document.getElementById("st");
   stEl.innerHTML = Array.from({ length: ST }, (_, i) => `<img style="visibility:hidden" src="strip/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const stImgs = [...stEl.children];
-  const T = { O: 0, A: 1.5, B: 9.4, C: 15.1, wife: 16.5, E: 17.9, F: 18.7, end: 23.0 };   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
+  const T = { O: 0, A: 1.5, B: 9.4, C: 15.1, wife: 16.5, E: 17.9, F: 18.9, end: 27.4 };   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -172,7 +177,7 @@
   const kick = (tt, times) => times.reduce((m, t0) => Math.max(m, tt >= t0 ? Math.exp(-(tt - t0) * 6) * Math.sin(Math.min(1, (tt - t0) / 0.09) * Math.PI / 2) : 0), 0);
   function yes(img, tt, at, x0, y0, w, d = 1.0, times = []) {
     const kk = kick(tt, times);
-    const p = ease(clamp((tt - at) / d, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 2.2, 0, 1)) + 0.035 * kk);
+    const p = ease(clamp((tt - at) / d, 0, 1)), k = 1080 / w * (1 + 0.09 * ease(clamp((tt - at) / 4.5, 0, 1)) + 0.035 * kk);
     y0 = y0 + 26 * kk / (1080 / w);   // a slow dissolve and a slow push
     img.style.opacity = p; img.style.transform = `translate(${(-x0 * k).toFixed(1)}px,${(-y0 * k).toFixed(1)}px) scale(${k.toFixed(4)})`;
     return p;
@@ -196,20 +201,20 @@
       $("roomA").style.filter = "brightness(0.9) saturate(0.92)";
       // Logan's call from midfield (1.0 s into Kyle's recording = 0 here): "Here we go" 0.0, "Midfield" 0.5, "Coleman, 45, 40" 1.1,
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
-      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.2, 0, 0, 1080, 0.6, [1.5, 1.95, 2.9, 3.3, 3.9, 4.3, 4.9, 5.4, 5.8]), br = breathe($("brA"), tt, 6.5);   // round 24: up on "45, 40", a pump per yard line
+      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.2, 0, 0, 1080, 0.6, []), br = breathe($("brA"), tt, 6.5);   // round 24: up on "45, 40", a pump per yard line
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
       const line = said([[0.5, "Come on…"], [1.5, "Go… go…"], [2.9, "GO! GO! GO!"], [4.9, "YES! YES!"], [7.0, "Phew."]], tt);
-      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 4.9 && tt < 7.0 ? "88px" : tt >= 2.9 && tt < 4.9 ? "74px" : "60px";
+      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 4.9 && tt < 7.0 ? "76px" : "62px";
       $("subA").style.opacity = clamp((tt - 0.6) / 0.3, 0, 1) * (tt < 7.0 ? 1 - clamp((tt - 6.5) / 0.4, 0, 1) : clamp((tt - 7.0) / 0.3, 0, 1) * (1 - clamp((tt - 7.6) / 0.3, 0, 1)));
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.9) / 0.5, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.06 + 0.26 * ease(clamp(tt / 3.4, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
-      $("yesB").style.opacity = 0; const m = yes($("midB"), tt, 1.35, 0, 400, 640, 0.5, [1.5, 2.45, 2.9, 3.3]), br = breathe($("brB"), tt, 4.2);   // arms up on "that ball's free"
+      $("yesB").style.opacity = 0; const m = yes($("midB"), tt, 1.35, 0, 400, 640, 0.5, []), br = breathe($("brB"), tt, 4.2);   // arms up on "that ball's free"
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
       const line = said([[0.45, "Not again…"], [1.45, "GET HIM!"], [2.45, "Oh my God… we won again!"], [4.7, "Phew."]], tt);
-      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 4.7 ? "70px" : tt >= 1.45 && tt < 2.45 ? "74px" : "60px";
+      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = "62px";
       $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.7 ? 1 - clamp((tt - 4.2) / 0.4, 0, 1) : clamp((tt - 4.7) / 0.3, 0, 1) * (1 - clamp((tt - 5.3) / 0.3, 0, 1)));
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.6) / 0.5, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
@@ -221,15 +226,16 @@
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
       const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px)`; $("honey").style.transformOrigin = "100% 0";
       $("ht").textContent = "“Honey… my water broke.”"; } },
-    { id: "fE", at: T.E, tr: "dissolve", dur: 0.9, draw(tt) {
+    { id: "fE", at: T.E, tr: "dissolve", dur: 1.0, draw(tt) {
       $("nx").textContent = "Next Sunday…"; $("nx").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1);
       $("nx2").style.opacity = clamp((tt - 0.6) / 0.2, 0, 1); } },
-    { id: "fF", at: T.F, tr: "dissolve", dur: 1.2, draw(tt) {
-      $("imF").style.transform = `${drift(tt, 0.6)} scale(${(1.10 - 0.07 * ease(clamp(tt / 4.8, 0, 1))).toFixed(4)})`;
-      const late = tt >= 2.8;
+    { id: "fF", at: T.F, tr: "dissolve", dur: 1.8, draw(tt) {
+      // Round 26: "I want that to be a peaceful, long lasting moment." 8.5 s, one very slow push, two unhurried lines, no score bug.
+      $("imF").style.transform = `${drift(tt, 0.35)} scale(${(1.0 + 0.10 * ease(clamp(tt / 8.5, 0, 1))).toFixed(4)})`;
+      const late = tt >= 5.4;
       $("sub4").innerHTML = late ? "<div>And it’s the Raiders.<br>I can still relax.</div>" : "<div>Welcome to Broncos Country,<br>baby girl.</div>";
-      $("sub4").style.opacity = late ? clamp((tt - 2.8) / 0.4, 0, 1) : clamp((tt - 0.7) / 0.6, 0, 1) * (1 - clamp((tt - 2.5) / 0.3, 0, 1));
-      bug($("bF"), team("LV", LV, "") + team("DEN", DEN, "", "7–2") + `<div class="st"><b>TODAY</b><span>WEEK 11</span></div>`, `<i>NEW</i>Broncos Country signs one rookie`, clamp((tt - 1.2) / 0.5, 0, 1)); } },
+      $("sub4").style.opacity = late ? ease(clamp((tt - 5.4) / 0.8, 0, 1)) : ease(clamp((tt - 1.6) / 1.0, 0, 1)) * (1 - clamp((tt - 4.6) / 0.7, 0, 1));
+      $("bF").style.opacity = 0; } },
   ];
   window.seek = (t) => {
     let i = scenes.length - 1; while (i > 0 && t < scenes[i].at) i--;

@@ -332,6 +332,17 @@ win line is "Oh my God… we won again!", C is "Bye week. Thank God." and her li
 15.1, wife 16.5, E 17.9, F 18.7, end 23.0). Asked him for a screen recording of the Broncos' Dave Logan call of the
 strip sack if one exists.
 
+## Round twenty-six: the pulse, the font, the ending
+
+Kyle: "Something about this still isn't right. I think it's the freeze screen on his face that pulses. And the font.
+And the quickness of the baby. I want that to be a peaceful long lasting moment."
+- `kick()` pulses removed from both pose frames; they hold with one slow push (9% over 4.5 s).
+- Captions are Nunito ExtraBold 62 px with a soft shadow, the look of his own reel captions (the `rounded` style in this
+  file), replacing the Inter subtitle; "Next Sunday…" and her box follow.
+- The ending is 8.5 s (F 18.9 → 27.4): a 1.8 s dissolve in, a 10% push over the whole shot, "Welcome to Broncos
+  Country, baby girl." from 1.6 s, the Raiders line from 5.4 s, no score bug, a 3 s audio fade.
+**Lesson: on a still, any rhythmic bump reads as a glitching freeze frame; and the pay-off shot gets the most time.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

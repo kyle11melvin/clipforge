@@ -357,6 +357,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 26:** no pulsing or bumping on a still ("the freeze screen on his face that pulses" was wrong): a pose frame
+  holds with one slow push. Captions in a character piece are **Nunito ExtraBold, white, soft shadow** (his reel
+  caption look), not Inter. The pay-off shot (the baby) is "a peaceful, long lasting moment": 8 s or more, slow
+  dissolve in, slow push, two unhurried lines, no score bug. This supersedes the `kick()` note below.
   **Round 24:** the excitement stays, but it moves with the call: he sits up as the announcer gets going and pumps on
   each yard line (`kick()` bumps the pose frame on the word onsets), a different pose for the second game, then the
   breath. "Don't be sitting there the entire time."
