@@ -342,6 +342,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   pulled from that session's page with Artifact read-by-path) as preloaded frame sequences inside the comp; a TTS
   announcer over a still got "Absolutely not, we had a better one". Kokoro TTS (`npx hyperframes tts`) is fine for a
   made-up line like his wife's; never clone a real announcer.
+  **Smooth means the baby scene (round 13):** slow dissolves, slow pushes, quiet sound. He called reaction cut-ins,
+  jump punch-ins, shake and thumps "too intense … terrible". Game footage goes **on the TV in the room** with its call
+  as the sound (`.tv` inside `.room`), not full screen.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

@@ -188,6 +188,19 @@ out a book, then "my water broke". Added `react()`: reaction cut-ins (`stress-b.
 running on underneath, a soft thump on each cut. The book frame could not be generated (Canva quota); a ChatGPT line
 for it is on the page.
 
+## Round thirteen: "it gets too intense … make the transitions way more smooth"
+
+Kyle on the cut with reaction cut-ins: "I don't like that it gets too intense … the creative editing is terrible, I
+don't wanna hear that, I don't wanna see it. The very end is good with the baby." His fix: "Broncos make me stress",
+the guy sitting in front of the TV with the Broncos game, "clip to the volume of the announcer, you don't need to go to
+the actual game footage", then the next one. So beats A and B are now the living room (`side-relax.jpg`, slightly
+darker) with the real clips playing **inside the TV screen** (`.tv` box at 497,387 590x380 over the screen, inside a
+`.room` wrapper that takes the push), the calls as the sound, fading in and out. Every transition is a 0.35–0.9 s
+dissolve; the reaction cut-ins, whip, jump punch-ins, shake and all percussive sounds are gone; the fall is one slow
+push. **Lesson: his taste is the baby scene: slow dissolve, slow push, quiet. Hard cuts, shake and hits read as
+"intense" and "terrible" to him even on the scare beat.** He also said the hand-offs to ChatGPT/Grok are painful
+because the tools do not talk to each other; keep every request to them to one picture and one sentence.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
