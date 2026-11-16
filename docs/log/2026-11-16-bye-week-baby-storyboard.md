@@ -231,6 +231,13 @@ tighter crop after the strip sack) and beat C is `chill.jpg`. 20.2 s, dissolves 
 **Lesson: the fast path for a missing pose is one saved reference frame plus one pasted message to ChatGPT; it took him
 a few minutes and fixed what three rounds of stand-ins could not.**
 
+## Round seventeen: "that's perfect" and the timing of the joke
+
+Kyle: "Yeah, that's perfect." One change: the bye-week picture should be "nice and calm, very quickly, and then honey
+my water broke … that's the joke: nice and calm weekend finally, and then my water broke." The calm now lasts 1.3 s
+(C 9.0, wife 10.3, D 11.2, E 13.8, F 14.7, end 19.5) with one line, "Bye week. A nice, calm weekend. Finally."
+**Lesson: the setup for a punchline is short; the interruption is the joke.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

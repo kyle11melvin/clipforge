@@ -138,7 +138,7 @@
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
 <div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supA">TWO WEEKS AGO</div><div class="sub" id="subA"></div><div class="bug2" id="bA"></div></div>
 <div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supB">LAST WEEK</div><div class="sub" id="subB"></div><div class="bug2" id="bB"></div></div>
-<div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY</div><div class="sub" id="sub1"></div>
+<div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
 <div class="frame black" id="fE"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
@@ -151,7 +151,7 @@
   const ST = 132, stEl = document.getElementById("st");
   stEl.innerHTML = Array.from({ length: ST }, (_, i) => `<img style="visibility:hidden" src="strip/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const stImgs = [...stEl.children];
-  const T = { A: 0, B: 4.6, C: 9.0, wife: 10.9, D: 11.9, E: 14.5, F: 15.4, end: 20.2 };   // A and B are as long as their announcer calls
+  const T = { A: 0, B: 4.6, C: 9.0, wife: 10.3, D: 11.2, E: 13.8, F: 14.7, end: 19.5 };   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -193,7 +193,7 @@
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 0.9, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(tt / (T.D - T.C)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").innerHTML = tt < 1.1 ? "<div>Bye week. Coffee and RedZone.</div>" : "<div>I can finally relax.</div>";
+      $("sub1").innerHTML = "<div>Bye week. A nice, calm weekend.<br>Finally.</div>";
       $("sub1").style.opacity = clamp((tt - 0.4) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
       const hp = clamp((tt - w) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`; $("honey").style.transformOrigin = "100% 0";
