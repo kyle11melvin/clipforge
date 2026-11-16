@@ -96,6 +96,15 @@ brief with the two frames to one tool (keeps the character and matches the graph
 `docs/handoff-bye-week-baby-open.md` with no frames to the other (story, beats, feel, don'ts; its own ideas). Compare
 what comes back; that comparison is the lesson. He said yes to main: this branch was pushed to `main` on 2026-11-16.
 
+## First thing back from the other tool
+
+ChatGPT (plain chat) could not make video ("I can't render actual video files") but returned a still for clip 3 from
+the two reference frames: navy Nike Broncos hoodie, the foal awake and laughing up at him, a Broncos game on the TV,
+framed a little closer. Much better than the Canva stills on expression and on the logo, and the character and room
+held. It is now `side-couch.jpg` (gitignored), the ending and the cover. **Lesson: for a character still with real team
+gear and a big expression, ChatGPT's image tool from a reference frame beats Canva; ChatGPT chat does not do video
+(that is Sora), Grok Imagine does image-to-video.** Waiting on Grok's clips.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
