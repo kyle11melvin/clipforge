@@ -247,6 +247,21 @@ and overlapped (Logan 3.3–9.7 s of his recording with a 2 s tail, the strip-sa
 a 2 s tail into the calm) over one continuous quiet room tone, with a fade at each end of the reel.
 **Lesson: "choppy" was mostly the sound starting and stopping per beat; overlap the audio across picture changes.**
 
+## Round nineteen: his running order, and "not a hotel lobby"
+
+Kyle, twice: open on "Being a Broncos fan…", cut to the first video, more reaction, the second video, his reaction,
+a chill sit-down in the same chair with a cup ("bye week…"), "Honey, my water broke", cut to the last scene. And: the
+room should not look like "a hotel room or a hotel lobby … a bar or a house".
+
+- New opener `fO` (`watch.jpg`, 1.8 s, "Being a Broncos fan…"). The fall scene is out of the scene list (markup kept).
+  T: O 0, A 1.8, B 6.4, C 10.8, wife 12.1, E 13.5, F 14.4, end 19.2. Reactions are tighter crops of `fist.jpg`
+  (880 px wide after game one, 660 after game two). The "stress me out" / "every single week" lines are gone.
+- Room: PIL bakes a felt BRONCOS pennant and two framed pictures onto the bare wall of every living-room still
+  (`*-plain.jpg` are the originals), multiplied by the wall's own light so the window streaks cross them, soft shadow.
+  The supers moved down to y=968 to clear them.
+- Sound: only the two overlapped calls over a room tone; all effects removed with the fall.
+**Lesson: he states the running order as a list; build exactly that list, in that order, with nothing extra between.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

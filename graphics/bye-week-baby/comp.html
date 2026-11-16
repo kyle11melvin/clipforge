@@ -76,7 +76,7 @@
   .next small { display: block; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 32px; letter-spacing: .18em; color: var(--orange); margin-top: 18px; }
   /* Commercial look (Kyle, 2026-11-16: "you're covering the face ... make it look more natural like an actual commercial"):
      nothing above y=1040 except one small super; dialogue as clean subtitles; the card is a compact lower third. */
-  .super { position: absolute; left: 60px; width: 860px; top: 270px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700;
+  .super { position: absolute; left: 60px; width: 860px; top: 968px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700;
     font-size: 30px; letter-spacing: .22em; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.7); }
   .sub { position: absolute; left: 60px; width: 860px; top: 1010px; height: 140px; display: flex; align-items: flex-end; justify-content: center; text-align: center;
     font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 56px; line-height: 1.15; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,.85), 0 0 3px rgba(0,0,0,.6); }
@@ -136,6 +136,7 @@
 <!-- Beats A and B (Kyle, round 13: "have the guy sitting in front of the TV with the Broncos game ... you don't need to
      go to the actual game footage ... make it more smooth"): the same living room, the real clips playing small on the TV
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
+<div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:72px;top:960px"></div></div>
 <div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supA">TWO WEEKS AGO</div><div class="sub" id="subA"></div><div class="bug2" id="bA"></div></div>
 <div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supB">LAST WEEK</div><div class="sub" id="subB"></div><div class="bug2" id="bB"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
@@ -151,7 +152,7 @@
   const ST = 132, stEl = document.getElementById("st");
   stEl.innerHTML = Array.from({ length: ST }, (_, i) => `<img style="visibility:hidden" src="strip/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const stImgs = [...stEl.children];
-  const T = { A: 0, B: 4.6, C: 9.0, wife: 10.3, D: 11.2, E: 13.8, F: 14.7, end: 19.5 };   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
+  const T = { O: 0, A: 1.8, B: 6.4, C: 10.8, wife: 12.1, E: 13.5, F: 14.4, end: 19.2 };   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -173,39 +174,34 @@
     return p;
   }
   const scenes = [
-    { id: "fA", at: T.A, draw(tt) {
+    { id: "fO", at: T.O, draw(tt) {
+      $("imO").style.transform = `${drift(tt, 0.5)} scale(${(1.0 + 0.05 * ease(clamp(tt / 2.6, 0, 1))).toFixed(4)})`;
+      $("subO").innerHTML = "<div>Being a Broncos fan…</div>"; $("subO").style.opacity = ease(clamp((tt - 0.25) / 0.5, 0, 1)) * (1 - clamp((tt - 1.5) / 0.4, 0, 1)); } },
+    { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomA").style.transform = `${drift(tt, 0.5)} scale(${(1.02 + 0.10 * ease(clamp(tt / 5.2, 0, 1))).toFixed(4)})`;
       $("roomA").style.filter = "brightness(0.86) saturate(0.9)";
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1);
-      const y = yes($("yesA"), tt, 2.9, 0, 0, 1080); $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - y);
-      $("subA").innerHTML = tt < 2.9 ? "<div>The Broncos stress me out.</div>" : "<div>YES!</div>"; $("subA").style.opacity = tt < 2.9 ? clamp((tt - 0.4) / 0.6, 0, 1) * (1 - clamp((tt - 2.3) / 0.6, 0, 1)) : y * (1 - clamp((tt - 4.0) / 0.5, 0, 1));
+      const y = yes($("yesA"), tt, 2.9, 90, 110, 880); $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - y);
+      $("subA").innerHTML = tt < 2.9 ? "" : "<div>YES!</div>"; $("subA").style.opacity = tt < 2.9 ? clamp((tt - 0.4) / 0.6, 0, 1) * (1 - clamp((tt - 2.3) / 0.6, 0, 1)) : y * (1 - clamp((tt - 4.0) / 0.5, 0, 1));
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 3.4) / 0.6, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.1, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomB").style.transform = `${drift(tt + 4.6, 0.5)} scale(${(1.12 + 0.08 * ease(clamp(tt / 4.6, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.86) saturate(0.9)";
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1);
-      const y = yes($("yesB"), tt, 2.8, 150, 150, 820); $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - y);
-      $("subB").innerHTML = tt < 2.8 ? "<div>Every. Single. Week.</div>" : "<div>They did it again!</div>"; $("subB").style.opacity = tt < 2.8 ? clamp((tt - 0.9) / 0.6, 0, 1) * (1 - clamp((tt - 2.2) / 0.6, 0, 1)) : y * (1 - clamp((tt - 3.8) / 0.5, 0, 1));
+      const y = yes($("yesB"), tt, 2.8, 230, 190, 660); $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - y);
+      $("subB").innerHTML = tt < 2.8 ? "" : "<div>They did it again!</div>"; $("subB").style.opacity = tt < 2.8 ? clamp((tt - 0.9) / 0.6, 0, 1) * (1 - clamp((tt - 2.2) / 0.6, 0, 1)) : y * (1 - clamp((tt - 3.8) / 0.5, 0, 1));
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.0) / 0.7, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
-      const w = T.wife - T.C, punch = ease(clamp((tt - w) / 0.9, 0, 1)), punch2 = 0;   // a slow lean in, no snap
-      $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(tt / (T.D - T.C)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
+      const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
+      $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(clamp(tt / (T.E - T.C), 0, 1)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").innerHTML = "<div>Bye week. A nice, calm weekend.<br>Finally.</div>";
+      $("sub1").innerHTML = "<div>Bye week…<br>a nice, calm weekend. Finally.</div>";
       $("sub1").style.opacity = clamp((tt - 0.4) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
       const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px)`; $("honey").style.transformOrigin = "100% 0";
       $("ht").textContent = "“Honey… my water broke.”"; } },
-    { id: "fD", at: T.D, tr: "dissolve", dur: 0.7, draw(tt) {
-      // Kyle: "I don't like that it gets too intense". One slow-motion push on the fall; no jump cuts, no shake.
-      const L = T.E - T.D, p = ease(clamp(tt / L, 0, 1));
-      $("shk").style.transformOrigin = "40% 38%"; $("shk").style.filter = "";
-      $("shk").style.transform = `${drift(tt, 0.5)} rotate(${(-1.2 * p).toFixed(2)}deg) scale(${(1.04 + 0.16 * p).toFixed(4)})`;
-      $("what").style.fontSize = "64px"; $("what").textContent = "What?!"; $("what").style.transform = "";
-      $("what").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - clamp((tt - 2.0) / 0.5, 0, 1));
-      bug($("bD"), team("DEN", DEN, "", "7–2") + `<div class="st" style="background:#8f1010"><b style="color:#fff">BYE WEEK</b><span style="color:#fff">CANCELLED</span></div>`, `<i>BREAKING</i>So much for relaxing`, clamp((tt - 0.9) / 0.6, 0, 1)); } },
     { id: "fE", at: T.E, tr: "dissolve", dur: 0.9, draw(tt) {
       $("nx").textContent = "Next Sunday…"; $("nx").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1);
       $("nx2").style.opacity = clamp((tt - 0.6) / 0.2, 0, 1); } },
@@ -218,6 +214,7 @@
   ];
   window.seek = (t) => {
     let i = scenes.length - 1; while (i > 0 && t < scenes[i].at) i--;
+    $("fD").style.opacity = 0;
     scenes.forEach((s, k) => { const f = $(s.id); f.style.opacity = 0; f.style.zIndex = k; f.style.transform = ""; f.style.filter = ""; });
     const cur = scenes[i], tt = t - cur.at, f = $(cur.id), dur = cur.dur || 0.3;
     cur.draw(tt); f.style.opacity = 1;
