@@ -326,6 +326,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   commercial."** Nothing over a face; dialogue as clean subtitles (Inter 700, ~56 px, white, soft shadow, no stroke) in
   the lower third, one small tracked super up top, graphics as a compact lower third. The stroked meme type is for
   photo memes, not for a story with a character.
+  **Expression (Kyle, same day): "make them look more happy or animated."** Prompt every character frame for one big,
+  readable emotion (bliss / shock / joy), not a neutral face. Canva's generate-image quota runs out after about eight
+  images in a session; run jobs one at a time, and when it closes hand him `docs/handoff-bye-week-baby.md`-style briefs.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 
