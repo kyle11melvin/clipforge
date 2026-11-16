@@ -357,6 +357,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 24:** the excitement stays, but it moves with the call: he sits up as the announcer gets going and pumps on
+  each yard line (`kick()` bumps the pose frame on the word onsets), a different pose for the second game, then the
+  breath. "Don't be sitting there the entire time."
   **Round 23, the commercial rule:** one room, one camera angle, and a new pose for each turn of the story (leaning
   in and biting his nails when they are behind, sitting back when it is won, eyes closed on the bye). Never reuse one
   victory frame, never cut to a face from another angle ("randomized shots of the face, terrible"). List the poses the

@@ -313,6 +313,16 @@ refuses, so the page leads with one ChatGPT message for two frames (leaning in b
 **Lesson: one room, one angle, poses that change with the story. A reaction close-up from a different angle, or one
 victory frame used twice, reads as random to him. Get the pose frames before cutting, not after.**
 
+## Round twenty-four: excitement that follows the yards
+
+Kyle: he is sitting in the seat, Logan goes "boom boom boom" down the field, "so I need him to sit back up in front and
+pump his hand a little bit as he's going through the yards", then the strip sack and "arms around, just get
+excitement … don't be sitting there the entire time." So the fist frame is back, used once, as the build: `fist.jpg`
+dissolves in at "45, 40" (1.2 s) and `kick()` bumps it (26 px up, 3.5% scale, fast decay) on each yard-line onset
+(1.5, 1.95, 2.9, 3.3, 3.9, 4.3, 4.9, 5.4, 5.8); score at 5.9, breather at 6.5. Carolina uses the arms-up upper body of
+`side-fall.jpg` from 1.35 s with bumps on "that ball's" / "free". The round-23 reading was too literal: he did not want
+the excitement gone, he wanted it to move with the call and not be the same frozen frame twice.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

@@ -138,7 +138,7 @@
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
 <div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:72px;top:960px"></div></div>
 <div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1290px"></div></div>
-<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="midB" src="stress-a.jpg" alt="" style="transform-origin:36% 26%"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
+<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="midB" src="side-fall.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
@@ -168,8 +168,12 @@
 
   // The win reaction (Kyle, round 14: "have him lean forward ... like yes ... some kind of reaction"): a stand-in until a
   // real fist-pump frame exists: the upper body of side-fall.jpg (arms up, mouth open), cropped so the chair is out of frame.
-  function yes(img, tt, at, x0, y0, w, d = 1.0) {
-    const p = ease(clamp((tt - at) / d, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 2.2, 0, 1)));   // a slow dissolve and a slow push
+  // kick: a small pump on each beat of the call (a list of times), so he is not a frozen pose while the announcer builds
+  const kick = (tt, times) => times.reduce((m, t0) => Math.max(m, tt >= t0 ? Math.exp(-(tt - t0) * 6) * Math.sin(Math.min(1, (tt - t0) / 0.09) * Math.PI / 2) : 0), 0);
+  function yes(img, tt, at, x0, y0, w, d = 1.0, times = []) {
+    const kk = kick(tt, times);
+    const p = ease(clamp((tt - at) / d, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 2.2, 0, 1)) + 0.035 * kk);
+    y0 = y0 + 26 * kk / (1080 / w);   // a slow dissolve and a slow push
     img.style.opacity = p; img.style.transform = `translate(${(-x0 * k).toFixed(1)}px,${(-y0 * k).toFixed(1)}px) scale(${k.toFixed(4)})`;
     return p;
   }
@@ -192,22 +196,22 @@
       $("roomA").style.filter = "brightness(0.9) saturate(0.92)";
       // Logan's call from midfield (1.0 s into Kyle's recording = 0 here): "Here we go" 0.0, "Midfield" 0.5, "Coleman, 45, 40" 1.1,
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
-      $("midA").style.opacity = 0; $("yesA").style.opacity = 0; const m = 0, br = breathe($("brA"), tt, 5.7);   // round 23: no close-ups, no fist pump
+      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.2, 0, 0, 1080, 0.6, [1.5, 1.95, 2.9, 3.3, 3.9, 4.3, 4.9, 5.4, 5.8]), br = breathe($("brA"), tt, 6.5);   // round 24: up on "45, 40", a pump per yard line
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.8, "Come on…"], [2.8, "Come on… come on…"], [4.9, "YES!"], [6.4, "Phew."]], tt);
-      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 4.9 && tt < 6.4 ? "80px" : "60px";
-      $("subA").style.opacity = clamp((tt - 0.6) / 0.3, 0, 1) * (tt < 6.4 ? 1 - clamp((tt - 5.9) / 0.4, 0, 1) : clamp((tt - 6.4) / 0.4, 0, 1) * (1 - clamp((tt - 7.4) / 0.4, 0, 1)));
-      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.2) / 0.6, 0, 1)); } },
+      const line = said([[0.5, "Come on…"], [1.5, "Go… go…"], [2.9, "GO! GO! GO!"], [4.9, "YES! YES!"], [7.0, "Phew."]], tt);
+      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 4.9 && tt < 7.0 ? "88px" : tt >= 2.9 && tt < 4.9 ? "74px" : "60px";
+      $("subA").style.opacity = clamp((tt - 0.6) / 0.3, 0, 1) * (tt < 7.0 ? 1 - clamp((tt - 6.5) / 0.4, 0, 1) : clamp((tt - 7.0) / 0.3, 0, 1) * (1 - clamp((tt - 7.6) / 0.3, 0, 1)));
+      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.9) / 0.5, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.06 + 0.26 * ease(clamp(tt / 3.4, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
-      $("midB").style.opacity = 0; $("yesB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 3.6);
+      $("yesB").style.opacity = 0; const m = yes($("midB"), tt, 1.35, 0, 400, 640, 0.5, [1.5, 2.45, 2.9, 3.3]), br = breathe($("brB"), tt, 4.2);   // arms up on "that ball's free"
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.45, "Not again…"], [2.45, "YES!"], [4.3, "Phew… again."]], tt);
-      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 4.3 ? "80px" : "60px";
-      $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.3 ? 1 - clamp((tt - 3.8) / 0.4, 0, 1) : clamp((tt - 4.3) / 0.4, 0, 1) * (1 - clamp((tt - 5.2) / 0.4, 0, 1)));
-      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.3) / 0.6, 0, 1)); } },
+      const line = said([[0.45, "Not again…"], [1.45, "GET HIM!"], [2.45, "YES! YES!"], [4.7, "Phew… again."]], tt);
+      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 4.7 ? "88px" : tt >= 1.45 && tt < 2.45 ? "74px" : "60px";
+      $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.7 ? 1 - clamp((tt - 4.2) / 0.4, 0, 1) : clamp((tt - 4.7) / 0.3, 0, 1) * (1 - clamp((tt - 5.3) / 0.3, 0, 1)));
+      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.6) / 0.5, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(clamp(tt / (T.E - T.C), 0, 1)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
