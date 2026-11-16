@@ -78,7 +78,7 @@
      nothing above y=1040 except one small super; dialogue as clean subtitles; the card is a compact lower third. */
   .super { position: absolute; left: 60px; width: 860px; top: 270px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700;
     font-size: 30px; letter-spacing: .22em; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.7); }
-  .sub { position: absolute; left: 60px; width: 860px; top: 1040px; height: 110px; display: flex; align-items: flex-end; justify-content: center; text-align: center;
+  .sub { position: absolute; left: 60px; width: 860px; top: 1010px; height: 140px; display: flex; align-items: flex-end; justify-content: center; text-align: center;
     font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 56px; line-height: 1.15; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,.85), 0 0 3px rgba(0,0,0,.6); }
   .sub i { font-weight: 400; }
   .sub small { display: block; font-size: 26px; letter-spacing: .16em; font-weight: 700; color: #ffd36b; margin-bottom: 6px; }
@@ -95,8 +95,8 @@
   .card .strike { height: 7px; }
   .next { font-family: "Inter", system-ui, sans-serif; font-weight: 400; font-size: 72px; letter-spacing: .04em; }
   /* Her line gets its own box in the corner (Kyle: "a separate square box ... bottom right"). */
-  .honey { position: absolute; left: 560px; top: 872px; width: 360px; padding: 20px 24px 24px; border-radius: 20px; background: rgba(255,255,255,.96); color: #101418;
-    font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 46px; line-height: 1.15; box-shadow: 0 10px 30px rgba(0,0,0,.45); transform-origin: 100% 100%; }
+  .honey { position: absolute; left: 500px; top: 256px; width: 420px; padding: 20px 24px 24px; border-radius: 20px; background: rgba(255,255,255,.96); color: #101418;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 46px; line-height: 1.15; box-shadow: 0 10px 30px rgba(0,0,0,.45); transform-origin: 100% 0; }
   .honey small { display: block; font-size: 20px; letter-spacing: .14em; color: var(--orange); margin-bottom: 8px; }
   .honey i { font-weight: 400; }
 </style>
@@ -107,7 +107,7 @@
      watching football. AI frames (Canva) of a "bronco dad"; he animates them in Grok / ChatGPT. Real results on the card.
      No heart-rate monitor (he vetoed repeating it). -->
 <div class="frame" id="f1">
-  <img class="ph" id="rel" src="relax.jpg" alt="" style="transform-origin:38% 30%">
+  <img class="ph" id="rel" src="side-relax.jpg" alt="" style="transform-origin:22% 36%">
   <div class="super" id="sup1">SUNDAY MORNING</div>
   <div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div>
@@ -119,7 +119,7 @@
   </div>
 </div>
 <div class="frame" id="f2">
-  <img class="ph" id="shk" src="shock.jpg" alt="">
+  <img class="ph" id="shk" src="side-fall.jpg" alt="">
   <div class="sub" id="what" style="font-size:84px">What?!</div>
   <div class="card" id="c2">
     <div class="hd" id="hd2">SCHEDULE CHANGE</div>
@@ -130,7 +130,7 @@
 </div>
 <div class="frame black" id="f3"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
 <div class="frame" id="f4">
-  <img class="ph" src="couch.jpg" alt="">
+  <img class="ph" src="side-couch.jpg" alt="">
   <div class="sub" id="sub4"></div>
   <div class="card" id="c4" style="top:1220px">
     <div class="hd">BRONCOS SCHEDULE</div>
@@ -174,10 +174,10 @@
       const punch = easeOut(clamp((tt - T.wife) / 0.25, 0, 1));
       $("rel").style.transform = `scale(${(1 + 0.04 * tt / T.f2 + 0.10 * punch).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.2) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").textContent = "Broncos bye week. Finally.";
+      $("sub1").innerHTML = "<div>I finally get to relax…<br>Broncos are on a bye.</div>";
       $("sub1").style.opacity = clamp((tt - 0.5) / 0.3, 0, 1) * (1 - clamp((tt - (T.wife - 0.25)) / 0.2, 0, 1));
       const hp = clamp((tt - T.wife) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`;
-      $("ht").textContent = tt >= T.wife + 0.85 ? "“Honey… it’s time.”" : "“Honey…”";
+      $("ht").textContent = tt >= T.wife + 0.85 ? "“Honey… my water broke.”" : "“Honey…”";
       rise($("c1"), clamp((tt - 0.9) / 0.4, 0, 1));
       const fp = clamp((tt - 1.5) / 0.25, 0, 1); $("fin").style.opacity = fp; $("fin").style.transform = `scale(${(1.8 - 0.8 * easeOut(fp)).toFixed(3)}) rotate(-4deg)`;
     } else if (t < T.f3) {

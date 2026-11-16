@@ -66,6 +66,20 @@ files: the TV screen copied from the new frame 1 through a mask of the dark scre
 chest, the hoodie and blanket recoloured to navy with an HSV mask grown through shadows and highlights (rough at his
 left shoulder). The corner box is `.honey` at (560, 872). Told him to have ChatGPT redo frame 3 cleanly before animating.
 
+## Round six: side angle, "my water broke", and a handoff brief
+
+Kyle: straight-on makes no sense with the TV behind him; turn him to the side, legs on the lounger, coffee; "honey it's
+happening"; the lounger collapses and the coffee goes up; next Sunday, Broncos game, holding his daughter, new colour.
+Lines he then gave: "I finally get to relax… Broncos on a bye", "Honey… my water broke". Then: "give me something to
+give to another AI agent like ChatGPT or Grok … they take it over the top … I pass it back to you."
+
+Canva gave two more images before the credit quota closed again (it seems to refill slowly; three parallel jobs fail,
+one at a time sometimes works): `side-relax.jpg` (profile on the recliner facing a four-game TV, Broncos logo hoodie)
+and `side-fall.jpg` (recliner collapsing, legs up, coffee flying). `side-couch.jpg` is a hand-made placeholder (navy
+recolour plus the foal bundle pasted from the front-on frame). The comp uses the side frames; her box sits top right
+at (500, 256). `docs/handoff-bye-week-baby.md` is the brief for ChatGPT / Grok (three 5 s clips, no text, bottom third
+clear); it is on the page with the two reference frames. Next: he sends the clips, cut them under the same graphics.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
