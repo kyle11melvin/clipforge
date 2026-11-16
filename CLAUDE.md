@@ -165,6 +165,12 @@ his standing brief. Read it before touching anything.
   is the in-house imitation (cutout + blurred orange silhouette) until he sends the real one. For a game meme from now
   on: footage first and full screen, the reaction cut on the announcer's key word, one closing portrait with one line,
   10–12 s, payoff by 7 s.
+- **Skits (2026-11-10).** Kyle's "Creative" reference (a joey_roquet reel, Instagram-labelled AI content): a loan
+  officer skit, six shots, 31 words, no graphics, no captions, two four-second silent stares and a location change
+  for the punchline. When he asks for "creative", he means a scripted joke with shot-reverse-shot coverage, not more
+  graphics on a talking head. Clipforge cannot generate actors; offer a script + shot list he can shoot (tripod, wide
+  two-shot, a close-up per person, one punchline location) and cut it with the silences held. Breakdown in the
+  2026-11-10 log.
 - `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
   grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
   Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
