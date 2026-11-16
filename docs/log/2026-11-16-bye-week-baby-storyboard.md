@@ -164,6 +164,10 @@ screen recording of the Broncos' own reel: Logan in the booth calling Coleman's 
 - Timeline is now 19.6 s (A 0, B 4.6, C 8.2, wife 10.4, D 11.7, E 13.8, F 14.8). Told him Instagram can mute or remove
   a reel carrying the Broncos / KOA clip, and that I cannot hear the mix.
 
+Carolina call reworded to his line ("oh my God he got it, he got it, he got it") and revoiced: `am_adam -s 1.45`,
+"Bonitto off the edge, strip sack! Oh my, he got it! He got it! He got it! Broncos win!", pitched down 7% (asetrate),
+band-passed and compressed harder so it sits beside the real Logan call. A stock voice in that style, not a clone.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
