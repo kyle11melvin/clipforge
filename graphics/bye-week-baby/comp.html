@@ -74,6 +74,26 @@
   .next { position: absolute; left: 60px; right: 160px; top: 50%; transform: translateY(-50%); text-align: center; font-family: "Nunito", system-ui, sans-serif;
     font-weight: 800; font-size: 120px; color: #fff; }
   .next small { display: block; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 32px; letter-spacing: .18em; color: var(--orange); margin-top: 18px; }
+  /* Commercial look (Kyle, 2026-11-16: "you're covering the face ... make it look more natural like an actual commercial"):
+     nothing above y=1040 except one small super; dialogue as clean subtitles; the card is a compact lower third. */
+  .super { position: absolute; left: 60px; width: 860px; top: 270px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700;
+    font-size: 30px; letter-spacing: .22em; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.7); }
+  .sub { position: absolute; left: 60px; width: 860px; top: 1040px; height: 110px; display: flex; align-items: flex-end; justify-content: center; text-align: center;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 56px; line-height: 1.15; color: #fff; text-shadow: 0 3px 14px rgba(0,0,0,.85), 0 0 3px rgba(0,0,0,.6); }
+  .sub i { font-weight: 400; }
+  .sub small { display: block; font-size: 26px; letter-spacing: .16em; font-weight: 700; color: #ffd36b; margin-bottom: 6px; }
+  .card { left: 146px; width: 688px; top: 1166px; border-radius: 18px; }
+  .card .hd { height: 50px; font-size: 22px; }
+  .card .row { height: 68px; font-size: 32px; padding: 0 22px; }
+  .card .row .wk { width: 120px; font-size: 24px; }
+  .card .row.hot { height: 80px; }
+  .card .row.hot .val { font-size: 44px; }
+  .card .flex { font-size: 36px; }
+  .card .tag { font-size: 18px; padding: 4px 9px; }
+  .card .res { font-size: 30px; }
+  .card .nb { font-size: 15px; margin-left: 12px; padding: 3px 6px; }
+  .card .strike { height: 7px; }
+  .next { font-family: "Inter", system-ui, sans-serif; font-weight: 400; font-size: 72px; letter-spacing: .04em; }
 </style>
 </head>
 <body>
@@ -83,8 +103,8 @@
      No heart-rate monitor (he vetoed repeating it). -->
 <div class="frame" id="f1">
   <img class="ph" id="rel" src="relax.jpg" alt="" style="transform-origin:38% 30%">
-  <div class="head" style="top:262px;font-size:92px" id="h1"></div>
-  <div class="bubble" id="bub"><small>FROM THE OTHER ROOM</small><span id="bt"></span></div>
+  <div class="super" id="sup1">SUNDAY MORNING</div>
+  <div class="sub" id="sub1"></div>
   <div class="card" id="c1">
     <div class="hd">BRONCOS SCHEDULE</div>
     <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
@@ -94,7 +114,7 @@
 </div>
 <div class="frame" id="f2">
   <img class="ph" id="shk" src="shock.jpg" alt="">
-  <div class="head" style="top:250px;font-size:176px" id="what"><span class="o">WHAT?!</span></div>
+  <div class="sub" id="what" style="font-size:84px">What?!</div>
   <div class="card" id="c2">
     <div class="hd" id="hd2">SCHEDULE CHANGE</div>
     <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
@@ -105,8 +125,8 @@
 <div class="frame black" id="f3"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
 <div class="frame" id="f4">
   <img class="ph" src="couch.jpg" alt="">
-  <div class="head" style="top:262px;font-size:88px" id="h4"></div>
-  <div class="card" id="c4" style="top:1176px">
+  <div class="sub" id="sub4"></div>
+  <div class="card" id="c4" style="top:1220px">
     <div class="hd">BRONCOS SCHEDULE</div>
     <div class="row"><span class="wk">WK 10</span>Dad vs. Baby Girl<span class="res" style="color:#ffd36b">SHE WON</span></div>
     <div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" id="tag4">PARTY OF 2</span></div>
@@ -146,18 +166,18 @@
       const f = frames[0]; f.classList.add("on"); const tt = t;
       // Slow push while he relaxes; a punch-in toward his face when the voice comes from the other room.
       const punch = easeOut(clamp((tt - T.wife) / 0.25, 0, 1));
-      $("rel").style.transform = `scale(${(1 + 0.04 * tt / T.f2 + 0.16 * punch).toFixed(4)})`;
-      words($("h1"), "Broncos bye week.<br>*Finally.*", tt - 0.1, 0.1);
-      $("h1").style.opacity = 1 - punch;
-      rise($("c1"), clamp((tt - 0.5) / 0.4, 0, 1));
+      $("rel").style.transform = `scale(${(1 + 0.04 * tt / T.f2 + 0.10 * punch).toFixed(4)})`;
+      $("sup1").style.opacity = clamp((tt - 0.2) / 0.4, 0, 1) * (1 - punch);
+      const wifeOn = tt >= T.wife;
+      $("sub1").innerHTML = wifeOn ? `<div><small>FROM THE OTHER ROOM</small><i>“Honey… ${tt >= T.wife + 0.85 ? "it’s time.”" : ""}</i></div>` : "Broncos bye week. Finally.";
+      $("sub1").style.opacity = wifeOn ? clamp((tt - T.wife) / 0.15, 0, 1) : clamp((tt - 0.5) / 0.3, 0, 1) * (1 - clamp((tt - (T.wife - 0.25)) / 0.2, 0, 1));
+      rise($("c1"), clamp((tt - 0.9) / 0.4, 0, 1));
       const fp = clamp((tt - 1.5) / 0.25, 0, 1); $("fin").style.opacity = fp; $("fin").style.transform = `scale(${(1.8 - 0.8 * easeOut(fp)).toFixed(3)}) rotate(-4deg)`;
-      const bp = clamp((tt - T.wife) / 0.3, 0, 1); $("bub").style.opacity = bp; $("bub").style.transform = `translateX(${((1 - back(bp)) * 300).toFixed(1)}px)`;
-      $("bt").textContent = tt < T.wife + 0.85 ? "Honey…" : "Honey… it’s time.";
     } else if (t < T.f3) {
       const f = frames[1]; f.classList.add("on"); const tt = t - T.f2;
       const jolt = Math.max(0, 1 - tt / 0.4), sx = Math.sin(tt * 70) * 12 * jolt, sy = Math.cos(tt * 90) * 7 * jolt;
       $("shk").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${(1.06 + 0.04 * tt / 1.6).toFixed(4)})`;
-      const wp = clamp(tt / 0.2, 0, 1); $("what").style.opacity = wp; $("what").style.transform = `scale(${(2.2 - 1.2 * easeOut(wp)).toFixed(3)}) rotate(-4deg)`;
+      const wp = clamp(tt / 0.2, 0, 1); $("what").style.opacity = wp; $("what").style.transform = `scale(${(1.25 - 0.25 * easeOut(wp)).toFixed(3)})`; $("what").style.transformOrigin = "50% 100%";
       $("hd2").style.background = Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010";
       const sk = clamp((tt - 0.3) / 0.3, 0, 1); $("strike").style.width = `calc(${(sk * 100).toFixed(1)}% + ${(16 * sk).toFixed(1)}px)`;
       const sw = clamp((tt - 0.85) / 0.3, 0, 1), bye = $("bye2"), flex = $("flex"), tag = $("tag");
@@ -171,7 +191,7 @@
     } else {
       const f = frames[3]; f.classList.add("on"); const tt = t - T.f4;
       f.querySelector(".ph").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.7, 0, 1)).toFixed(4)})`;
-      words($("h4"), "Welcome to<br>*Broncos Country,*<br>baby girl.", tt - 0.1, 0.11);
+      $("sub4").innerHTML = "<div>Welcome to Broncos Country,<br>baby girl.</div>"; $("sub4").style.opacity = clamp((tt - 0.4) / 0.5, 0, 1);
       rise($("c4"), clamp((tt - 1.2) / 0.4, 0, 1));
       const tg = clamp((tt - 1.9) / 0.25, 0, 1), tag = $("tag4"); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
     }

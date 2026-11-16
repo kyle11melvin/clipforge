@@ -322,6 +322,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   video over and over"); a repeat device from the last meme is a reason to find a new gag. He gives a storyboard in
   beats (relax, the line from his wife, "What?", the baby); follow it. For motion he has Grok and ChatGPT: put each
   frame on the page with a Save button and an image-to-video prompt, he sends the clips back, clipforge cuts them.
+  **Type on a character piece (Kyle, same day): "you're covering the face … make it look more natural like an actual
+  commercial."** Nothing over a face; dialogue as clean subtitles (Inter 700, ~56 px, white, soft shadow, no stroke) in
+  the lower third, one small tracked super up top, graphics as a compact lower third. The stroked meme type is for
+  photo memes, not for a story with a character.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

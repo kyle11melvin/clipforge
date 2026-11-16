@@ -46,6 +46,13 @@ white speech bubble sliding in from the right edge ("FROM THE OTHER ROOM · Hone
 Broncos Country, baby girl.", card: Wk 10 Dad vs. Baby Girl SHE WON, Wk 11 vs Las Vegas PARTY OF 2. The delivery-room
 and hospital frames are out. Page prompts cover three clips (relax + hears the voice, bolts up, couch with the baby).
 
+## Round four: "you're covering the face … make it look more natural like an actual commercial"
+
+The big stroked meme type, the white speech bubble and the slammed "WHAT?!" are gone. Now: one small tracked super at
+the top ("SUNDAY MORNING"), dialogue as clean subtitles at y≈1040–1150 (Inter 700, 56 px, white, soft shadow, no
+stroke; her line in italics under a small "FROM THE OTHER ROOM" label), the schedule card shrunk to a 688 px lower third
+at y≥1166, "Next Sunday…" in light Inter. Nothing sits above y=1040 except the super, so every face is clear.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
