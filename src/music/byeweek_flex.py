@@ -28,6 +28,7 @@ def chime(f, dur=0.7, g=0.12):
     t = T(dur); return (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * 2 * f * t) * np.exp(-t * 8)) * np.exp(-t * 5) * np.minimum(1, t / 0.004) * g
 
 O = 5.0; O2 = 5.8                                        # offsets since the two real game clips went in at the top
+for at in (1.55, 2.95, 5.3, 7.35): add(at, thump(dur=0.2, f0=90, f1=45, g=0.35))   # the cuts to him watching
 add(4.48, whoosh())                                      # whip to last week (both recaps carry their own broadcast audio)
 add(3.9 + O, crowd(3.7, 0.022, a=0.6, r=0.4))            # bye week: quiet room, TV in the background
 add(6.2 + O, chime(987.77, g=0.07)); add(6.34 + O, chime(1318.5, g=0.07))   # under her line

@@ -179,6 +179,15 @@ falling low tone (slow motion from a still). 21.2 s: A 0, B 4.6, C 9.0, wife 11.
 **Lesson: when he has supplied the real clip for one beat, the matching beat gets a real clip too; look in earlier
 sessions' pages before synthesising. A fake announcer next to a real one reads as a downgrade.**
 
+## Round twelve: "Oh my God this is great … mix in the person watching"
+
+Kyle loved the real footage and voices. Asked to tie it together smoothly: cut to the character watching, stressed,
+during the clips, keep the Logan voice exactly, same for the strip sack, then the bye week where he sits down and pulls
+out a book, then "my water broke". Added `react()`: reaction cut-ins (`stress-b.jpg` in A at 1.55–2.3 and 2.95–3.3,
+`stress-a.jpg` tight at 1.45x in B at 0.7–1.35 and 2.75–3.3) with a TV-light flicker and a small push, the clip's audio
+running on underneath, a soft thump on each cut. The book frame could not be generated (Canva quota); a ChatGPT line
+for it is on the page.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

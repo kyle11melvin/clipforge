@@ -131,10 +131,10 @@
      Transitions: whip, dissolves, a smash cut on the fright, a fade through black. No music. -->
 <!-- Beat A is real: Kyle's screen recording of the Broncos' reel with Dave Logan's radio call (KC at DEN, 2026-11-01),
      3.3-7.9 s of it as 138 preloaded frames in logan/ (gitignored). Its audio is mixed in by ffmpeg. -->
-<div class="frame" id="fA"><div id="lg"></div><div class="super" style="top:1236px">TWO WEEKS AGO</div><div class="bug2" id="bA" style="top:1290px"></div></div>
+<div class="frame" id="fA"><div id="lg"></div><img class="ph" id="rA" src="stress-b.jpg" alt="" style="transform-origin:50% 28%"><div class="tint" id="tA"></div><div class="super" style="top:1236px">TWO WEEKS AGO</div><div class="bug2" id="bA" style="top:1290px"></div></div>
 <!-- Beat B is real too: the Bonitto strip sack at Carolina (2026-11-08) from the reel built on 2026-11-09, 1.2-5.6 s of it,
      132 frames in strip/ (gitignored), CBS call underneath. -->
-<div class="frame" id="fB"><div id="st"></div><div class="super" style="top:1236px">LAST WEEK</div><div class="bug2" id="bB" style="top:1290px"></div></div>
+<div class="frame" id="fB"><div id="st"></div><img class="ph" id="rB" src="stress-a.jpg" alt="" style="transform-origin:36% 26%"><div class="tint" id="tB"></div><div class="super" style="top:1236px">LAST WEEK</div><div class="bug2" id="bB" style="top:1290px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="side-relax.jpg" alt="" style="transform-origin:20% 34%"><div class="super" id="sup1">THIS SUNDAY</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
@@ -162,12 +162,25 @@
     el.style.opacity = clamp(p * 2, 0, 1); el.style.transform = `translateY(${((1 - easeOut(p)) * 70).toFixed(1)}px)`; };
   const count = (to, p) => Math.round(to * clamp(p, 0, 1));
 
+  // Reaction cut-ins: him watching, lit by the TV, while the real call keeps running underneath (Kyle: "mix in the
+  // person watching the video being all stressed out with a couple of the shots").
+  function react(img, tint, tt, windows, base) {
+    const w = windows.find(([a, b]) => tt >= a && tt < b), on = !!w;
+    img.style.visibility = tint.style.visibility = on ? "visible" : "hidden";
+    if (!on) return false;
+    const u = tt - w[0], flick = 1 + 0.07 * Math.sin(u * 37) + 0.05 * Math.sin(u * 61);
+    img.style.transform = `translate(${(Math.sin(u * 55) * 4).toFixed(1)}px,${(Math.cos(u * 43) * 3).toFixed(1)}px) scale(${(base + 0.10 * easeOut(clamp(u / (w[1] - w[0]), 0, 1))).toFixed(4)})`;
+    img.style.filter = `brightness(${flick.toFixed(3)}) saturate(0.92)`;
+    return true;
+  }
   const scenes = [
     { id: "fA", at: T.A, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
+      const cut = react($("rA"), $("tA"), tt, [[1.55, 2.3], [2.95, 3.3]], 1.12); document.querySelector("#fA .super").style.opacity = cut ? 0 : 1;
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 3.3) / 0.4, 0, 1)); } },
     { id: "fB", at: T.B, tr: "whip", draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
+      const cut = react($("rB"), $("tB"), tt, [[0.7, 1.35], [2.75, 3.3]], 1.45); document.querySelector("#fB .super").style.opacity = cut ? 0 : 1;
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.3) / 0.4, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 0.5, draw(tt) {
       const w = T.wife - T.C, punch = easeOut(clamp((tt - w) / 0.3, 0, 1)), punch2 = easeOut(clamp((tt - w - 0.55) / 0.2, 0, 1));
