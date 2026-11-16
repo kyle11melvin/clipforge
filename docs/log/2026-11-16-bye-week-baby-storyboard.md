@@ -105,6 +105,14 @@ held. It is now `side-couch.jpg` (gitignored), the ending and the cover. **Lesso
 gear and a big expression, ChatGPT's image tool from a reference frame beats Canva; ChatGPT chat does not do video
 (that is Sora), Grok Imagine does image-to-video.** Waiting on Grok's clips.
 
+## Grok with the open brief: unusable
+
+Kyle: "Grok is awful." The open brief (no frames) came back as storyboard contact sheets with titles and text baked in,
+a different horse in every panel (white, cartoon, brown), a human wife and a human baby. **Lesson: never give Grok a
+multi-shot brief. One reference picture, one short "animate this exact image" line, one clip at a time.** The page now
+has that: three pictures (two Canva, one ChatGPT) each with its own one-line prompt. ChatGPT with reference frames is
+the tool for stills; the long brief stays for ChatGPT only.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
