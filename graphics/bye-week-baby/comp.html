@@ -99,109 +99,88 @@
     font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 46px; line-height: 1.15; box-shadow: 0 10px 30px rgba(0,0,0,.45); transform-origin: 100% 0; }
   .honey small { display: block; font-size: 20px; letter-spacing: .14em; color: var(--orange); margin-bottom: 8px; }
   .honey i { font-weight: 400; }
+  .bigscore { position: absolute; left: 60px; width: 860px; top: 948px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700; color: #fff;
+    text-shadow: 0 3px 14px rgba(0,0,0,.85); }
+  .bigscore .when { font-size: 30px; letter-spacing: .22em; }
+  .stamp2 { display: inline-block; margin-left: auto; font-size: 18px; letter-spacing: .12em; background: #fff; color: #d81e1e; border-radius: 8px; padding: 4px 9px; }
+  .tint { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,.6) 100%); }
 </style>
 </head>
 <body>
-<!-- Personal-account meme (2026-11-16), Kyle's storyboard: Sunday morning of the bye week, finally relaxed -> his wife
-     from the other room, "Honey... it's time" -> WHAT?! -> "Next Sunday..." -> him and his daughter on the couch
-     watching football. AI frames (Canva) of a "bronco dad"; he animates them in Grok / ChatGPT. Real results on the card.
-     No heart-rate monitor (he vetoed repeating it). -->
-<div class="frame" id="f1">
-  <img class="ph" id="rel" src="side-relax.jpg" alt="" style="transform-origin:22% 36%">
-  <div class="super" id="sup1">SUNDAY MORNING</div>
-  <div class="sub" id="sub1"></div>
-  <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div>
-  <div class="card" id="c1">
-    <div class="hd">BRONCOS SCHEDULE</div>
-    <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
-    <div class="row"><span class="wk">WK 9</span>at CAR<span class="res">W 26–21</span><span class="nb">NAIL-BITER</span></div>
-    <div class="row hot" id="hot1"><span class="wk">WK 10</span><span class="val">BYE</span><span class="tag" id="fin">FINALLY</span></div>
-  </div>
-</div>
-<div class="frame" id="f2">
-  <img class="ph" id="shk" src="side-fall.jpg" alt="">
-  <div class="sub" id="what" style="font-size:84px">What?!</div>
-  <div class="card" id="c2">
-    <div class="hd" id="hd2">SCHEDULE CHANGE</div>
-    <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
-    <div class="row"><span class="wk">WK 9</span>at CAR<span class="res">W 26–21</span><span class="nb">NAIL-BITER</span></div>
-    <div class="row hot"><span class="wk">WK 10</span><span class="val" id="bye2">BYE<span class="strike" id="strike"></span></span><span class="flex" id="flex">Mom vs. Husband</span><span class="tag" id="tag">FLEXED</span></div>
-  </div>
-</div>
-<div class="frame black" id="f3"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
-<div class="frame" id="f4">
-  <img class="ph" src="side-couch.jpg" alt="">
-  <div class="sub" id="sub4"></div>
-  <div class="card" id="c4" style="top:1220px">
-    <div class="hd">BRONCOS SCHEDULE</div>
-    <div class="row"><span class="wk">WK 10</span>Mom vs. Husband<span class="res" style="color:#ffd36b">SHE WON</span></div>
-    <div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" id="tag4">PARTY OF 2</span></div>
-  </div>
-</div>
+<!-- Personal-account meme (2026-11-16), Kyle's final storyline: the Broncos games are the stress. Two weeks ago (KC,
+     28-24, goal-line stand) -> last week (Carolina, 26-21) -> bye week, RedZone, finally relaxing -> "Honey... my water
+     broke" -> the recliner goes over -> next Sunday, Broncos on TV, baby girl. The scorecard builds a row per beat.
+     No "Mom vs. Husband" (he hated it), no heart monitor. -->
+<div class="frame" id="fA"><img class="ph" id="imA" src="stress-a.jpg" alt=""><div class="tint"></div><div class="bigscore"><div class="when">TWO WEEKS AGO</div></div><div class="sub" id="subA"></div></div>
+<div class="frame" id="fB"><img class="ph" id="imB" src="stress-b.jpg" alt=""><div class="tint"></div><div class="bigscore"><div class="when">LAST WEEK</div></div><div class="sub" id="subB"></div></div>
+<div class="frame" id="fC"><img class="ph" id="rel" src="side-relax.jpg" alt="" style="transform-origin:22% 36%"><div class="super" id="sup1">THIS SUNDAY</div><div class="sub" id="sub1"></div>
+  <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div></div>
+<div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt=""><div class="sub" id="what" style="font-size:84px">What?!</div></div>
+<div class="frame black" id="fE"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
+<div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4"></div></div>
+<div class="card" id="card" style="display:none"></div>
 
 <script>
-  const T = { f1: 0, wife: 2.6, f2: 4.4, f3: 6.0, f4: 7.1, end: 10.8 };
+  const T = { A: 0, B: 2.0, C: 4.0, wife: 6.3, D: 7.4, E: 8.9, F: 9.9, end: 13.2 };
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
   const back = (p) => { const s = 1.70158; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
   const $ = (id) => document.getElementById(id);
-  const frames = ["f1", "f2", "f3", "f4"].map($);
-  // Words rise in one by one (the approved motion), 0.09 s apart, 0.3 s each.
-  function words(el, html, t, gap = 0.09, dur = 0.3) {
-    if (!el.dataset.built) {
-      // Words between asterisks are the orange ones: "in the *4th quarter*".
-      let orange = false;
-      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
-        if (w.startsWith("*")) orange = true;
-        const cls = orange ? "w o" : "w", end = w.endsWith("*"); if (end) orange = false;
-        return `<span class="${cls}">${w.replace(/\*/g, "")}</span>`;
-      }).join(" ")).join("<br>");
-      el.dataset.built = "1";
-    }
-    [...el.querySelectorAll(".w")].forEach((w, i) => {
-      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
-      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * 60}px)`;
-    });
+  const frames = ["fA", "fB", "fC", "fD", "fE", "fF"].map($);
+  const pop = (p) => `opacity:${p};display:inline-block;transform:scale(${(1.8 - 0.8 * easeOut(p)).toFixed(3)}) rotate(-4deg)`;
+  // The scorecard: one row per beat. Real results (KC 28-24 on 2026-11-01, at Carolina 26-21 on 11-08), bye on 11-15, Las Vegas 11-22.
+  function card(rows, hd = "BRONCOS SCHEDULE", alert = false, top = 1166) {
+    const c = $("card"); c.style.display = "block"; c.style.top = top + "px";
+    c.innerHTML = `<div class="hd" style="${alert ? "background:" + alert : ""}">${hd}</div>` + rows.join("");
   }
-
-  const rise = (el, p, d = 60) => { el.style.opacity = p; el.style.transform = `translateY(${((1 - easeOut(p)) * d).toFixed(1)}px)`; };
+  const win = (wk, opp, score, p = 1) => `<div class="row" style="opacity:${p}"><span class="wk">${wk}</span>${opp}<span class="res">${score}</span><span class="nb">NAIL-BITER</span></div>`;
   window.seek = (t) => {
-    frames.forEach((f) => f.classList.remove("on"));
-    if (t < T.f2) {
-      const f = frames[0]; f.classList.add("on"); const tt = t;
-      // Slow push while he relaxes; a punch-in toward his face when the voice comes from the other room.
-      const punch = easeOut(clamp((tt - T.wife) / 0.25, 0, 1));
-      $("rel").style.transform = `scale(${(1 + 0.04 * tt / T.f2 + 0.10 * punch).toFixed(4)})`;
+    frames.forEach((f) => f.classList.remove("on")); $("card").style.display = "none";
+    if (t < T.B) {
+      const tt = t; frames[0].classList.add("on");
+      const sh = 5 * Math.max(0, 1 - tt / 1.2); $("imA").style.transform = `translate(${(Math.sin(tt * 60) * sh).toFixed(1)}px,0) scale(${(1.04 + 0.05 * tt / 2).toFixed(4)})`;
+      $("subA").innerHTML = "<div>Chiefs. Goal-line stand,<br>four seconds left.</div>"; $("subA").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1);
+      card([win("WK 8", "vs KC", "W 28–24", clamp((tt - 0.9) / 0.3, 0, 1))], "BRONCOS SCHEDULE", false, 1300);
+    } else if (t < T.C) {
+      const tt = t - T.B; frames[1].classList.add("on");
+      const sh = 5 * Math.max(0, 1 - tt / 1.2); $("imB").style.transform = `translate(${(Math.sin(tt * 60) * sh).toFixed(1)}px,0) scale(${(1.04 + 0.05 * tt / 2).toFixed(4)})`;
+      $("subB").innerHTML = "<div>Panthers. Down to<br>the last minute.</div>"; $("subB").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1);
+      card([win("WK 8", "vs KC", "W 28–24"), win("WK 9", "at CAR", "W 26–21", clamp((tt - 0.9) / 0.3, 0, 1))], "BRONCOS SCHEDULE", false, 1232);
+    } else if (t < T.D) {
+      const tt = t - T.C; frames[2].classList.add("on"); const w = T.wife - T.C;
+      const punch = easeOut(clamp((tt - w) / 0.25, 0, 1));
+      $("rel").style.transform = `scale(${(1 + 0.04 * tt / (T.D - T.C) + 0.10 * punch).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.2) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").innerHTML = "<div>I finally get to relax…<br>Broncos are on a bye.</div>";
-      $("sub1").style.opacity = clamp((tt - 0.5) / 0.3, 0, 1) * (1 - clamp((tt - (T.wife - 0.25)) / 0.2, 0, 1));
-      const hp = clamp((tt - T.wife) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`;
-      $("ht").textContent = tt >= T.wife + 0.85 ? "“Honey… my water broke.”" : "“Honey…”";
-      rise($("c1"), clamp((tt - 0.9) / 0.4, 0, 1));
-      const fp = clamp((tt - 1.5) / 0.25, 0, 1); $("fin").style.opacity = fp; $("fin").style.transform = `scale(${(1.8 - 0.8 * easeOut(fp)).toFixed(3)}) rotate(-4deg)`;
-    } else if (t < T.f3) {
-      const f = frames[1]; f.classList.add("on"); const tt = t - T.f2;
+      $("sub1").innerHTML = tt < 1.3 ? "<div>No Broncos today.</div>" : "<div>Just RedZone.<br>I can finally relax.</div>";
+      $("sub1").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
+      const fp = clamp((tt - 0.9) / 0.25, 0, 1);
+      card([win("WK 8", "vs KC", "W 28–24"), win("WK 9", "at CAR", "W 26–21"),
+        `<div class="row hot" style="opacity:${clamp((tt - 0.5) / 0.3, 0, 1)}"><span class="wk">WK 10</span><span class="val">BYE</span><span class="tag" style="${pop(fp)}">FINALLY</span></div>`]);
+      const hp = clamp((tt - w) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`;
+      $("ht").textContent = tt >= w + 0.5 ? "“Honey… my water broke.”" : "“Honey…”";
+    } else if (t < T.E) {
+      const tt = t - T.D; frames[3].classList.add("on");
       const jolt = Math.max(0, 1 - tt / 0.4), sx = Math.sin(tt * 70) * 12 * jolt, sy = Math.cos(tt * 90) * 7 * jolt;
-      $("shk").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${(1.06 + 0.04 * tt / 1.6).toFixed(4)})`;
+      $("shk").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${(1.06 + 0.04 * tt / 1.5).toFixed(4)})`;
       const wp = clamp(tt / 0.2, 0, 1); $("what").style.opacity = wp; $("what").style.transform = `scale(${(1.25 - 0.25 * easeOut(wp)).toFixed(3)})`; $("what").style.transformOrigin = "50% 100%";
-      $("hd2").style.background = Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010";
-      const sk = clamp((tt - 0.3) / 0.3, 0, 1); $("strike").style.width = `calc(${(sk * 100).toFixed(1)}% + ${(16 * sk).toFixed(1)}px)`;
-      const sw = clamp((tt - 0.85) / 0.3, 0, 1), bye = $("bye2"), flex = $("flex"), tag = $("tag");
-      bye.style.display = sw > 0 ? "none" : "inline-block";
-      flex.style.display = sw > 0 ? "inline-block" : "none"; flex.style.transform = `scale(${(0.5 + 0.5 * back(sw)).toFixed(3)})`;
-      const tg = clamp((tt - 1.1) / 0.25, 0, 1); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
-    } else if (t < T.f4) {
-      const f = frames[2]; f.classList.add("on"); const tt = t - T.f3;
-      const full = "Next Sunday…"; $("nx").textContent = full.slice(0, Math.round(clamp(tt / 0.5, 0, 1) * full.length));   // typed on
+      const cp = clamp((tt - 0.5) / 0.25, 0, 1);
+      card([win("WK 8", "vs KC", "W 28–24"), win("WK 9", "at CAR", "W 26–21"),
+        `<div class="row hot"><span class="wk">WK 10</span><span class="val">BYE<span class="strike" style="width:calc(${(clamp((tt - 0.3) / 0.25, 0, 1) * 100).toFixed(1)}% + 12px)"></span></span><span class="stamp2" style="${pop(cp)}">SO MUCH FOR RELAXING</span></div>`],
+        "BRONCOS SCHEDULE", Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010");
+    } else if (t < T.F) {
+      const tt = t - T.E; frames[4].classList.add("on");
+      const full = "Next Sunday…"; $("nx").textContent = full.slice(0, Math.round(clamp(tt / 0.5, 0, 1) * full.length));
       $("nx2").style.opacity = clamp((tt - 0.55) / 0.2, 0, 1);
     } else {
-      const f = frames[3]; f.classList.add("on"); const tt = t - T.f4;
-      f.querySelector(".ph").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.7, 0, 1)).toFixed(4)})`;
+      const tt = t - T.F; frames[5].classList.add("on");
+      $("imF").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.3, 0, 1)).toFixed(4)})`;
       $("sub4").innerHTML = "<div>Welcome to Broncos Country,<br>baby girl.</div>"; $("sub4").style.opacity = clamp((tt - 0.4) / 0.5, 0, 1);
-      rise($("c4"), clamp((tt - 1.2) / 0.4, 0, 1));
-      const tg = clamp((tt - 1.9) / 0.25, 0, 1), tag = $("tag4"); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
+      const cp = clamp((tt - 1.2) / 0.4, 0, 1), tg = clamp((tt - 1.9) / 0.25, 0, 1);
+      if (cp > 0) { card([`<div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" style="${pop(tg)}">PARTY OF 2</span></div>`], "BRONCOS SCHEDULE", false, 1300);
+        $("card").style.opacity = cp; } 
     }
+    if (t < T.F) $("card").style.opacity = 1;
   };
   window.seek(0);
 </script>

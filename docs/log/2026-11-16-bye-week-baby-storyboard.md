@@ -113,6 +113,18 @@ multi-shot brief. One reference picture, one short "animate this exact image" li
 has that: three pictures (two Canva, one ChatGPT) each with its own one-line prompt. ChatGPT with reference frames is
 the tool for stills; the long brief stays for ChatGPT only.
 
+## The storyline he settled on (round eight)
+
+Kyle: "Get rid of the mom versus the husband, I hate that one. The whole point is how stressful the Broncos games are."
+His storyline, which is the cut now (13.2 s): two weeks ago, the win over the Chiefs (scorecard) → last week, Carolina,
+last minute, nerve-racking → he sits down on the leather recliner with RedZone on, no Broncos, finally relaxing →
+"Honey, my water broke" → the one that goes up in the air → the following week, Broncos on TV, holding baby girl, maybe
+a bottle. He asked for "a couple vocals"; asked him for a voice memo of six lines (there is no footage to mismatch).
+`comp.html`: one `card()` builder adds a row per beat (WK 8 vs KC W 28–24, WK 9 at CAR W 26–21, WK 10 BYE "FINALLY",
+then BYE struck with "SO MUCH FOR RELAXING", then WK 11 vs Las Vegas "PARTY OF 2"). `stress-a.jpg` / `stress-b.jpg` are
+tight crops of the old delivery-room and front-on shock frames, soft placeholders for the two recap beats.
+**Lesson: the joke has to be his premise (Broncos stress), not a clever side gag of mine (the flex / Mom vs. Husband).**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

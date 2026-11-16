@@ -8,8 +8,8 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 10.8; N = int(SR * DUR)
-CUT1, CUT2 = 4.4, 7.1
+SR = 44100; DUR = 13.2; N = int(SR * DUR)
+CUT1, CUT2 = 7.4, 9.9
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -43,11 +43,19 @@ def box(f, dur=1.4, g=0.22):
     return s * np.minimum(1, t / 0.002) * g
 
 # 0-3.7: lazy Sunday. Dmaj7 pad, three slow plucks.
-add(0.0, chord([146.83, 185.0, 220.0, 277.18], CUT1 + 0.1, g=0.16, a=0.4, r=0.15, cutoff=1200))
-for at, f in [(0.25, 440.0), (0.95, 554.37), (1.65, 659.25)]: add(at, pluck(f))
+# 0-4: the two nail-biters. A hit and a tense low drone on each, toms building, a short crowd roar when the W lands.
+def roar(dur=0.9, g=0.07):
+    t = T(dur); return lp(hp(rng.normal(0, 1, len(t)), 300), 3000) * np.sin(np.pi * t / dur) ** 2 * g
+for t0 in (0.0, 2.0):
+    add(t0, thump(dur=0.5, f0=80, f1=38, g=0.8)); tt = T(1.9)
+    add(t0, lp(np.sin(2 * np.pi * (55 + 20 * tt / 1.9) * tt), 400) * 0.16 * np.minimum(1, (1.9 - tt) / 0.1))
+    for i, at in enumerate((0.3, 0.55, 0.75, 0.9)): add(t0 + at, tom(dur=0.3, g=0.2 + 0.12 * i))
+    add(t0 + 0.9, roar())
+add(4.0, chord([146.83, 185.0, 220.0, 277.18], CUT1 - 4.0 + 0.1, g=0.16, a=0.4, r=0.15, cutoff=1200))
+for at, f in [(4.25, 440.0), (4.95, 554.37), (5.65, 659.25)]: add(at, pluck(f))
 
 # 2.0: his wife speaks: a soft two-note chime.
-add(2.6, pluck(987.77, 0.5, 0.18)); add(2.74, pluck(1318.5, 0.7, 0.18))
+add(6.3, pluck(987.77, 0.5, 0.18)); add(6.44, pluck(1318.5, 0.7, 0.18))
 
 # 3.7: the needle drop. A tone and the pad's top note sliding down to nothing in 0.3 s.
 t = T(0.32); f = 520 * np.exp(-t * 9) + 40; ph = 2 * np.pi * np.cumsum(f) / SR
@@ -62,14 +70,14 @@ def brass(f, dur, g=0.2):
 for at, f, d in [(0.2, 392.0, 0.16), (0.38, 523.25, 0.16), (0.56, 659.25, 0.34)]:
     add(CUT1 + at, brass(f, d)); add(CUT1 + at, brass(f / 2, d, 0.12))
 sw = T(0.3); add(CUT1 + 0.3, hp(rng.normal(0, 1, len(sw)), 1200) * np.sin(np.pi * sw / 0.3) ** 2 * 0.22)   # the strike
-add(CUT1 + 0.9, tom(g=0.9)); add(CUT1 + 0.9, thump(dur=0.5, f0=80, f1=38, g=0.8))                                # the flex lands
-for f in (130.81, 196.0, 261.63, 311.13): add(CUT1 + 0.9, brass(f, 6.0 - CUT1 - 0.95, 0.07))                     # held, uneasy
-add(CUT1 + 1.15, beep(dur=0.09, f=1320, g=0.2)); add(CUT1 + 1.3, beep(dur=0.09, f=1320, g=0.2))                 # FLEXED tag
+add(CUT1 + 0.5, tom(g=0.9)); add(CUT1 + 0.5, thump(dur=0.5, f0=80, f1=38, g=0.8))                                # the flex lands
+for f in (130.81, 196.0, 261.63, 311.13): add(CUT1 + 0.5, brass(f, 8.9 - CUT1 - 0.55, 0.07))                     # held, uneasy
+pass                 # FLEXED tag
 k = 0
 
 # 7.0-10.2: she's here. One soft low hit, a warm C major chord, Brahms' Lullaby on the music box.
-add(6.0, thump(dur=0.5, f0=70, f1=36, g=0.6))   # the black 'Next Sunday...' card
-for i in range(12): add(6.0 + i * 0.5 / 12, hp(rng.normal(0, 1, int(SR * 0.02)), 3000) * np.exp(-T(0.02) * 200) * 0.2)   # typed letters
+add(8.9, thump(dur=0.5, f0=70, f1=36, g=0.6))   # the black 'Next Sunday...' card
+for i in range(12): add(8.9 + i * 0.5 / 12, hp(rng.normal(0, 1, int(SR * 0.02)), 3000) * np.exp(-T(0.02) * 200) * 0.2)   # typed letters
 add(CUT2, chord([130.81, 164.81, 196.0, 261.63], DUR - CUT2, g=0.15, a=0.5, r=1.2, cutoff=1800))
 E, G, A, B, C = 659.25, 783.99, 880.0, 987.77, 1046.5
 EIGHTH = 0.165
