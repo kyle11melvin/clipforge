@@ -387,6 +387,17 @@ easier to read; trim the Logan clip "a tiny tiny bit"; around 20 s if it does no
 1.3 s, the second breather shorter. T: O 0, A 1.3, B 7.5, C 12.7, wife 14.1, E 16.1, F 16.9, end 21.9. The unused
 `logan/` and `strip/` frame folders are empty now (LG = ST = 0) since the pose frames carry their own TV picture.
 
+## Round thirty-one: the real score bug
+
+Kyle: "It's all pretty good. The last thing: I want the actual score chips, or as close to the actual score chips from
+the networks as possible." Both games were on CBS (web search; the CBS mark is also visible in his Panthers recording).
+Cropped the real bug out of that recording (y 2110–2440 of the 1290x2796 screen capture) and rebuilt `.bug2` to it:
+near-black bar with a dot texture, each team's logo beside a ~108 px white score, three timeout dashes under the
+score, the team in focus (Denver) on its colour, a centre block with the status (FINAL / WEEK 8). `team()` and `bug()`
+keep their signatures. Logos are the SVGs from upload.wikimedia.org (`den`, `kc`, `car`, `lv`; curl with a browser UA,
+path = md5 of the file name) in `logos/`, **gitignored** since they are trademarks and this repo is public. No CBS
+mark on ours. **Lesson: when he says "the actual" graphic, find it in his own recordings and copy its layout.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

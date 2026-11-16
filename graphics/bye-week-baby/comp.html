@@ -153,6 +153,22 @@
   /* Round 30: "too hard to read right now" - the note is bigger, darker ink, and sits lower in clear view. */
   .honey { width: 620px; left: 300px; top: 300px; font-size: 104px; line-height: 1.0; padding: 44px 34px 30px; color: #0B1F29; }
   .honey small { font-size: 24px; margin-bottom: 6px; }
+  .bug2 { left: 90px; width: 850px; top: 1216px; filter: drop-shadow(0 10px 22px rgba(0,0,0,.5)); }
+  .bug2 .bar { height: 156px; border-radius: 16px; border-top: none; overflow: hidden; display: flex;
+    background: #0f1113 radial-gradient(rgba(255,255,255,.085) 1px, transparent 1.6px) 0 0 / 9px 9px; }
+  .bug2 .tm { flex: 0 0 290px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 10px 16px; background: transparent !important; position: relative; }
+  .bug2 .tm.hot { background: var(--c) !important; }
+  .bug2 .tm::after { display: none; }
+  .bug2 .tm img { width: 112px; height: 96px; object-fit: contain; filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff); }
+  .bug2 .tm:first-child { order: 1; } .bug2 .st { order: 2; } .bug2 .tm:nth-child(2) { order: 3; flex-direction: row-reverse; padding: 0 16px 10px 20px; }
+  .bug2 .sc { position: relative; margin: 0; width: auto; height: auto; background: none; font-family: "Sora", sans-serif; font-weight: 800; font-size: 108px; letter-spacing: -.04em; line-height: 1; color: #fff; }
+  .bug2 .to { position: absolute; left: 4%; right: 4%; bottom: -16px; display: flex; gap: 8px; }
+  .bug2 .to i { flex: 1; height: 7px; border-radius: 4px; background: #fff; }
+  .bug2 .st { flex: 1; width: auto; background: rgba(0,0,0,.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+  .bug2 .st b { font-family: "Sora", sans-serif; font-weight: 800; font-size: 46px; letter-spacing: .01em; color: #fff !important; white-space: nowrap; }
+  .bug2 .st span { font-family: "Sora", sans-serif; font-weight: 600; font-size: 24px; letter-spacing: .1em; color: #c9ced6 !important; }
+  .bug2 .tick { display: none; }
+  .bug2.wide .tm { flex: 0 0 200px; justify-content: center; } .bug2.wide .st { width: auto; } .bug2.wide .st b { font-size: 58px; }
 </style>
 </head>
 <body>
@@ -164,8 +180,8 @@
      go to the actual game footage ... make it more smooth"): the same living room, the real clips playing small on the TV
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
 <div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:76px;top:960px"></div></div>
-<div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="pace.jpg" alt=""><div class="tv" id="lg" style="display:none"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1290px"></div></div>
-<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="nails.jpg" alt=""><div class="tv" id="st" style="display:none"></div></div><img class="ph" id="midB" src="side-fall.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
+<div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="pace.jpg" alt=""><div class="tv" id="lg" style="display:none"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1268px"></div></div>
+<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="nails.jpg" alt=""><div class="tv" id="st" style="display:none"></div></div><img class="ph" id="midB" src="side-fall.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1268px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
@@ -188,7 +204,9 @@
   const $ = (id) => document.getElementById(id);
   const drift = (t, k = 1) => `translate(${(Math.sin(t * 0.9) * 5 * k).toFixed(2)}px,${(Math.cos(t * 0.7) * 4 * k).toFixed(2)}px)`;   // handheld
   const DEN = "#FB4F14", KC = "#E31837", CAR = "#0085CA", LV = "#8a8f95";
-  const team = (ab, col, score, rec = "") => `<div class="tm" style="background:${col}"><span class="ab">${ab}</span><span class="rec">${rec}</span>${score === "" ? "" : `<span class="sc">${score}</span>`}</div>`;
+  // Round 31: the bug is modelled on the real CBS one in Kyle's Panthers recording: near-black dotted bar, team logo beside a
+  // huge white score, three timeout dashes under it, the team in focus on its colour, a centre block with the status.
+  const team = (ab, col, score, rec = "") => `<div class="tm${ab === "DEN" ? " hot" : ""}" style="--c:${col}"><img src="logos/${ab.toLowerCase()}.svg" alt="">${score === "" ? "" : `<span class="sc">${score}<span class="to"><i></i><i></i><i></i></span></span>`}</div>`;
   const bug = (el, inner, tick, p = 1) => { el.innerHTML = `<div class="bar">${inner}</div><div class="tick">${tick}</div>`;
     el.style.opacity = ease(clamp(p, 0, 1)); el.style.transform = ""; };   // fades in place (round 18: "let it flow")
   const count = (to, p) => Math.round(to * clamp(p, 0, 1));

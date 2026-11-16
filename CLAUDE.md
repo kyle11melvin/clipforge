@@ -357,6 +357,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 31, the score bug:** he wants "the actual score chips from the networks". `.bug2` now copies the real CBS bug
+  cropped from his Panthers recording (dotted near-black bar, logo + huge white score, timeout dashes, team in focus
+  on its colour, status in the centre); team logo SVGs come from upload.wikimedia.org into a gitignored `logos/`.
+  Final running order and length he approved: 22 s, no Raiders line, her note big and held 2 s.
   **Round 27, where it landed:** type is the paper-cut strip (`paper()` in `comp.html`: torn sand strip, Playfair italic
   small words, Sora 800 big words, one orange key word, wiping on with words rising), her line a taped handwritten
   note in Caveat, the broadcast bug for scores. Plain captions "felt like reverting". Never crop a frame made for
