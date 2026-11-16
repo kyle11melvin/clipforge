@@ -221,6 +221,16 @@ one job (save one picture, copy one message that asks for both images, send them
 `?v=` stamp so his phone cannot replay an older cut. **Lesson: when the missing piece is a picture I cannot make, say
 so in the first line and hand him one copy-paste, instead of shipping another stand-in.**
 
+## Round sixteen: the pictures arrive
+
+He ran the one-message prompt in ChatGPT and sent back three stills from our reference frame: a fist pump on the edge
+of the recliner with a Broncos celebration on the TV (`fist.jpg`), eyes closed with a steaming coffee and the four-game
+TV (`chill.jpg`), and a calm watching pose (`watch.jpg`, unused so far). "That's what I'm talking about." Character,
+room and logo held across all three. In the cut: `yes()` now dissolves to `fist.jpg` (full frame after the Chiefs, a
+tighter crop after the strip sack) and beat C is `chill.jpg`. 20.2 s, dissolves only.
+**Lesson: the fast path for a missing pose is one saved reference frame plus one pasted message to ChatGPT; it took him
+a few minutes and fixed what three rounds of stand-ins could not.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
