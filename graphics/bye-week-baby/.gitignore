@@ -1,2 +1,3 @@
-# AI-generated frames live in Canva; re-export rather than commit binaries.
 *.jpg
+logan/
+*.wav

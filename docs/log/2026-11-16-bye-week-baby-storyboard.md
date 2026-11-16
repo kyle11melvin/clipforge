@@ -148,6 +148,22 @@ music, the ending very soft. Then: it is his personal account, so a licensed son
 - Song: not baked in (commercial track); he adds it from Instagram's picker on the personal account. Recommended
   "Under Pressure" (Spotify link on the page); Spotify would not return links for the two sweeter options.
 
+## Round ten: the announcers
+
+Kyle wanted announcer calls on the two recaps, "like Dave Logan" (copy the voice or pull from that type), then sent a
+screen recording of the Broncos' own reel: Logan in the booth calling Coleman's catch-and-run against Kansas City
+("Here we go… 35, 30… 25, 20… foot race, 15, 10… tackled at the 4!"), 1290x2796, 11.5 s.
+
+- Told him a real person's voice is not something to clone; the real clip he supplied is used instead. Beat A (0–4.6 s)
+  is that recording, 3.3–7.9 s, `crop=1069:1900:0:300` (clears the Instagram chrome), as 138 preloaded jpgs in
+  `logan/` that `seek()` flips through, its own audio loudness-normalised under it, the FINAL bug sliding in at 3.3 s.
+- Beat B (4.6–8.2 s): Kokoro TTS (`npx hyperframes tts … -v am_michael -s 1.35`, needs `pip install kokoro-onnx
+  soundfile`), band-passed 280–3600 Hz and compressed for a radio sound: "He drops back, strip sack! Fumble! Broncos
+  recover! Game over! Game over!", bug flips 1:24 4TH QTR → FINAL on the strip.
+- Her line: `af_heart`, "Honey? My water broke.", low-passed with a short echo, at 10.45 s.
+- Timeline is now 19.6 s (A 0, B 4.6, C 8.2, wife 10.4, D 11.7, E 13.8, F 14.8). Told him Instagram can mute or remove
+  a reel carrying the Broncos / KOA clip, and that I cannot hear the mix.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
