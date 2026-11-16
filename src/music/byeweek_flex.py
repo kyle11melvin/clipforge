@@ -49,15 +49,55 @@ def piano(f, dur=2.6, g=0.2):
     return lp(s, 4200) * np.minimum(1, t / 0.006) * g
 NOTE = {"C3": 130.81, "G3": 196.0, "B2": 123.47, "A2": 110.0, "F2": 87.31, "C4": 261.63, "D4": 293.66, "E4": 329.63, "G4": 392.0, "A4": 440.0,
      "C5": 523.25, "D5": 587.33, "E5": 659.25, "G5": 783.99, "F3": 174.61, "E3": 164.81, "A3": 220.0, "D3": 146.83, "B3": 246.94}
-t0, bar = 16.5, 1.15
-bars = [("C3", "G3", "E4", "E5", "G5"), ("B2", "G3", "D4", "D5", "G5"), ("A2", "E3", "C4", "C5", "E5"), ("F2", "C3", "A3", "A4", "C5")]
-for i, (bass, mid, top, m1, m2) in enumerate(bars):
-    at = t0 + i * bar; vol = (0.42, 0.62, 0.82, 1.0)[i]         # round 34: a clearer swell, quiet under the black card up to full on the two of them
-    add(at, piano(NOTE[bass], 3.0, 0.20 * vol)); add(at + bar * 0.25, piano(NOTE[mid], 2.4, 0.13 * vol))
-    add(at + bar * 0.5, piano(NOTE[top], 2.4, 0.13 * vol)); add(at + bar * 0.75, piano(NOTE[mid], 2.0, 0.10 * vol))
-    add(at, piano(NOTE[m1], 2.6, 0.17 * vol)); add(at + bar * 0.5, piano(NOTE[m2], 2.6, 0.15 * vol))
-end = t0 + 4 * bar                                              # the last chord rings out
-for n, g in (("C3", 0.22), ("G3", 0.14), ("C4", 0.14), ("E4", 0.14), ("G4", 0.13), ("C5", 0.16), ("E5", 0.14)): add(end, piano(NOTE[n], 3.4, g * 1.12))
+# Round 35: Kyle did not like the first piano phrase and asked for options. Pick one with a second argument:
+#   arp      the round-33 phrase (C, G/B, Am, F broken chords)
+#   lullaby  Brahms' Lullaby (1868, public domain) on a music box over soft piano bass notes
+#   bright   a happy, bouncy major phrase (G, D, Em, C) with a rising tune, like the end of a commercial
+#   swell    no tune: slow warm chords that open up, with a few bell notes on top
+END = sys.argv[2] if len(sys.argv) > 2 else "lullaby"
+NOTE.update({"G2": 98.0, "D3": 146.83, "B4": 493.88, "F4": 349.23, "F5": 698.46, "A5": 880.0, "B5": 987.77, "C6": 1046.5, "D6": 1174.66, "Bb2": 116.54, "Bb3": 233.08, "F#4": 369.99, "F#5": 739.99, "E2": 82.41})
+def box(f, dur=1.8, g=0.2):                                   # music-box tine
+    t = T(dur); s = np.sin(2 * np.pi * f * t) * np.exp(-t * 2.6) + 0.4 * np.sin(2 * np.pi * f * 2.76 * t) * np.exp(-t * 8) + 0.15 * np.sin(2 * np.pi * f * 5.4 * t) * np.exp(-t * 15)
+    return s * np.minimum(1, t / 0.003) * g
+def pad(freqs, dur, g=0.1, a=1.0, r=1.2):                      # soft sustained chord
+    t = T(dur); s = sum(np.sin(2 * np.pi * f * t) + 0.35 * np.sin(2 * np.pi * 2 * f * t) + 0.12 * np.sin(2 * np.pi * 3 * f * t) for f in freqs)
+    return lp(s, 1800) * np.minimum(1, t / a) * np.minimum(1, np.maximum(0, (dur - t) / r)) * g / len(freqs)
+t0 = 16.5; L = DUR - t0
+swell = lambda at: 0.4 + 0.6 * min(1.0, max(0.0, (at - t0) / 3.6))   # quiet under the black card, full on the two of them
+if END == "arp":
+    bar = 1.15
+    bars = [("C3", "G3", "E4", "E5", "G5"), ("B2", "G3", "D4", "D5", "G5"), ("A2", "E3", "C4", "C5", "E5"), ("F2", "C3", "A3", "A4", "C5")]
+    for i, (bass, mid, top, m1, m2) in enumerate(bars):
+        at = t0 + i * bar; vol = (0.42, 0.62, 0.82, 1.0)[i]
+        add(at, piano(NOTE[bass], 3.0, 0.20 * vol)); add(at + bar * 0.25, piano(NOTE[mid], 2.4, 0.13 * vol))
+        add(at + bar * 0.5, piano(NOTE[top], 2.4, 0.13 * vol)); add(at + bar * 0.75, piano(NOTE[mid], 2.0, 0.10 * vol))
+        add(at, piano(NOTE[m1], 2.6, 0.17 * vol)); add(at + bar * 0.5, piano(NOTE[m2], 2.6, 0.15 * vol))
+    for n, g in (("C3", 0.22), ("G3", 0.14), ("C4", 0.14), ("E4", 0.14), ("G4", 0.13), ("C5", 0.16), ("E5", 0.14)): add(t0 + 4 * bar, piano(NOTE[n], 3.4, g * 1.12))
+elif END == "lullaby":
+    e8 = 0.2                                                    # "Lullaby and good night", in C
+    tune = [("E5", 1), ("E5", 1), ("G5", 4), ("E5", 1), ("E5", 1), ("G5", 4), ("E5", 1), ("G5", 1), ("C6", 2), ("B5", 2), ("A5", 2), ("A5", 2), ("G5", 4)]
+    at = t0 + 0.1
+    for n, k in tune: add(at, box(NOTE[n], 2.0, 0.26 * swell(at))); at += k * e8
+    for at, n in ((t0 + 0.5, "C3"), (t0 + 1.1, "G3"), (t0 + 1.7, "C3"), (t0 + 2.3, "G3"), (t0 + 2.9, "C3"), (t0 + 3.5, "F3"), (t0 + 4.1, "G3"), (t0 + 4.7, "C3")):
+        add(at, piano(NOTE[n], 2.4, 0.16 * swell(at)))
+    add(t0 + 4.7, piano(NOTE["E4"], 3.0, 0.12)); add(t0 + 4.7, piano(NOTE["G4"], 3.0, 0.11))
+elif END == "bright":
+    beat = 0.46                                                 # ~130 BPM, bouncy
+    prog = [("G2", ("G3", "B3", "D4")), ("D3", ("F#4", "A3", "D4")), ("E2", ("G3", "B3", "E4")), ("C3", ("G3", "C4", "E4"))]
+    tune = ["B4", "D5", "D5", "F#5", "E5", "G5", "G5", "B5"]
+    for i, (bass, ch) in enumerate(prog):
+        for h in range(2):
+            at = t0 + (i * 2 + h) * beat; v = swell(at)
+            add(at, piano(NOTE[bass], 1.2, 0.20 * v))
+            for n in ch: add(at + beat / 2, piano(NOTE[n], 0.5, 0.10 * v))     # the off-beat chord gives it the bounce
+            add(at, piano(NOTE[tune[i * 2 + h]], 1.4, 0.19 * v))
+    at = t0 + 8 * beat
+    for n, g in (("G2", 0.22), ("D3", 0.14), ("G3", 0.14), ("B3", 0.14), ("D4", 0.13), ("G4", 0.15), ("B4", 0.13), ("D5", 0.15)): add(at, piano(NOTE[n], 3.2, g))
+elif END == "swell":
+    for i, ch in enumerate([("F3", "A3", "C4", "F4"), ("C3", "G3", "C4", "E4"), ("D3", "A3", "D4", "F4"), ("Bb2", "F3", "Bb3", "D4")]):
+        at = t0 + i * 1.2; add(at, pad([NOTE[n] for n in ch], 2.2, 0.26 * swell(at), a=0.7, r=1.0))
+    add(t0 + 4.8, pad([NOTE[n] for n in ("F3", "A3", "C4", "F4", "A4")], L - 4.8, 0.3, a=0.5, r=1.0))
+    for at, n in ((t0 + 1.3, "A5"), (t0 + 2.5, "C6"), (t0 + 3.7, "D6"), (t0 + 4.9, "F5"), (t0 + 5.1, "A5"), (t0 + 5.3, "C6")): add(at, box(NOTE[n], 2.2, 0.13 * swell(at)))
 # a little room on the piano: two soft echoes of everything from the ending on
 i0 = int(16.4 * SR); tail = mix[i0:].copy()
 for d, g in ((0.11, 0.22), (0.27, 0.14)):

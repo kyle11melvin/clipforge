@@ -422,6 +422,16 @@ Follow-up: "make the piano a little louder, make the static a little quieter on 
 go from quiet to up like you did, with a little more scaling." Room tone 0.013 → 0.006 (calm 0.016 → 0.007), swoosh
 and exhale down about 3 dB, piano bars at 0.42 / 0.62 / 0.82 / 1.0 then the held chord at 1.12, ending scale 0.66 → 0.95.
 
+## Round thirty-five: ending options
+
+"Something about the piano song that you picked I don't really like. Can you give me a couple other options?"
+`byeweek_flex.py out.wav <ending>` now takes `arp` (the first phrase), `lullaby` (Brahms' Lullaby on a music box over
+soft piano bass, public domain), `bright` (bouncy G–D–Em–C with off-beat chords and a climbing tune) or `swell` (no
+tune: slow pad chords F, C/E, Dm, Bb to F with bell notes). All start quiet at 16.5 s and build; mixed to about -15 dB
+mean over the last 3.5 s (bright ×0.85, swell ×1.6 in the ffmpeg mix). Page tabs: 1 Lullaby, 2 Bright, 3 Warm, Silent
+(`ending-1-lullaby.mp4` etc., same picture). Waiting for his number.
+**Lesson: for music, give him two or three labelled options to hear at once instead of one guess.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
