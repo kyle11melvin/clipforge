@@ -211,6 +211,16 @@ bug; the TTS wife line is out of the mix (text box only, the whole line at once)
 total). Canva still refuses new images, so a real fist-pump frame has to come from ChatGPT (line on the page).
 **Lesson: no TTS for a person in his life; he hears it as a machine. Words on screen instead.**
 
+## Round fifteen: he asks for the fist pump again
+
+"I need a little more action … something goes his way, he fist pumps … next game same thing … sit down with a cup of
+coffee, nice and chill … honey my water broke … then him with his daughter watching the Broncos game. Use the
+commentators' voices. Don't do the weird things. If you can't do it then give it to me." Canva refused again, so the
+real blocker was said plainly: a fist-pump frame and a chill frame have to come from ChatGPT. The page now leads with
+one job (save one picture, copy one message that asks for both images, send them back) and the video URLs carry a
+`?v=` stamp so his phone cannot replay an older cut. **Lesson: when the missing piece is a picture I cannot make, say
+so in the first line and hand him one copy-paste, instead of shipping another stand-in.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
