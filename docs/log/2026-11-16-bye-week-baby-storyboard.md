@@ -273,6 +273,10 @@ Carolina at 1.25 s, 0.35 s dissolves); the fist pump (2.75 s / 2.35 s, 0.45 s di
 **Lesson: when a real call builds, the character's reaction and the caption have to build on the same beats; a calm
 figure under a rising announcer reads as wrong even if every piece is good.**
 
+Follow-up: "you don't have to build with the actual visual, just use the voice … have him stand up and like yes yes go
+go go go go." The captions are now his cheering, growing in size with the stages ("Go…", "Go… go…", "GO! GO! GO!",
+"YES! YES!"; "Come on…", "GET HIM! GET HIM!", "YES! YES!"), with the announcers as the sound only.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

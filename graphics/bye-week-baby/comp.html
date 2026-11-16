@@ -190,9 +190,10 @@
       const m = mid($("midA"), tt, 1.35, 1.35), y = yes($("yesA"), tt, 2.75, 90, 110, 880, 0.45);
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
       // Dave Logan's own words, on their onsets in the recording (3.3 s into his clip = 0 here)
-      const line = said([[0.05, "“Here we go…”"], [0.55, "“35… 30…”"], [1.55, "“25… 20…”"], [2.55, "“Foot race!”"], [3.05, "“15… 10…”"], [3.75, "YES!"]], tt);
-      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 3.75 ? "84px" : "64px";
-      $("subA").style.opacity = clamp(tt / 0.3, 0, 1) * (1 - clamp((tt - 4.1) / 0.5, 0, 1));
+      // his own cheering on screen (Kyle: "yes yes go go go go go"); Logan's call is the sound
+      const line = said([[0.3, "Go…"], [0.9, "Go… go…"], [1.45, "GO! GO! GO!"], [2.2, "GO! GO! GO! GO!"], [2.85, "YES! YES!"]], tt);
+      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 2.85 ? "92px" : tt >= 1.45 ? "76px" : "60px";
+      $("subA").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1) * (1 - clamp((tt - 4.1) / 0.5, 0, 1));
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 3.6) / 0.6, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
@@ -200,8 +201,8 @@
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
       const m = mid($("midB"), tt, 1.25, 1.5), y = yes($("yesB"), tt, 2.35, 230, 190, 660, 0.45);
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.45, "“Young in the pocket…”"], [1.45, "“That ball’s…”"], [2.45, "“…FREE!”"], [3.5, "They did it again!"]], tt);
-      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 3.5 ? "84px" : "64px";
+      const line = said([[0.45, "Come on…"], [1.3, "GET HIM! GET HIM!"], [2.45, "YES! YES!"], [3.5, "They did it again!"]], tt);
+      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 3.5 ? "92px" : tt >= 1.3 && tt < 2.45 ? "76px" : "60px";
       $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (1 - clamp((tt - 3.9) / 0.5, 0, 1));
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.3) / 0.6, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
