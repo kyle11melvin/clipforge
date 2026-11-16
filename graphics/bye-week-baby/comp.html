@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Bye week baby</title>
+<style>
+  /* Personal-account meme, not Coastal Money (Kyle, 2026-11-02). Type is the white Nunito ExtraBold with the
+     black stroke from his reel covers; colours are Broncos orange and navy. */
+  @font-face { font-family: "Nunito"; font-weight: 800; src: url("../../assets/fonts/Nunito-800-latin.woff2") format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url("../../assets/fonts/Inter-700-latin.woff2") format("woff2"); }
+  :root { --orange:#FB4F14; --navy:#002244; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  .frame { position: absolute; inset: 0; display: none; overflow: hidden; background: #000; }
+  .frame.on { display: block; }
+  .ph { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 50%; }
+  .head { position: absolute; left: 50px; right: 160px; text-align: center;
+    font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 112px; line-height: 1.1; color: #fff;
+    -webkit-text-stroke: 8px #000; paint-order: stroke fill; text-shadow: 0 6px 14px rgba(0,0,0,.45); }
+  .head .o, .sting .o { color: var(--orange); }
+  .w { display: inline-block; will-change: transform, opacity; }
+  /* heart monitor */
+  .mon { position: absolute; left: 60px; width: 860px; top: 1140px; height: 270px; background: rgba(0,0,0,.6); border-radius: 24px; padding: 20px; }
+  .mon svg { top: 20px !important; left: 20px !important; width: 820px !important; height: 230px !important; }
+  .mon svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .bpm { position: absolute; right: 24px; top: 18px; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 44px;
+    color: #fff; letter-spacing: .04em; text-align: right; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+  .bpm b { display: block; font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 108px; line-height: 1;
+    color: #ff2d2d; -webkit-text-stroke: 6px #000; paint-order: stroke fill; }
+  .bp { position: absolute; left: 24px; top: 18px; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 44px; color: #fff;
+    letter-spacing: .04em; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+  .bp b { display: block; font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 108px; line-height: 1; color: #fff;
+    -webkit-text-stroke: 6px #000; paint-order: stroke fill; }
+  .bug { position: absolute; left: 60px; top: 272px; width: 860px; height: 150px; display: flex; align-items: stretch;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; color: #fff; border-radius: 16px; overflow: hidden;
+    background: #0a0f1a; box-shadow: 0 8px 30px rgba(0,0,0,.55); transform-origin: 50% 0; }
+  .bug .team { display: flex; align-items: center; gap: 18px; padding: 0 26px; font-size: 50px; letter-spacing: .02em; }
+  .bug .team b { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 72px; }
+  .bug .kc { background: #1b2b47; } .bug .den { background: var(--orange); }
+  .bug .ctr { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; }
+  .bug .clock { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 74px; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+  .bug .down { font-size: 26px; letter-spacing: .1em; color: #ffd36b; white-space: nowrap; }
+  .red { position: absolute; inset: 0; box-shadow: inset 0 0 220px 60px rgba(255,20,20,.9); opacity: 0; pointer-events: none; }
+  .vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,.55) 100%); }
+  .black { background: #000; }
+  .mid { position: absolute; left: 60px; right: 160px; top: 50%; transform: translateY(-50%); text-align: center; }
+  .sting { position: absolute; left: 60px; right: 160px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    font-size: 88px; line-height: 1.1; color: #fff; -webkit-text-stroke: 7px #000; paint-order: stroke fill; }
+  .stamp { position: absolute; left: 130px; top: 1000px; width: 720px; text-align: center; font-family: "Nunito", system-ui, sans-serif; font-weight: 800;
+    font-size: 118px; line-height: 1.15; color: #fff; background: var(--orange); border: 8px solid #fff; border-radius: 22px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.55); transform-origin: 50% 50%; opacity: 0; }
+  /* Schedule card: the gag. Week 10 says BYE, then gets flexed. */
+  .card { position: absolute; left: 60px; width: 860px; top: 1090px; border-radius: 22px; overflow: hidden; background: rgba(10,15,26,.92);
+    box-shadow: 0 10px 36px rgba(0,0,0,.55); font-family: "Inter", system-ui, sans-serif; font-weight: 700; color: #fff; transform-origin: 50% 100%; }
+  .card .hd { height: 70px; display: flex; align-items: center; justify-content: center; font-size: 30px; letter-spacing: .16em; background: #1b2b47; }
+  .card .row { height: 92px; display: flex; align-items: center; padding: 0 30px; font-size: 44px; border-top: 2px solid rgba(255,255,255,.08); white-space: nowrap; }
+  .card .row .wk { width: 170px; color: #9aa4b4; font-size: 32px; letter-spacing: .08em; }
+  .card .row.hot { background: var(--orange); height: 112px; }
+  .card .row.hot .wk { color: #fff; }
+  .card .row.hot .val { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 60px; position: relative; display: inline-block; }
+  .card .strike { position: absolute; left: -8px; top: 52%; height: 9px; background: #fff; border-radius: 5px; width: 0; }
+  .card .flex { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 50px; display: inline-block; transform-origin: 0 50%; }
+  .card .tag { margin-left: auto; font-size: 24px; letter-spacing: .12em; background: #fff; color: var(--orange); border-radius: 8px; padding: 6px 12px; }
+  .chip { position: absolute; left: 60px; width: 860px; text-align: center; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 34px;
+    letter-spacing: .04em; color: #fff; }
+  .chip span { display: inline-block; background: rgba(10,15,26,.9); border-radius: 14px; padding: 14px 24px; }
+  .chip b { color: #ffd36b; letter-spacing: .14em; font-size: 26px; margin-right: 12px; }
+</style>
+</head>
+<body>
+<!-- Personal-account meme (2026-11-16): the Broncos' bye week (Week 10, Nov 15) is the weekend Kyle's daughter is born.
+     Three AI frames (Canva) of a "bronco dad". The gag is the schedule card: BYE gets flexed to Dad vs. Baby Girl.
+     Kyle vetoed the heart-rate monitor here ("I literally just did a video where my heart rate was going up"). -->
+<div class="frame" id="f1">
+  <img class="ph" src="relax.jpg" alt="">
+  <div class="head" style="top:262px;font-size:92px" id="h1"></div>
+  <div class="sting" style="top:960px;font-size:66px;white-space:nowrap" id="s1"></div>
+  <div class="chip" style="top:880px" id="wife"><span><b>MY WIFE</b></span></div>
+  <div class="sting" style="top:960px;font-size:72px;white-space:nowrap" id="s1b"></div>
+  <div class="card" id="c1">
+    <div class="hd">BRONCOS SCHEDULE</div>
+    <div class="row"><span class="wk">WK 9</span>at Carolina</div>
+    <div class="row hot"><span class="wk">WK 10</span><span class="val">BYE</span></div>
+    <div class="row"><span class="wk">WK 11</span>vs Las Vegas</div>
+  </div>
+</div>
+<div class="frame" id="f2">
+  <img class="ph" id="shk" src="shock.jpg" alt="">
+  <div class="head" style="top:250px;font-size:176px" id="what"><span class="o">WHAT?!</span></div>
+  <div class="card" id="c2">
+    <div class="hd" id="hd2">SCHEDULE CHANGE</div>
+    <div class="row"><span class="wk">WK 9</span>at Carolina</div>
+    <div class="row hot"><span class="wk">WK 10</span><span class="val" id="bye2">BYE<span class="strike" id="strike"></span></span><span class="flex" id="flex">Dad vs. Baby Girl</span><span class="tag" id="tag">FLEXED</span></div>
+    <div class="row"><span class="wk">WK 11</span>vs Las Vegas</div>
+  </div>
+</div>
+<div class="frame" id="f3">
+  <img class="ph" id="pan" src="panic.jpg" alt="" style="transform-origin:50% 0">
+  <div class="vig"></div>
+  <div class="head" style="top:262px;font-size:92px" id="h2"></div>
+  <div class="card">
+    <div class="hd" id="hd3">SCHEDULE CHANGE</div>
+    <div class="row"><span class="wk">WK 9</span>at Carolina</div>
+    <div class="row hot"><span class="wk">WK 10</span><span class="flex">Dad vs. Baby Girl</span><span class="tag" style="transform:rotate(-4deg)">FLEXED</span></div>
+    <div class="row"><span class="wk">WK 11</span>vs Las Vegas</div>
+  </div>
+</div>
+<div class="frame" id="f4">
+  <img class="ph" src="baby.jpg" alt="">
+  <div class="head" style="top:262px;font-size:88px" id="h3"></div>
+  <div class="sting" style="top:1290px;font-size:110px" id="s3"></div>
+  <div class="chip" style="top:468px" id="chip"><span><b>INJURY REPORT</b>Dad: questionable (sleep)</span></div>
+</div>
+
+<script>
+  // Timeline (seconds): hook, his wife's line, WHAT?! and the flex, delivery room, pay-off.
+  const T = { f1: 0, wife: 2.0, f2: 3.7, f3: 5.3, f4: 7.0, end: 10.2 };
+  window.DURATION = T.end;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const back = (p) => { const s = 1.70158; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
+  const $ = (id) => document.getElementById(id);
+  const frames = ["f1", "f2", "f3", "f4"].map($);
+  // Words rise in one by one (the approved motion), 0.09 s apart, 0.3 s each.
+  function words(el, html, t, gap = 0.09, dur = 0.3) {
+    if (!el.dataset.built) {
+      // Words between asterisks are the orange ones: "in the *4th quarter*".
+      let orange = false;
+      el.innerHTML = html.split("<br>").map((line) => line.split(" ").map((w) => {
+        if (w.startsWith("*")) orange = true;
+        const cls = orange ? "w o" : "w", end = w.endsWith("*"); if (end) orange = false;
+        return `<span class="${cls}">${w.replace(/\*/g, "")}</span>`;
+      }).join(" ")).join("<br>");
+      el.dataset.built = "1";
+    }
+    [...el.querySelectorAll(".w")].forEach((w, i) => {
+      const p = clamp((t - i * gap) / dur, 0, 1), e = easeOut(p);
+      w.style.opacity = p; w.style.transform = `translateY(${(1 - e) * 60}px)`;
+    });
+  }
+
+  window.seek = (t) => {
+    frames.forEach((f) => f.classList.remove("on"));
+    if (t < T.f2) {
+      // Kyle's storyboard (2026-11-16): he sips, exhales, then his wife: "Honey... she's coming."
+      const f = frames[0]; f.classList.add("on"); const tt = t;
+      f.querySelector(".ph").style.transform = `scale(${(1 + 0.06 * tt / T.f2).toFixed(4)})`;
+      words($("h1"), "Broncos fans on<br>the *bye week*", tt - 0.1, 0.08);
+      const cp = clamp((tt - 0.6) / 0.4, 0, 1); $("c1").style.opacity = cp; $("c1").style.transform = `translateY(${((1 - easeOut(cp)) * 60).toFixed(1)}px)`;
+      words($("s1"), "No stress this weekend.", tt - 1.0, 0.07);
+      $("s1").style.opacity = 1 - clamp((tt - (T.wife - 0.2)) / 0.15, 0, 1);
+      const wp = clamp((tt - T.wife) / 0.25, 0, 1); $("wife").style.opacity = wp; $("wife").style.transform = `scale(${(0.6 + 0.4 * back(wp)).toFixed(3)})`;
+      words($("s1b"), "*“Honey… she’s coming.”*", tt - T.wife - 0.2, 0.16);
+    } else if (t < T.f3) {
+      const f = frames[1]; f.classList.add("on"); const tt = t - T.f2;
+      const jolt = Math.max(0, 1 - tt / 0.4), sx = Math.sin(tt * 70) * 12 * jolt, sy = Math.cos(tt * 90) * 7 * jolt;
+      $("shk").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${(1.06 + 0.04 * tt / 1.6).toFixed(4)})`;
+      const wp = clamp(tt / 0.2, 0, 1); $("what").style.opacity = wp; $("what").style.transform = `scale(${(2.2 - 1.2 * easeOut(wp)).toFixed(3)}) rotate(-4deg)`;
+      $("hd2").style.background = Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010";
+      // 0.3 s: the strike draws through BYE. 0.9 s: "Dad vs. Baby Girl" pops in, then the FLEXED tag.
+      const sk = clamp((tt - 0.3) / 0.3, 0, 1); $("strike").style.width = `calc(${(sk * 100).toFixed(1)}% + ${(16 * sk).toFixed(1)}px)`;
+      const sw = clamp((tt - 0.9) / 0.3, 0, 1), bye = $("bye2"), flex = $("flex"), tag = $("tag");
+      bye.style.display = sw > 0 ? "none" : "inline-block";
+      flex.style.display = sw > 0 ? "inline-block" : "none"; flex.style.transform = `scale(${(0.5 + 0.5 * back(sw)).toFixed(3)})`;
+      const tg = clamp((tt - 1.15) / 0.25, 0, 1); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
+    } else if (t < T.f4) {
+      const f = frames[2]; f.classList.add("on"); const tt = t - T.f3, p = clamp(tt / (T.f4 - T.f3), 0, 1);
+      const jolt = Math.max(0, 1 - tt / 0.3), sx = Math.sin(tt * 70) * 8 * jolt;
+      $("pan").style.transform = `translate(${sx.toFixed(1)}px,0) scale(${(1.13 + 0.05 * p).toFixed(4)})`;
+      words($("h2"), "Me on<br>the *bye week*", tt - 0.05, 0.08);
+      $("hd3").style.background = Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010";
+    } else {
+      const f = frames[3]; f.classList.add("on"); const tt = t - T.f4;
+      f.querySelector(".ph").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.2, 0, 1)).toFixed(4)})`;
+      words($("h3"), "Welcome to<br>*Broncos Country,*", tt - 0.05, 0.09);
+      words($("s3"), "*baby girl.*", tt - 0.9, 0.12);
+      const cp = clamp((tt - 1.8) / 0.35, 0, 1); $("chip").style.opacity = cp; $("chip").style.transform = `translateY(${((1 - easeOut(cp)) * 24).toFixed(1)}px)`;
+    }
+  };
+  window.seek(0);
+</script>
+</body>
+</html>

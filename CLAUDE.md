@@ -6,7 +6,10 @@ his standing brief. Read it before touching anything.
 
 ## Start here, every session
 
-1. Read this file, then the newest note in `docs/log/`.
+1. Run `git fetch origin` and check `git for-each-ref --sort=-committerdate refs/remotes | head`. **If any `claude/*`
+   branch is newer than `main`, merge it into your branch before reading anything** (2026-11-16: main sat at Nov 6 for
+   ten days while seven sessions wrote their notes to unmerged branches, and Kyle noticed the work getting worse). Then
+   read this file and the newest notes in `docs/log/`. At the end of a session ask Kyle to let the branch go to `main`.
 2. Run `npm install` and `npm run doctor`. If doctor reports a missing browser or speech model, run
    `npm run setup` (downloads about 700 MB once). Nothing renders or transcribes until this passes.
 3. Footage: the Google Drive connector can now list his `Clipforge` folder (and subfolders, by `parentId`), but its download tool caps at
@@ -312,6 +315,15 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
 - **No music** unless he asks; he picked the voice-only cut.
 - **How he reviews:** he reacts to one thing per message and sees stills mid-build. Ship a cut, expect five to ten
   small rounds, change only what he named, and say plainly that Claude cannot hear audio.
+
+- `graphics/bye-week-baby/` (2026-11-16) — the **AI-frame story meme** for the personal account: his daughter born on
+  the Broncos' bye weekend, told with four Canva-generated frames of a "bronco dad" and a schedule card whose BYE gets
+  flexed to "Dad vs. Baby Girl". **No heart-rate monitor twice in a row** (Kyle: "I'm not trying to do the exact same
+  video over and over"); a repeat device from the last meme is a reason to find a new gag. He gives a storyboard in
+  beats (relax, the line from his wife, "What?", the baby); follow it. For motion he has Grok and ChatGPT: put each
+  frame on the page with a Save button and an image-to-video prompt, he sends the clips back, clipforge cuts them.
+  Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
+  the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 
 ## The look Kyle approved (use it unless he asks for something else)
 
