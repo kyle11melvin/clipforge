@@ -162,13 +162,13 @@
   const DEN = "#FB4F14", KC = "#E31837", CAR = "#0085CA", LV = "#8a8f95";
   const team = (ab, col, score, rec = "") => `<div class="tm" style="background:${col}"><span class="ab">${ab}</span><span class="rec">${rec}</span>${score === "" ? "" : `<span class="sc">${score}</span>`}</div>`;
   const bug = (el, inner, tick, p = 1) => { el.innerHTML = `<div class="bar">${inner}</div><div class="tick">${tick}</div>`;
-    el.style.opacity = clamp(p * 2, 0, 1); el.style.transform = `translateY(${((1 - easeOut(p)) * 70).toFixed(1)}px)`; };
+    el.style.opacity = ease(clamp(p, 0, 1)); el.style.transform = ""; };   // fades in place (round 18: "let it flow")
   const count = (to, p) => Math.round(to * clamp(p, 0, 1));
 
   // The win reaction (Kyle, round 14: "have him lean forward ... like yes ... some kind of reaction"): a stand-in until a
   // real fist-pump frame exists: the upper body of side-fall.jpg (arms up, mouth open), cropped so the chair is out of frame.
   function yes(img, tt, at, x0, y0, w) {
-    const p = ease(clamp((tt - at) / 0.6, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 1.6, 0, 1)));   // a slow dissolve and a slow push
+    const p = ease(clamp((tt - at) / 1.0, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 2.2, 0, 1)));   // a slow dissolve and a slow push
     img.style.opacity = p; img.style.transform = `translate(${(-x0 * k).toFixed(1)}px,${(-y0 * k).toFixed(1)}px) scale(${k.toFixed(4)})`;
     return p;
   }
@@ -178,27 +178,27 @@
       $("roomA").style.transform = `${drift(tt, 0.5)} scale(${(1.02 + 0.10 * ease(clamp(tt / 5.2, 0, 1))).toFixed(4)})`;
       $("roomA").style.filter = "brightness(0.86) saturate(0.9)";
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1);
-      const y = yes($("yesA"), tt, 3.2, 0, 0, 1080); $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - y);
-      $("subA").innerHTML = tt < 3.2 ? "<div>The Broncos stress me out.</div>" : "<div>YES!</div>"; $("subA").style.opacity = tt < 3.2 ? clamp((tt - 0.4) / 0.5, 0, 1) * (1 - clamp((tt - 2.6) / 0.5, 0, 1)) : y;
+      const y = yes($("yesA"), tt, 2.9, 0, 0, 1080); $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - y);
+      $("subA").innerHTML = tt < 2.9 ? "<div>The Broncos stress me out.</div>" : "<div>YES!</div>"; $("subA").style.opacity = tt < 2.9 ? clamp((tt - 0.4) / 0.6, 0, 1) * (1 - clamp((tt - 2.3) / 0.6, 0, 1)) : y * (1 - clamp((tt - 4.0) / 0.5, 0, 1));
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 3.4) / 0.6, 0, 1)); } },
-    { id: "fB", at: T.B, tr: "dissolve", dur: 0.7, draw(tt) {
+    { id: "fB", at: T.B, tr: "dissolve", dur: 1.1, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomB").style.transform = `${drift(tt + 4.6, 0.5)} scale(${(1.12 + 0.08 * ease(clamp(tt / 4.6, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.86) saturate(0.9)";
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1);
-      const y = yes($("yesB"), tt, 3.1, 150, 150, 820); $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - y);
-      $("subB").innerHTML = tt < 3.1 ? "<div>Every. Single. Week.</div>" : "<div>They did it again!</div>"; $("subB").style.opacity = tt < 3.1 ? clamp((tt - 0.7) / 0.5, 0, 1) * (1 - clamp((tt - 2.6) / 0.5, 0, 1)) : y;
+      const y = yes($("yesB"), tt, 2.8, 150, 150, 820); $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - y);
+      $("subB").innerHTML = tt < 2.8 ? "<div>Every. Single. Week.</div>" : "<div>They did it again!</div>"; $("subB").style.opacity = tt < 2.8 ? clamp((tt - 0.9) / 0.6, 0, 1) * (1 - clamp((tt - 2.2) / 0.6, 0, 1)) : y * (1 - clamp((tt - 3.8) / 0.5, 0, 1));
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.0) / 0.7, 0, 1)); } },
-    { id: "fC", at: T.C, tr: "dissolve", dur: 0.8, draw(tt) {
+    { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 0.9, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(tt / (T.D - T.C)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - punch);
       $("sub1").innerHTML = "<div>Bye week. A nice, calm weekend.<br>Finally.</div>";
       $("sub1").style.opacity = clamp((tt - 0.4) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
-      const hp = clamp((tt - w) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`; $("honey").style.transformOrigin = "100% 0";
+      const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px)`; $("honey").style.transformOrigin = "100% 0";
       $("ht").textContent = "“Honey… my water broke.”"; } },
-    { id: "fD", at: T.D, tr: "dissolve", dur: 0.35, draw(tt) {
+    { id: "fD", at: T.D, tr: "dissolve", dur: 0.7, draw(tt) {
       // Kyle: "I don't like that it gets too intense". One slow-motion push on the fall; no jump cuts, no shake.
       const L = T.E - T.D, p = ease(clamp(tt / L, 0, 1));
       $("shk").style.transformOrigin = "40% 38%"; $("shk").style.filter = "";
@@ -206,10 +206,10 @@
       $("what").style.fontSize = "64px"; $("what").textContent = "What?!"; $("what").style.transform = "";
       $("what").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - clamp((tt - 2.0) / 0.5, 0, 1));
       bug($("bD"), team("DEN", DEN, "", "7–2") + `<div class="st" style="background:#8f1010"><b style="color:#fff">BYE WEEK</b><span style="color:#fff">CANCELLED</span></div>`, `<i>BREAKING</i>So much for relaxing`, clamp((tt - 0.9) / 0.6, 0, 1)); } },
-    { id: "fE", at: T.E, tr: "dissolve", dur: 0.6, draw(tt) {
+    { id: "fE", at: T.E, tr: "dissolve", dur: 0.9, draw(tt) {
       $("nx").textContent = "Next Sunday…"; $("nx").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1);
       $("nx2").style.opacity = clamp((tt - 0.6) / 0.2, 0, 1); } },
-    { id: "fF", at: T.F, tr: "dissolve", dur: 0.9, draw(tt) {
+    { id: "fF", at: T.F, tr: "dissolve", dur: 1.2, draw(tt) {
       $("imF").style.transform = `${drift(tt, 0.6)} scale(${(1.10 - 0.07 * ease(clamp(tt / 4.8, 0, 1))).toFixed(4)})`;
       const late = tt >= 2.8;
       $("sub4").innerHTML = late ? "<div>And it’s the Raiders.<br>I can still relax.</div>" : "<div>Welcome to Broncos Country,<br>baby girl.</div>";

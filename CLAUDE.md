@@ -346,6 +346,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Smooth means the baby scene (round 13):** slow dissolves, slow pushes, quiet sound. He called reaction cut-ins,
   jump punch-ins, shake and thumps "too intense … terrible". Game footage goes **on the TV in the room** with its call
   as the sound (`.tv` inside `.room`), not full screen.
+  **Flow (round 18, "very choppy"):** overlap the sound across picture changes (each call runs on 2 s under the next
+  shot, one room tone under everything), dissolves of about a second, graphics fade in place. The punchline setup is
+  short on purpose: the calm bye-week frame holds 1.3 s before "Honey… my water broke." The missing poses (fist pump,
+  eyes-closed chill) came from one saved frame plus one pasted message to ChatGPT; do that first, not stand-ins.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

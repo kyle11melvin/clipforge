@@ -238,6 +238,15 @@ my water broke … that's the joke: nice and calm weekend finally, and then my w
 (C 9.0, wife 10.3, D 11.2, E 13.8, F 14.7, end 19.5) with one line, "Bye week. A nice, calm weekend. Finally."
 **Lesson: the setup for a punchline is short; the interruption is the joke.**
 
+## Round eighteen: "make it connect … let it flow, it's very choppy"
+
+Dissolves lengthened (1.1 s into each game beat and the calm, 0.7 into the fall, 0.9 / 1.2 around "Next Sunday"), the
+fist pump melts in over 1.0 s starting earlier (2.9 / 2.8 s), the score bug fades in place instead of sliding, her box
+eases down instead of popping, each scene's subtitle fades out before the next arrives. Sound: the calls are cut long
+and overlapped (Logan 3.3–9.7 s of his recording with a 2 s tail, the strip-sack call from 4.3 s with a 1 s fade-in and
+a 2 s tail into the calm) over one continuous quiet room tone, with a fade at each end of the reel.
+**Lesson: "choppy" was mostly the sound starting and stopping per beat; overlap the audio across picture changes.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

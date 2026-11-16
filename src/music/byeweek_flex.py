@@ -29,6 +29,7 @@ def chime(f, dur=0.7, g=0.12):
 
 O = 5.0; O2 = 5.8                                        # the two real calls (mixed in by ffmpeg) fill 0-9 s
 # Kyle, round 13: "it gets too intense ... I don't wanna hear that". Nothing percussive; soft room sounds only.
+add(0.0, crowd(DUR, 0.012, a=1.0, r=2.5))               # one quiet room tone under the whole reel so nothing starts from silence
 add(3.9 + O, crowd(2.4, 0.02, a=0.8, r=0.6))             # bye week: quiet room, TV in the background
 tt = T(2.5); add(6.3 + O, lp(np.sin(2 * np.pi * (62 - 18 * tt / 2.5) * tt), 220) * 0.10 * np.sin(np.pi * tt / 2.5))   # the fall, slow: a soft low swell
 add(6.6 + O, lp(noise(0.5), 900) * np.exp(-T(0.5) * 8) * 0.14)        # a soft thud
