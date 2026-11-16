@@ -323,6 +323,15 @@ dissolves in at "45, 40" (1.2 s) and `kick()` bumps it (26 px up, 3.5% scale, fa
 `side-fall.jpg` from 1.35 s with bumps on "that ball's" / "free". The round-23 reading was too literal: he did not want
 the excitement gone, he wanted it to move with the call and not be the same frozen frame twice.
 
+## Round twenty-five: his summary of the whole thing
+
+"Sitting back … it goes in and he gets stressful, we win; next one, oh my God we won again; bye, thank God, sit down;
+as soon as you sit down, honey my water broke. That's it." He also wants a Bonitto call as big as the Coleman one
+("Nik Bonitto stole it … we won the game"); the Carolina audio we have is the CBS call, not Dave Logan. Changes: B's
+win line is "Oh my God… we won again!", C is "Bye week. Thank God." and her line lands 1.4 s after he settles (T: C
+15.1, wife 16.5, E 17.9, F 18.7, end 23.0). Asked him for a screen recording of the Broncos' Dave Logan call of the
+strip sack if one exists.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

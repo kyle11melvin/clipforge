@@ -152,7 +152,7 @@
   const ST = 132, stEl = document.getElementById("st");
   stEl.innerHTML = Array.from({ length: ST }, (_, i) => `<img style="visibility:hidden" src="strip/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const stImgs = [...stEl.children];
-  const T = { O: 0, A: 1.5, B: 9.4, C: 15.1, wife: 17.1, E: 18.5, F: 19.3, end: 23.6 };   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
+  const T = { O: 0, A: 1.5, B: 9.4, C: 15.1, wife: 16.5, E: 17.9, F: 18.7, end: 23.0 };   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -208,15 +208,15 @@
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
       $("yesB").style.opacity = 0; const m = yes($("midB"), tt, 1.35, 0, 400, 640, 0.5, [1.5, 2.45, 2.9, 3.3]), br = breathe($("brB"), tt, 4.2);   // arms up on "that ball's free"
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.45, "Not again…"], [1.45, "GET HIM!"], [2.45, "YES! YES!"], [4.7, "Phew… again."]], tt);
-      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 4.7 ? "88px" : tt >= 1.45 && tt < 2.45 ? "74px" : "60px";
+      const line = said([[0.45, "Not again…"], [1.45, "GET HIM!"], [2.45, "Oh my God… we won again!"], [4.7, "Phew."]], tt);
+      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 4.7 ? "70px" : tt >= 1.45 && tt < 2.45 ? "74px" : "60px";
       $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.7 ? 1 - clamp((tt - 4.2) / 0.4, 0, 1) : clamp((tt - 4.7) / 0.3, 0, 1) * (1 - clamp((tt - 5.3) / 0.3, 0, 1)));
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.6) / 0.5, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(clamp(tt / (T.E - T.C), 0, 1)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").innerHTML = "<div>Bye week… finally,<br>a weekend off.</div>";
+      $("sub1").innerHTML = "<div>Bye week. Thank God.</div>";
       $("sub1").style.opacity = clamp((tt - 0.4) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
       const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px)`; $("honey").style.transformOrigin = "100% 0";
