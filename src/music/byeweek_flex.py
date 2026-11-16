@@ -35,7 +35,7 @@ def exhale(dur=1.1, g=0.06):                              # him breathing out af
     t = T(dur); return lp(hp(noise(dur), 350), 1500) * np.minimum(1, t / 0.15) * np.exp(-t * 2.6) * g
 add(0.0, crowd(DUR, 0.013, a=1.0, r=2.5))                 # one quiet room under everything
 for at in (1.2, 9.1, 14.8, 18.2, 19.1): add(at, swoosh())
-for at in (8.3, 14.0): add(at, exhale())
+for at in (7.5, 13.3): add(at, exhale())
 add(15.0, crowd(3.4, 0.016, a=0.8, r=0.8))                # the calm: TV murmuring in the background
 add(19.3, crowd(DUR - 19.3, 0.015, a=1.5, r=2.5))         # the ending
 

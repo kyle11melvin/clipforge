@@ -188,25 +188,25 @@
       $("subO").innerHTML = "<div>Being a Broncos fan…</div>"; $("subO").style.opacity = ease(clamp((tt - 0.2) / 0.4, 0, 1)) * (1 - clamp((tt - 1.3) / 0.4, 0, 1)); } },
     { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.24 * Math.pow(clamp(tt / 2.8, 0, 1), 2)).toFixed(4)})`;   // the push speeds up with the call
+      $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.30 * ease(clamp(tt / 5.6, 0, 1))).toFixed(4)})`;   // the push speeds up with the call
       $("roomA").style.filter = "brightness(0.9) saturate(0.92)";
       // Logan's call from midfield (1.0 s into Kyle's recording = 0 here): "Here we go" 0.0, "Midfield" 0.5, "Coleman, 45, 40" 1.1,
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
-      const m = mid($("midA"), tt, 2.6, 1.35), y = yes($("yesA"), tt, 4.6, 90, 110, 880, 0.45), br = breathe($("brA"), tt, 6.5);
+      $("midA").style.opacity = 0; $("yesA").style.opacity = 0; const m = 0, br = breathe($("brA"), tt, 5.7);   // round 23: no close-ups, no fist pump
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.6, "Go…"], [1.5, "Go… go…"], [2.7, "GO! GO! GO!"], [3.8, "GO! GO! GO! GO!"], [4.8, "YES! YES!"], [6.8, "Phew."]], tt);
-      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 6.8 ? "60px" : tt >= 4.8 ? "92px" : tt >= 2.7 ? "76px" : "60px";
-      $("subA").style.opacity = clamp((tt - 0.6) / 0.3, 0, 1) * (tt < 6.8 ? 1 - clamp((tt - 6.2) / 0.5, 0, 1) : clamp((tt - 6.8) / 0.4, 0, 1) * (1 - clamp((tt - 7.5) / 0.4, 0, 1)));
-      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.4) / 0.6, 0, 1)); } },
+      const line = said([[0.8, "Come on…"], [2.8, "Come on… come on…"], [4.9, "YES!"], [6.4, "Phew."]], tt);
+      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 4.9 && tt < 6.4 ? "80px" : "60px";
+      $("subA").style.opacity = clamp((tt - 0.6) / 0.3, 0, 1) * (tt < 6.4 ? 1 - clamp((tt - 5.9) / 0.4, 0, 1) : clamp((tt - 6.4) / 0.4, 0, 1) * (1 - clamp((tt - 7.4) / 0.4, 0, 1)));
+      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.2) / 0.6, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.08 + 0.2 * Math.pow(clamp(tt / 1.5, 0, 1), 2)).toFixed(4)})`;
+      $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.06 + 0.26 * ease(clamp(tt / 3.4, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
-      const m = mid($("midB"), tt, 1.25, 1.5), y = yes($("yesB"), tt, 2.35, 230, 190, 660, 0.45), br = breathe($("brB"), tt, 4.3);
+      $("midB").style.opacity = 0; $("yesB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 3.6);
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.45, "Come on…"], [1.3, "GET HIM! GET HIM!"], [2.45, "YES! YES!"], [3.4, "They did it again!"], [4.6, "Phew… again."]], tt);
-      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 3.4 ? "92px" : tt >= 1.3 && tt < 2.45 ? "76px" : "60px";
-      $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.6 ? 1 - clamp((tt - 4.1) / 0.4, 0, 1) : clamp((tt - 4.6) / 0.4, 0, 1) * (1 - clamp((tt - 5.3) / 0.4, 0, 1)));
+      const line = said([[0.45, "Not again…"], [2.45, "YES!"], [4.3, "Phew… again."]], tt);
+      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 4.3 ? "80px" : "60px";
+      $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.3 ? 1 - clamp((tt - 3.8) / 0.4, 0, 1) : clamp((tt - 4.3) / 0.4, 0, 1) * (1 - clamp((tt - 5.2) / 0.4, 0, 1)));
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.3) / 0.6, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap

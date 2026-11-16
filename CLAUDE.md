@@ -357,6 +357,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 23, the commercial rule:** one room, one camera angle, and a new pose for each turn of the story (leaning
+  in and biting his nails when they are behind, sitting back when it is won, eyes closed on the bye). Never reuse one
+  victory frame, never cut to a face from another angle ("randomized shots of the face, terrible"). List the poses the
+  story needs and get them all from ChatGPT in one message **before** building the cut.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

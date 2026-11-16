@@ -300,6 +300,19 @@ at 4.6 s of B) with a slow pull-back and a soft synthesised exhale; every dissol
 2.5 px blur peak and a soft air swoosh under it. T: O 0, A 1.5, B 9.4, C 15.1, wife 17.1, E 18.5, F 19.3, end 23.6.
 **Lesson: his rhythm is tension → release → tension → release → calm → interruption; each win needs its exhale.**
 
+## Round twenty-three: "think of yourself like you're shooting a commercial"
+
+Kyle: the chalkboard reels were "so good, we can do so much better than this." Keep Dave Logan and him in the chair.
+Get rid of "the same face of the dumb victory shot" used over and over, and "the randomized shots of the face, it's
+terrible." What he wants instead: attitude that makes sense with the game: nervous because they are behind, sitting
+forward on the front of the chair, biting his fingernails, leaning in; then the Bryce Young game and the strip sack.
+
+Removed the two front-on close-ups and both fist pumps; every shot is the side-angle room now (game on the TV with the
+call, score, `watch.jpg` breather, the calm, her line, the ending). The nervous pose does not exist yet and Canva still
+refuses, so the page leads with one ChatGPT message for two frames (leaning in biting his hoof; hooves on his head).
+**Lesson: one room, one angle, poses that change with the story. A reaction close-up from a different angle, or one
+victory frame used twice, reads as random to him. Get the pose frames before cutting, not after.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
