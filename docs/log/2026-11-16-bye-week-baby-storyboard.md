@@ -398,6 +398,15 @@ keep their signatures. Logos are the SVGs from upload.wikimedia.org (`den`, `kc`
 path = md5 of the file name) in `logos/`, **gitignored** since they are trademarks and this repo is public. No CBS
 mark on ours. **Lesson: when he says "the actual" graphic, find it in his own recordings and copy its layout.**
 
+## Round thirty-two: "I was about to say that's perfect"
+
+Two timing notes, everything else kept: the first game scene a little shorter, and the "I get to relax" moment longer
+("I want that to really marinate") before "honey my water broke" pops in "like it just came in from the other room".
+Logan now starts at 3.2 s of his recording (fist 1.8, "YES!" 2.7, bug 3.5, breather 4.2; beat A is 5.5 s). The calm
+holds 2.6 s (C 12.0, wife 14.6); the note slides in from the right edge in 0.32 s with a back ease and a short air
+sound, holds 2.0 s. T: O 0, A 1.3, B 6.8, C 12.0, wife 14.6, E 16.6, F 17.4, end 22.4.
+This reverses round 25's "as soon as you sit down": after seeing it, he wants the calm to breathe first.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

@@ -357,6 +357,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 32, final timing:** the calm before the interruption holds about 2.6 s ("I want that to really marinate"),
+  then her note flies in from the frame edge ("like it just came in from the other room") and holds 2 s. Earlier
+  notes saying 1.3 s or "as soon as he sits down" are superseded.
   **Round 31, the score bug:** he wants "the actual score chips from the networks". `.bug2` now copies the real CBS bug
   cropped from his Panthers recording (dotted near-black bar, logo + huge white score, timeout dashes, team in focus
   on its colour, status in the centre); team logo SVGs come from upload.wikimedia.org into a gitignored `logos/`.
