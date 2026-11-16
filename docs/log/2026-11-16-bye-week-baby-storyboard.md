@@ -125,6 +125,11 @@ then BYE struck with "SO MUCH FOR RELAXING", then WK 11 vs Las Vegas "PARTY OF 2
 tight crops of the old delivery-room and front-on shock frames, soft placeholders for the two recap beats.
 **Lesson: the joke has to be his premise (Broncos stress), not a clever side gag of mine (the flex / Mom vs. Husband).**
 
+Button line added at his request (14.8 s): after "Welcome to Broncos Country, baby girl." the subtitle turns to
+"And it's the Raiders. I can still relax." and the card shows WK 11 vs Las Vegas, "STILL RELAXING". He asked twice
+whether this can be "made into a video": told him it already is an MP4, what it lacks is the character moving, which
+needs Grok image-to-video (one picture, one line) or Sora.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

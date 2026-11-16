@@ -8,7 +8,7 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 13.2; N = int(SR * DUR)
+SR = 44100; DUR = 14.8; N = int(SR * DUR)
 CUT1, CUT2 = 7.4, 9.9
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
@@ -85,6 +85,7 @@ melody = [(E, 1), (E, 1), (G, 4), (E, 1), (E, 1), (G, 4), (E, 1), (G, 1), (C, 2)
 at = CUT2 + 0.12
 for f, n8 in melody:
     add(at, box(f)); at += n8 * EIGHTH
+add(CUT2 + 3.3, pluck(1318.5, 0.6, 0.16)); add(CUT2 + 3.42, pluck(1760.0, 0.8, 0.16))   # the 'still relaxing' tag
 fade = int(SR * 0.6); mix[-fade:] *= np.linspace(1, 0, fade)
 mix = np.tanh(mix * 1.5) * 0.85
 wavfile.write(sys.argv[1], SR, (mix * 32767).astype(np.int16))

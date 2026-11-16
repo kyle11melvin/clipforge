@@ -121,7 +121,7 @@
 <div class="card" id="card" style="display:none"></div>
 
 <script>
-  const T = { A: 0, B: 2.0, C: 4.0, wife: 6.3, D: 7.4, E: 8.9, F: 9.9, end: 13.2 };
+  const T = { A: 0, B: 2.0, C: 4.0, wife: 6.3, D: 7.4, E: 8.9, F: 9.9, end: 14.8 };
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -174,10 +174,13 @@
       $("nx2").style.opacity = clamp((tt - 0.55) / 0.2, 0, 1);
     } else {
       const tt = t - T.F; frames[5].classList.add("on");
-      $("imF").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.3, 0, 1)).toFixed(4)})`;
-      $("sub4").innerHTML = "<div>Welcome to Broncos Country,<br>baby girl.</div>"; $("sub4").style.opacity = clamp((tt - 0.4) / 0.5, 0, 1);
-      const cp = clamp((tt - 1.2) / 0.4, 0, 1), tg = clamp((tt - 1.9) / 0.25, 0, 1);
-      if (cp > 0) { card([`<div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" style="${pop(tg)}">PARTY OF 2</span></div>`], "BRONCOS SCHEDULE", false, 1300);
+      $("imF").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 4.9, 0, 1)).toFixed(4)})`;
+      // Kyle's button line: next Sunday is the Raiders, so he can still relax.
+      const late = tt >= 2.7;
+      $("sub4").innerHTML = late ? "<div>And it’s the Raiders.<br>I can still relax.</div>" : "<div>Welcome to Broncos Country,<br>baby girl.</div>";
+      $("sub4").style.opacity = late ? clamp((tt - 2.7) / 0.25, 0, 1) : clamp((tt - 0.4) / 0.5, 0, 1) * (1 - clamp((tt - 2.45) / 0.2, 0, 1));
+      const cp = clamp((tt - 2.7) / 0.4, 0, 1), tg = clamp((tt - 3.3) / 0.25, 0, 1);
+      if (cp > 0) { card([`<div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" style="${pop(tg)}">STILL RELAXING</span></div>`], "BRONCOS SCHEDULE", false, 1300);
         $("card").style.opacity = cp; } 
     }
     if (t < T.F) $("card").style.opacity = 1;
