@@ -104,86 +104,103 @@
   .bigscore .when { font-size: 30px; letter-spacing: .22em; }
   .stamp2 { display: inline-block; margin-left: auto; font-size: 18px; letter-spacing: .12em; background: #fff; color: #d81e1e; border-radius: 8px; padding: 4px 9px; }
   .tint { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0) 40%, rgba(0,0,0,.6) 100%); }
+  /* Broadcast score bug (Kyle, 2026-11-16: "look more like whatever network ... CBS or Fox ... not so generic"). */
+  .frame { display: block; opacity: 0; }
+  .bug2 { position: absolute; left: 110px; width: 760px; top: 1210px; font-family: "Inter", system-ui, sans-serif; font-weight: 700; color: #fff;
+    filter: drop-shadow(0 10px 24px rgba(0,0,0,.55)); transform-origin: 50% 100%; }
+  .bug2 .bar { display: flex; height: 112px; border-radius: 10px 10px 0 0; overflow: hidden; background: linear-gradient(#232b3a, #0c111b); border-top: 3px solid rgba(255,255,255,.35); }
+  .bug2 .tm { flex: 1; display: flex; align-items: center; padding: 0 0 0 20px; position: relative; }
+  .bug2 .tm::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(255,255,255,.22), rgba(255,255,255,0) 45%, rgba(0,0,0,.25)); }
+  .bug2 .ab { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 58px; letter-spacing: .01em; }
+  .bug2 .rec { font-size: 20px; opacity: .85; margin-left: 10px; margin-top: 16px; letter-spacing: .04em; }
+  .bug2 .sc { margin-left: auto; width: 104px; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.42);
+    font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 70px; font-variant-numeric: tabular-nums; z-index: 1; }
+  .bug2 .st { width: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0a0e16; line-height: 1.1; }
+  .bug2 .st b { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 36px; color: #ffd23a; }
+  .bug2 .st span { font-size: 18px; letter-spacing: .12em; color: #c9d1dd; }
+  .bug2 .tick { height: 44px; border-radius: 0 0 10px 10px; background: #f2f4f7; color: #10151f; font-size: 23px; display: flex; align-items: center; padding: 0 18px; white-space: nowrap; overflow: hidden; }
+  .bug2 .tick i { font-style: normal; background: #d81e1e; color: #fff; font-size: 18px; letter-spacing: .1em; padding: 3px 8px; border-radius: 4px; margin-right: 12px; }
+  .bug2.wide .st { width: 300px; } .bug2.wide .st b { font-size: 44px; }
+  .honey { left: 480px; top: 256px; width: 440px; font-size: 50px; }
 </style>
 </head>
 <body>
-<!-- Personal-account meme (2026-11-16), Kyle's final storyline: the Broncos games are the stress. Two weeks ago (KC,
-     28-24, goal-line stand) -> last week (Carolina, 26-21) -> bye week, RedZone, finally relaxing -> "Honey... my water
-     broke" -> the recliner goes over -> next Sunday, Broncos on TV, baby girl. The scorecard builds a row per beat.
-     No "Mom vs. Husband" (he hated it), no heart monitor. -->
-<div class="frame" id="fA"><img class="ph" id="imA" src="stress-a.jpg" alt=""><div class="tint"></div><div class="bigscore"><div class="when">TWO WEEKS AGO</div></div><div class="sub" id="subA"></div></div>
-<div class="frame" id="fB"><img class="ph" id="imB" src="stress-b.jpg" alt=""><div class="tint"></div><div class="bigscore"><div class="when">LAST WEEK</div></div><div class="sub" id="subB"></div></div>
-<div class="frame" id="fC"><img class="ph" id="rel" src="side-relax.jpg" alt="" style="transform-origin:22% 36%"><div class="super" id="sup1">THIS SUNDAY</div><div class="sub" id="sub1"></div>
-  <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div></div>
-<div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt=""><div class="sub" id="what" style="font-size:84px">What?!</div></div>
+<!-- Personal-account meme (2026-11-16), Kyle's storyline: Broncos games are the stress. Two weeks ago (KC 28-24) ->
+     last week (at Carolina 26-21) -> bye week, RedZone, finally relaxing -> "Honey... my water broke" -> the fright,
+     the recliner goes over -> next Sunday, Broncos-Raiders on TV, baby girl. Broadcast-style score bug per beat.
+     Transitions: whip, dissolves, a smash cut on the fright, a fade through black. No music. -->
+<div class="frame" id="fA"><img class="ph" id="imA" src="stress-a.jpg" alt=""><div class="tint"></div><div class="bigscore"><div class="when">TWO WEEKS AGO</div></div><div class="sub" id="subA"></div><div class="bug2" id="bA"></div></div>
+<div class="frame" id="fB"><img class="ph" id="imB" src="stress-b.jpg" alt=""><div class="tint"></div><div class="bigscore"><div class="when">LAST WEEK</div></div><div class="sub" id="subB"></div><div class="bug2" id="bB"></div></div>
+<div class="frame" id="fC"><img class="ph" id="rel" src="side-relax.jpg" alt="" style="transform-origin:20% 34%"><div class="super" id="sup1">THIS SUNDAY</div><div class="sub" id="sub1"></div>
+  <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
+<div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
 <div class="frame black" id="fE"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
-<div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4"></div></div>
-<div class="card" id="card" style="display:none"></div>
+<div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4"></div><div class="bug2" id="bF"></div></div>
 
 <script>
-  const T = { A: 0, B: 2.0, C: 4.0, wife: 6.3, D: 7.4, E: 8.9, F: 9.9, end: 14.8 };
+  const T = { A: 0, B: 2.0, C: 4.0, wife: 6.2, D: 7.5, E: 9.6, F: 10.6, end: 15.4 };
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+  const ease = (p) => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
   const back = (p) => { const s = 1.70158; return 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2); };
   const $ = (id) => document.getElementById(id);
-  const frames = ["fA", "fB", "fC", "fD", "fE", "fF"].map($);
-  const pop = (p) => `opacity:${p};display:inline-block;transform:scale(${(1.8 - 0.8 * easeOut(p)).toFixed(3)}) rotate(-4deg)`;
-  // The scorecard: one row per beat. Real results (KC 28-24 on 2026-11-01, at Carolina 26-21 on 11-08), bye on 11-15, Las Vegas 11-22.
-  function card(rows, hd = "BRONCOS SCHEDULE", alert = false, top = 1166) {
-    const c = $("card"); c.style.display = "block"; c.style.top = top + "px";
-    c.innerHTML = `<div class="hd" style="${alert ? "background:" + alert : ""}">${hd}</div>` + rows.join("");
-  }
-  const win = (wk, opp, score, p = 1) => `<div class="row" style="opacity:${p}"><span class="wk">${wk}</span>${opp}<span class="res">${score}</span><span class="nb">NAIL-BITER</span></div>`;
-  window.seek = (t) => {
-    frames.forEach((f) => f.classList.remove("on")); $("card").style.display = "none";
-    if (t < T.B) {
-      const tt = t; frames[0].classList.add("on");
-      const sh = 5 * Math.max(0, 1 - tt / 1.2); $("imA").style.transform = `translate(${(Math.sin(tt * 60) * sh).toFixed(1)}px,0) scale(${(1.04 + 0.05 * tt / 2).toFixed(4)})`;
+  const drift = (t, k = 1) => `translate(${(Math.sin(t * 0.9) * 5 * k).toFixed(2)}px,${(Math.cos(t * 0.7) * 4 * k).toFixed(2)}px)`;   // handheld
+  const DEN = "#FB4F14", KC = "#E31837", CAR = "#0085CA", LV = "#8a8f95";
+  const team = (ab, col, score, rec = "") => `<div class="tm" style="background:${col}"><span class="ab">${ab}</span><span class="rec">${rec}</span>${score === "" ? "" : `<span class="sc">${score}</span>`}</div>`;
+  const bug = (el, inner, tick, p = 1) => { el.innerHTML = `<div class="bar">${inner}</div><div class="tick">${tick}</div>`;
+    el.style.opacity = clamp(p * 2, 0, 1); el.style.transform = `translateY(${((1 - easeOut(p)) * 70).toFixed(1)}px)`; };
+  const count = (to, p) => Math.round(to * clamp(p, 0, 1));
+
+  const scenes = [
+    { id: "fA", at: T.A, draw(tt) {
+      const sh = 6 * Math.max(0, 1 - tt / 1.4); $("imA").style.transform = `${drift(tt)} translate(${(Math.sin(tt * 60) * sh).toFixed(1)}px,0) scale(${(1.05 + 0.06 * ease(tt / 2.2)).toFixed(4)})`;
       $("subA").innerHTML = "<div>Chiefs. Goal-line stand,<br>four seconds left.</div>"; $("subA").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1);
-      card([win("WK 8", "vs KC", "W 28–24", clamp((tt - 0.9) / 0.3, 0, 1))], "BRONCOS SCHEDULE", false, 1300);
-    } else if (t < T.C) {
-      const tt = t - T.B; frames[1].classList.add("on");
-      const sh = 5 * Math.max(0, 1 - tt / 1.2); $("imB").style.transform = `translate(${(Math.sin(tt * 60) * sh).toFixed(1)}px,0) scale(${(1.04 + 0.05 * tt / 2).toFixed(4)})`;
+      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 0.5) / 0.4, 0, 1)); } },
+    { id: "fB", at: T.B, tr: "whip", draw(tt) {
+      const sh = 6 * Math.max(0, 1 - tt / 1.4); $("imB").style.transform = `${drift(tt + 3)} translate(${(Math.sin(tt * 60) * sh).toFixed(1)}px,0) scale(${(1.05 + 0.06 * ease(tt / 2.2)).toFixed(4)})`;
       $("subB").innerHTML = "<div>Panthers. Down to<br>the last minute.</div>"; $("subB").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1);
-      card([win("WK 8", "vs KC", "W 28–24"), win("WK 9", "at CAR", "W 26–21", clamp((tt - 0.9) / 0.3, 0, 1))], "BRONCOS SCHEDULE", false, 1232);
-    } else if (t < T.D) {
-      const tt = t - T.C; frames[2].classList.add("on"); const w = T.wife - T.C;
-      const punch = easeOut(clamp((tt - w) / 0.25, 0, 1));
-      $("rel").style.transform = `scale(${(1 + 0.04 * tt / (T.D - T.C) + 0.10 * punch).toFixed(4)})`;
-      $("sup1").style.opacity = clamp((tt - 0.2) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").innerHTML = tt < 1.3 ? "<div>No Broncos today.</div>" : "<div>Just RedZone.<br>I can finally relax.</div>";
-      $("sub1").style.opacity = clamp((tt - 0.3) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
-      const fp = clamp((tt - 0.9) / 0.25, 0, 1);
-      card([win("WK 8", "vs KC", "W 28–24"), win("WK 9", "at CAR", "W 26–21"),
-        `<div class="row hot" style="opacity:${clamp((tt - 0.5) / 0.3, 0, 1)}"><span class="wk">WK 10</span><span class="val">BYE</span><span class="tag" style="${pop(fp)}">FINALLY</span></div>`]);
-      const hp = clamp((tt - w) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`;
-      $("ht").textContent = tt >= w + 0.5 ? "“Honey… my water broke.”" : "“Honey…”";
-    } else if (t < T.E) {
-      const tt = t - T.D; frames[3].classList.add("on");
-      const jolt = Math.max(0, 1 - tt / 0.4), sx = Math.sin(tt * 70) * 12 * jolt, sy = Math.cos(tt * 90) * 7 * jolt;
-      $("shk").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${(1.06 + 0.04 * tt / 1.5).toFixed(4)})`;
-      const wp = clamp(tt / 0.2, 0, 1); $("what").style.opacity = wp; $("what").style.transform = `scale(${(1.25 - 0.25 * easeOut(wp)).toFixed(3)})`; $("what").style.transformOrigin = "50% 100%";
-      const cp = clamp((tt - 0.5) / 0.25, 0, 1);
-      card([win("WK 8", "vs KC", "W 28–24"), win("WK 9", "at CAR", "W 26–21"),
-        `<div class="row hot"><span class="wk">WK 10</span><span class="val">BYE<span class="strike" style="width:calc(${(clamp((tt - 0.3) / 0.25, 0, 1) * 100).toFixed(1)}% + 12px)"></span></span><span class="stamp2" style="${pop(cp)}">SO MUCH FOR RELAXING</span></div>`],
-        "BRONCOS SCHEDULE", Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010");
-    } else if (t < T.F) {
-      const tt = t - T.E; frames[4].classList.add("on");
-      const full = "Next Sunday…"; $("nx").textContent = full.slice(0, Math.round(clamp(tt / 0.5, 0, 1) * full.length));
-      $("nx2").style.opacity = clamp((tt - 0.55) / 0.2, 0, 1);
-    } else {
-      const tt = t - T.F; frames[5].classList.add("on");
-      $("imF").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 4.9, 0, 1)).toFixed(4)})`;
-      // Kyle's button line: next Sunday is the Raiders, so he can still relax.
-      const late = tt >= 2.7;
+      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Five straight wins. Zero relaxing.`, clamp((tt - 0.45) / 0.4, 0, 1)); } },
+    { id: "fC", at: T.C, tr: "dissolve", dur: 0.5, draw(tt) {
+      const w = T.wife - T.C, punch = easeOut(clamp((tt - w) / 0.3, 0, 1)), punch2 = easeOut(clamp((tt - w - 0.55) / 0.2, 0, 1));
+      $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(tt / (T.D - T.C)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
+      $("sup1").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - punch);
+      $("sub1").innerHTML = tt < 1.25 ? "<div>No Broncos today.</div>" : "<div>Just RedZone.<br>I can finally relax.</div>";
+      $("sub1").style.opacity = clamp((tt - 0.4) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
+      bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
+      const hp = clamp((tt - w) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`; $("honey").style.transformOrigin = "100% 0";
+      $("ht").textContent = tt >= w + 0.5 ? "“Honey… my water broke.”" : "“Honey…”"; } },
+    { id: "fD", at: T.D, tr: "cut", draw(tt) {
+      // The fright: smash cut tight on his face, two jump punch-ins, then the camera snaps wide as the recliner goes over.
+      const tight = tt < 0.75, step = tt < 0.25 ? 2.0 : tt < 0.5 ? 2.35 : 2.7;
+      const out = easeOut(clamp((tt - 0.75) / 0.22, 0, 1)), sc = tight ? step : 2.7 - (2.7 - 1.05) * out;
+      const jolt = (tight ? 1 : Math.max(0, 1 - (tt - 0.75) / 0.6)), sx = Math.sin(tt * 75) * 9 * jolt, sy = Math.cos(tt * 95) * 6 * jolt;
+      const k = clamp((sc - 1.05) / 1.65, 0, 1);   // tight: slide his face to the middle of the frame
+      $("shk").style.transform = `translate(${(sx + 330 * k).toFixed(1)}px,${(sy + 150 * k).toFixed(1)}px) scale(${sc.toFixed(4)})`;
+      const wp = clamp(tt / 0.12, 0, 1); $("what").style.opacity = wp * (1 - clamp((tt - 1.5) / 0.3, 0, 1)); $("what").style.transform = `scale(${(1.5 - 0.5 * easeOut(wp)).toFixed(3)})`; $("what").style.transformOrigin = "50% 100%";
+      bug($("bD"), team("DEN", DEN, "", "7–2") + `<div class="st" style="background:${Math.floor(tt * 5) % 2 ? "#8f1010" : "#d81e1e"}"><b style="color:#fff">BYE WEEK</b><span style="color:#fff">CANCELLED</span></div>`, `<i>BREAKING</i>So much for relaxing`, clamp((tt - 0.95) / 0.3, 0, 1)); } },
+    { id: "fE", at: T.E, tr: "dissolve", dur: 0.3, draw(tt) {
+      const full = "Next Sunday…"; $("nx").textContent = full.slice(0, Math.round(clamp((tt - 0.15) / 0.45, 0, 1) * full.length));
+      $("nx2").style.opacity = clamp((tt - 0.6) / 0.2, 0, 1); } },
+    { id: "fF", at: T.F, tr: "dissolve", dur: 0.7, draw(tt) {
+      $("imF").style.transform = `${drift(tt, 0.6)} scale(${(1.10 - 0.07 * ease(clamp(tt / 4.8, 0, 1))).toFixed(4)})`;
+      const late = tt >= 2.8;
       $("sub4").innerHTML = late ? "<div>And it’s the Raiders.<br>I can still relax.</div>" : "<div>Welcome to Broncos Country,<br>baby girl.</div>";
-      $("sub4").style.opacity = late ? clamp((tt - 2.7) / 0.25, 0, 1) : clamp((tt - 0.4) / 0.5, 0, 1) * (1 - clamp((tt - 2.45) / 0.2, 0, 1));
-      const cp = clamp((tt - 2.7) / 0.4, 0, 1), tg = clamp((tt - 3.3) / 0.25, 0, 1);
-      if (cp > 0) { card([`<div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" style="${pop(tg)}">STILL RELAXING</span></div>`], "BRONCOS SCHEDULE", false, 1300);
-        $("card").style.opacity = cp; } 
+      $("sub4").style.opacity = late ? clamp((tt - 2.8) / 0.4, 0, 1) : clamp((tt - 0.7) / 0.6, 0, 1) * (1 - clamp((tt - 2.5) / 0.3, 0, 1));
+      bug($("bF"), team("LV", LV, "") + team("DEN", DEN, "", "7–2") + `<div class="st"><b>TODAY</b><span>WEEK 11</span></div>`, `<i>NEW</i>Broncos Country signs one rookie`, clamp((tt - 1.2) / 0.5, 0, 1)); } },
+  ];
+  window.seek = (t) => {
+    let i = scenes.length - 1; while (i > 0 && t < scenes[i].at) i--;
+    scenes.forEach((s, k) => { const f = $(s.id); f.style.opacity = 0; f.style.zIndex = k; f.style.transform = ""; f.style.filter = ""; });
+    const cur = scenes[i], tt = t - cur.at, f = $(cur.id), dur = cur.dur || 0.3;
+    cur.draw(tt); f.style.opacity = 1;
+    if (i > 0 && cur.tr && cur.tr !== "cut" && tt < dur) {
+      const prev = scenes[i - 1], pf = $(prev.id), p = tt / dur; prev.draw(cur.at - prev.at + tt); pf.style.opacity = 1;
+      if (cur.tr === "dissolve") f.style.opacity = ease(p);
+      else if (cur.tr === "whip") { const e = ease(p), b = Math.sin(Math.PI * p) * 22;
+        pf.style.transform = `translateX(${(-1080 * e).toFixed(1)}px)`; f.style.transform = `translateX(${(1080 * (1 - e)).toFixed(1)}px)`;
+        pf.style.filter = f.style.filter = `blur(${b.toFixed(1)}px)`; }
     }
-    if (t < T.F) $("card").style.opacity = 1;
   };
   window.seek(0);
 </script>

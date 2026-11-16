@@ -130,6 +130,24 @@ Button line added at his request (14.8 s): after "Welcome to Broncos Country, ba
 whether this can be "made into a video": told him it already is an MP4, what it lacks is the character moving, which
 needs Grok image-to-video (one picture, one line) or Sora.
 
+## Round nine: "smoother … like CBS or Fox … more fright … no music, very soft"
+
+Kyle: "not bad", wants it "more video style / smooth", "smoother cuts"; the score to look like a network's score box
+("Broncos 28 versus 24 … not so generic … don't worry about copyright"); more fright on "Honey, my water broke"; no
+music, the ending very soft. Then: it is his personal account, so a licensed song or recommendations are welcome.
+
+- `comp.html` is now a scene list with transitions in `seek()`: whip (slide + blur) A→B, dissolves B→C, D→E, E→F, a
+  smash cut C→D; every still gets a slow handheld drift and an eased push. Frames use opacity, not display.
+- `.bug2` is the broadcast bug: team-colour tiles with gloss, big scores, a FINAL / BYE WEEK status box, a white ticker
+  strip (KC 24 DEN 28 "Roach sacks Mahomes on 4th & goal, 0:04 left"; DEN 26 CAR 21; DEN 7–2 BYE WEEK; BYE WEEK
+  CANCELLED / BREAKING; LV at DEN TODAY). Network-style, no real network logo. The schedule card is gone.
+- The fright: `side-fall.jpg` opens at 2.0x on his face (translated to centre), jumps to 2.35x and 2.7x, then snaps
+  wide at 0.75 s as the recliner goes over.
+- `byeweek_flex.py` is effects only now (hits, crowd swells, whoosh, chime, crash, splash, typed ticks, a faint crowd
+  murmur to end). No pad, no brass, no lullaby.
+- Song: not baked in (commercial track); he adds it from Instagram's picker on the personal account. Recommended
+  "Under Pressure" (Spotify link on the page); Spotify would not return links for the two sweeter options.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

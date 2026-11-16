@@ -333,6 +333,11 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   gear, big expression, same character); plain ChatGPT chat cannot make video. Grok given a multi-shot brief returned
   storyboard sheets with baked-in text and a different character per panel ("Grok is awful"); only ever give it one
   picture and one "animate this exact image" line per clip.
+  **What he approved in the end:** his own premise (Broncos stress → bye → "my water broke" → next Sunday), a
+  **broadcast-style score bug** with real scores per beat ("like CBS or Fox, not so generic"), **smooth transitions**
+  (whip, dissolves, one smash cut; `comp.html`'s scene list is the template for stills-as-video), a bigger fright
+  (tight on the face, jump punch-ins, snap wide), effects-only sound with a very soft ending, song from the picker.
+  My side gags (the flex, "Mom vs. Husband") he hated: build his premise, do not decorate it with a second joke.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

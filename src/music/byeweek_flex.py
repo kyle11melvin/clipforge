@@ -1,15 +1,14 @@
-"""Sound design for the bye-week baby reel (2026-11-16): numpy + scipy, no samples, nothing licensed.
-Timeline (matches graphics/bye-week-baby/comp.html): 0-3.7 s the lazy Sunday (soft major-seventh pad, slow
-plucks), 2.0 his wife's chime, 3.7 the needle drop, 3.9-7.0 the schedule alert (broadcast sting, a swipe, a hit, a held
-brass chord; no heartbeat), 7.0-10.2 the pay-off: Brahms' Lullaby (1868, public domain) on a
-synthesised music box over a warm chord.
+"""Sound for the bye-week baby reel (2026-11-16): effects only, no music (Kyle: "you're not gonna do music ... very
+soft"). numpy + scipy, no samples. Matches graphics/bye-week-baby/comp.html: 0 and 2.0 the two nail-biters (a low hit,
+a tense rumble, a short crowd swell), 2.0 a whip, 4.0 calm room with a faint TV crowd, 6.2 a soft two-note chime for
+her line, 7.5 the fright (three quick hits, then a crash and a splash at 8.25), 9.6 soft typed ticks on black, 10.6 on:
+almost nothing, a faint warm crowd murmur from the TV fading out.
 Usage: python3 byeweek_flex.py out.wav
 """
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 14.8; N = int(SR * DUR)
-CUT1, CUT2 = 7.4, 9.9
+SR = 44100; DUR = 15.4; N = int(SR * DUR)
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -17,76 +16,31 @@ def add(at, sig, g=1.0):
     i = int(at * SR); j = min(N, i + len(sig))
     if j > i: mix[i:j] += sig[: j - i] * g
 def T(dur): return np.arange(int(SR * dur)) / SR
-def thump(dur=0.18, f0=95, f1=42, g=1.0):
-    t = T(dur); f = f1 + (f0 - f1) * np.exp(-t * 22); ph = 2 * np.pi * np.cumsum(f) / SR
-    return np.sin(ph) * np.exp(-t * 14) * g
-def tom(dur=0.5, f0=190, f1=70, g=1.0):
-    t = T(dur); f = f1 + (f0 - f1) * np.exp(-t * 9); ph = 2 * np.pi * np.cumsum(f) / SR
-    body = np.sin(ph) * np.exp(-t * 6); skin = lp(rng.normal(0, 1, len(t)), 2500) * np.exp(-t * 40) * 0.5
-    return (body + skin) * g
-def beep(dur=0.07, f=1100, g=0.25):
-    t = T(dur); e = np.minimum(1, t / 0.004) * np.minimum(1, (dur - t) / 0.01)
-    return np.sin(2 * np.pi * f * t) * e * g
-def chord(freqs, dur, g=0.12, a=1.2, r=1.5, cutoff=1400):
-    t = T(dur)
-    s = sum(np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * 2 * f * t) + 0.15 * np.sin(2 * np.pi * 3 * f * t) for f in freqs)
-    e = np.minimum(1, t / a) * np.minimum(1, np.maximum(0, (dur - t) / r))
-    return lp(s, cutoff) * e * g / len(freqs)
-def pluck(f, dur=0.9, g=0.2):
-    t = T(dur); s = np.sin(2 * np.pi * f * t) + 0.4 * np.sin(2 * np.pi * 2 * f * t) * np.exp(-t * 6)
-    return s * np.exp(-t * 4.5) * np.minimum(1, t / 0.005) * g
-def box(f, dur=1.4, g=0.22):
-    """Music-box tine: fundamental plus two slightly inharmonic partials that die fast."""
-    t = T(dur)
-    s = np.sin(2 * np.pi * f * t) * np.exp(-t * 3.2) + 0.45 * np.sin(2 * np.pi * f * 2.76 * t) * np.exp(-t * 9) \
-        + 0.2 * np.sin(2 * np.pi * f * 5.4 * t) * np.exp(-t * 16)
-    return s * np.minimum(1, t / 0.002) * g
+def noise(dur): return rng.normal(0, 1, int(SR * dur))
+def thump(dur=0.4, f0=85, f1=38, g=1.0):
+    t = T(dur); f = f1 + (f0 - f1) * np.exp(-t * 22); return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 10) * g
+def crowd(dur, g, a=0.3, r=0.5):
+    t = T(dur); e = np.minimum(1, t / a) * np.minimum(1, np.maximum(0, (dur - t) / r))
+    return lp(hp(noise(dur), 350), 2600) * e * g
+def whoosh(dur=0.35, g=0.2):
+    t = T(dur); return hp(lp(noise(dur), 5000), 700) * np.sin(np.pi * t / dur) ** 2 * g
+def chime(f, dur=0.7, g=0.12):
+    t = T(dur); return (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * 2 * f * t) * np.exp(-t * 8)) * np.exp(-t * 5) * np.minimum(1, t / 0.004) * g
 
-# 0-3.7: lazy Sunday. Dmaj7 pad, three slow plucks.
-# 0-4: the two nail-biters. A hit and a tense low drone on each, toms building, a short crowd roar when the W lands.
-def roar(dur=0.9, g=0.07):
-    t = T(dur); return lp(hp(rng.normal(0, 1, len(t)), 300), 3000) * np.sin(np.pi * t / dur) ** 2 * g
-for t0 in (0.0, 2.0):
-    add(t0, thump(dur=0.5, f0=80, f1=38, g=0.8)); tt = T(1.9)
-    add(t0, lp(np.sin(2 * np.pi * (55 + 20 * tt / 1.9) * tt), 400) * 0.16 * np.minimum(1, (1.9 - tt) / 0.1))
-    for i, at in enumerate((0.3, 0.55, 0.75, 0.9)): add(t0 + at, tom(dur=0.3, g=0.2 + 0.12 * i))
-    add(t0 + 0.9, roar())
-add(4.0, chord([146.83, 185.0, 220.0, 277.18], CUT1 - 4.0 + 0.1, g=0.16, a=0.4, r=0.15, cutoff=1200))
-for at, f in [(4.25, 440.0), (4.95, 554.37), (5.65, 659.25)]: add(at, pluck(f))
+for t0 in (0.0, 2.0):                                   # the nail-biters
+    add(t0 + 0.02, thump(g=0.8)); tt = T(1.8)
+    add(t0, lp(np.sin(2 * np.pi * (52 + 18 * tt / 1.8) * tt), 300) * 0.14 * np.minimum(1, (1.8 - tt) / 0.15))
+    add(t0 + 0.5, crowd(1.4, 0.09))
+add(1.88, whoosh())                                      # whip to last week
+add(3.9, crowd(3.7, 0.022, a=0.6, r=0.4))                # bye week: quiet room, TV in the background
+add(6.2, chime(987.77)); add(6.34, chime(1318.5))        # "Honey..."
+for k, at in enumerate((7.5, 7.75, 8.0)): add(at, thump(dur=0.25, f0=120, f1=50, g=0.6 + 0.15 * k))   # the punch-ins
+add(8.25, thump(dur=0.7, f0=70, f1=30, g=1.0))           # the recliner goes over
+add(8.25, lp(noise(0.5), 1800) * np.exp(-T(0.5) * 9) * 0.5)
+add(8.33, hp(noise(0.45), 3500) * np.exp(-T(0.45) * 11) * 0.22)   # coffee
+for i in range(12): add(9.75 + i * 0.45 / 12, hp(noise(0.02), 3000) * np.exp(-T(0.02) * 200) * 0.12)   # typed card
+add(10.6, crowd(DUR - 10.6, 0.018, a=1.2, r=2.5))        # the ending: almost nothing
 
-# 2.0: his wife speaks: a soft two-note chime.
-add(6.3, pluck(987.77, 0.5, 0.18)); add(6.44, pluck(1318.5, 0.7, 0.18))
-
-# 3.7: the needle drop. A tone and the pad's top note sliding down to nothing in 0.3 s.
-t = T(0.32); f = 520 * np.exp(-t * 9) + 40; ph = 2 * np.pi * np.cumsum(f) / SR
-add(CUT1 - 0.02, (np.sign(np.sin(ph)) * 0.25 + np.sin(ph) * 0.5) * np.exp(-t * 5) * 0.4)
-add(CUT1, hp(rng.normal(0, 1, int(SR * 0.12)), 2500) * np.exp(-T(0.12) * 30) * 0.3)
-
-# 3.9-7.0: the schedule alert. A two-note broadcast sting, a swipe as BYE is struck, a hit when the flex lands,
-# then a low held brass chord. No heartbeat: Kyle did not want the heart-rate gag twice in a row.
-def brass(f, dur, g=0.2):
-    t = T(dur); s = sum(np.sin(2 * np.pi * f * k * t) / k for k in range(1, 7))
-    return lp(s, 1600) * np.minimum(1, t / 0.02) * np.minimum(1, np.maximum(0, (dur - t) / 0.12)) * g
-for at, f, d in [(0.2, 392.0, 0.16), (0.38, 523.25, 0.16), (0.56, 659.25, 0.34)]:
-    add(CUT1 + at, brass(f, d)); add(CUT1 + at, brass(f / 2, d, 0.12))
-sw = T(0.3); add(CUT1 + 0.3, hp(rng.normal(0, 1, len(sw)), 1200) * np.sin(np.pi * sw / 0.3) ** 2 * 0.22)   # the strike
-add(CUT1 + 0.5, tom(g=0.9)); add(CUT1 + 0.5, thump(dur=0.5, f0=80, f1=38, g=0.8))                                # the flex lands
-for f in (130.81, 196.0, 261.63, 311.13): add(CUT1 + 0.5, brass(f, 8.9 - CUT1 - 0.55, 0.07))                     # held, uneasy
-pass                 # FLEXED tag
-k = 0
-
-# 7.0-10.2: she's here. One soft low hit, a warm C major chord, Brahms' Lullaby on the music box.
-add(8.9, thump(dur=0.5, f0=70, f1=36, g=0.6))   # the black 'Next Sunday...' card
-for i in range(12): add(8.9 + i * 0.5 / 12, hp(rng.normal(0, 1, int(SR * 0.02)), 3000) * np.exp(-T(0.02) * 200) * 0.2)   # typed letters
-add(CUT2, chord([130.81, 164.81, 196.0, 261.63], DUR - CUT2, g=0.15, a=0.5, r=1.2, cutoff=1800))
-E, G, A, B, C = 659.25, 783.99, 880.0, 987.77, 1046.5
-EIGHTH = 0.165
-melody = [(E, 1), (E, 1), (G, 4), (E, 1), (E, 1), (G, 4), (E, 1), (G, 1), (C, 2), (B, 2), (A, 2), (A, 2), (G, 4)]
-at = CUT2 + 0.12
-for f, n8 in melody:
-    add(at, box(f)); at += n8 * EIGHTH
-add(CUT2 + 3.3, pluck(1318.5, 0.6, 0.16)); add(CUT2 + 3.42, pluck(1760.0, 0.8, 0.16))   # the 'still relaxing' tag
-fade = int(SR * 0.6); mix[-fade:] *= np.linspace(1, 0, fade)
-mix = np.tanh(mix * 1.5) * 0.85
+mix = np.tanh(mix * 1.4) * 0.85
 wavfile.write(sys.argv[1], SR, (mix * 32767).astype(np.int16))
 print("wrote", sys.argv[1], f"{DUR}s")
