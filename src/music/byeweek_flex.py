@@ -29,15 +29,15 @@ def chime(f, dur=0.7, g=0.12):
 
 # Round 22 order: opener 0-1.5, game one 1.5 (breather at 8.0), game two 9.4 (breather at 13.7), the calm 15.1,
 # her line 17.1, black 18.5, the ending 19.3. The two real calls are mixed in by ffmpeg.
-def swoosh(dur=0.9, g=0.05):                              # soft air, no attack: the sound of each dissolve
+def swoosh(dur=0.9, g=0.035):                              # soft air, no attack: the sound of each dissolve
     t = T(dur); return lp(hp(noise(dur), 500), 2600) * np.sin(np.pi * t / dur) ** 2 * g
-def exhale(dur=1.1, g=0.06):                              # him breathing out after a win
+def exhale(dur=1.1, g=0.045):                              # him breathing out after a win
     t = T(dur); return lp(hp(noise(dur), 350), 1500) * np.minimum(1, t / 0.15) * np.exp(-t * 2.6) * g
-add(0.0, crowd(17.0, 0.013, a=1.0, r=1.2))                # a quiet room under the story; it fades out before the ending
+add(0.0, crowd(17.0, 0.006, a=1.0, r=1.2))                # a quiet room under the story; it fades out before the ending
 for at in (1.0, 6.5, 11.7, 16.3): add(at, swoosh())
 add(14.5, swoosh(dur=0.4, g=0.09))                        # her note flying in from the other room
 for at in (5.7, 10.7): add(at, exhale())
-add(11.9, crowd(4.8, 0.016, a=0.8, r=0.8))                # the calm: TV murmuring in the background
+add(11.9, crowd(4.8, 0.007, a=0.8, r=0.8))                # the calm: TV murmuring in the background
 # The ending (round 33, Kyle: "a happy and bright noise, not just a static ... some piano ... uplifting and calming,
 # he's holding his baby girl for the first time"). An original soft piano phrase in C major, synthesised (no samples):
 # it starts under "Next Sunday…" and opens up on the picture of the two of them.
@@ -52,12 +52,12 @@ NOTE = {"C3": 130.81, "G3": 196.0, "B2": 123.47, "A2": 110.0, "F2": 87.31, "C4":
 t0, bar = 16.5, 1.15
 bars = [("C3", "G3", "E4", "E5", "G5"), ("B2", "G3", "D4", "D5", "G5"), ("A2", "E3", "C4", "C5", "E5"), ("F2", "C3", "A3", "A4", "C5")]
 for i, (bass, mid, top, m1, m2) in enumerate(bars):
-    at = t0 + i * bar; vol = 0.75 if i == 0 else 1.0           # the first bar sits quietly under the black card
+    at = t0 + i * bar; vol = (0.42, 0.62, 0.82, 1.0)[i]         # round 34: a clearer swell, quiet under the black card up to full on the two of them
     add(at, piano(NOTE[bass], 3.0, 0.20 * vol)); add(at + bar * 0.25, piano(NOTE[mid], 2.4, 0.13 * vol))
     add(at + bar * 0.5, piano(NOTE[top], 2.4, 0.13 * vol)); add(at + bar * 0.75, piano(NOTE[mid], 2.0, 0.10 * vol))
     add(at, piano(NOTE[m1], 2.6, 0.17 * vol)); add(at + bar * 0.5, piano(NOTE[m2], 2.6, 0.15 * vol))
 end = t0 + 4 * bar                                              # the last chord rings out
-for n, g in (("C3", 0.22), ("G3", 0.14), ("C4", 0.14), ("E4", 0.14), ("G4", 0.13), ("C5", 0.16), ("E5", 0.14)): add(end, piano(NOTE[n], 3.4, g))
+for n, g in (("C3", 0.22), ("G3", 0.14), ("C4", 0.14), ("E4", 0.14), ("G4", 0.13), ("C5", 0.16), ("E5", 0.14)): add(end, piano(NOTE[n], 3.4, g * 1.12))
 # a little room on the piano: two soft echoes of everything from the ending on
 i0 = int(16.4 * SR); tail = mix[i0:].copy()
 for d, g in ((0.11, 0.22), (0.27, 0.14)):

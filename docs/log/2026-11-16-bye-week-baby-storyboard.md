@@ -418,6 +418,10 @@ calls (the bed is scaled 0.66 after 16.3 s in the ffmpeg mix), 1.4 s fade at the
 This is the first music on this piece; it is his request and it is original, so the "no music on personal memes" rule
 gives way here. **Lesson: filtered noise as "room tone" reads to him as static; an ending wants a tone, not air.**
 
+Follow-up: "make the piano a little louder, make the static a little quieter on the other scenes, and have the piano
+go from quiet to up like you did, with a little more scaling." Room tone 0.013 → 0.006 (calm 0.016 → 0.007), swoosh
+and exhale down about 3 dB, piano bars at 0.42 / 0.62 / 0.82 / 1.0 then the held chord at 1.12, ending scale 0.66 → 0.95.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
