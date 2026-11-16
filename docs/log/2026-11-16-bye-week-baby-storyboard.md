@@ -80,6 +80,15 @@ recolour plus the foal bundle pasted from the front-on frame). The comp uses the
 at (500, 256). `docs/handoff-bye-week-baby.md` is the brief for ChatGPT / Grok (three 5 s clips, no text, bottom third
 clear); it is on the page with the two reference frames. Next: he sends the clips, cut them under the same graphics.
 
+## Round seven: "that's so good" and the full handoff
+
+Kyle on the side-angle cut: "It's really good actually." He asked for more expression in the pictures (happy, animated:
+bliss on "bye, finally", a big "what", joy with the baby) and for one document that carries everything he has said, to
+give to Grok or ChatGPT, "pass them back off to you and then we're gonna learn from that". `docs/handoff-bye-week-baby.md`
+is that document (story, character and set, feel, don'ts, three clips, what to return). **When the clips come back:**
+cut them under the existing graphics, then write down here what the other tool did better or worse than Canva stills
+(motion, expression, character consistency, logo) and fold the lesson into CLAUDE.md.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
