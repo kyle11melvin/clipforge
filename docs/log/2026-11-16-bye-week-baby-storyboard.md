@@ -89,6 +89,13 @@ is that document (story, character and set, feel, don'ts, three clips, what to r
 cut them under the existing graphics, then write down here what the other tool did better or worse than Canva stills
 (motion, expression, character consistency, logo) and fold the lesson into CLAUDE.md.
 
+## Two briefs, and main is current
+
+Kyle asked whether handing the other AI my frames restricts it too much. Recommendation given: run both. The tight
+brief with the two frames to one tool (keeps the character and matches the graphics already cut), and
+`docs/handoff-bye-week-baby-open.md` with no frames to the other (story, beats, feel, don'ts; its own ideas). Compare
+what comes back; that comparison is the lesson. He said yes to main: this branch was pushed to `main` on 2026-11-16.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
