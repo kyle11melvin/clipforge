@@ -161,8 +161,8 @@
      go to the actual game footage ... make it more smooth"): the same living room, the real clips playing small on the TV
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
 <div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:76px;top:960px"></div></div>
-<div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1290px"></div></div>
-<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="midB" src="side-fall.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
+<div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="pace.jpg" alt=""><div class="tv" id="lg" style="display:none"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1290px"></div></div>
+<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="nails.jpg" alt=""><div class="tv" id="st" style="display:none"></div></div><img class="ph" id="midB" src="side-fall.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
@@ -230,11 +230,11 @@
       $("subO").innerHTML = paper("Being a | ^*Broncos* fan…^", tt - 0.15, -2); $("subO").style.opacity = 1 - clamp((tt - 1.3) / 0.4, 0, 1); } },
     { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.30 * ease(clamp(tt / 4.4, 0, 1))).toFixed(4)})`;   // the push speeds up with the call
-      $("roomA").style.filter = "brightness(0.9) saturate(0.92)";
+      $("roomA").style.transform = `${drift(tt, 0.6)} scale(${(1.0 + 0.10 * ease(clamp(tt / 3.4, 0, 1))).toFixed(4)})`; $("roomA").style.transformOrigin = "50% 30%";   // the push speeds up with the call
+      $("roomA").style.filter = "";
       // Logan's call from midfield (1.0 s into Kyle's recording = 0 here): "Here we go" 0.0, "Midfield" 0.5, "Coleman, 45, 40" 1.1,
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
-      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.5, 0, 0, 1080, 0.7, []), br = breathe($("brA"), tt, 5.3);   // Logan now starts at "Coleman, 45, 40" (2.1 s of the recording)   // round 24: up on "45, 40", a pump per yard line
+      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 2.9, 0, 0, 1080, 0.7, []), br = breathe($("brA"), tt, 5.3);   // round 29: pacing (pace.jpg) until "25, 20… foot race", then the fist   // Logan now starts at "Coleman, 45, 40" (2.1 s of the recording)   // round 24: up on "45, 40", a pump per yard line
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
       const [la, lt] = said([[3.8, "^*YES!*^"], [5.8, "Phew."]], tt);
       $("subA").innerHTML = paper(lt, tt - la, la === 5.8 ? 1.5 : -2);
@@ -242,14 +242,14 @@
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 4.6) / 0.5, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomB").style.transform = `${drift(tt + 6.7, 0.4)} scale(${(1.06 + 0.30 * ease(clamp(tt / 4.4, 0, 1))).toFixed(4)})`;
-      $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
-      $("yesB").style.opacity = 0; $("midB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 4.4);   // round 27: the arms-up crop is gone; one shot, the win is the type
-      $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
-      const [lb, lt] = said([[2.5, "Oh my God… | ^we won *again.*^"], [5.0, "Phew."]], tt);
+      $("roomB").style.transform = `${drift(tt + 6.7, 0.6)} scale(${(1.0 + 0.12 * ease(clamp(tt / 3.6, 0, 1))).toFixed(4)})`; $("roomB").style.transformOrigin = "50% 36%";
+      $("roomB").style.filter = "";
+      $("yesB").style.opacity = 0; $("midB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 3.7);   // round 29: nails.jpg through the play, then he sits back   // round 27: the arms-up crop is gone; one shot, the win is the type
+      $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - clamp((tt - 2.2) / 0.4, 0, 1));
+      const [lb, lt] = said([[2.6, "Oh my God… | ^we won *again.*^"], [5.0, "Phew."]], tt);
       $("subB").innerHTML = paper(lt, tt - lb, lb === 5.0 ? 1.5 : -2);
       $("subB").style.opacity = tt < 5.0 ? 1 - clamp((tt - 4.4) / 0.4, 0, 1) : 1 - clamp((tt - 5.4) / 0.3, 0, 1);
-      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.6) / 0.5, 0, 1)); } },
+      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.9) / 0.5, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(clamp(tt / (T.E - T.C), 0, 1)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;

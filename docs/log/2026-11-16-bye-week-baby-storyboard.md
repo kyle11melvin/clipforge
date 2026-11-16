@@ -370,6 +370,15 @@ it's pretty good, keep going, I like the changes."
   message. When they arrive: `pace.jpg` replaces the room shot at the start of A (it has its own TV, so no `.tv`
   overlay; the call is the sound), `nails.jpg` does the same for B.
 
+## Round twenty-nine: the nervous frames arrive
+
+He ran the message in ChatGPT and sent both: pacing mid-step with both hooves on his head (`pace.jpg`) and on the front
+edge of the recliner biting a hoof with a clenched fist (`nails.jpg`), each with a Broncos game on its own TV; pennant
+and frames baked in like the others (`*-plain.jpg` kept). Beat A: `pace.jpg` with a slow push through the build, fist
+at 2.9 s ("25, 20… foot race"), "YES!" 3.8, bug 4.6, breather 5.3. Beat B: `nails.jpg` through the play, the paper
+line at 2.6, breather 3.7, bug 3.9. The `.tv` overlays are hidden (`display:none`) since these frames carry their own
+TV picture; the real calls are audio only now. Poses per game: nervous → win → sits back.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
