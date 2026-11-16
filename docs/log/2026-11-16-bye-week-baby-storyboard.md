@@ -448,6 +448,21 @@ Round thirty-seven: he sent the both-arms-up frame from ChatGPT (`arms.jpg`, sta
 celebrating on the TV; no pennant baked in, his fists are where it would sit). It is the win pose for game two, full
 frame, at 2.45 s of B. Poses now: watch → pace → fist → watch | watch → nails → arms → watch | chill | couch.
 
+## Round thirty-eight: timing to the calls, measured
+
+"Timing is still off with the announcer … cut a little of him relaxing and the transition to the baby … attention
+spans are short." Cause: the fist rose on "foot race" (still at the 15) and Logan's peak, "FIVE! … tackled at the
+four", was fading out; in B the arms rose before "free!". Whisper's word times for the strip-sack reel were about a
+second late, so onsets were re-measured from speech-band (300-3000 Hz) energy per 0.1 s.
+- A: Logan from 4.8 s of the recording, at 1.0 s. "25, 20" 0.1, "foot race" 1.2, "15" 1.7, "10" 2.2, "FIVE!" 2.7,
+  "tackled at the four" 3.7-5.0. Fist dissolves 2.5-2.9, "YES!" 2.9, bug 3.45, breather 4.2.
+- B: strip-sack call from 1.4 s of that reel, at 6.15 s. "Young in the pocket" 0.15, "That ball's" 1.25, "FREE!"
+  1.75. Arms 1.6-1.9, paper line 2.15, bug 2.75, breather 3.5.
+- Calm 2.0 s, note 1.7 s, black card 0.6 s, ending 4.9 s. T: O 0, A 1.0, B 6.2, C 10.8, wife 12.8, E 14.5, F 15.1,
+  end 20.0. Lullaby from 14.4.
+**Lesson: time pose changes to measured audio energy, not to ASR word stamps, and put the win pose on the call's
+loudest word.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

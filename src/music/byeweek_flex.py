@@ -8,7 +8,7 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 22.0; N = int(SR * DUR)
+SR = 44100; DUR = 20.0; N = int(SR * DUR)
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -33,11 +33,11 @@ def swoosh(dur=0.9, g=0.035):                              # soft air, no attack
     t = T(dur); return lp(hp(noise(dur), 500), 2600) * np.sin(np.pi * t / dur) ** 2 * g
 def exhale(dur=1.1, g=0.045):                              # him breathing out after a win
     t = T(dur); return lp(hp(noise(dur), 350), 1500) * np.minimum(1, t / 0.15) * np.exp(-t * 2.6) * g
-add(0.0, crowd(16.6, 0.006, a=1.0, r=1.2))                # a quiet room under the story; it fades out before the ending
-for at in (0.7, 5.9, 11.3, 15.9): add(at, swoosh())
-add(14.1, swoosh(dur=0.4, g=0.09))                        # her note flying in from the other room
-for at in (5.2, 10.6): add(at, exhale())
-add(11.5, crowd(4.8, 0.007, a=0.8, r=0.8))                # the calm: TV murmuring in the background
+add(0.0, crowd(14.8, 0.006, a=1.0, r=1.2))                # a quiet room under the story; it fades out before the ending
+for at in (0.7, 5.9, 10.5, 14.2): add(at, swoosh())
+add(12.7, swoosh(dur=0.4, g=0.09))                        # her note flying in from the other room
+for at in (5.4, 9.9): add(at, exhale())
+add(10.7, crowd(3.9, 0.007, a=0.8, r=0.8))                # the calm: TV murmuring in the background
 # The ending (round 33, Kyle: "a happy and bright noise, not just a static ... some piano ... uplifting and calming,
 # he's holding his baby girl for the first time"). An original soft piano phrase in C major, synthesised (no samples):
 # it starts under "Next Sunday…" and opens up on the picture of the two of them.
@@ -62,7 +62,7 @@ def box(f, dur=1.8, g=0.2):                                   # music-box tine
 def pad(freqs, dur, g=0.1, a=1.0, r=1.2):                      # soft sustained chord
     t = T(dur); s = sum(np.sin(2 * np.pi * f * t) + 0.35 * np.sin(2 * np.pi * 2 * f * t) + 0.12 * np.sin(2 * np.pi * 3 * f * t) for f in freqs)
     return lp(s, 1800) * np.minimum(1, t / a) * np.minimum(1, np.maximum(0, (dur - t) / r)) * g / len(freqs)
-t0 = 16.2; L = DUR - t0
+t0 = 14.4; L = DUR - t0
 swell = lambda at: 0.4 + 0.6 * min(1.0, max(0.0, (at - t0) / 3.6))   # quiet under the black card, full on the two of them
 if END == "arp":
     bar = 1.15
@@ -99,7 +99,7 @@ elif END == "swell":
     add(t0 + 4.8, pad([NOTE[n] for n in ("F3", "A3", "C4", "F4", "A4")], L - 4.8, 0.3, a=0.5, r=1.0))
     for at, n in ((t0 + 1.3, "A5"), (t0 + 2.5, "C6"), (t0 + 3.7, "D6"), (t0 + 4.9, "F5"), (t0 + 5.1, "A5"), (t0 + 5.3, "C6")): add(at, box(NOTE[n], 2.2, 0.13 * swell(at)))
 # a little room on the piano: two soft echoes of everything from the ending on
-i0 = int(16.1 * SR); tail = mix[i0:].copy()
+i0 = int(14.3 * SR); tail = mix[i0:].copy()
 for d, g in ((0.11, 0.22), (0.27, 0.14)):
     k = int(d * SR); mix[i0 + k:] += lp(tail[: len(tail) - k], 2600) * g
 
