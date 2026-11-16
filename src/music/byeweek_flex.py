@@ -8,7 +8,7 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 27.4; N = int(SR * DUR)
+SR = 44100; DUR = 26.2; N = int(SR * DUR)
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -34,10 +34,10 @@ def swoosh(dur=0.9, g=0.05):                              # soft air, no attack:
 def exhale(dur=1.1, g=0.06):                              # him breathing out after a win
     t = T(dur); return lp(hp(noise(dur), 350), 1500) * np.minimum(1, t / 0.15) * np.exp(-t * 2.6) * g
 add(0.0, crowd(DUR, 0.013, a=1.0, r=2.5))                 # one quiet room under everything
-for at in (1.2, 9.1, 14.8, 17.6): add(at, swoosh())
-for at in (8.3, 13.9): add(at, exhale())
-add(15.0, crowd(2.8, 0.016, a=0.8, r=0.8))                # the calm: TV murmuring in the background
-add(18.9, crowd(DUR - 18.9, 0.015, a=1.5, r=2.5))         # the ending
+for at in (1.2, 7.9, 13.6, 16.4): add(at, swoosh())
+for at in (7.0, 12.8): add(at, exhale())
+add(13.8, crowd(2.8, 0.016, a=0.8, r=0.8))                # the calm: TV murmuring in the background
+add(17.7, crowd(DUR - 17.7, 0.015, a=1.5, r=2.5))         # the ending
 
 mix = np.tanh(mix * 1.4) * 0.85
 wavfile.write(sys.argv[1], SR, (mix * 32767).astype(np.int16))

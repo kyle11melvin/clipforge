@@ -358,6 +358,18 @@ reverting back." He asked whether this is the newest clipforge and to use the no
 **Lesson: plain captions on this piece read to him as going backwards; use the graphic language of the reels he
 approved (paper type, notes, the broadcast bug). A cropped reuse of a frame built for another moment is always seen.**
 
+## Round twenty-eight: "much better" — trim Logan, make him nervous
+
+Kyle: "OK, that's much better. The fonts." Two asks: the first scene with Dave Logan is "a little bit too long", and
+"being a Broncos fan is stressful; when he's just sitting there relaxing it doesn't come across": have him stand up and
+pace during the Chiefs game, and in the Carolina game sit up clenching his fist or biting his nails. "Other than that
+it's pretty good, keep going, I like the changes."
+- Beat A now starts at 2.1 s of his recording ("Coleman, 45, 40"), 165 frames; fist at 1.5 s, "YES!" 3.8, bug 4.6,
+  breather 5.3. T: O 0, A 1.5, B 8.2, C 13.9, wife 15.3, E 16.7, F 17.7, end 26.2.
+- The pacing and nail-biting frames do not exist and Canva still refuses; the page asks for both in one ChatGPT
+  message. When they arrive: `pace.jpg` replaces the room shot at the start of A (it has its own TV, so no `.tv`
+  overlay; the call is the sound), `nails.jpg` does the same for B.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

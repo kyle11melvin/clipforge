@@ -170,13 +170,13 @@
 <div class="frame" id="fF"><img class="ph" id="imF" src="side-couch.jpg" alt=""><div class="sub" id="sub4" style="font-size:56px"></div><div class="bug2" id="bF"></div></div>
 
 <script>
-  const LG = 198, lg = document.getElementById("lg");
+  const LG = 165, lg = document.getElementById("lg");
   lg.innerHTML = Array.from({ length: LG }, (_, i) => `<img style="visibility:hidden" src="logan/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const lgImgs = [...lg.children];
   const ST = 132, stEl = document.getElementById("st");
   stEl.innerHTML = Array.from({ length: ST }, (_, i) => `<img style="visibility:hidden" src="strip/f${String(i + 1).padStart(4, "0")}.jpg" alt="">`).join("");
   const stImgs = [...stEl.children];
-  const T = { O: 0, A: 1.5, B: 9.4, C: 15.1, wife: 16.5, E: 17.9, F: 18.9, end: 27.4 };   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
+  const T = { O: 0, A: 1.5, B: 8.2, C: 13.9, wife: 15.3, E: 16.7, F: 17.7, end: 26.2 };   // round 28: game one trimmed by 1.2 s   // round 25: "as soon as you sit down, honey my water broke"   // round 22: a breather after each win   // round 21: Logan from midfield; a pause on the couch   // round 19: his order; the fall is out   // the calm lasts 1.3 s on purpose: that is the joke   // A and B are as long as their announcer calls
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -230,19 +230,19 @@
       $("subO").innerHTML = paper("Being a | ^*Broncos* fan…^", tt - 0.15, -2); $("subO").style.opacity = 1 - clamp((tt - 1.3) / 0.4, 0, 1); } },
     { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.30 * ease(clamp(tt / 5.6, 0, 1))).toFixed(4)})`;   // the push speeds up with the call
+      $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.30 * ease(clamp(tt / 4.4, 0, 1))).toFixed(4)})`;   // the push speeds up with the call
       $("roomA").style.filter = "brightness(0.9) saturate(0.92)";
       // Logan's call from midfield (1.0 s into Kyle's recording = 0 here): "Here we go" 0.0, "Midfield" 0.5, "Coleman, 45, 40" 1.1,
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
-      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.2, 0, 0, 1080, 0.6, []), br = breathe($("brA"), tt, 6.5);   // round 24: up on "45, 40", a pump per yard line
+      $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.5, 0, 0, 1080, 0.7, []), br = breathe($("brA"), tt, 5.3);   // Logan now starts at "Coleman, 45, 40" (2.1 s of the recording)   // round 24: up on "45, 40", a pump per yard line
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
-      const [la, lt] = said([[4.9, "^*YES!*^"], [7.0, "Phew."]], tt);
-      $("subA").innerHTML = paper(lt, tt - la, la === 7.0 ? 1.5 : -2);
-      $("subA").style.opacity = tt < 7.0 ? 1 - clamp((tt - 6.4) / 0.4, 0, 1) : 1 - clamp((tt - 7.6) / 0.3, 0, 1);
-      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.9) / 0.5, 0, 1)); } },
+      const [la, lt] = said([[3.8, "^*YES!*^"], [5.8, "Phew."]], tt);
+      $("subA").innerHTML = paper(lt, tt - la, la === 5.8 ? 1.5 : -2);
+      $("subA").style.opacity = tt < 5.8 ? 1 - clamp((tt - 5.2) / 0.4, 0, 1) : 1 - clamp((tt - 6.4) / 0.3, 0, 1);
+      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 4.6) / 0.5, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.06 + 0.30 * ease(clamp(tt / 4.4, 0, 1))).toFixed(4)})`;
+      $("roomB").style.transform = `${drift(tt + 6.7, 0.4)} scale(${(1.06 + 0.30 * ease(clamp(tt / 4.4, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
       $("yesB").style.opacity = 0; $("midB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 4.4);   // round 27: the arms-up crop is gone; one shot, the win is the type
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
