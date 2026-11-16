@@ -168,6 +168,17 @@ Carolina call reworded to his line ("oh my God he got it, he got it, he got it")
 "Bonitto off the edge, strip sack! Oh my, he got it! He got it! He got it! Broncos win!", pitched down 7% (asetrate),
 band-passed and compressed harder so it sits beside the real Logan call. A stock voice in that style, not a clone.
 
+## Round eleven: "Absolutely not, we had a better one"
+
+The TTS announcer over a horse close-up for the Panthers beat was wrong. Kyle: Chiefs with the Logan clip, then the
+real Bonitto strip sack, then relax (coffee, couch), "my water broke", up in the air and slow, then the baby in new
+Broncos gear. Beat B is now 1.2–5.6 s of `broncos-strip-sack.mp4` (fetched from the 2026-11-09 page with the Artifact
+tool's read-by-path; the source recording is not in Drive), 132 frames in `strip/`, its CBS call under it ("Young in
+the pocket… that ball's free!"), FINAL bug at 3.3 s. The fall holds 2 s longer with a slow push, a slight tilt and a
+falling low tone (slow motion from a still). 21.2 s: A 0, B 4.6, C 9.0, wife 11.2, D 12.5, E 15.4, F 16.4.
+**Lesson: when he has supplied the real clip for one beat, the matching beat gets a real clip too; look in earlier
+sessions' pages before synthesising. A fake announcer next to a real one reads as a downgrade.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

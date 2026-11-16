@@ -8,7 +8,7 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 19.6; N = int(SR * DUR)
+SR = 44100; DUR = 21.2; N = int(SR * DUR)
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -27,20 +27,18 @@ def whoosh(dur=0.35, g=0.2):
 def chime(f, dur=0.7, g=0.12):
     t = T(dur); return (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * 2 * f * t) * np.exp(-t * 8)) * np.exp(-t * 5) * np.minimum(1, t / 0.004) * g
 
-O = 4.2                                                  # everything after the two recaps moved when the calls went in
-for t0, peak in ((4.6, 1.5),):                           # beat A carries the real radio call instead               # the nail-biters: rumble under the call, the crowd erupts on the play
-    add(t0 + 0.02, thump(g=0.7)); L = 3.4; tt = T(L)
-    add(t0, lp(np.sin(2 * np.pi * (52 + 18 * tt / L) * tt), 300) * 0.12 * np.minimum(1, (L - tt) / 0.2))
-    add(t0, crowd(peak + 0.2, 0.03, a=0.4, r=0.1)); add(t0 + peak, crowd(2.0, 0.12, a=0.15, r=1.2)); add(t0 + peak, thump(dur=0.5, g=0.7))
-add(4.48, whoosh())                                      # whip to last week
+O = 5.0; O2 = 5.8                                        # offsets since the two real game clips went in at the top
+add(4.48, whoosh())                                      # whip to last week (both recaps carry their own broadcast audio)
 add(3.9 + O, crowd(3.7, 0.022, a=0.6, r=0.4))            # bye week: quiet room, TV in the background
 add(6.2 + O, chime(987.77, g=0.07)); add(6.34 + O, chime(1318.5, g=0.07))   # under her line
 for k, at in enumerate((7.5, 7.75, 8.0)): add(at + O, thump(dur=0.25, f0=120, f1=50, g=0.6 + 0.15 * k))   # the punch-ins
 add(8.25 + O, thump(dur=0.7, f0=70, f1=30, g=1.0))       # the recliner goes over
 add(8.25 + O, lp(noise(0.5), 1800) * np.exp(-T(0.5) * 9) * 0.5)
 add(8.33 + O, hp(noise(0.45), 3500) * np.exp(-T(0.45) * 11) * 0.22)   # coffee
-for i in range(12): add(9.75 + O + i * 0.45 / 12, hp(noise(0.02), 3000) * np.exp(-T(0.02) * 200) * 0.12)   # typed card
-add(10.6 + O, crowd(DUR - 10.6 - O, 0.018, a=1.2, r=2.5))   # the ending: almost nothing
+tt = T(2.0); add(8.45 + O, lp(np.sin(2 * np.pi * (70 - 25 * tt / 2.0) * tt), 250) * 0.16 * np.sin(np.pi * tt / 2.0))   # slow motion: a falling low tone
+add(8.45 + O, lp(noise(2.0), 500) * np.sin(np.pi * T(2.0) / 2.0) ** 2 * 0.05)
+for i in range(12): add(9.75 + O2 + i * 0.45 / 12, hp(noise(0.02), 3000) * np.exp(-T(0.02) * 200) * 0.12)   # typed card
+add(10.6 + O2, crowd(DUR - 10.6 - O2, 0.018, a=1.2, r=2.5))   # the ending: almost nothing
 
 mix = np.tanh(mix * 1.4) * 0.85
 wavfile.write(sys.argv[1], SR, (mix * 32767).astype(np.int16))

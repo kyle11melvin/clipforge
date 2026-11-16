@@ -338,6 +338,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   (whip, dissolves, one smash cut; `comp.html`'s scene list is the template for stills-as-video), a bigger fright
   (tight on the face, jump punch-ins, snap wide), effects-only sound with a very soft ending, song from the picker.
   My side gags (the flex, "Mom vs. Husband") he hated: build his premise, do not decorate it with a second joke.
+  **Recap beats use the real clips** (his Logan screen recording for KC, the 2026-11-09 strip-sack reel for Carolina,
+  pulled from that session's page with Artifact read-by-path) as preloaded frame sequences inside the comp; a TTS
+  announcer over a still got "Absolutely not, we had a better one". Kokoro TTS (`npx hyperframes tts`) is fine for a
+  made-up line like his wife's; never clone a real announcer.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 
