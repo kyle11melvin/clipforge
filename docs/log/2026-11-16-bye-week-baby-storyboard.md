@@ -277,6 +277,20 @@ Follow-up: "you don't have to build with the actual visual, just use the voice �
 go go go go." The captions are now his cheering, growing in size with the stages ("Go…", "Go… go…", "GO! GO! GO!",
 "YES! YES!"; "Come on…", "GET HIM! GET HIM!", "YES! YES!"), with the announcers as the sound only.
 
+## Round twenty-one: Logan from midfield, a pause, and real voices
+
+Kyle: "Good call, do it with Dave Logan's announcements, he goes to the 50, 45, Coleman … don't have the guy sit the
+entire time." Then: a pause when he finally sits down ("like I had a weekend off"), and "a vocal: hey babe, my water
+broke. I don't want the text, I want the actual vocal."
+
+- Beat A is 6.6 s now, from 1.0 s of his recording ("Here we go. Midfield, Coleman, 45, 40. Here we go. 35, 30. 25, 20.
+  Foot race, 15, 10"), 198 frames on the TV; close-up at 2.6 s, fist pump at 4.6 s, bug at 5.4 s.
+- T: O 0, A 1.8, B 8.4, C 12.8, wife 15.4, E 16.9, F 17.8, end 22.6. The calm holds 2.6 s ("Bye week… finally, a
+  weekend off.") before her line.
+- Voices: he rejected Kokoro as "a machine" two rounds ago and now wants real vocals, so the page asks for two voice
+  memos (his sigh + "Finally… a weekend off."; "Hey babe… my water broke."). Text stays until they arrive. There is no
+  footage for a memo to mismatch here, so a phone memo is the right source.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

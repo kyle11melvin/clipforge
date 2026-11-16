@@ -8,7 +8,7 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 19.2; N = int(SR * DUR)
+SR = 44100; DUR = 22.6; N = int(SR * DUR)
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -27,11 +27,11 @@ def whoosh(dur=0.35, g=0.2):
 def chime(f, dur=0.7, g=0.12):
     t = T(dur); return (np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * 2 * f * t) * np.exp(-t * 8)) * np.exp(-t * 5) * np.minimum(1, t / 0.004) * g
 
-# Round 19 order: opener 0-1.8, game one 1.8, game two 6.4, the calm 10.8, her line 12.1, black 13.5, the ending 14.4.
-# The two real calls are mixed in by ffmpeg; here only a quiet room so nothing starts from silence.
+# Round 21 order: opener 0-1.8, game one 1.8-8.4, game two 8.4-12.8, the calm 12.8 (a pause), her line 15.4, black 16.9,
+# the ending 17.8. The two real calls are mixed in by ffmpeg; here only a quiet room so nothing starts from silence.
 add(0.0, crowd(DUR, 0.013, a=1.0, r=2.5))
-add(10.7, crowd(2.6, 0.018, a=0.8, r=0.6))               # the calm: TV murmuring in the background
-add(14.4, crowd(DUR - 14.4, 0.015, a=1.5, r=2.5))        # the ending
+add(12.7, crowd(4.0, 0.016, a=0.8, r=0.8))               # the calm: TV murmuring in the background
+add(17.8, crowd(DUR - 17.8, 0.015, a=1.5, r=2.5))        # the ending
 
 mix = np.tanh(mix * 1.4) * 0.85
 wavfile.write(sys.argv[1], SR, (mix * 32767).astype(np.int16))
