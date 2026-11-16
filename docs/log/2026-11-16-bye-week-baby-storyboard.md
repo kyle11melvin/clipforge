@@ -444,6 +444,10 @@ clip two and step-by-step instructions (he was driving).
 - B: `watch.jpg` (sat back) fades to `nails.jpg` over 0.45–0.95, fist (tighter crop of `fist.jpg`) on "free!" at 2.45,
   paper line 2.9, bug 3.5, breather 4.3. The fist frame is reused; a both-arms-up frame is requested on the page.
 
+Round thirty-seven: he sent the both-arms-up frame from ChatGPT (`arms.jpg`, standing in front of the recliner, Broncos
+celebrating on the TV; no pennant baked in, his fists are where it would sit). It is the win pose for game two, full
+frame, at 2.45 s of B. Poses now: watch → pace → fist → watch | watch → nails → arms → watch | chill | couch.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

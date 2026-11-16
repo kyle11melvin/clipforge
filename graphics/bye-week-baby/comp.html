@@ -181,7 +181,7 @@
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
 <div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:76px;top:960px"></div></div>
 <div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="pace.jpg" alt=""><div class="tv" id="lg" style="display:none"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brA" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1268px"></div></div>
-<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="nails.jpg" alt=""><div class="tv" id="st" style="display:none"></div></div><img class="ph" id="midB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1268px"></div></div>
+<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="nails.jpg" alt=""><div class="tv" id="st" style="display:none"></div></div><img class="ph" id="midB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><img class="ph" id="yesB" src="arms.jpg" alt="" style="transform-origin:0 0"><img class="ph" id="brB" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1268px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
@@ -267,7 +267,7 @@
       $("roomB").style.filter = "";
       // the strip-sack call: "Young in the pocket" 0.3, "That ball's" 1.4, "free!" 2.5
       $("midB").style.opacity = 1 - ease(clamp((tt - 0.45) / 0.5, 0, 1)); $("midB").style.transform = `scale(${(1.02 + 0.03 * clamp(tt, 0, 1)).toFixed(4)})`;
-      const m = yes($("yesB"), tt, 2.45, 200, 150, 700, 0.45, []), br = breathe($("brB"), tt, 4.3);   // round 27: the arms-up crop is gone; one shot, the win is the type
+      const m = yes($("yesB"), tt, 2.45, 0, 0, 1080, 0.45, []), br = breathe($("brB"), tt, 4.3);   // round 37: his own both-arms-up frame for the second win   // round 27: the arms-up crop is gone; one shot, the win is the type
       $("supB").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - clamp((tt - 1.9) / 0.4, 0, 1));
       const [lb, lt] = said([[2.9, "Oh my God… | ^we won *again.*^"], [4.75, "Phew."]], tt);
       $("subB").innerHTML = paper(lt, tt - lb, lb === 4.75 ? 1.5 : -2);
