@@ -357,6 +357,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 35–36:** he disliked the first piano phrase and picked **the lullaby** from three labelled options (always
+  give music as options to hear). A game beat needs at least three poses (sat back → nervous → win → sat back); one
+  still held for a whole beat reads as "just sitting there". The win pose lands on the peak word of the call.
   **Round 33, the ending's sound:** soft original piano (`piano()` in `src/music/byeweek_flex.py`, C–G/B–Am–F then a held
   C) under the baby shot, a few dB under the calls; he heard the noise "room tone" there as "static". An emotional
   pay-off gets a warm tone even on a personal meme; noise beds are for under speech only.

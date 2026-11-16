@@ -432,6 +432,18 @@ mean over the last 3.5 s (bright ×0.85, swell ×1.6 in the ffmpeg mix). Page ta
 (`ending-1-lullaby.mp4` etc., same picture). Waiting for his number.
 **Lesson: for music, give him two or three labelled options to hear at once instead of one guess.**
 
+## Round thirty-six: ending 1, and timing to the calls
+
+"Definitely go with number one" (the lullaby). Also: the opening shorter still; the fist should go up at the most
+exciting point of Logan's call; and in the second game "I don't really like that he's just sitting in the chair the
+entire time in one still … make sure the timing is good on everything." He then asked for one more ChatGPT prompt for
+clip two and step-by-step instructions (he was driving).
+- T: O 0, A 1.0, B 6.2, C 11.6, wife 14.2, E 16.2, F 17.0, end 22.0; lullaby from 16.2.
+- A: Logan from 3.7 s of the recording ("35, 30" 0.2, "25, 20" 1.2, "foot race" 2.2, "15, 10" 2.7); `pace.jpg`, fist
+  dissolves in 2.1–2.55 so it is up on "foot race", "YES!" 2.6, bug 3.2, breather 4.0.
+- B: `watch.jpg` (sat back) fades to `nails.jpg` over 0.45–0.95, fist (tighter crop of `fist.jpg`) on "free!" at 2.45,
+  paper line 2.9, bug 3.5, breather 4.3. The fist frame is reused; a both-arms-up frame is requested on the page.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
