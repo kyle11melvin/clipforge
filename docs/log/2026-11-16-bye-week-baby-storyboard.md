@@ -201,6 +201,16 @@ push. **Lesson: his taste is the baby scene: slow dissolve, slow push, quiet. Ha
 "intense" and "terrible" to him even on the scare beat.** He also said the hand-offs to ChatGPT/Grok are painful
 because the tools do not talk to each other; keep every request to them to one picture and one sentence.
 
+## Round fourteen: reactions, and no "machine" voice
+
+Kyle: "pretty good for the most part". Wants his attitude to change with the games: lean forward / "yes" when the
+Broncos are about to win, same for the other game, then sit back on the bye. And: "I don't wanna see some machine,
+honey my water broke … just with words", no stall after it. Done: `yes()` dissolves to a tight crop of `side-fall.jpg`
+(arms up, mouth open; chair out of frame) at 3.2 s of each game beat with "YES!" / "They did it again!" and the FINAL
+bug; the TTS wife line is out of the mix (text box only, the whole line at once); wife → fall gap cut to 1.0 s (20.2 s
+total). Canva still refuses new images, so a real fist-pump frame has to come from ChatGPT (line on the page).
+**Lesson: no TTS for a person in his life; he hears it as a machine. Words on screen instead.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

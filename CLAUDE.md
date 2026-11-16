@@ -340,8 +340,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   My side gags (the flex, "Mom vs. Husband") he hated: build his premise, do not decorate it with a second joke.
   **Recap beats use the real clips** (his Logan screen recording for KC, the 2026-11-09 strip-sack reel for Carolina,
   pulled from that session's page with Artifact read-by-path) as preloaded frame sequences inside the comp; a TTS
-  announcer over a still got "Absolutely not, we had a better one". Kokoro TTS (`npx hyperframes tts`) is fine for a
-  made-up line like his wife's; never clone a real announcer.
+  announcer over a still got "Absolutely not, we had a better one". **No TTS voices at all**: the Kokoro line for his
+  wife was "such a machine thing"; her line is words on screen. Never clone a real announcer. The character has to
+  **react** (arms up on the win, sat back on the bye), not hold one pose.
   **Smooth means the baby scene (round 13):** slow dissolves, slow pushes, quiet sound. He called reaction cut-ins,
   jump punch-ins, shake and thumps "too intense … terrible". Game footage goes **on the TV in the room** with its call
   as the sound (`.tv` inside `.room`), not full screen.
