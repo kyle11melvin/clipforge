@@ -357,6 +357,11 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
   Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
   life come from his own voice memos, never TTS.
+  **Round 27, where it landed:** type is the paper-cut strip (`paper()` in `comp.html`: torn sand strip, Playfair italic
+  small words, Sora 800 big words, one orange key word, wiping on with words rising), her line a taped handwritten
+  note in Caveat, the broadcast bug for scores. Plain captions "felt like reverting". Never crop a frame made for
+  another moment into a new shot (the arms-up crop of the falling picture was "the one that really sucks"); if a beat
+  has no frame of its own, hold the room shot and let the type carry it. Nunito captions from round 26 are superseded.
   **Round 26:** no pulsing or bumping on a still ("the freeze screen on his face that pulses" was wrong): a pose frame
   holds with one slow push. Captions in a character piece are **Nunito ExtraBold, white, soft shadow** (his reel
   caption look), not Inter. The pay-off shot (the baby) is "a peaceful, long lasting moment": 8 s or more, slow

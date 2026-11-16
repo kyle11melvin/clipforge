@@ -131,6 +131,25 @@
   .next { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 84px; letter-spacing: 0; }
   .honey { font-family: "Nunito", system-ui, sans-serif; font-weight: 800; } .honey i { font-weight: 800; font-style: normal; }
   .honey small { font-family: "Inter", system-ui, sans-serif; }
+  /* Round 27: the paper-cut type Kyle called "money" on 2026-11-12 (Playfair italic for small words, Sora for the big
+     ones, one key word in colour) on a torn sand strip, replacing plain captions. */
+  @font-face { font-family: "Sora"; font-weight: 100 800; src: url("../fonts/Sora.ttf") format("truetype"); }
+  @font-face { font-family: "Playfair"; font-style: italic; src: url("../fonts/PlayfairDisplay-Italic.ttf") format("truetype"); }
+  @font-face { font-family: "Caveat"; font-weight: 400 700; src: url("../fonts/Caveat.ttf") format("truetype"); }
+  .sub { text-shadow: none; }
+  .paper { display: inline-block; background: #EFE9DE; color: #0E2A35; padding: 14px 34px 20px; line-height: 1.12; text-align: center; transform-origin: 0 50%;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
+    clip-path: polygon(0 6%, 4% 0, 12% 4%, 23% 1%, 37% 5%, 52% 0, 66% 4%, 80% 1%, 93% 5%, 100% 2%, 99% 30%, 100% 62%, 98% 96%, 90% 100%, 76% 96%, 61% 100%, 45% 95%, 30% 100%, 16% 96%, 5% 100%, 0 94%, 1.5% 60%, 0 30%); }
+  .paper .w { display: inline-block; margin: 0 .12em; }
+  .paper .s { font-family: "Playfair", serif; font-style: italic; font-weight: 400; font-size: 54px; }
+  .paper .b { font-family: "Sora", sans-serif; font-weight: 800; font-size: 68px; letter-spacing: -.015em; }
+  .paper .o { color: #E2531B; }
+  .next .s { font-family: "Playfair", serif; font-style: italic; font-weight: 400; } .next .b { font-family: "Sora", sans-serif; font-weight: 800; }
+  .next { color: #EFE9DE; }
+  .honey { background: #FFF8D6; border-radius: 4px; color: #0E2A35; font-family: "Caveat", cursive; font-weight: 700; font-size: 66px; line-height: 1.02; padding: 34px 26px 22px; width: 400px; left: 520px; top: 262px;
+    box-shadow: 0 12px 26px rgba(0,0,0,.4); }
+  .honey::before { content: ""; position: absolute; left: 50%; top: -16px; width: 130px; height: 36px; margin-left: -65px; background: rgba(240,236,220,.85); transform: rotate(-3deg); box-shadow: 0 2px 4px rgba(0,0,0,.15); }
+  .honey i { font-weight: 700; font-style: normal; font-family: "Caveat", cursive; } .honey small { font-size: 18px; margin-bottom: 2px; }
 </style>
 </head>
 <body>
@@ -190,11 +209,25 @@
   // After each win he sits back and breathes (Kyle: "he sits back and relax, he can breathe because it's a lot").
   function breathe(img, tt, at) { const p = ease(clamp((tt - at) / 0.8, 0, 1)); img.style.opacity = p;
     img.style.transform = `scale(${(1.10 - 0.08 * ease(clamp((tt - at) / 1.6, 0, 1))).toFixed(4)})`; return p; }
-  const said = (lines, tt) => { let cur = ""; for (const [at, text] of lines) if (tt >= at) cur = text; return cur; };
+  const said = (lines, tt) => { let cur = [0, ""]; for (const l of lines) if (tt >= l[0]) cur = l; return cur; };
+  // A torn-paper strip of type. ^big^ = Sora, *colour* = orange key word, | = new line. u = seconds since the line began:
+  // the strip wipes on from the left and the words rise one by one.
+  function paper(text, u, rot = -1.5) {
+    if (!text) return "";
+    let big = false, col = false, i = 0;
+    const lines = text.split("|").map((line) => line.trim().split(/\s+/).map((tok) => {
+      let w = tok; if (w.startsWith("^")) { big = true; w = w.slice(1); } if (w.startsWith("*")) { col = true; w = w.slice(1); }
+      let endBig = false, endCol = false; if (w.endsWith("^")) { endBig = true; w = w.slice(0, -1); } if (w.endsWith("*")) { endCol = true; w = w.slice(0, -1); }
+      if (w.endsWith("^")) { endBig = true; w = w.slice(0, -1); }
+      const p = clamp((u - 0.14 - i++ * 0.075) / 0.3, 0, 1), cls = `w ${big ? "b" : "s"}${col ? " o" : ""}`;
+      const html = `<span class="${cls}" style="opacity:${p.toFixed(3)};transform:translateY(${((1 - easeOut(p)) * 26).toFixed(1)}px)">${w}</span>`;
+      if (endBig) big = false; if (endCol) col = false; return html; }).join(""));
+    return `<div class="paper" style="transform:rotate(${rot}deg) scaleX(${ease(clamp(u / 0.32, 0, 1)).toFixed(4)})">${lines.join("<br>")}</div>`;
+  }
   const scenes = [
     { id: "fO", at: T.O, draw(tt) {
       $("imO").style.transform = `${drift(tt, 0.5)} scale(${(1.0 + 0.05 * ease(clamp(tt / 2.6, 0, 1))).toFixed(4)})`;
-      $("subO").innerHTML = "<div>Being a Broncos fan…</div>"; $("subO").style.opacity = ease(clamp((tt - 0.2) / 0.4, 0, 1)) * (1 - clamp((tt - 1.3) / 0.4, 0, 1)); } },
+      $("subO").innerHTML = paper("Being a | ^*Broncos* fan…^", tt - 0.15, -2); $("subO").style.opacity = 1 - clamp((tt - 1.3) / 0.4, 0, 1); } },
     { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
       $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.30 * ease(clamp(tt / 5.6, 0, 1))).toFixed(4)})`;   // the push speeds up with the call
@@ -203,38 +236,38 @@
       // "Here we go" 2.4, "35, 30" 2.9, "25, 20" 3.9, "foot race" 4.9, "15, 10" 5.4. He gets louder on the same beats.
       $("midA").style.opacity = 0; const m = yes($("yesA"), tt, 1.2, 0, 0, 1080, 0.6, []), br = breathe($("brA"), tt, 6.5);   // round 24: up on "45, 40", a pump per yard line
       $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.5, "Come on…"], [1.5, "Go… go…"], [2.9, "GO! GO! GO!"], [4.9, "YES! YES!"], [7.0, "Phew."]], tt);
-      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 4.9 && tt < 7.0 ? "76px" : "62px";
-      $("subA").style.opacity = clamp((tt - 0.6) / 0.3, 0, 1) * (tt < 7.0 ? 1 - clamp((tt - 6.5) / 0.4, 0, 1) : clamp((tt - 7.0) / 0.3, 0, 1) * (1 - clamp((tt - 7.6) / 0.3, 0, 1)));
+      const [la, lt] = said([[4.9, "^*YES!*^"], [7.0, "Phew."]], tt);
+      $("subA").innerHTML = paper(lt, tt - la, la === 7.0 ? 1.5 : -2);
+      $("subA").style.opacity = tt < 7.0 ? 1 - clamp((tt - 6.4) / 0.4, 0, 1) : 1 - clamp((tt - 7.6) / 0.3, 0, 1);
       bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 5.9) / 0.5, 0, 1)); } },
     { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.06 + 0.26 * ease(clamp(tt / 3.4, 0, 1))).toFixed(4)})`;
+      $("roomB").style.transform = `${drift(tt + 7.9, 0.4)} scale(${(1.06 + 0.30 * ease(clamp(tt / 4.4, 0, 1))).toFixed(4)})`;
       $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
-      $("yesB").style.opacity = 0; const m = yes($("midB"), tt, 1.35, 0, 400, 640, 0.5, []), br = breathe($("brB"), tt, 4.2);   // arms up on "that ball's free"
+      $("yesB").style.opacity = 0; $("midB").style.opacity = 0; const m = 0, br = breathe($("brB"), tt, 4.4);   // round 27: the arms-up crop is gone; one shot, the win is the type
       $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
-      const line = said([[0.45, "Not again…"], [1.45, "GET HIM!"], [2.45, "Oh my God… we won again!"], [4.7, "Phew."]], tt);
-      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = "62px";
-      $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (tt < 4.7 ? 1 - clamp((tt - 4.2) / 0.4, 0, 1) : clamp((tt - 4.7) / 0.3, 0, 1) * (1 - clamp((tt - 5.3) / 0.3, 0, 1)));
+      const [lb, lt] = said([[2.5, "Oh my God… | ^we won *again.*^"], [5.0, "Phew."]], tt);
+      $("subB").innerHTML = paper(lt, tt - lb, lb === 5.0 ? 1.5 : -2);
+      $("subB").style.opacity = tt < 5.0 ? 1 - clamp((tt - 4.4) / 0.4, 0, 1) : 1 - clamp((tt - 5.4) / 0.3, 0, 1);
       bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.6) / 0.5, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(clamp(tt / (T.E - T.C), 0, 1)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1) * (1 - punch);
-      $("sub1").innerHTML = "<div>Bye week. Thank God.</div>";
-      $("sub1").style.opacity = clamp((tt - 0.4) / 0.3, 0, 1) * (1 - clamp((tt - (w - 0.2)) / 0.2, 0, 1));
+      $("sub1").innerHTML = paper("Bye week. | ^Thank *God.*^", tt - 0.35, -2);
+      $("sub1").style.opacity = 1 - clamp((tt - (w - 0.2)) / 0.25, 0, 1);
       bug($("bC"), team("DEN", DEN, "", "7–2") + `<div class="st"><b>BYE WEEK</b><span>NO GAME TODAY</span></div>`, `<i>WEEK 10</i>Heart rate: normal, for once`, clamp((tt - 0.7) / 0.4, 0, 1) * (1 - punch));
-      const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px)`; $("honey").style.transformOrigin = "100% 0";
-      $("ht").textContent = "“Honey… my water broke.”"; } },
+      const hp = clamp((tt - w) / 0.5, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `translateY(${((1 - ease(hp)) * -16).toFixed(1)}px) rotate(3deg)`; $("honey").style.transformOrigin = "100% 0";
+      $("ht").textContent = "Honey… my water broke."; } },
     { id: "fE", at: T.E, tr: "dissolve", dur: 1.0, draw(tt) {
-      $("nx").textContent = "Next Sunday…"; $("nx").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1);
+      $("nx").innerHTML = `<span class="s">Next</span> <span class="b">Sunday…</span>`; $("nx").style.opacity = clamp((tt - 0.3) / 0.4, 0, 1);
       $("nx2").style.opacity = clamp((tt - 0.6) / 0.2, 0, 1); } },
     { id: "fF", at: T.F, tr: "dissolve", dur: 1.8, draw(tt) {
       // Round 26: "I want that to be a peaceful, long lasting moment." 8.5 s, one very slow push, two unhurried lines, no score bug.
       $("imF").style.transform = `${drift(tt, 0.35)} scale(${(1.0 + 0.10 * ease(clamp(tt / 8.5, 0, 1))).toFixed(4)})`;
       const late = tt >= 5.4;
-      $("sub4").innerHTML = late ? "<div>And it’s the Raiders.<br>I can still relax.</div>" : "<div>Welcome to Broncos Country,<br>baby girl.</div>";
-      $("sub4").style.opacity = late ? ease(clamp((tt - 5.4) / 0.8, 0, 1)) : ease(clamp((tt - 1.6) / 1.0, 0, 1)) * (1 - clamp((tt - 4.6) / 0.7, 0, 1));
+      $("sub4").innerHTML = late ? paper("And it’s the Raiders. | ^I can still *relax.*^", tt - 5.4, 1.5) : paper("Welcome to | ^*Broncos Country,*^ | ^baby girl.^", tt - 1.6, -2);
+      $("sub4").style.opacity = late ? 1 : 1 - clamp((tt - 4.7) / 0.6, 0, 1);
       $("bF").style.opacity = 0; } },
   ];
   window.seek = (t) => {

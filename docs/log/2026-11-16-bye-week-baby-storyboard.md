@@ -343,6 +343,21 @@ And the quickness of the baby. I want that to be a peaceful long lasting moment.
   Country, baby girl." from 1.6 s, the Raiders line from 5.4 s, no score bug, a 3 s audio fade.
 **Lesson: on a still, any rhythmic bump reads as a glitching freeze frame; and the pay-off shot gets the most time.**
 
+## Round twenty-seven: the screenshot, and "we're reverting back"
+
+Kyle sent a screenshot of the arms-up crop of `side-fall.jpg` ("Oh my God… we won again!"): "This is the one that
+really sucks. I hate the shot in the freeze. Make it just one kind of smooth thing … and the font, maybe I don't like
+the font either … some of the stuff you've done with graphics has been really really good and I feel like we're
+reverting back." He asked whether this is the newest clipforge and to use the notes.
+- The crop is out; game two is one continuous push on the room with the strip sack on the TV, and the win is type.
+- Type is the 2026-11-12 paper-cut language he called "money": `paper()` draws a torn sand strip (clip-path edge,
+  drop shadow, slight tilt) that wipes on from the left with words rising: Playfair italic for small words, Sora 800
+  for big ones, one orange key word. Syntax `^big^`, `*colour*`, `|` for a line break. Lines: "Being a / Broncos fan…",
+  "YES!", "Phew.", "Oh my God… / we won again.", "Bye week. / Thank God.", "Welcome to / Broncos Country, / baby girl.",
+  "And it's the Raiders. / I can still relax." Her line is a taped yellow note in Caveat. "Next Sunday…" is sand type.
+**Lesson: plain captions on this piece read to him as going backwards; use the graphic language of the reels he
+approved (paper type, notes, the broadcast bug). A cropped reuse of a frame built for another moment is always seen.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
