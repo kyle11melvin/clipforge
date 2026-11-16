@@ -33,12 +33,35 @@ def swoosh(dur=0.9, g=0.05):                              # soft air, no attack:
     t = T(dur); return lp(hp(noise(dur), 500), 2600) * np.sin(np.pi * t / dur) ** 2 * g
 def exhale(dur=1.1, g=0.06):                              # him breathing out after a win
     t = T(dur); return lp(hp(noise(dur), 350), 1500) * np.minimum(1, t / 0.15) * np.exp(-t * 2.6) * g
-add(0.0, crowd(DUR, 0.013, a=1.0, r=2.5))                 # one quiet room under everything
+add(0.0, crowd(17.0, 0.013, a=1.0, r=1.2))                # a quiet room under the story; it fades out before the ending
 for at in (1.0, 6.5, 11.7, 16.3): add(at, swoosh())
 add(14.5, swoosh(dur=0.4, g=0.09))                        # her note flying in from the other room
 for at in (5.7, 10.7): add(at, exhale())
 add(11.9, crowd(4.8, 0.016, a=0.8, r=0.8))                # the calm: TV murmuring in the background
-add(17.4, crowd(DUR - 17.4, 0.015, a=1.5, r=2.5))         # the ending
+# The ending (round 33, Kyle: "a happy and bright noise, not just a static ... some piano ... uplifting and calming,
+# he's holding his baby girl for the first time"). An original soft piano phrase in C major, synthesised (no samples):
+# it starts under "Next Sunday…" and opens up on the picture of the two of them.
+def piano(f, dur=2.6, g=0.2):
+    t = T(dur); s = np.zeros(len(t))
+    for k in range(1, 8):
+        fk = f * k * (1 + 0.0004 * k * k)                      # a touch of string inharmonicity
+        s += np.sin(2 * np.pi * fk * t) * np.exp(-t * (1.1 + 0.55 * k)) / k ** 1.25
+    return lp(s, 4200) * np.minimum(1, t / 0.006) * g
+NOTE = {"C3": 130.81, "G3": 196.0, "B2": 123.47, "A2": 110.0, "F2": 87.31, "C4": 261.63, "D4": 293.66, "E4": 329.63, "G4": 392.0, "A4": 440.0,
+     "C5": 523.25, "D5": 587.33, "E5": 659.25, "G5": 783.99, "F3": 174.61, "E3": 164.81, "A3": 220.0, "D3": 146.83, "B3": 246.94}
+t0, bar = 16.5, 1.15
+bars = [("C3", "G3", "E4", "E5", "G5"), ("B2", "G3", "D4", "D5", "G5"), ("A2", "E3", "C4", "C5", "E5"), ("F2", "C3", "A3", "A4", "C5")]
+for i, (bass, mid, top, m1, m2) in enumerate(bars):
+    at = t0 + i * bar; vol = 0.75 if i == 0 else 1.0           # the first bar sits quietly under the black card
+    add(at, piano(NOTE[bass], 3.0, 0.20 * vol)); add(at + bar * 0.25, piano(NOTE[mid], 2.4, 0.13 * vol))
+    add(at + bar * 0.5, piano(NOTE[top], 2.4, 0.13 * vol)); add(at + bar * 0.75, piano(NOTE[mid], 2.0, 0.10 * vol))
+    add(at, piano(NOTE[m1], 2.6, 0.17 * vol)); add(at + bar * 0.5, piano(NOTE[m2], 2.6, 0.15 * vol))
+end = t0 + 4 * bar                                              # the last chord rings out
+for n, g in (("C3", 0.22), ("G3", 0.14), ("C4", 0.14), ("E4", 0.14), ("G4", 0.13), ("C5", 0.16), ("E5", 0.14)): add(end, piano(NOTE[n], 3.4, g))
+# a little room on the piano: two soft echoes of everything from the ending on
+i0 = int(16.4 * SR); tail = mix[i0:].copy()
+for d, g in ((0.11, 0.22), (0.27, 0.14)):
+    k = int(d * SR); mix[i0 + k:] += lp(tail[: len(tail) - k], 2600) * g
 
 mix = np.tanh(mix * 1.4) * 0.85
 wavfile.write(sys.argv[1], SR, (mix * 32767).astype(np.int16))

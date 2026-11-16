@@ -407,6 +407,17 @@ holds 2.6 s (C 12.0, wife 14.6); the note slides in from the right edge in 0.32 
 sound, holds 2.0 s. T: O 0, A 1.3, B 6.8, C 12.0, wife 14.6, E 16.6, F 17.4, end 22.4.
 This reverses round 25's "as soon as you sit down": after seeing it, he wants the calm to breathe first.
 
+## Round thirty-three: the ending's sound
+
+"Everything is almost perfect. The last thing … the very end: I want it to be a happy and bright noise, not just a
+static … baby girl is born … some pianos, doesn't need to be pianos, use your best judgment … uplifting and calming,
+he's holding his baby girl for the first time watching the Broncos game." The room-tone noise now stops at 17 s and
+`byeweek_flex.py` plays an original synthesised piano phrase from 16.5 s: four bars at 1.15 s (C, G/B, Am, F, bass +
+broken chord + a two-note melody on top), then a held C chord, two soft echoes for room. Mixed about 4 dB under the
+calls (the bed is scaled 0.66 after 16.3 s in the ffmpeg mix), 1.4 s fade at the end. Picture unchanged.
+This is the first music on this piece; it is his request and it is original, so the "no music on personal memes" rule
+gives way here. **Lesson: filtered noise as "room tone" reads to him as static; an ending wants a tone, not air.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
