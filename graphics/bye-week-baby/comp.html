@@ -137,8 +137,8 @@
      go to the actual game footage ... make it more smooth"): the same living room, the real clips playing small on the TV
      screen (frames in logan/ and strip/, gitignored), their real calls as the sound. -->
 <div class="frame" id="fO"><img class="ph" id="imO" src="watch.jpg" alt="" style="transform-origin:30% 40%"><div class="sub" id="subO" style="font-size:72px;top:960px"></div></div>
-<div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supA">TWO WEEKS AGO</div><div class="sub" id="subA"></div><div class="bug2" id="bA"></div></div>
-<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supB">LAST WEEK</div><div class="sub" id="subB"></div><div class="bug2" id="bB"></div></div>
+<div class="frame" id="fA"><div class="room" id="roomA"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="lg"></div></div><img class="ph" id="midA" src="stress-b.jpg" alt="" style="transform-origin:50% 30%"><img class="ph" id="yesA" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supA" style="top:1090px">TWO WEEKS AGO</div><div class="sub" id="subA" style="top:1128px"></div><div class="bug2" id="bA" style="top:1290px"></div></div>
+<div class="frame" id="fB"><div class="room" id="roomB"><img class="ph" src="side-relax.jpg" alt=""><div class="tv" id="st"></div></div><img class="ph" id="midB" src="stress-a.jpg" alt="" style="transform-origin:36% 26%"><img class="ph" id="yesB" src="fist.jpg" alt="" style="transform-origin:0 0"><div class="super" id="supB" style="top:1090px">LAST WEEK</div><div class="sub" id="subB" style="top:1128px"></div><div class="bug2" id="bB" style="top:1290px"></div></div>
 <div class="frame" id="fC"><img class="ph" id="rel" src="chill.jpg" alt="" style="transform-origin:16% 34%"><div class="super" id="sup1">THIS SUNDAY · BYE WEEK</div><div class="sub" id="sub1"></div>
   <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div><div class="bug2 wide" id="bC"></div></div>
 <div class="frame" id="fD"><img class="ph" id="shk" src="side-fall.jpg" alt="" style="transform-origin:19% 33%"><div class="sub" id="what" style="font-size:96px">WHAT?!</div><div class="bug2 wide" id="bD"></div></div>
@@ -168,31 +168,42 @@
 
   // The win reaction (Kyle, round 14: "have him lean forward ... like yes ... some kind of reaction"): a stand-in until a
   // real fist-pump frame exists: the upper body of side-fall.jpg (arms up, mouth open), cropped so the chair is out of frame.
-  function yes(img, tt, at, x0, y0, w) {
-    const p = ease(clamp((tt - at) / 1.0, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 2.2, 0, 1)));   // a slow dissolve and a slow push
+  function yes(img, tt, at, x0, y0, w, d = 1.0) {
+    const p = ease(clamp((tt - at) / d, 0, 1)), k = 1080 / w * (1 + 0.06 * ease(clamp((tt - at) / 2.2, 0, 1)));   // a slow dissolve and a slow push
     img.style.opacity = p; img.style.transform = `translate(${(-x0 * k).toFixed(1)}px,${(-y0 * k).toFixed(1)}px) scale(${k.toFixed(4)})`;
     return p;
   }
+  // Round 20 (Kyle: "the player is going from the 50 to the 45 to 40 ... the guy has the same reaction, that's why it's
+  // terrible"): the reaction climbs with the call. Stage 1 the room, stage 2 a close-up with his eyes wide, stage 3 the fist
+  // pump; the announcer's own words run as the caption so the build is on screen too.
+  function mid(img, tt, at, base) { const p = ease(clamp((tt - at) / 0.35, 0, 1)); img.style.opacity = p;
+    img.style.transform = `scale(${(base + 0.18 * ease(clamp((tt - at) / 1.6, 0, 1))).toFixed(4)})`; return p; }
+  const said = (lines, tt) => { let cur = ""; for (const [at, text] of lines) if (tt >= at) cur = text; return cur; };
   const scenes = [
     { id: "fO", at: T.O, draw(tt) {
       $("imO").style.transform = `${drift(tt, 0.5)} scale(${(1.0 + 0.05 * ease(clamp(tt / 2.6, 0, 1))).toFixed(4)})`;
       $("subO").innerHTML = "<div>Being a Broncos fan…</div>"; $("subO").style.opacity = ease(clamp((tt - 0.25) / 0.5, 0, 1)) * (1 - clamp((tt - 1.5) / 0.4, 0, 1)); } },
     { id: "fA", at: T.A, tr: "dissolve", dur: 0.9, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, LG - 1); lgImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomA").style.transform = `${drift(tt, 0.5)} scale(${(1.02 + 0.10 * ease(clamp(tt / 5.2, 0, 1))).toFixed(4)})`;
-      $("roomA").style.filter = "brightness(0.86) saturate(0.9)";
-      $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1);
-      const y = yes($("yesA"), tt, 2.9, 90, 110, 880); $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - y);
-      $("subA").innerHTML = tt < 2.9 ? "" : "<div>YES!</div>"; $("subA").style.opacity = tt < 2.9 ? clamp((tt - 0.4) / 0.6, 0, 1) * (1 - clamp((tt - 2.3) / 0.6, 0, 1)) : y * (1 - clamp((tt - 4.0) / 0.5, 0, 1));
-      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 3.4) / 0.6, 0, 1)); } },
-    { id: "fB", at: T.B, tr: "dissolve", dur: 1.1, draw(tt) {
+      $("roomA").style.transform = `${drift(tt, 0.4)} scale(${(1.02 + 0.22 * Math.pow(clamp(tt / 1.6, 0, 1), 2)).toFixed(4)})`;   // the push speeds up with the call
+      $("roomA").style.filter = "brightness(0.9) saturate(0.92)";
+      const m = mid($("midA"), tt, 1.35, 1.35), y = yes($("yesA"), tt, 2.75, 90, 110, 880, 0.45);
+      $("supA").style.opacity = clamp((tt - 0.2) / 0.5, 0, 1) * (1 - m);
+      // Dave Logan's own words, on their onsets in the recording (3.3 s into his clip = 0 here)
+      const line = said([[0.05, "“Here we go…”"], [0.55, "“35… 30…”"], [1.55, "“25… 20…”"], [2.55, "“Foot race!”"], [3.05, "“15… 10…”"], [3.75, "YES!"]], tt);
+      $("subA").innerHTML = `<div>${line}</div>`; $("subA").style.fontSize = tt >= 3.75 ? "84px" : "64px";
+      $("subA").style.opacity = clamp(tt / 0.3, 0, 1) * (1 - clamp((tt - 4.1) / 0.5, 0, 1));
+      bug($("bA"), team("KC", KC, 24) + team("DEN", DEN, 28) + `<div class="st"><b>FINAL</b><span>WEEK 8</span></div>`, `<i>FINAL</i>Roach sacks Mahomes on 4th &amp; goal, 0:04 left`, clamp((tt - 3.6) / 0.6, 0, 1)); } },
+    { id: "fB", at: T.B, tr: "dissolve", dur: 1.0, draw(tt) {
       const n = clamp(Math.floor(tt * 30), 0, ST - 1); stImgs.forEach((im, i) => { im.style.visibility = i === n ? "visible" : "hidden"; });
-      $("roomB").style.transform = `${drift(tt + 4.6, 0.5)} scale(${(1.12 + 0.08 * ease(clamp(tt / 4.6, 0, 1))).toFixed(4)})`;
-      $("roomB").style.filter = "brightness(0.86) saturate(0.9)";
-      $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1);
-      const y = yes($("yesB"), tt, 2.8, 230, 190, 660); $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - y);
-      $("subB").innerHTML = tt < 2.8 ? "" : "<div>They did it again!</div>"; $("subB").style.opacity = tt < 2.8 ? clamp((tt - 0.9) / 0.6, 0, 1) * (1 - clamp((tt - 2.2) / 0.6, 0, 1)) : y * (1 - clamp((tt - 3.8) / 0.5, 0, 1));
-      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.0) / 0.7, 0, 1)); } },
+      $("roomB").style.transform = `${drift(tt + 4.6, 0.4)} scale(${(1.08 + 0.2 * Math.pow(clamp(tt / 1.5, 0, 1), 2)).toFixed(4)})`;
+      $("roomB").style.filter = "brightness(0.9) saturate(0.92)";
+      const m = mid($("midB"), tt, 1.25, 1.5), y = yes($("yesB"), tt, 2.35, 230, 190, 660, 0.45);
+      $("supB").style.opacity = clamp((tt - 0.3) / 0.5, 0, 1) * (1 - m);
+      const line = said([[0.45, "“Young in the pocket…”"], [1.45, "“That ball’s…”"], [2.45, "“…FREE!”"], [3.5, "They did it again!"]], tt);
+      $("subB").innerHTML = `<div>${line}</div>`; $("subB").style.fontSize = tt >= 2.45 && tt < 3.5 ? "84px" : "64px";
+      $("subB").style.opacity = clamp((tt - 0.45) / 0.3, 0, 1) * (1 - clamp((tt - 3.9) / 0.5, 0, 1));
+      bug($("bB"), team("DEN", DEN, 26) + team("CAR", CAR, 21) + `<div class="st"><b>FINAL</b><span>WEEK 9</span></div>`, `<i>FINAL</i>Bonitto strip sack. Broncos recover.`, clamp((tt - 3.3) / 0.6, 0, 1)); } },
     { id: "fC", at: T.C, tr: "dissolve", dur: 1.1, draw(tt) {
       const w = T.wife - T.C, punch = ease(clamp((tt - w) / 1.2, 0, 1)), punch2 = 0;   // a slow lean in, no snap
       $("rel").style.transform = `${drift(tt, 1 - punch)} scale(${(1 + 0.05 * ease(clamp(tt / (T.E - T.C), 0, 1)) + 0.14 * punch + 0.22 * punch2).toFixed(4)})`;

@@ -350,6 +350,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   shot, one room tone under everything), dissolves of about a second, graphics fade in place. The punchline setup is
   short on purpose: the calm bye-week frame holds 1.3 s before "Honey… my water broke." The missing poses (fist pump,
   eyes-closed chill) came from one saved frame plus one pasted message to ChatGPT; do that first, not stand-ins.
+  **The reaction follows the call (round 20):** a calm character under a rising announcer is "why it's terrible".
+  Stage each game beat on the call's word onsets (room → eyes-wide close-up → fist pump) and caption the announcer's
+  own words. His running order, verbatim: "Being a Broncos fan…" → game one → reaction → game two → reaction → calm
+  bye week with a cup → "Honey, my water broke" → the ending. The room must read as a home, not a hotel lobby.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

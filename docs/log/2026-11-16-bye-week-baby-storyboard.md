@@ -262,6 +262,17 @@ room should not look like "a hotel room or a hotel lobby … a bar or a house".
 - Sound: only the two overlapped calls over a room tone; all effects removed with the fall.
 **Lesson: he states the running order as a list; build exactly that list, in that order, with nothing extra between.**
 
+## Round twenty: the reaction has to follow the call
+
+Kyle: "you see why this is terrible … the player is going from the 50 to the 45 to 40 to 35, 30 and the guy has the
+same reaction." Each game beat now has three stages on the announcer's own word onsets: the room with the game on the
+TV and an accelerating push; a close-up with his eyes wide (`stress-b.jpg` for KC at 1.35 s, `stress-a.jpg` tight for
+Carolina at 1.25 s, 0.35 s dissolves); the fist pump (2.75 s / 2.35 s, 0.45 s dissolve). The caption is the call itself
+("Here we go…", "35… 30…", "25… 20…", "Foot race!", "15… 10…" then "YES!"; "Young in the pocket…", "That ball's…",
+"…FREE!"), at y=1128 with the bug at 1290 so neither sits on the close-up's mouth.
+**Lesson: when a real call builds, the character's reaction and the caption have to build on the same beats; a calm
+figure under a rising announcer reads as wrong even if every piece is good.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
