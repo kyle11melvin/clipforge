@@ -354,6 +354,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   Stage each game beat on the call's word onsets (room → eyes-wide close-up → fist pump) and caption the announcer's
   own words. His running order, verbatim: "Being a Broncos fan…" → game one → reaction → game two → reaction → calm
   bye week with a cup → "Honey, my water broke" → the ending. The room must read as a home, not a hotel lobby.
+  **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
+  Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
+  life come from his own voice memos, never TTS.
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 

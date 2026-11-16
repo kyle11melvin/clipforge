@@ -291,6 +291,15 @@ broke. I don't want the text, I want the actual vocal."
   memos (his sigh + "Finally… a weekend off."; "Hey babe… my water broke."). Text stays until they arrive. There is no
   footage for a memo to mismatch here, so a phone memo is the right source.
 
+## Round twenty-two: the breather, and "director … swoosh"
+
+Kyle: after the Chiefs call and the "yes", the score, "he sits back and relax, he can breathe because it's a lot"; same
+after the strip sack; then calm on the chair with RedZone; then "honey, my water broke". And: "make it more smooth …
+very director, all swoosh." `breathe()` dissolves to `watch.jpg` after each win ("Phew." at 6.8 s of A, "Phew… again."
+at 4.6 s of B) with a slow pull-back and a soft synthesised exhale; every dissolve now glides 46 px sideways with a
+2.5 px blur peak and a soft air swoosh under it. T: O 0, A 1.5, B 9.4, C 15.1, wife 17.1, E 18.5, F 19.3, end 23.6.
+**Lesson: his rhythm is tension → release → tension → release → calm → interruption; each win needs its exhale.**
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
