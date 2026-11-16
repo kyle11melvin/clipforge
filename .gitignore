@@ -10,3 +10,5 @@ test/fixtures/
 *.mp3
 .DS_Store
 graphics/broncos-pick/*.jpg
+footage/
+clips/
