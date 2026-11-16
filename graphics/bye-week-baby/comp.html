@@ -65,23 +65,31 @@
     letter-spacing: .04em; color: #fff; }
   .chip span { display: inline-block; background: rgba(10,15,26,.9); border-radius: 14px; padding: 14px 24px; }
   .chip b { color: #ffd36b; letter-spacing: .14em; font-size: 26px; margin-right: 12px; }
+  .card .res { margin-left: auto; font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 40px; color: #3dff7a; }
+  .card .nb { margin-left: 16px; font-size: 20px; letter-spacing: .1em; color: #ffd36b; border: 2px solid #ffd36b; border-radius: 8px; padding: 4px 8px; }
+  .bubble { position: absolute; right: 0; top: 700px; max-width: 700px; background: #fff; color: #101418; border-radius: 44px 0 0 44px;
+    padding: 26px 60px 30px 44px; font-family: "Nunito", system-ui, sans-serif; font-weight: 800; font-size: 92px; line-height: 1.1;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5); transform-origin: 100% 50%; }
+  .bubble small { display: block; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 26px; letter-spacing: .14em; color: var(--orange); margin-bottom: 6px; }
+  .next { position: absolute; left: 60px; right: 160px; top: 50%; transform: translateY(-50%); text-align: center; font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 800; font-size: 120px; color: #fff; }
+  .next small { display: block; font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 32px; letter-spacing: .18em; color: var(--orange); margin-top: 18px; }
 </style>
 </head>
 <body>
-<!-- Personal-account meme (2026-11-16): the Broncos' bye week (Week 10, Nov 15) is the weekend Kyle's daughter is born.
-     Three AI frames (Canva) of a "bronco dad". The gag is the schedule card: BYE gets flexed to Dad vs. Baby Girl.
-     Kyle vetoed the heart-rate monitor here ("I literally just did a video where my heart rate was going up"). -->
+<!-- Personal-account meme (2026-11-16), Kyle's storyboard: Sunday morning of the bye week, finally relaxed -> his wife
+     from the other room, "Honey... it's time" -> WHAT?! -> "Next Sunday..." -> him and his daughter on the couch
+     watching football. AI frames (Canva) of a "bronco dad"; he animates them in Grok / ChatGPT. Real results on the card.
+     No heart-rate monitor (he vetoed repeating it). -->
 <div class="frame" id="f1">
-  <img class="ph" src="relax.jpg" alt="">
+  <img class="ph" id="rel" src="relax.jpg" alt="" style="transform-origin:38% 30%">
   <div class="head" style="top:262px;font-size:92px" id="h1"></div>
-  <div class="sting" style="top:960px;font-size:66px;white-space:nowrap" id="s1"></div>
-  <div class="chip" style="top:880px" id="wife"><span><b>MY WIFE</b></span></div>
-  <div class="sting" style="top:960px;font-size:72px;white-space:nowrap" id="s1b"></div>
+  <div class="bubble" id="bub"><small>FROM THE OTHER ROOM</small><span id="bt"></span></div>
   <div class="card" id="c1">
     <div class="hd">BRONCOS SCHEDULE</div>
-    <div class="row"><span class="wk">WK 9</span>at Carolina</div>
-    <div class="row hot"><span class="wk">WK 10</span><span class="val">BYE</span></div>
-    <div class="row"><span class="wk">WK 11</span>vs Las Vegas</div>
+    <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
+    <div class="row"><span class="wk">WK 9</span>at CAR<span class="res">W 26–21</span><span class="nb">NAIL-BITER</span></div>
+    <div class="row hot" id="hot1"><span class="wk">WK 10</span><span class="val">BYE</span><span class="tag" id="fin">FINALLY</span></div>
   </div>
 </div>
 <div class="frame" id="f2">
@@ -89,32 +97,24 @@
   <div class="head" style="top:250px;font-size:176px" id="what"><span class="o">WHAT?!</span></div>
   <div class="card" id="c2">
     <div class="hd" id="hd2">SCHEDULE CHANGE</div>
-    <div class="row"><span class="wk">WK 9</span>at Carolina</div>
+    <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
+    <div class="row"><span class="wk">WK 9</span>at CAR<span class="res">W 26–21</span><span class="nb">NAIL-BITER</span></div>
     <div class="row hot"><span class="wk">WK 10</span><span class="val" id="bye2">BYE<span class="strike" id="strike"></span></span><span class="flex" id="flex">Dad vs. Baby Girl</span><span class="tag" id="tag">FLEXED</span></div>
-    <div class="row"><span class="wk">WK 11</span>vs Las Vegas</div>
   </div>
 </div>
-<div class="frame" id="f3">
-  <img class="ph" id="pan" src="panic.jpg" alt="" style="transform-origin:50% 0">
-  <div class="vig"></div>
-  <div class="head" style="top:262px;font-size:92px" id="h2"></div>
-  <div class="card">
-    <div class="hd" id="hd3">SCHEDULE CHANGE</div>
-    <div class="row"><span class="wk">WK 9</span>at Carolina</div>
-    <div class="row hot"><span class="wk">WK 10</span><span class="flex">Dad vs. Baby Girl</span><span class="tag" style="transform:rotate(-4deg)">FLEXED</span></div>
-    <div class="row"><span class="wk">WK 11</span>vs Las Vegas</div>
-  </div>
-</div>
+<div class="frame black" id="f3"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
 <div class="frame" id="f4">
-  <img class="ph" src="baby.jpg" alt="">
-  <div class="head" style="top:262px;font-size:88px" id="h3"></div>
-  <div class="sting" style="top:1290px;font-size:110px" id="s3"></div>
-  <div class="chip" style="top:468px" id="chip"><span><b>INJURY REPORT</b>Dad: questionable (sleep)</span></div>
+  <img class="ph" src="couch.jpg" alt="">
+  <div class="head" style="top:262px;font-size:88px" id="h4"></div>
+  <div class="card" id="c4" style="top:1176px">
+    <div class="hd">BRONCOS SCHEDULE</div>
+    <div class="row"><span class="wk">WK 10</span>Dad vs. Baby Girl<span class="res" style="color:#ffd36b">SHE WON</span></div>
+    <div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" id="tag4">PARTY OF 2</span></div>
+  </div>
 </div>
 
 <script>
-  // Timeline (seconds): hook, his wife's line, WHAT?! and the flex, delivery room, pay-off.
-  const T = { f1: 0, wife: 2.0, f2: 3.7, f3: 5.3, f4: 7.0, end: 10.2 };
+  const T = { f1: 0, wife: 2.6, f2: 4.4, f3: 6.0, f4: 7.1, end: 10.8 };
   window.DURATION = T.end;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const easeOut = (p) => 1 - Math.pow(1 - p, 3);
@@ -139,42 +139,41 @@
     });
   }
 
+  const rise = (el, p, d = 60) => { el.style.opacity = p; el.style.transform = `translateY(${((1 - easeOut(p)) * d).toFixed(1)}px)`; };
   window.seek = (t) => {
     frames.forEach((f) => f.classList.remove("on"));
     if (t < T.f2) {
-      // Kyle's storyboard (2026-11-16): he sips, exhales, then his wife: "Honey... she's coming."
       const f = frames[0]; f.classList.add("on"); const tt = t;
-      f.querySelector(".ph").style.transform = `scale(${(1 + 0.06 * tt / T.f2).toFixed(4)})`;
-      words($("h1"), "Broncos fans on<br>the *bye week*", tt - 0.1, 0.08);
-      const cp = clamp((tt - 0.6) / 0.4, 0, 1); $("c1").style.opacity = cp; $("c1").style.transform = `translateY(${((1 - easeOut(cp)) * 60).toFixed(1)}px)`;
-      words($("s1"), "No stress this weekend.", tt - 1.0, 0.07);
-      $("s1").style.opacity = 1 - clamp((tt - (T.wife - 0.2)) / 0.15, 0, 1);
-      const wp = clamp((tt - T.wife) / 0.25, 0, 1); $("wife").style.opacity = wp; $("wife").style.transform = `scale(${(0.6 + 0.4 * back(wp)).toFixed(3)})`;
-      words($("s1b"), "*“Honey… she’s coming.”*", tt - T.wife - 0.2, 0.16);
+      // Slow push while he relaxes; a punch-in toward his face when the voice comes from the other room.
+      const punch = easeOut(clamp((tt - T.wife) / 0.25, 0, 1));
+      $("rel").style.transform = `scale(${(1 + 0.04 * tt / T.f2 + 0.16 * punch).toFixed(4)})`;
+      words($("h1"), "Broncos bye week.<br>*Finally.*", tt - 0.1, 0.1);
+      $("h1").style.opacity = 1 - punch;
+      rise($("c1"), clamp((tt - 0.5) / 0.4, 0, 1));
+      const fp = clamp((tt - 1.5) / 0.25, 0, 1); $("fin").style.opacity = fp; $("fin").style.transform = `scale(${(1.8 - 0.8 * easeOut(fp)).toFixed(3)}) rotate(-4deg)`;
+      const bp = clamp((tt - T.wife) / 0.3, 0, 1); $("bub").style.opacity = bp; $("bub").style.transform = `translateX(${((1 - back(bp)) * 300).toFixed(1)}px)`;
+      $("bt").textContent = tt < T.wife + 0.85 ? "Honey…" : "Honey… it’s time.";
     } else if (t < T.f3) {
       const f = frames[1]; f.classList.add("on"); const tt = t - T.f2;
       const jolt = Math.max(0, 1 - tt / 0.4), sx = Math.sin(tt * 70) * 12 * jolt, sy = Math.cos(tt * 90) * 7 * jolt;
       $("shk").style.transform = `translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${(1.06 + 0.04 * tt / 1.6).toFixed(4)})`;
       const wp = clamp(tt / 0.2, 0, 1); $("what").style.opacity = wp; $("what").style.transform = `scale(${(2.2 - 1.2 * easeOut(wp)).toFixed(3)}) rotate(-4deg)`;
       $("hd2").style.background = Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010";
-      // 0.3 s: the strike draws through BYE. 0.9 s: "Dad vs. Baby Girl" pops in, then the FLEXED tag.
       const sk = clamp((tt - 0.3) / 0.3, 0, 1); $("strike").style.width = `calc(${(sk * 100).toFixed(1)}% + ${(16 * sk).toFixed(1)}px)`;
-      const sw = clamp((tt - 0.9) / 0.3, 0, 1), bye = $("bye2"), flex = $("flex"), tag = $("tag");
+      const sw = clamp((tt - 0.85) / 0.3, 0, 1), bye = $("bye2"), flex = $("flex"), tag = $("tag");
       bye.style.display = sw > 0 ? "none" : "inline-block";
       flex.style.display = sw > 0 ? "inline-block" : "none"; flex.style.transform = `scale(${(0.5 + 0.5 * back(sw)).toFixed(3)})`;
-      const tg = clamp((tt - 1.15) / 0.25, 0, 1); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
+      const tg = clamp((tt - 1.1) / 0.25, 0, 1); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
     } else if (t < T.f4) {
-      const f = frames[2]; f.classList.add("on"); const tt = t - T.f3, p = clamp(tt / (T.f4 - T.f3), 0, 1);
-      const jolt = Math.max(0, 1 - tt / 0.3), sx = Math.sin(tt * 70) * 8 * jolt;
-      $("pan").style.transform = `translate(${sx.toFixed(1)}px,0) scale(${(1.13 + 0.05 * p).toFixed(4)})`;
-      words($("h2"), "Me on<br>the *bye week*", tt - 0.05, 0.08);
-      $("hd3").style.background = Math.floor(tt * 4) % 2 === 0 ? "#d81e1e" : "#8f1010";
+      const f = frames[2]; f.classList.add("on"); const tt = t - T.f3;
+      const full = "Next Sunday…"; $("nx").textContent = full.slice(0, Math.round(clamp(tt / 0.5, 0, 1) * full.length));   // typed on
+      $("nx2").style.opacity = clamp((tt - 0.55) / 0.2, 0, 1);
     } else {
       const f = frames[3]; f.classList.add("on"); const tt = t - T.f4;
-      f.querySelector(".ph").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.2, 0, 1)).toFixed(4)})`;
-      words($("h3"), "Welcome to<br>*Broncos Country,*", tt - 0.05, 0.09);
-      words($("s3"), "*baby girl.*", tt - 0.9, 0.12);
-      const cp = clamp((tt - 1.8) / 0.35, 0, 1); $("chip").style.opacity = cp; $("chip").style.transform = `translateY(${((1 - easeOut(cp)) * 24).toFixed(1)}px)`;
+      f.querySelector(".ph").style.transform = `scale(${(1.08 - 0.06 * clamp(tt / 3.7, 0, 1)).toFixed(4)})`;
+      words($("h4"), "Welcome to<br>*Broncos Country,*<br>baby girl.", tt - 0.1, 0.11);
+      rise($("c4"), clamp((tt - 1.2) / 0.4, 0, 1));
+      const tg = clamp((tt - 1.9) / 0.25, 0, 1), tag = $("tag4"); tag.style.opacity = tg; tag.style.transform = `scale(${(1.8 - 0.8 * easeOut(tg)).toFixed(3)}) rotate(-4deg)`;
     }
   };
   window.seek(0);

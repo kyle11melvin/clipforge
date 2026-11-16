@@ -8,8 +8,8 @@ Usage: python3 byeweek_flex.py out.wav
 import sys, numpy as np
 from scipy.io import wavfile
 from scipy.signal import butter, sosfilt
-SR = 44100; DUR = 10.2; N = int(SR * DUR)
-CUT1, CUT2 = 3.7, 7.0
+SR = 44100; DUR = 10.8; N = int(SR * DUR)
+CUT1, CUT2 = 4.4, 7.1
 mix = np.zeros(N); rng = np.random.default_rng(11)
 def lp(x, f, o=2): return sosfilt(butter(o, min(f, 20000), "low", fs=SR, output="sos"), x)
 def hp(x, f, o=2): return sosfilt(butter(o, max(f, 20), "high", fs=SR, output="sos"), x)
@@ -47,7 +47,7 @@ add(0.0, chord([146.83, 185.0, 220.0, 277.18], CUT1 + 0.1, g=0.16, a=0.4, r=0.15
 for at, f in [(0.25, 440.0), (0.95, 554.37), (1.65, 659.25)]: add(at, pluck(f))
 
 # 2.0: his wife speaks: a soft two-note chime.
-add(2.0, pluck(987.77, 0.5, 0.18)); add(2.14, pluck(1318.5, 0.7, 0.18))
+add(2.6, pluck(987.77, 0.5, 0.18)); add(2.74, pluck(1318.5, 0.7, 0.18))
 
 # 3.7: the needle drop. A tone and the pad's top note sliding down to nothing in 0.3 s.
 t = T(0.32); f = 520 * np.exp(-t * 9) + 40; ph = 2 * np.pi * np.cumsum(f) / SR
@@ -63,12 +63,13 @@ for at, f, d in [(0.2, 392.0, 0.16), (0.38, 523.25, 0.16), (0.56, 659.25, 0.34)]
     add(CUT1 + at, brass(f, d)); add(CUT1 + at, brass(f / 2, d, 0.12))
 sw = T(0.3); add(CUT1 + 0.3, hp(rng.normal(0, 1, len(sw)), 1200) * np.sin(np.pi * sw / 0.3) ** 2 * 0.22)   # the strike
 add(CUT1 + 0.9, tom(g=0.9)); add(CUT1 + 0.9, thump(dur=0.5, f0=80, f1=38, g=0.8))                                # the flex lands
-for f in (130.81, 196.0, 261.63, 311.13): add(CUT1 + 0.9, brass(f, CUT2 - CUT1 - 1.0, 0.07))                     # held, uneasy
+for f in (130.81, 196.0, 261.63, 311.13): add(CUT1 + 0.9, brass(f, 6.0 - CUT1 - 0.95, 0.07))                     # held, uneasy
 add(CUT1 + 1.15, beep(dur=0.09, f=1320, g=0.2)); add(CUT1 + 1.3, beep(dur=0.09, f=1320, g=0.2))                 # FLEXED tag
 k = 0
 
 # 7.0-10.2: she's here. One soft low hit, a warm C major chord, Brahms' Lullaby on the music box.
-add(CUT2, thump(dur=0.5, f0=70, f1=36, g=0.5))
+add(6.0, thump(dur=0.5, f0=70, f1=36, g=0.6))   # the black 'Next Sunday...' card
+for i in range(12): add(6.0 + i * 0.5 / 12, hp(rng.normal(0, 1, int(SR * 0.02)), 3000) * np.exp(-T(0.02) * 200) * 0.2)   # typed letters
 add(CUT2, chord([130.81, 164.81, 196.0, 261.63], DUR - CUT2, g=0.15, a=0.5, r=1.2, cutoff=1800))
 E, G, A, B, C = 659.25, 783.99, 880.0, 987.77, 1046.5
 EIGHTH = 0.165

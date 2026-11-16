@@ -31,6 +31,21 @@ Changing the size in a signed `media.canva.com` thumbnail URL is not allowed.
 
 Page: https://claude.ai/artifact/UJjktSJW9FX8oCGWy7xu1p
 
+## Round three: his second storyboard ("be smarter … not quite enough graphics")
+
+Kyle: Sunday morning after a lot of stressful weeks, Broncos bye week, he finally sits down relaxed → his wife from the
+other room, "Honey, it's time" → him perked up, "what the…" → "Next Sunday…" → him with his daughter in his arm on the
+couch watching Sunday football. He will animate the frames in ChatGPT or Grok. He likes the character and the graphics
+("you've been using a lot, which is good, but not quite enough").
+
+`comp.html` is now that, 10.8 s: 0–4.4 recliner, "Broncos bye week. Finally.", the schedule card with real results
+(Wk 8 vs KC W 28–24, Wk 9 at CAR W 26–21, both tagged NAIL-BITER, Wk 10 BYE stamped FINALLY), at 2.6 a punch-in and a
+white speech bubble sliding in from the right edge ("FROM THE OTHER ROOM · Honey… it's time.") → 4.4–6.0 `shock.jpg`,
+"WHAT?!", the card turns to SCHEDULE CHANGE, BYE struck and flexed to "Dad vs. Baby Girl" → 6.0–7.1 black card typed
+"Next Sunday…" / WEEK 11 → 7.1–10.8 `couch.jpg` (same recliner, foal in his arm, football on the TV), "Welcome to
+Broncos Country, baby girl.", card: Wk 10 Dad vs. Baby Girl SHE WON, Wk 11 vs Las Vegas PARTY OF 2. The delivery-room
+and hospital frames are out. Page prompts cover three clips (relax + hears the voice, bolts up, couch with the baby).
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to
