@@ -53,6 +53,19 @@ the top ("SUNDAY MORNING"), dialogue as clean subtitles at y≈1040–1150 (Inte
 stroke; her line in italics under a small "FROM THE OTHER ROOM" label), the schedule card shrunk to a 688 px lower third
 at y≥1166, "Next Sunday…" in light Inter. Nothing sits above y=1040 except the super, so every face is clear.
 
+## Round five: "very close"
+
+Kyle: not Dad vs. Baby Girl, it is **Mom vs. Husband**; keep the previous-weeks scorecard ("I like scoring previous
+week"); "Honey it's time" in its own separate box in a corner; something that looks like NFL RedZone on the TV; for
+"Next Sunday" a blue shirt instead of orange; the Broncos logo, as close as possible ("this is not going public, it's
+not a public product"); dad and the girl watching the game together.
+
+Canva's image credits ran out after one edit: `relax.jpg` is a clean re-render (four-game grid on the TV, Broncos logo
+on the hoodie; the earlier one is `relax-plain.jpg`). `shock.jpg` and `couch.jpg` are PIL edits of the `*-plain.jpg`
+files: the TV screen copied from the new frame 1 through a mask of the dark screen, the logo lifted from frame 1's
+chest, the hoodie and blanket recoloured to navy with an HSV mask grown through shadows and highlights (rough at his
+left shoulder). The corner box is `.honey` at (560, 872). Told him to have ChatGPT redo frame 3 cleanly before animating.
+
 ## The memory problem
 
 `main` had not moved since 2026-11-06. Every session from Nov 8 to Nov 16 pushed its log and its CLAUDE.md changes to

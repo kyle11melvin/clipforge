@@ -94,6 +94,11 @@
   .card .nb { font-size: 15px; margin-left: 12px; padding: 3px 6px; }
   .card .strike { height: 7px; }
   .next { font-family: "Inter", system-ui, sans-serif; font-weight: 400; font-size: 72px; letter-spacing: .04em; }
+  /* Her line gets its own box in the corner (Kyle: "a separate square box ... bottom right"). */
+  .honey { position: absolute; left: 560px; top: 872px; width: 360px; padding: 20px 24px 24px; border-radius: 20px; background: rgba(255,255,255,.96); color: #101418;
+    font-family: "Inter", system-ui, sans-serif; font-weight: 700; font-size: 46px; line-height: 1.15; box-shadow: 0 10px 30px rgba(0,0,0,.45); transform-origin: 100% 100%; }
+  .honey small { display: block; font-size: 20px; letter-spacing: .14em; color: var(--orange); margin-bottom: 8px; }
+  .honey i { font-weight: 400; }
 </style>
 </head>
 <body>
@@ -105,6 +110,7 @@
   <img class="ph" id="rel" src="relax.jpg" alt="" style="transform-origin:38% 30%">
   <div class="super" id="sup1">SUNDAY MORNING</div>
   <div class="sub" id="sub1"></div>
+  <div class="honey" id="honey"><small>FROM THE OTHER ROOM</small><i id="ht"></i></div>
   <div class="card" id="c1">
     <div class="hd">BRONCOS SCHEDULE</div>
     <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
@@ -119,7 +125,7 @@
     <div class="hd" id="hd2">SCHEDULE CHANGE</div>
     <div class="row"><span class="wk">WK 8</span>vs KC<span class="res">W 28–24</span><span class="nb">NAIL-BITER</span></div>
     <div class="row"><span class="wk">WK 9</span>at CAR<span class="res">W 26–21</span><span class="nb">NAIL-BITER</span></div>
-    <div class="row hot"><span class="wk">WK 10</span><span class="val" id="bye2">BYE<span class="strike" id="strike"></span></span><span class="flex" id="flex">Dad vs. Baby Girl</span><span class="tag" id="tag">FLEXED</span></div>
+    <div class="row hot"><span class="wk">WK 10</span><span class="val" id="bye2">BYE<span class="strike" id="strike"></span></span><span class="flex" id="flex">Mom vs. Husband</span><span class="tag" id="tag">FLEXED</span></div>
   </div>
 </div>
 <div class="frame black" id="f3"><div class="next"><span id="nx"></span><small id="nx2">WEEK 11</small></div></div>
@@ -128,7 +134,7 @@
   <div class="sub" id="sub4"></div>
   <div class="card" id="c4" style="top:1220px">
     <div class="hd">BRONCOS SCHEDULE</div>
-    <div class="row"><span class="wk">WK 10</span>Dad vs. Baby Girl<span class="res" style="color:#ffd36b">SHE WON</span></div>
+    <div class="row"><span class="wk">WK 10</span>Mom vs. Husband<span class="res" style="color:#ffd36b">SHE WON</span></div>
     <div class="row hot"><span class="wk">WK 11</span><span class="flex">vs Las Vegas</span><span class="tag" id="tag4">PARTY OF 2</span></div>
   </div>
 </div>
@@ -168,9 +174,10 @@
       const punch = easeOut(clamp((tt - T.wife) / 0.25, 0, 1));
       $("rel").style.transform = `scale(${(1 + 0.04 * tt / T.f2 + 0.10 * punch).toFixed(4)})`;
       $("sup1").style.opacity = clamp((tt - 0.2) / 0.4, 0, 1) * (1 - punch);
-      const wifeOn = tt >= T.wife;
-      $("sub1").innerHTML = wifeOn ? `<div><small>FROM THE OTHER ROOM</small><i>“Honey… ${tt >= T.wife + 0.85 ? "it’s time.”" : ""}</i></div>` : "Broncos bye week. Finally.";
-      $("sub1").style.opacity = wifeOn ? clamp((tt - T.wife) / 0.15, 0, 1) : clamp((tt - 0.5) / 0.3, 0, 1) * (1 - clamp((tt - (T.wife - 0.25)) / 0.2, 0, 1));
+      $("sub1").textContent = "Broncos bye week. Finally.";
+      $("sub1").style.opacity = clamp((tt - 0.5) / 0.3, 0, 1) * (1 - clamp((tt - (T.wife - 0.25)) / 0.2, 0, 1));
+      const hp = clamp((tt - T.wife) / 0.3, 0, 1); $("honey").style.opacity = hp; $("honey").style.transform = `scale(${(0.6 + 0.4 * back(hp)).toFixed(3)})`;
+      $("ht").textContent = tt >= T.wife + 0.85 ? "“Honey… it’s time.”" : "“Honey…”";
       rise($("c1"), clamp((tt - 0.9) / 0.4, 0, 1));
       const fp = clamp((tt - 1.5) / 0.25, 0, 1); $("fin").style.opacity = fp; $("fin").style.transform = `scale(${(1.8 - 0.8 * easeOut(fp)).toFixed(3)}) rotate(-4deg)`;
     } else if (t < T.f3) {
