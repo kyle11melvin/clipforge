@@ -1,0 +1,133 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- "Isn't winter the best time to buy?" First-time buyer questions, post 1. Graphics only, 18 s, silent.
+     comp.html          flat: lines fade in one at a time, hard cuts (the brief)
+     comp.html#move     same copy, scenes push up over each other with a slow drift (the 2026-11-17 "move like a video" note)
+     comp.html#zones    paints the Reels chrome in red for probes
+     comp.html#car      carousel layout for 1080x1350 stills (still.mjs --size 1080x1350 --t 3.9 / 7.9 / 12.9 / 17.9) -->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens. Reels safe zone: type inside x 64-940, y 250-1450. */
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; visibility: hidden; background: var(--navy); }
+  .scene.sandbg { background: var(--sand); color: var(--ink); }
+  .scene > * { position: absolute; left: 64px; width: 876px; }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-weight: 700; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-weight: 500; font-size: 44px; line-height: 1.42; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; font-size: 78px; line-height: 1.1; transform: rotate(-2deg); transform-origin: 0 50%; }
+  .terra { color: var(--terra); } .sand { color: var(--sand); } .sage-lift { color: var(--sage-lift); } .sage { color: var(--sage); } .ink { color: var(--ink); }
+  .mute-navy { color: rgba(239,233,222,.72); }
+  [data-at] { opacity: 0; }
+  .zone { display: none; position: absolute; background: rgba(255,0,0,.28); z-index: 9; }
+  body.zones .zone { display: block; }
+
+  #s1 .eyebrow { top: 330px; }
+  #s1 .head { top: 420px; font-size: 104px; }
+  #s1 .head span { display: block; }
+  #s1 .turn { margin-top: 56px; }
+  #s1 .cont { top: 1392px; font-size: 34px; }
+
+  #s2 .eyebrow, #s4 .eyebrow { top: 330px; }
+  #s2 .head, #s4 .head { top: 420px; font-size: 96px; }
+  #s2 .body, #s4 .body { top: 880px; width: 820px; }
+  #s2 .note, #s4 .note { top: 1260px; }
+  #s2 .note { font-size: 66px; white-space: nowrap; }
+  #s2 .head { font-size: 90px; }
+
+  #s3 .eyebrow { top: 300px; }
+  #s3 .row { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
+  #s3 #r1 { top: 400px; } #s3 #r2 { top: 820px; }
+  #s3 .rule { top: 760px; height: 1px; background: rgba(239,233,222,.20); }
+  #s3 .n { font-size: 220px; }
+  #s3 .row .h { font-size: 68px; padding-top: 4px; }
+  #s3 .row .body { font-size: 36px; margin-top: 18px; }
+  #s3 .note { top: 1310px; }
+
+  /* Carousel stills: 1080x1350, no Reels chrome to clear, so the block moves up. */
+  body.car, body.car html { height: 1350px; }
+  body.car .scene > * { margin-top: -205px; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="eyebrow sage-lift" data-at="0.15">First-time buyer questions</div>
+  <div class="head h">
+    <span class="sand" data-at="0.45">Nobody wants to move in December.</span>
+    <span class="turn terra" data-at="1.65">That&rsquo;s the point.</span>
+  </div>
+  <div class="cont mute-navy" data-at="2.5">Why winter works for buyers</div>
+</div>
+
+<div class="scene sandbg" id="s2">
+  <div class="eyebrow sage" data-at="4.1">The question</div>
+  <div class="head h ink" data-at="4.4">&ldquo;Isn&rsquo;t winter the best time to buy?&rdquo;</div>
+  <div class="body ink" data-at="5.35">A first-time buyer asked me this. For most buyers, yes.</div>
+  <div class="note terra" data-at="6.4">less competition, more room to ask</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="eyebrow sage-lift" data-at="8.1">What a quiet market gets you</div>
+  <div class="row" id="r1" data-at="8.4" data-pop>
+    <div class="n num terra">01</div>
+    <div><div class="h sand">Price cuts</div><div class="body sand">A house that sits gets cheaper.</div></div>
+  </div>
+  <div class="rule" data-at="9.9"></div>
+  <div class="row" id="r2" data-at="10.0" data-pop>
+    <div class="n num sand">02</div>
+    <div><div class="h sand">Seller credits</div><div class="body sand">Sellers pay toward your closing costs to get the deal done.</div></div>
+  </div>
+  <div class="note terra" data-at="11.7">you can ask for both</div>
+</div>
+
+<div class="scene sandbg" id="s4">
+  <div class="eyebrow sage" data-at="13.1">The catch</div>
+  <div class="head h ink" data-at="13.4">When rates drop, the crowd comes back.</div>
+  <div class="body ink" data-at="14.6">More buyers means more offers on the same house.</div>
+  <div class="note terra" data-at="15.8">quiet doesn&rsquo;t last</div>
+</div>
+
+<div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
+<div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
+<div class="zone" style="left:940px;top:250px;width:140px;height:1200px"></div>
+
+<script>
+  const flags = location.hash;
+  if (flags.includes('zones')) document.body.classList.add('zones');
+  if (flags.includes('car')) document.body.classList.add('car');
+  const MOVE = flags.includes('move');
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const easeIO = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3)/2;
+  const p = (t, s, d) => clamp((t - s) / d);
+  const CUTS = [0, 4, 8, 13, 18];            // brief: 4 / 4 / 5 / 5 s, hard cuts
+  const PUSH = 0.42;
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  const lines = Array.from(document.querySelectorAll('[data-at]')).map(el => ({ el, at: parseFloat(el.dataset.at), note: el.classList.contains('note') }));
+
+  window.seek = function (t) {
+    scenes.forEach((el, i) => {
+      const st = CUTS[i], en = CUTS[i + 1], last = i === scenes.length - 1;
+      if (!MOVE) { el.style.visibility = (t >= st && (last || t < en)) ? 'visible' : 'hidden'; return; }
+      // #move: the next scene slides up over this one, and each scene drifts in slightly while it is up
+      const a = st - (i ? PUSH / 2 : 0), b = en + PUSH / 2;
+      el.style.visibility = (t >= a && (last || t < b)) ? 'visible' : 'hidden'; el.style.zIndex = i;
+      const q = i ? easeIO(p(t, a, PUSH)) : 1;
+      el.style.transformOrigin = '50% 45%';
+      el.style.transform = `translateY(${1920 * (1 - q)}px) scale(${1 + 0.025 * p(t, a, b - a)})`;
+    });
+    lines.forEach(({ el, at, note }) => {
+      const q = easeOut(p(t, at, MOVE ? 0.4 : 0.22));
+      el.style.opacity = q;
+      el.style.transform = (note ? 'rotate(-2deg) ' : '') + `translateY(${(MOVE ? 26 : 10) * (1 - q)}px)`;
+    });
+  };
+  window.seek(0);
+</script>
+</body></html>

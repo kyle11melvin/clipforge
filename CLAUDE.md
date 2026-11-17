@@ -321,6 +321,11 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
 - **How he reviews:** he reacts to one thing per message and sees stills mid-build. Ship a cut, expect five to ten
   small rounds, change only what he named, and say plainly that Claude cannot hear audio.
 
+- `graphics/winter-buyers/` (2026-11-17) — the **template for a Project-brief type reel**: each line has a `data-at`
+  time, one `seek` loop, hard cuts; `#move` adds the push-up transition, `#zones` paints the Reels chrome, `#car` lays
+  the same scenes out for 1080x1350 carousel stills (`still.mjs --size 1080x1350`). When a brief says "flat, hard cuts"
+  ship that and the `#move` version side by side until he picks one for the series.
+
 - `graphics/bye-week-baby/` (2026-11-16) — the **AI-frame story meme** for the personal account: his daughter born on
   the Broncos' bye weekend, told with four Canva-generated frames of a "bronco dad" and a schedule card whose BYE gets
   flexed to "Dad vs. Baby Girl". **No heart-rate monitor twice in a row** (Kyle: "I'm not trying to do the exact same
