@@ -9,7 +9,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
   body { font-family: "Manrope", sans-serif; color: var(--sand); }
-  .scene { position: absolute; inset: 0; visibility: hidden; background: var(--navy); }
+  .scene { position: absolute; inset: 0; visibility: hidden; transform-origin: 60% 45%; background: var(--navy); }
   .scene.sandbg { background: var(--sand); color: var(--ink); }
   .scene > * { position: absolute; left: 64px; width: 876px; }
   .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
@@ -35,7 +35,7 @@
 
   #s3 .eyebrow { top: 280px; }
   #s3 .rows { top: 380px; display: grid; gap: 44px; }
-  #s3 .row { display: grid; grid-template-columns: 310px 1fr; gap: 24px; align-items: center; }
+  #s3 .row { transform-origin: 0 50%; display: grid; grid-template-columns: 310px 1fr; gap: 24px; align-items: center; }
   #s3 .row .n { font-size: 220px; }
   #s3 .row .body { font-size: 50px; line-height: 1.25; font-weight: 600; }
   #s3 .rule { height: 1px; background: rgba(239,233,222,.20); }
@@ -109,10 +109,13 @@
   const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
   const p = (t, s, d) => clamp((t - s) / d);
   // Brief: 3 / 4 / 5 / 3 / 3 s, hard cuts.
-  const S = { s1:[0,3], s2:[3,7], s3:[7,12], s4:[12,15], s5:[15,18] };
+  // v2 (2026-11-17): Kyle wanted it to move like a video. Scenes push up over each other, each drifts in slowly.
+  const S = { s1:[0,3.4], s2:[3.4,7.2], s3:[7.2,12.4], s4:[12.4,15.2], s5:[15.2,18.5] };
+  const PUSH = 0.42; const easeIO = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3)/2;
   document.querySelectorAll('[data-words]').forEach(el => {
     el.innerHTML = el.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(' ');
   });
+  const pop = (el, q) => { el.style.opacity = clamp(q*2.5); el.style.transform = `translateX(${-60*(1-easeOut(q))}px) scale(${0.92 + 0.08*back(q)})`; };
   const rise = (el, q, d = 26) => { el.style.opacity = q; el.style.transform = `translateY(${d*(1-q)}px)`; };
   const words = sel => Array.from(document.querySelectorAll(sel + ' .w'));
   const stagger = (ws, t, start, gap, hold = () => 0) => ws.forEach((w, i) => rise(w, easeOut(p(t, start + i*gap + hold(i), 0.35))));
@@ -120,29 +123,36 @@
   const W = { s1: words('#s1'), s2: words('#s2'), s4: words('#s4'), s5: words('#s5') };
 
   window.seek = function (t) {
-    for (const k in S) $(k).style.visibility = (t >= S[k][0] && t < S[k][1]) || (k === 's5' && t >= 18) ? 'visible' : 'hidden';
+    Object.keys(S).forEach((k, i) => {
+      const [st, en] = S[k], el = $(k), last = i === 4;
+      const on = t >= st && (last || t < en + PUSH);
+      el.style.visibility = on ? 'visible' : 'hidden'; el.style.zIndex = i;
+      const q = i === 0 ? 1 : easeIO(p(t, st, PUSH));
+      const drift = 1 + 0.025 * clamp((t - st) / (en - st + PUSH));
+      el.style.transform = `translateY(${1920*(1-q)}px) scale(${drift})`;
+    });
     // s1: sand line word by word, a beat, then the terracotta turn
     stagger(W.s1, t, 0.1, 0.07, i => i >= 11 ? 0.3 : 0);
     rise($('s1cont'), easeOut(p(t, 1.9, 0.4)));
     // s2
-    $('s2eye').style.opacity = p(t, 3.05, 0.25);
-    stagger(W.s2, t, 3.15, 0.08, i => i >= 4 ? 0.25 : 0);
-    rise($('s2body'), easeOut(p(t, 4.3, 0.45)));
-    scrawl($('s2note'), t, 5.3);
+    $('s2eye').style.opacity = p(t, 3.75, 0.25);
+    stagger(W.s2, t, 3.85, 0.08, i => i >= 4 ? 0.25 : 0);
+    rise($('s2body'), easeOut(p(t, 5.00, 0.45)));
+    scrawl($('s2note'), t, 6.00);
     // s3
-    $('s3eye').style.opacity = p(t, 7.05, 0.25);
-    rise($('r1'), easeOut(p(t, 7.2, 0.45))); $('rl1').style.opacity = p(t, 8.0, 0.3);
-    rise($('r2'), easeOut(p(t, 8.2, 0.45))); $('rl2').style.opacity = p(t, 9.0, 0.3);
-    rise($('r3'), easeOut(p(t, 9.2, 0.45)));
-    scrawl($('s3note'), t, 10.3);
+    $('s3eye').style.opacity = p(t, 7.60, 0.25);
+    pop($('r1'), p(t, 7.75, 0.45)); $('rl1').style.opacity = p(t, 8.55, 0.3);
+    pop($('r2'), p(t, 8.75, 0.45)); $('rl2').style.opacity = p(t, 9.55, 0.3);
+    pop($('r3'), p(t, 9.75, 0.45));
+    scrawl($('s3note'), t, 10.85);
     // s4
-    const bq = p(t, 12.05, 0.4); $('s4big').style.opacity = clamp(bq*2); $('s4big').style.transform = `scale(${0.85 + 0.15*back(bq)})`;
-    stagger(W.s4, t, 12.6, 0.08, i => i >= 3 ? 0.2 : 0);
-    scrawl($('s4note'), t, 13.8);
+    const bq = p(t, 12.80, 0.4); $('s4big').style.opacity = clamp(bq*2); $('s4big').style.transform = `scale(${0.85 + 0.15*back(bq)})`;
+    stagger(W.s4, t, 13.35, 0.08, i => i >= 3 ? 0.2 : 0);
+    scrawl($('s4note'), t, 14.55);
     // s5
-    stagger(W.s5, t, 15.1, 0.08);
-    const dq = p(t, 15.9, 0.4); $('dm').style.opacity = clamp(dq*2); $('dm').style.transform = `scale(${0.85 + 0.15*back(dq)})`;
-    rise($('s5sign'), easeOut(p(t, 16.5, 0.45)));
+    stagger(W.s5, t, 15.65, 0.08);
+    const dq = p(t, 16.45, 0.4); $('dm').style.opacity = clamp(dq*2); $('dm').style.transform = `scale(${0.85 + 0.15*back(dq)})`;
+    rise($('s5sign'), easeOut(p(t, 17.05, 0.45)));
   };
   window.seek(0);
 </script>
