@@ -293,6 +293,11 @@ his standing brief. Read it before touching anything.
   but Kyle's look and tone in this file win over any skill's defaults. HyperFrames skills want to update
   themselves on first use; ask before letting them.
 
+- `graphics/rmv-special/` (2026-11-17) — a five-slide Coastal Money graphics reel with **hard cuts** (3/4/5/3/3 s), built
+  from a Project brief; `comp.html#zones` paints the Reels safe zone for probes. **Never name a loan program after a
+  neighborhood** (Kyle: "RMV special" looks like a special discount for one area, a fair-lending problem); the program
+  got a neutral name ("The Address Advantage" in the first cut, his pick pending). Check a brief's program names for this.
+
 ## Talking-head rules from 2026-11-12 (Kyle approved the rate-buydown reel: "I approve this message")
 
 He wants the rules "a little bit loose" while the brand image stays. These win over the older, stricter Coastal Money
