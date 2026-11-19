@@ -146,3 +146,15 @@ tried and is too noisy to trust. The site still ships "Bit Shift" until he picks
 **Kyle:** "Number four is closest" (Funkorama). Built into the site as `public/audio/recap-theme.mp3` with its credit;
 effects default down to 0.3. He suggested the real game music again since the group is private; declined again.
 Next: a pull request so it deploys and runs on a real week, and the phone export still needs a first try on an iPhone.
+
+## Round fourteen: live, then red shell and lightning
+
+- PR #9 on the site repo was opened at his word and he merged it; `/recap` is live on parlayderby.com.
+- **Kyle on the live video:** "The video is good", wants more item action "like red shell, lightning", and again the
+  real Mario Kart music ("just fucking pull in Mario kart music"). Music declined a third time; Funkorama stays.
+- Added on the restarted branch (from main, plain fast-forward push): a plain loss is now a **red** seashell from the
+  rider behind with a star burst, a small screen jolt and a "RED SHELL!" stamp; the biggest win of the week is
+  **lightning** (bolt strike, flash, every other kart shrinks for about 1.5 s, "ZAP! +$24" stamp). Sample week given
+  two college losses so the shell shows. Not live until a second pull request is merged.
+- A `git push --force-with-lease` is blocked in this session; after a merge, restart the branch from main and push
+  normally (the old branch tip is an ancestor of main, so it fast-forwards).
