@@ -124,3 +124,10 @@ can be muxed with several sound mixes. Waiting on his number.
 - **All six sound options: "garbage ... is another program better at sounds".** Claude cannot hear and picked tracks by
   description; that does not work for him. Told him so and handed the music to a music tool: a Suno prompt for an
   original track, him to send back the MP3 (Drive `Clipforge/Parlay derby`). The page now shows the picture with no sound.
+
+## Round eleven
+
+**Kyle:** "the video looks great." One ask: on the podium the winner should lift the cup "like it's first place and it
+goes further" (the message cut off there). Done: the winner raises a gold cup over his head with both arms, then it
+leaves his hands, rises and grows with rays and stars; the margin banner comes in after it. The soundtrack is still
+unresolved; the page shows the picture only and he has a Suno prompt.
