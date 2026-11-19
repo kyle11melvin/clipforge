@@ -419,6 +419,8 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Art (round eight):** ChatGPT's sheets are cut into `public/recap-art/` (kart-with-driver per rider id, busts, items,
   backdrop); a new rider needs a new sprite from ChatGPT or falls back to the drawn kart. Its turtle shells and eyed bomb
   were copies of Nintendo's items and were left out. Anything he must paste elsewhere goes in a code block in chat.
+  **Sound (round nine):** synthesised engine drone, hiss and whoosh beds are "absolutely terrible" to him; never put a
+  continuous synthesised noise under anything. Theme recording plus a few short quiet hits only.
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
   Wikimedia Commons, CC BY, fetched with the web-fetch tool) and give him labelled options against the picture.
   Items, karts and sound stay original drawings; never Nintendo's characters, art or music.

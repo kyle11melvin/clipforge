@@ -104,3 +104,12 @@ engine drone and theme louder (the reference's music sits around -16 dB under no
   flame and crate. **Not used:** its red and green shells and its bomb, which came back as copies of Nintendo's item
   designs despite the prompt; the seashell and plain bomb drawn here stay.
 - Paste text for him goes in a code block in chat, not only on the page ("just give it in a text").
+
+## Round nine: the sound again
+
+**Kyle:** "The music and the background noise is absolutely terrible." The background noise was the synthesised engine
+drone (filtered noise + sawtooth) and the hiss/whoosh beds; a compressor on the bus was also pumping the music. All
+removed: no continuous sound but the theme, only short low thuds and tonal blips left, at 0.4 against the music.
+Six options on the page over one picture: Bit Shift, Pixelland, Monkeys Spinning Monkeys, Salty Ditty, Pixel Peeker
+Polka, and Bit Shift with no effects. `tools/render-recap.mjs` gained `--fx` and `--wav-only` so one picture render
+can be muxed with several sound mixes. Waiting on his number.
