@@ -178,3 +178,12 @@ so, but it still went out to the group silent. Likely cause: Safari could not en
 got Opus sound (which iPhones play silent) or no audio track. Fix on the branch: on Apple devices the page now plays
 the recap once and records canvas + audio with MediaRecorder, Safari's own H.264 + AAC writer; Opus is never written on
 Apple. Verified in desktop Chromium only (38 s recording, audio present at -19 dB mean). Still unverified on an iPhone.
+
+## Round seventeen: the recap as the first screen
+
+PR #11 (record-with-sound export) was opened and merged at his word ("Open. And merge"). He then asked that a player
+coming onto the site this week sees "this home screen" first, read as the recap. Built on the restarted branch: the
+first time a signed-in rider opens the board after a week is completely graded, he is sent to `/recap` for that week
+(once per rider, per week, per device, remembered in the browser), with "Skip to the board" in place of "Board". A
+week with any ungraded pick never takes over. Not live until merged. Whether the iPhone export now has sound is still
+unconfirmed; he has not reported back.
