@@ -46,3 +46,14 @@ punch-in on the underdog, shake on the bomb, speed lines. About 43 s.
 
 **Rule kept:** the genre and feel of a 64-bit kart racer, but every item, kart and sound is an original drawing; no
 Nintendo characters, art or music.
+
+## Round four
+
+**Kyle:** "That is pretty good. Add a little more, like red shells and green shells and banana shields and lightning,
+players shrink down ... Also make the course a little more interesting."
+
+**Changed:** losses now split by kind: red seashell from the rider behind, green seashell off the wall when an
+underdog misses, banana peel when a favourite of -150 or shorter loses; a push is a banana shield that blocks a shell;
+the biggest win of the week is lightning that shrinks every other kart for two seconds. The course has three
+stretches: beach road, a wooden pier over the water with the ramp clearing a gap, then a dirt track on turf with
+pennants and a checkered finish arch. Sample week changed so every item shows.
