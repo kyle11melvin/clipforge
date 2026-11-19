@@ -131,3 +131,12 @@ can be muxed with several sound mixes. Waiting on his number.
 goes further" (the message cut off there). Done: the winner raises a gold cup over his head with both arms, then it
 leaves his hands, rises and grows with rays and stars; the margin banner comes in after it. The soundtrack is still
 unresolved; the page shows the picture only and he has a Suno prompt.
+
+## Round twelve: music, again
+
+Suno asked him to pay and Pixabay did not turn up anything he liked. He then asked to take the music from his Mario
+Kart recording "or match it as close as you can". The recording's music was not used (Nintendo's). What that game's
+music is in style is upbeat funk / jazz fusion, not 8-bit, which is why every chiptune option missed. Four Kevin
+MacLeod funk tracks (Funk Game Loop, Fast Talkin, Vivacity, Funkorama; CC BY 3.0, Wikimedia Commons) are now on the
+page under the latest picture, effects at 0.3. Measuring the phone recording's tempo and tone to rank candidates was
+tried and is too noisy to trust. The site still ships "Bit Shift" until he picks.
