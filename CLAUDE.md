@@ -402,6 +402,13 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
   the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
 
+- **Parlay Derby weekly recap (2026-11-19)** — the pool's site (`kyle11melvin/Parlay-Derby`, private; parlayderby.com) now
+  carries a clipforge-style composition, `public/recap.js`: the week as a 35 s kart race (race → podium and margin → hit
+  of the week → Big Bozo → parlays → season table), played at `/recap` and exported to MP4 on the phone for the group
+  text. Work on it in that repo, never here: the riders' photos are private and this repo is public. Offline render:
+  `node tools/render-recap.mjs out.mp4 --data <season.json>` there. The session cannot log in to the site, so a real
+  week needs the branch live or the data pasted in. Log 2026-11-19.
+
 ## The look Kyle approved (use it unless he asks for something else)
 
 - 1080x1920, 30 fps, 9:16. Navy background `#0E1A2B`, gold accent `#C9A96A`, off-white text `#F3EFE6`,
