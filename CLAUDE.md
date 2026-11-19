@@ -411,8 +411,8 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Kyle's direction:** the first cut (flat lanes, results as chips) was "not bad, do better": he wants the 64-bit kart
   racer feel with the betting turned into play, so each pick is an item (horseshoe, nitro, seashell from the rider
   behind, bomb for the parlay killer), plus a ramp, stamps, punch-ins. He said "good" to that and asked for more of it.
-  Round four ("pretty good"): red and green shells, banana peel and shield, lightning that shrinks the field, and a
-  course with stretches (beach, pier with a jump, dirt track). He keeps asking for more items and more course, so add, don't strip.
+  Round four (red/green shells, banana peel and shield, lightning shrink, a three-stretch course) he called "worse than
+  what was before" and it was reverted: piling on items and scenery made it worse, not better. Change one thing per round.
   Items, karts and sound stay original drawings; never Nintendo's characters, art or music.
 
 ## The look Kyle approved (use it unless he asks for something else)

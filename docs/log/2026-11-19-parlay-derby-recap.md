@@ -57,3 +57,10 @@ underdog misses, banana peel when a favourite of -150 or shorter loses; a push i
 the biggest win of the week is lightning that shrinks every other kart for two seconds. The course has three
 stretches: beach road, a wooden pier over the water with the ramp clearing a gap, then a dirt track on turf with
 pennants and a checkered finish arch. Sample week changed so every item shows.
+
+## Round five
+
+**Kyle on round four:** "that's actually worse than what was before", and asked for it to be as close to Mario Kart
+as possible since it is not for sale. Round four was reverted (the site branch is back at the ramp-and-stamps cut he
+called "pretty good"). Copying Nintendo's characters, item art, tracks or music stays off the table; asked him which
+part of round four made it worse (the three-colour course, the lightning shrink, or the amount going on).
