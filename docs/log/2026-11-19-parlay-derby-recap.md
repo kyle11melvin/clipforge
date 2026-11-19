@@ -169,3 +169,12 @@ with an ascending bell), the item box **ticks** fast and lands on a **ding** bef
 comic **BAM! / BOOM!** burst beside the kart. Bells are sine tones with a quick decay, not noise. The game's character
 voices were not copied; riders recording their own one-second shout is the idea put to him instead.
 On the branch, pushed, not live until a second pull request is merged.
+
+## Round sixteen: the phone video had no sound
+
+PR #10 (red shell, lightning, grid, bursts) was merged. Kyle then made the video on his iPhone from the live site,
+sent it to the riders, and **it had no sound**. That export path had never been run on an iPhone and he had been told
+so, but it still went out to the group silent. Likely cause: Safari could not encode AAC through WebCodecs, so the file
+got Opus sound (which iPhones play silent) or no audio track. Fix on the branch: on Apple devices the page now plays
+the recap once and records canvas + audio with MediaRecorder, Safari's own H.264 + AAC writer; Opus is never written on
+Apple. Verified in desktop Chromium only (38 s recording, audio present at -19 dB mean). Still unverified on an iPhone.

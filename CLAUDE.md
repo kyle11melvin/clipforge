@@ -429,6 +429,8 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Live (round fourteen):** `/recap` is on parlayderby.com (PR #9). He then asked for a red shell and lightning by name,
   one item per kind of result; those two are in on the branch. After a merge restart the branch from main and push
   normally; force pushes are blocked. He has asked for the real game music three times; the answer stays no.
+  **Round sixteen:** the first video he made on his iPhone and sent to the group was silent. Anything the riders will
+  receive must be tried by him on his own phone first; say "send it to yourself before the group" every time the export changes.
   **Sound (round nine):** synthesised engine drone, hiss and whoosh beds are "absolutely terrible" to him; never put a
   continuous synthesised noise under anything. Theme recording plus a few short quiet hits only.
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
