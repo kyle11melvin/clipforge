@@ -113,3 +113,14 @@ removed: no continuous sound but the theme, only short low thuds and tonal blips
 Six options on the page over one picture: Bit Shift, Pixelland, Monkeys Spinning Monkeys, Salty Ditty, Pixel Peeker
 Polka, and Bit Shift with no effects. `tools/render-recap.mjs` gained `--fx` and `--wav-only` so one picture render
 can be muxed with several sound mixes. Waiting on his number.
+
+## Round ten: "just make it better", and the sound verdict
+
+- **Kyle:** "you already know the thing I like, just do that with Parlay Derby." Done without asking: the race now
+  visits one rider at a time, last place first and the winner last (college pick, then NFL, about 1.35 s each), so it
+  builds to the winner instead of cutting every half second; the call is the clipforge taped paper strip (Sora 800 name
+  and picks, Playfair italic labels, check or X, running total); ChatGPT's cartoon busts replace the photos in every
+  scene; the hit-of-the-week scene is dropped; 37 s.
+- **All six sound options: "garbage ... is another program better at sounds".** Claude cannot hear and picked tracks by
+  description; that does not work for him. Told him so and handed the music to a music tool: a Suno prompt for an
+  original track, him to send back the MP3 (Drive `Clipforge/Parlay derby`). The page now shows the picture with no sound.

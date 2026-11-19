@@ -419,6 +419,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Art (round eight):** ChatGPT's sheets are cut into `public/recap-art/` (kart-with-driver per rider id, busts, items,
   backdrop); a new rider needs a new sprite from ChatGPT or falls back to the drawn kart. Its turtle shells and eyed bomb
   were copies of Nintendo's items and were left out. Anything he must paste elsewhere goes in a code block in chat.
+  **Round ten:** told "you know what I like, just do it", the race became rider by rider (last place to winner) with the
+  taped paper call card and the cartoon busts in every scene, 37 s. All six library tracks were "garbage": do not pick
+  music for him by description again. He generates a track in a music tool (Suno) from a prompt and sends the MP3.
   **Sound (round nine):** synthesised engine drone, hiss and whoosh beds are "absolutely terrible" to him; never put a
   continuous synthesised noise under anything. Theme recording plus a few short quiet hits only.
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
