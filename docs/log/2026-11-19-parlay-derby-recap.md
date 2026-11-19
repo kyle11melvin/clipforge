@@ -30,3 +30,19 @@ because the riders' photos are private and this repo is public):**
   sheet is the route; email or per-person SMS would need addresses and a paid sending service.
 - The site only changes when the branch is merged to `main` (Vercel deploys main). No PR was opened.
 - "Won by a little / a lot" was read as the rider margin; game scores are not in the site's data.
+
+## Round two and three (same day)
+
+**Kyle:** "This isn't bad, but please do better, think of Nintendo 64 Mario Kart and make it more creative as far as
+the betting and the players and the shells." Then: "Good, and then add like a ramp and other stuff, think of the
+graphics that we have with clipforge."
+
+**Changed:** the flat lane race became a behind-the-pack 3D race (road drawn row by row at 540x960 and blown up for
+chunky pixels, painted beach as the sky), with a rider-select screen before it. Every pick is an item play: golden
+horseshoe (underdog hits), nitro (favourite), a seashell thrown by the rider directly behind (a loss), the bomb (solo
+parlay killer). Rank column down the left, item box top right, a call card at the bottom. Then a ramp between college
+and NFL (whole pack gets air), clipforge stamps slamming in ("UNDERDOG +$24", "WRECKED", "PARLAY KILLER"), a camera
+punch-in on the underdog, shake on the bomb, speed lines. About 43 s.
+
+**Rule kept:** the genre and feel of a 64-bit kart racer, but every item, kart and sound is an original drawing; no
+Nintendo characters, art or music.

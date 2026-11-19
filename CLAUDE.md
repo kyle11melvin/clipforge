@@ -408,6 +408,10 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   text. Work on it in that repo, never here: the riders' photos are private and this repo is public. Offline render:
   `node tools/render-recap.mjs out.mp4 --data <season.json>` there. The session cannot log in to the site, so a real
   week needs the branch live or the data pasted in. Log 2026-11-19.
+  **Kyle's direction:** the first cut (flat lanes, results as chips) was "not bad, do better": he wants the 64-bit kart
+  racer feel with the betting turned into play, so each pick is an item (horseshoe, nitro, seashell from the rider
+  behind, bomb for the parlay killer), plus a ramp, stamps, punch-ins. He said "good" to that and asked for more of it.
+  Items, karts and sound stay original drawings; never Nintendo's characters, art or music.
 
 ## The look Kyle approved (use it unless he asks for something else)
 
