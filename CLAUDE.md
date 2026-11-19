@@ -416,6 +416,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   **Reference (Drive `Clipforge/Parlay derby`):** his recording of the N64 game. Use it for structure: camera behind one
   kart, portrait rank column, item window top centre, clock, course map, big place number. When ChatGPT's art arrives
   (white kart poses, item sheet, backdrop, drivers) build it into `recap.js` in place of the drawn ones.
+  **Art (round eight):** ChatGPT's sheets are cut into `public/recap-art/` (kart-with-driver per rider id, busts, items,
+  backdrop); a new rider needs a new sprite from ChatGPT or falls back to the drawn kart. Its turtle shells and eyed bomb
+  were copies of Nintendo's items and were left out. Anything he must paste elsewhere goes in a code block in chat.
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
   Wikimedia Commons, CC BY, fetched with the web-fetch tool) and give him labelled options against the picture.
   Items, karts and sound stay original drawings; never Nintendo's characters, art or music.

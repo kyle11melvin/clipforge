@@ -91,3 +91,16 @@ course map bottom right with a dot per rider, the big place number ("3rd") botto
 engine drone and theme louder (the reference's music sits around -16 dB under nothing; ours was -24). 0.85 s per pick.
 
 **Waiting on:** his music pick (A/B/C) and the ChatGPT art (karts, item sheet, backdrop, textures, drivers).
+
+## Round eight: ChatGPT's art in, music set
+
+- He asked what was decided on music ("we need to fix that ASAP"); nothing had been picked, so option A ("Bit Shift",
+  Kevin MacLeod, CC BY 3.0) was built into the site at `public/audio/recap-theme.mp3` with a credit file and a credit
+  line on `/recap`. B and C are a swap away.
+- ChatGPT returned two sheets on a fake-transparency white ground: three white karts, eight items, a backdrop strip, two
+  textures, eight small kart-with-driver sprites, and eight large driver busts. Cut into `public/recap-art/` by flood-
+  filling near-white from each crop's border (the black outlines keep the fill out). Used: `kart-p1..p8` as the race
+  sprites, `bust-p1..p8` on the field screen and the place column, the backdrop strip behind the road, the horseshoe,
+  flame and crate. **Not used:** its red and green shells and its bomb, which came back as copies of Nintendo's item
+  designs despite the prompt; the seashell and plain bomb drawn here stay.
+- Paste text for him goes in a code block in chat, not only on the page ("just give it in a text").
