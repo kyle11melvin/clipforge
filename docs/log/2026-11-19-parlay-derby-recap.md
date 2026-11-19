@@ -76,3 +76,18 @@ rendered against the picture for him to pick: Bit Shift, Pixelland, 8bit Dungeon
 Wikimedia Commons through the web-fetch tool; every other free-music site is blocked). No track is committed until he
 picks. The page carries a copyable ChatGPT prompt for original 64-bit-style kart art (rear-view kart, item sheet,
 backdrop strip, textures, big-head drivers from the rider photos).
+
+## Round seven: his reference recording
+
+**Kyle:** recorded a YouTube longplay of the N64 kart game into Drive `Clipforge/Parlay derby` ("look at everything
+about it and make ours a little more like it"). ChatGPT asked him for a race screenshot and rider photos; both were
+put on the page (one labelled sheet of the eight riders) with a line to paste.
+
+**Taken from the reference (structure and feel only, our own art):** the camera sits close behind one kart, so the
+race now rides behind whichever rider's pick is landing, with a white cut between riders; riders ahead in the running
+order are up the road and a boost drives the camera kart past them. HUD in the console layout: square portraits with
+places down the left, item window top centre, "WEEK 3/11" and a running race clock up top in italic stroked type, a
+course map bottom right with a dot per rider, the big place number ("3rd") bottom left. Road speed nearly doubled,
+engine drone and theme louder (the reference's music sits around -16 dB under nothing; ours was -24). 0.85 s per pick.
+
+**Waiting on:** his music pick (A/B/C) and the ChatGPT art (karts, item sheet, backdrop, textures, drivers).

@@ -413,6 +413,9 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   behind, bomb for the parlay killer), plus a ramp, stamps, punch-ins. He said "good" to that and asked for more of it.
   Round four (red/green shells, banana peel and shield, lightning shrink, a three-stretch course) he called "worse than
   what was before" and it was reverted: piling on items and scenery made it worse, not better. Change one thing per round.
+  **Reference (Drive `Clipforge/Parlay derby`):** his recording of the N64 game. Use it for structure: camera behind one
+  kart, portrait rank column, item window top centre, clock, course map, big place number. When ChatGPT's art arrives
+  (white kart poses, item sheet, backdrop, drivers) build it into `recap.js` in place of the drawn ones.
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
   Wikimedia Commons, CC BY, fetched with the web-fetch tool) and give him labelled options against the picture.
   Items, karts and sound stay original drawings; never Nintendo's characters, art or music.
