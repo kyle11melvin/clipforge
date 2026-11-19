@@ -158,3 +158,14 @@ Next: a pull request so it deploys and runs on a real week, and the phone export
   two college losses so the shell shows. Not live until a second pull request is merged.
 - A `git push --force-with-lease` is blocked in this session; after a merge, restart the branch from main and push
   normally (the old branch tip is an ancestor of main, so it fast-forwards).
+
+## Round fifteen: "all the little dings"
+
+**Kyle:** look at "the most recent video" in Drive `Clipforge/Parlay derby` for all the little things, "ding ding ding",
+vocals and visuals, "and make that thing". The folder still holds only the one recording from 02:37 UTC; no newer
+upload was found, so that one was gone through again at two frames a second with a list of its clear tonal sounds.
+Taken from it, in our own art and sound: a **starting grid** (a row of rider tiles in coming-in order, each landing
+with an ascending bell), the item box **ticks** fast and lands on a **ding** before every pick, and hits get a
+comic **BAM! / BOOM!** burst beside the kart. Bells are sine tones with a quick decay, not noise. The game's character
+voices were not copied; riders recording their own one-second shout is the idea put to him instead.
+On the branch, pushed, not live until a second pull request is merged.
