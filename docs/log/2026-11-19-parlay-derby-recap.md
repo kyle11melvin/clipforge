@@ -64,3 +64,15 @@ pennants and a checkered finish arch. Sample week changed so every item shows.
 as possible since it is not for sale. Round four was reverted (the site branch is back at the ramp-and-stamps cut he
 called "pretty good"). Copying Nintendo's characters, item art, tracks or music stays off the table; asked him which
 part of round four made it worse (the three-colour course, the lightning shrink, or the amount going on).
+
+## Round six: music and a ChatGPT prompt
+
+**Kyle:** the reverted cut is "better"; "the music is fucking terrible"; still wants it closer to Mario Kart; asked for
+a prompt to give ChatGPT for the visuals.
+
+**Done:** the synthesised chip loop is removed. `recap.js` now plays a recorded track from
+`public/audio/recap-theme.mp3` when the site ships one (effects only otherwise), dipped under the bomb. Three options
+rendered against the picture for him to pick: Bit Shift, Pixelland, 8bit Dungeon Boss (Kevin MacLeod, CC BY 3.0, from
+Wikimedia Commons through the web-fetch tool; every other free-music site is blocked). No track is committed until he
+picks. The page carries a copyable ChatGPT prompt for original 64-bit-style kart art (rear-view kart, item sheet,
+backdrop strip, textures, big-head drivers from the rider photos).
