@@ -140,3 +140,9 @@ music is in style is upbeat funk / jazz fusion, not 8-bit, which is why every ch
 MacLeod funk tracks (Funk Game Loop, Fast Talkin, Vivacity, Funkorama; CC BY 3.0, Wikimedia Commons) are now on the
 page under the latest picture, effects at 0.3. Measuring the phone recording's tempo and tone to rank candidates was
 tried and is too noisy to trust. The site still ships "Bit Shift" until he picks.
+
+## Round thirteen: music picked
+
+**Kyle:** "Number four is closest" (Funkorama). Built into the site as `public/audio/recap-theme.mp3` with its credit;
+effects default down to 0.3. He suggested the real game music again since the group is private; declined again.
+Next: a pull request so it deploys and runs on a real week, and the phone export still needs a first try on an iPhone.

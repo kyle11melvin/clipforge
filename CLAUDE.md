@@ -424,6 +424,8 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   music for him by description again. He generates a track in a music tool (Suno) from a prompt and sends the MP3.
   **Round twelve:** Suno wanted payment and he would not pay; do not send him to a paid tool again. The kart game he
   wants it to feel like has funk / jazz-fusion music, so look there (MacLeod: Funk Game Loop, Fast Talkin, Vivacity), not 8-bit.
+  **Music picked (round thirteen):** "Funkorama" (Kevin MacLeod, CC BY 3.0), "closest" of four funk tracks; it is the
+  site's recap theme now.
   **Sound (round nine):** synthesised engine drone, hiss and whoosh beds are "absolutely terrible" to him; never put a
   continuous synthesised noise under anything. Theme recording plus a few short quiet hits only.
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
