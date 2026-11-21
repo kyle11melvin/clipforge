@@ -181,4 +181,14 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   tile turns from "20% down" to "3% down" and the cash rolls $160,000 → $24,000, then two paper cards joined by a
   drawn arrow for "seller credit → buys your rate down". `ui.html` still supplies the word-by-word type; its app
   window and flow are gated out in the overlay's `enable`. Start a "thing that breaks" or a block comparison from
-  here. His verdict: pending.
+  here.
+  **Round two.** The first pass reused the flipping tiles from the rate-buydown remix for the comparison. Kyle: "It's
+  good but I don't like how you did the same chips as the previous post", then, on the graphics in general: "Maybe
+  you're not capable of putting the graphics together. We might need to get them from ChatGPT ... Can you do better
+  image graphics? Look again at the graphics I recorded on that last video, they are very high quality." A flat
+  line-drawn house was tried and thrown away before he saw it. What the Skool ad has that the first pass lacked:
+  real images inside the cards, depth (3D tilt, stacked layers, heavy soft shadows, a card out of focus behind one in
+  focus), and scale (graphics fill the frame). The comparison beat was rebuilt that way: the real $774,900 listing
+  photo from the price-cuts reel as a tilted card over its own blurred, darkened photo, a "20% down $154,980" card
+  that falls back and blurs, a "3% down" card that swings forward with the figure running down to $23,247.
+  His verdict on round two: pending.

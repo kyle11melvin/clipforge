@@ -29,6 +29,11 @@ He wants the rules "a little bit loose" while the brand image stays.
   head. No 01/02/03 numbering on cards or rows.
 - **Every graphic that moves makes a sound**, about 15 dB under his voice for a running sound. Real-world sounds
   come from real CC0 recordings (`src/music/samples/`); only whoosh, thud and ding are synthesised.
+- **The quality bar for a graphic (2026-11-21).** Flat shapes with a number on them read as cheap to him. A prop needs
+  a real image in it (a listing photo, a real screenshot, a document), depth (3D tilt, layers, a heavy soft shadow,
+  something out of focus behind something sharp) and size (it fills the frame). Never a line drawing standing in
+  for a real thing. If the real image does not exist, ask him for it or for one from ChatGPT before building.
+- **Never the same device two videos running**, test cuts included ("the same chips as the previous post").
 - **One clear object beats a storm**, drawn crisp and detailed enough to read as the real thing.
 - **Board and caption use his spoken words**, not the brief's.
 - **End with a payoff** on his last line (a prop and a sound), over the unused second of smile.
