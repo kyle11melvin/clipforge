@@ -318,6 +318,11 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
 - **Board and caption use his spoken words**, not the brief's.
 - **End with a payoff** on his last line (a prop and a sound), over the unused second of smile after he stops talking.
 - **No music** unless he asks; he picked the voice-only cut.
+- **Leaving his face is allowed when it fits (Kyle, 2026-11-21, after the duncanrogoff Skool ad):** "I'm not opposed to
+  the video leaving my face shot … I don't have to be in the video the entire time. Just depends on what we're trying
+  to do." He liked the cards floating out from behind the head and spinning. So a full-screen graphic beat is fine
+  where the words call for it (a list, a count, a comparison), on sand or paper, never a flat navy ground; "open on
+  his face" still holds. Breakdown of that ad in the 2026-11-21 log.
 - **How he reviews:** he reacts to one thing per message and sees stills mid-build. Ship a cut, expect five to ten
   small rounds, change only what he named, and say plainly that Claude cannot hear audio.
 

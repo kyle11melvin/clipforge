@@ -38,3 +38,11 @@ Not built yet. Two props to add to the approved talking-head kit, both tied to a
 1. Cards from behind his head (real screenshots: Zillow listings, a rate sheet, a text from a buyer).
 2. Tiles that flip one by one as he names the items ("three things the seller can pay for").
 Needs a script with a spoken list and a seated tripod shot with room beside his head.
+
+## Kyle's reply
+
+Same creator, "I like his stuff". Two things: (1) he is fine with a reel leaving his face when it fits, and liked the
+floating, spinning cards; folded into CLAUDE.md. (2) He asked whether splitting the work into six skills, as that
+creator did, beats what we have. Answer given: yes in part. CLAUDE.md has grown into one long brief that every
+session reads whole, with superseded rules still in it; proposed four skills (premise + script, talking-head build,
+meme build, a review checklist run before he sees a cut) and a short CLAUDE.md. Waiting on his go-ahead.
