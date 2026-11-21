@@ -157,3 +157,18 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   "8 years, 4 months" note under Instagram's button column. `board-box.html` now pulls any line (and the note) left of
   canvas x=858 (frame x=922) and `#...&full&zones` paints the Reels chrome for probes. The board keeps its size. The
   posted reel was not re-rendered (footage is not kept in the session).
+
+- **Rate-buydown remix (2026-11-21), a test cut, not posted.** Kyle asked to take an existing reel and "use these new
+  features to make it better" to see what the props from the duncanrogoff Skool ad could do. Same footage, chalkboard
+  out. `graphics/rate-buydown/remix.html` (`#bg` / `#fg`, `&zones`) and `assemble-remix.sh` (renders every layer,
+  about ten minutes): three paper cards spin out from behind his head as he names each number (bg layer under a
+  cutout of 9.9–16.4 s only), a full-screen paper beat for the math with him in a 240 px corner circle (ffmpeg crop +
+  round mask of the same footage) and 100 month tiles, twelve to a row, flipping as the counter runs so eight rows
+  read as 8 years and four are left over, a torn "divide the cost by the monthly savings" strip, and two tiles that
+  flip from the question to his answer. Sounds from `sfx-remix.json` (whoosh, pop, thud, ding), about 16 dB under
+  his voice. Start a cards / tiles / corner-circle reel from these two files. Notes: his head is left of centre in
+  this take (x≈440), so measure it before placing the card origin; `remove-background` needs
+  `onnxruntime-node` installed with `--onnxruntime-node-install-cuda=skip` here; the Parakeet timings in `words.js`
+  differ from a fresh whisper transcript by up to half a second, so keep using `words.js`. **His verdict: "Looks good!!!"**, with one steer: "I do want to kind of keep my brand
+  image look and feel. It's fine to not always do the exact colors though." So cards from behind the head, the paper
+  count with a corner circle and flip tiles are approved props.
