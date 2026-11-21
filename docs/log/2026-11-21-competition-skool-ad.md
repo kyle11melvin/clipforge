@@ -46,3 +46,13 @@ floating, spinning cards; folded into CLAUDE.md. (2) He asked whether splitting 
 creator did, beats what we have. Answer given: yes in part. CLAUDE.md has grown into one long brief that every
 session reads whole, with superseded rules still in it; proposed four skills (premise + script, talking-head build,
 meme build, a review checklist run before he sees a cut) and a short CLAUDE.md. Waiting on his go-ahead.
+
+## The four skills (built the same day, at his go-ahead)
+
+CLAUDE.md went from 57 KB to 12 KB. It now holds only what applies to every job (session start, the tools, the safe
+zone, how to work with him, the Coastal Money summary) and a table of which skill to load. New under `.claude/skills/`:
+`clipforge-premise`, `clipforge-talking-head`, `clipforge-meme`, `clipforge-review`, each a `SKILL.md` with the
+current rules and steps; the first three and `clipforge-graphics` also got a `history.md` holding the past-post entries
+moved word for word out of CLAUDE.md. Parlay Derby notes went to `docs/parlay-derby.md`. No rule was changed; a
+line-by-line check found the only lines not carried verbatim were the 2026-11-12 talking-head rules, which are
+restated in that skill. Not yet tried on a real post.

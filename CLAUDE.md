@@ -18,7 +18,7 @@ his standing brief. Read it before touching anything.
    the file is link-shared, which his uploads have been; a 13 MB video came through on 2026-10-29). If that 403s, ask for a chat attachment.
    HEIC photos: `pip install pillow-heif`, then PIL with `exif_transpose` (ffmpeg and ImageMagick choke on the depth map).
 4. Deliver on a private artifact page with a Save MP4 button, a contact sheet of stills and a reel cover
-   (1080x1920 PNG, see `still.mjs`), then list what is still missing. End the session by adding a `docs/log/` note and folding any new preference into this file.
+   (1080x1920 PNG, see `still.mjs`), then list what is still missing. End the session by adding a `docs/log/` note and folding any new preference into the matching skill (see "The four jobs").
 
 ## The standard job: a talking-head post with graphics
 
@@ -58,232 +58,11 @@ his standing brief. Read it before touching anything.
   is his spoken hook, sentence case, and it should fill the space above his head: three lines at ~130 px
   from y=190 when his head starts around y=800 (Kyle, 2026-10-23: "move the text above my head since
   there's a lot of empty space above me").
-- `graphics/wait-or-buy/` — the first mortgage-math post (buy now vs wait 5 years) in the Rev flyer look:
-  stat cards with counters, a to-scale bar chart, a comparison table, a stamp.
-- `graphics/wait-or-buy-cm/` — the same post in the Coastal Money brand: two-tone hook, sand setup slide,
-  01/02 numeral rows, oversized counter, DM sign-off with portrait. Start Instagram posts from this one.
-- `graphics/siri-post/` — the reference composition Kyle called "absolutely perfect". Start new ones from it.
-- `graphics/20-down-myth/` — the first talking-head reel with cards (2026-10-22): landscape Coastal Money
-  cards, "20% down" with a terracotta X slamming through it, "3% down", "Seller credit / Buys your rate
-  down." Start the next Instagram talking-head post from this one. **Kyle picked the no-card version**
-  (`comp.html#nocard`, rendered with `--alpha`): type floating over the footage, no navy panel.
-  **Mock-app props (2026-11-13)**: `ui.html` + `assemble-ui.sh` rebuild this reel with a fake app window above his
-  head (a down payment calculator whose slider runs 20% → 3% and whose cash figure rolls $160,000 → $24,000) and a
-  flow diagram (Seller credit → Buys your rate down → Lower payment), after a system-diagram reel in Drive
-  `Clipforge/Competition`. Start a "fake app screen", counter or flow-diagram prop from here. Render it with a hash
-  (`ui.html#render`); with no hash it paints a probe background. **Kyle: "that is absolutely money ... you still kept the same brand
-  image and guidelines"**, so fake app screens, rolling counters and flow diagrams are approved props for talking heads.
-- `graphics/iq-quiz/` (2026-10-23) — the first full-screen cutaway in a talking head: a sand slide with the
-  real quiz-page screenshot while he pitches the quiz, then a floating "Comment IQ" when he gives the CTA.
-  Kyle wants cutaways "so the camera's not just on my face the entire time"; he cut the numeral rows from
-  the slide ("good but get rid of this part"), so keep slides to headline + real screenshot + one note.
-- `graphics/price-cuts/` (2026-10-29) — a **format copy** reel with no talking head: his photo with a Playfair
-  Display hook + sage pill, then Zillow price-cut screenshots hard-cut at 0.75 s each (he started at 0.5 s and
-  asked for 0.75), then a closing frame on the photo with one question ("What are you waiting for?"). Video only; he adds the song in Instagram. When he says "copy this format exactly"
-  and attaches an example video, match the example's timing and structure, but he then asked for the type and
-  colours to be Coastal Money anyway ("match kylemylenderguy brand"), so: structure from the example, look from
-  the brand. Photo hooks get a navy gradient scrim top and bottom so sand type reads. A closing frame carries
-  one headline only, no line under it (Kyle, 2026-10-29). Playfair Display (4 faces) is in `graphics/fonts/`
-  if a brief ever asks for it. He pre-crops Zillow screenshots himself; `make-cuts.py` turns each one into
-  a rounded card (house photo + price block, map row and Est. bar dropped) floating on the same photo blown
-  up and blurred, inside the safe zone. Kyle, 2026-10-30: "that's it, much better". A flat navy void under a
-  screenshot "looks a little weird" to him; fill the frame with blurred imagery instead.
-- `graphics/broncos-4q/` (2026-11-02) — a **personal-account meme reel**, no Coastal Money ("this is the straight
-  personal account"): photos with his reel-cover type (Nunito ExtraBold, white, black stroke) and Broncos orange.
-  Kyle holding Asher = 1st quarter, Kyle alone draining to an aged black-and-white = 4th quarter, with a broadcast
-  score bug (the real game's score, down and clock, found by web search; espn/cbssports are not reachable from
-  the session and game footage is never an option) plus a blood-pressure / BPM monitor and an ECG trace, then
-  Asher laughing: "they pull it off. Every time." A true face-aged photo needs a phone app (FaceApp); ask him
-  for one rather than faking it. `src/music/heartbeat.py` is the baked-in sound bed (ticks, drone, toms,
-  heartbeat, buzzer, crowd roar). Lesson: when he says "personal account", drop the brand rules and go for the
-  joke, and he wants the real game on screen. **It worked**: ~15K views, 243 shares in 24 h (2026-11-03), his
-  biggest reel so far (Rod Smith commented); average watch 8 s of 16, so keep a meme under ~10 s: 2 s hook,
-  ~4 s tension, payoff. **Next game meme**: ask him for his own phone recording of the TV at the final play (the
-  announcers' call) plus a reaction photo of Asher, and build the same night. He wants different music next time;
-  ask for the lane (or a picker song on the silent version) before building the picture.
-- `graphics/broncos-strip-sack/` (2026-11-09) — the **game clip + reaction photo** meme: his screen recording of a
-  team reel (the play with the announcers), then a hard cut to him and Asher with two words ("WAIT… WE WON?!").
-  A phone screen recording has Instagram's buttons burned in; crop to the clean window (recipe and coordinates in
-  the 2026-11-09 log), show it as a card on its own blur, and punch in to follow the ball. The comp renders with
-  `--alpha` (transparent over the clip, opaque on the photo). Check score and clock by web search before writing
-  the hook. Tell him each time that broadcast footage can get a reel muted or pulled; posting is his call.
-- `graphics/siriusxm-trick/` (2026-11-11) — a **screenshot meme for the personal account** (his SiriusXM renewal trick:
-  tell the chatbot you're cancelling, get the $7.99 promo back; 12 s, silent, reel-cover type, no brand). When he sends
-  screenshots of his own accounts, **redact before composing**: crop out account numbers, names and emails, bar anything
-  that identifies him (car model) with a grey rounded bar in PIL, keep the raw screenshots out of the repo, and leave out
-  any bubble that would need a bar through most of it. Hook on the number, his real message, a black beat, the payoff
-  bubble with a stamp, one question at the end.
-  **Threads (2026-11-13):** the same idea as a plain-text post on his personal Threads account, with no followers,
-  got 266 likes and 88 replies in a day. Threads ranks by replies, not follows; a plain question in his caption voice
-  ("am I the only one?") travels on its own. For the lender account: text posts there, Real Estate topic tag, reply to
-  comments early. On Instagram, reach comes from Reels; Stories only reach followers.
-- `graphics/family-growing/` (2026-11-13) — the **photo + type + music** reel for the lender account: one family photo
-  full-bleed with a slow push-in, navy scrim top and bottom (write the scrim stops in px, not %), three beats of Sora type
-  in the lower safe-zone window, Caveat "message me." at the end. `src/music/warm.py` is a soft numpy-only bed (no scipy
-  in the session); ship a silent cut for the picker and a bed cut for Original audio. Family photos stay gitignored.
-  **Result: 46 story views, 2 reel likes (2026-11-14).** The lesson Kyle drew with me: the polished brand reel with a
-  pitch does not travel; the unbranded, personal, number-plus-question post does (Broncos ~15K, SiriusXM text ~300 likes
-  and ~120 comments from strangers). **Reach formula:** something he actually did or saw, one real number, a question
-  back ("am I the only one?"), no CTA in the post, the ask in a reply or the caption. Brand graphics are for the grid and
-  credibility, not for discovery. **Kyle, 2026-11-14: keep the graphics machine; the ideas have to get better.** So the
-  rule is about the premise, not the tooling: every post starts from the formula above, and the graphics serve it the way
-  they did in the winners (real screenshots, the real score bug, big type, one number, a question), not as cards with a
-  sign-off. Pitch him premises before building.
-- `graphics/rate-wait/` (2026-11-06) — the **live-screen talking head**: Kyle cut out of his footage and put on a rendered
-  data screen, after a braidenshaw ETF reel he sent (presenter over a Robinhood-style ticker, price, past-year pill, glowing
-  1Y line, cards, one-word captions). Three layers: `comp.html` background (header with the live number, a to-scale chart
-  that draws in and flatlines on cue, cards sliding in from the sides with overshoot), the cutout, then `captions.html`
-  foreground (one word at a time in Nunito ExtraBold, key words terracotta, chat bubbles, emojis sliding in on the beats).
-  **Cutout:** `npx hyperframes remove-background videos/<post>/cut.mp4 -o videos/<post>/cutout.mov` (ProRes 4444 alpha,
-  ~0.45 s/frame on CPU, clean on face and shoulders indoors and outdoors; the selfie arm smears at the frame edge, so shoot
-  this format seated and still). Place him so his head top sits near y=760 (scale 0.86, overlay at 76,210) with a deep-navy
-  desk band hiding the bottom edge; captions on the chest at y≈1400. Recipe in the 2026-11-06 log. Rate feeds
-  (FRED, freddiemac.com, mortgagenewsdaily) are blocked from the session; `rates.js` was filled by web search week by week.
-  **Kyle's direction for this format:** keep the Coastal Money colours, loosen the brand's rules a little ("I agree with
-  the colors, but change up some shit"), but when the pass with emojis, a chat bubble and cards sliding in came back he
-  called it **"too busy and gimmicky"**. What stays: the cutout on a live screen, one element on screen at a time, a chart
-  that moves on cue, one-word white captions, soft rises and cross-fades. No emojis, no bubbles, no overshoot slides. The
-  green app-look version lives in `comp-app.html` for comparison; the emoji pass is only on disk as `final-busy.mp4`.
-  The close is the **price-vs-rate math** he asked for: C.A.R. Orange County median over two years (`prices.js`) and the
-  rate you'd need today to match the old payment (5.5% as of Nov 2026). When he says "was it worth waiting on the rate",
-  this is the screen: price then and now, payment then and now, break-even rate. car.org is blocked; the C.A.R. county
-  tables are quoted on ocrealtors.org and instamortgage.com. **Then he pulled back from the cutout** ("not sure we should
-  entirely blue screen, maybe keep the background"): `overlay.html` is the version to start from. Real footage, lightly
-  graded with a punch-in at each turn of the script (ffmpeg zoompan + eq/colorbalance/vignette, recipe in the log), one
-  floating widget above his head that swaps its contents per beat, captions on the chest. The cutout stays a tool for when
-  he asks for it. **A voice memo does not pass for a missing line** (2026-11-06): two memos, same phone, outdoors, loudness matched,
-  then EQ-matched with the plaza ambience under it, and he still heard a different take ("the sound is totally off",
-  so the section was cut). The cutaway itself (`cutaway.html`: oversized numeral counting up, the answer slamming in, one
-  Caveat note, spliced with ffmpeg concat) is the right shape for a full-screen math beat; the voice has to come from
-  the same shoot. If a line is missing, re-shoot the take or cut the line. He asked for the cutaway "towards my brand
-  image but also really cool", so brand slide language with motion on his words, not a dashboard. **No 01/02/03
-  numbering on cards or rows** in a talking-head reel (Kyle, 2026-11-06: "get rid of the slide numbers on the cards");
-  the oversized numeral is for the dollar figure or the rate, not for counting. **Cover for a Coastal Money talking
-  head:** `graphics/rate-wait/cover.html`, the two-tone look (sand lines, terracotta turn, navy tint over the frame) that
-  he picked over the white-stroke type on 2026-11-06, so the grid stays consistent with his "better deal" cover.
-- `graphics/broncos-pick/` (2026-11-08) — the **meme sequel, same night as the game** ("16 straight"): 10 s, payoff at
-  7.3 s. New trick: the composition is rendered `--alpha` with a transparent hole (y 250–1302) and ffmpeg drops his
-  screen recording of the broadcast replay into it, announcers at full level, a score bug whose status flips on the
-  announcer's words and a BPM box above, the two of them draining to black-and-white below. He sends a phone screen
-  recording of the highlight reel to Drive (five identical copies this time; take one); crop the Instagram chrome
-  out (x 0–1130, y 560–1660 on 1290x2796) and transcribe it with `npx hyperframes transcribe` to find the beats.
-  Broadcast footage he supplies is used at his request; it is Fox / NFL footage and Instagram may mute it, so say so
-  on the page. `src/music/pick-bed.py` is the second sound lane (organ charge, heartbeat, impact + roar, warm pad).
-  Facts come from web search (team sites and ESPN are blocked); put the real score and quarter on the bug and keep the
-  clock off it unless a source gives it.
-  **Kyle rejected the first cut** ("way too similar to last week… be a creative and art director… the organ is
-  terrible, we'll figure out music on our own"). `comp2.html` is the keeper shape for a game meme: cold open on his
-  replay recording full screen with the announcer's word slamming in, smash cut to his face on the key word, the
-  two of them cut out (`npx hyperframes remove-background` works on a still PNG) on a flat Broncos-orange ground
-  with a giant numeral or line *behind their heads*, one idea per second, a navy button card. **No music baked into
-  a personal-account meme**; the recording's announcers are the only sound and he adds the song in Reels. An SFX-only
-  version (`src/music/pick-sfx.py`: hit, ticks, slam, whoosh) is offered beside the clean one. A sequel must be a
-  different piece, not last week's shape with new words.
-  **He rejected that too** ("this is really the best you got? … come on be creative", and he considered handing the job
-  to ChatGPT/Codex). What "creative" means to him: an *idea*, not a format. `comp4.html` (the toddler as the replay
-  analyst: slow-mo insert with a telestrator ring, "Refs said incomplete." → Asher pointing, "My toddler: interception.")
-  is the kind of thing he is asking for: find the joke in the photo and the argument in the game, then build around
-  it. Lead with the controversy, make the kid the character, use the announcer's real words. A 1→16 counter and a
-  caption are decoration, not an idea. `docs/handoff-broncos-pick.md` is the brief for handing a job to another tool;
-  keep it current if he goes that way. Drive files he uploads to his **root** are private and unreachable; ask him to
-  drop them in the `Clipforge` folder (link-shared) instead.
-  **The cut that answered the brief** (`comp5.html`, `he-got-it.mp4`): real footage full-bleed from his screen recordings
-  (the NFL reel's end-zone slow-mo, then the Fox ruling), captions that are only the announcers' exact words on their ASR
-  onsets, a hard cut to the two of them **on the word "interception"** (his direction: "It's been ruled an interception
-  and then show our faces. That's the cut."), then the ChatGPT-treated smile portrait he sent with his finish line baked
-  in ("Another fourth-quarter win."). No counters, no slogans, no boxes, no isolated cutouts, nothing added to the
-  announcers. His portrait look: navy `#001334`-ish ground, soft orange edge light, plain navy shirts; `yell-portrait.png`
-  is the in-house imitation (cutout + blurred orange silhouette) until he sends the real one. For a game meme from now
-  on: footage first and full screen, the reaction cut on the announcer's key word, one closing portrait with one line,
-  10–12 s, payoff by 7 s.
-- **Skits (2026-11-10).** Kyle's "Creative" reference (a joey_roquet reel, Instagram-labelled AI content): a loan
-  officer skit, six shots, 31 words, no graphics, no captions, two four-second silent stares and a location change
-  for the punchline. When he asks for "creative", he means a scripted joke with shot-reverse-shot coverage, not more
-  graphics on a talking head. Clipforge cannot generate actors; offer a script + shot list he can shoot (tripod, wide
-  two-shot, a close-up per person, one punchline location) and cut it with the silences held. Breakdown in the
-  2026-11-10 log.
-- `graphics/paper-cut/` (2026-11-12) — a **style test** after three Claude-edited reels by another creator that Kyle
-  recorded into Drive `Clipforge/Competition`: mixed-size word-by-word type (Playfair italic for small words, Sora for the
-  big ones, terracotta key word) sitting above and partly behind his head, and paper cutaways (Kyle as a white-edged
-  sticker on a paper ground, torn strips, a stamp, moving on twos). Recipe in the 2026-11-12 log: punch-ins first, matte
-  the punched footage, render `comp.html#bg` and `#fg` with `--alpha`, then `composite.py` (needs scipy). He said he is
-  open to "blowing the lid off" the Coastal Money rules for talking heads as long as the brand image mostly holds and
-  wants "more graphics like he has". **His verdict: "the fonts and new graphics are money", but "dont like the total blue
-  clip"**: the type, torn paper, stamp and sand sticker cutaway are the direction for talking heads; never a full-screen
-  navy ground (hook slides included). On a pale indoor wall set the type in ink, not sand. In a
-  tight selfie his face fills y 630–1475: type goes above his head, never on the chest. **Redone to the 2026-11-12 rules as
-  `final-rate-wait-v2.mp4`**: the navy cutaway replaced by torn paper above his head plus the cash heap
-  (`cash.html#...&stacks=5`) under his chin, with sounds; `composite.py --overlay=... --sfx=...` builds it. Ask for a seated tripod shot
-  with room beside his head for this style.
-- `graphics/rate-buydown/` (2026-11-11) — the **chalkboard talking head**. Start from `board-box.html` and
-  `assemble-box.sh`, the version Kyle steered to in round two. Round one followed his brief to the letter (full-screen
-  chalkboard under Clips B and C with him in a small window, then a "DM POINTS" slide; `board.html`, `assemble.sh`,
-  `cta.html`) and he reversed three things: **"get rid of the slide with the DM, just cut the video after I say keep
-  the cash"**, **"start the scene with my face … bring the chalkboard up when I start talking about numbers, not at
-  the beginning of the clip"**, and **"make the chalkboard not so large … a box like a picture in picture, not take up
-  the entire screen"**. So the standing shape for a math talking head: hook slide → him full screen throughout → one
-  952x480 navy box (20 px corners) at (64, 246), above his head, rising in a beat before the first number → the reel
-  ends on his last word. The box is a canvas: Caveat lines in sand pre-rendered with a chalk grain (seeded noise
-  knocked out of the lettering only), each wiped on left to right between the spoken word's start and end from
-  transcript.json, the answer in terracotta circled by a wobbly stroke, one eraser sweep at the cut between takes that
-  clears the setup lines so the verdict lines can go in their place. Rendered `--alpha --size 952x504` from
-  `#t0=<start>` and overlaid with ffmpeg; the footage gets a 7% zoompan punch-in anchored at the top as the box rises,
-  which drops his hair ~55 px clear of the box. Captions (`--caption-y 0.66`) run until the box arrives
-  (`--caption-hide`), then the board carries the words. **A brief from the Project is a first draft, not a spec**: the
-  standing rules in this file (no DM card in a talking head, cutaways only where the words call for them) outrank it;
-  build to the rules and say what was changed. Lessons: **three 4K HLG clips in one ffmpeg graph OOM-kill the cut
-  step**; pre-convert each clip to 1080x1920 SDR 30 fps on its own (`footage/<post>/sdr/`) and build from that folder.
-  Drive's `usercontent` URL handled 213 MB fine. He now sends a "Cover photo" in the Drive folder; crop it 9:16 and use
-  the `rate-wait/cover.html` two-tone look. The page's side files cap at 15 MB each, so encode a two-pass ~3.2 Mbps
-  copy for the page and attach the full-quality master in chat.
-- **Rate-buydown round three (2026-11-12)**: `graphics/rate-buydown/assemble-paper.sh` is now the version to start a
-  chalkboard reel from. No hook slide, `type.html` (paper-cut type + stamp) until the board arrives, the board rendered
-  with `board-box.html#...&full` so it **swoops in** from the upper right, and `src/music/chalk.py` for **chalk-writing,
-  eraser, whoosh and stamp sounds** driven by `sfx-events.json` (Kyle: "I want the chalk board to swoop in and writing
-  on the chalkboard to make sounds ... and the eraser to make a noise"). Sound effects go on every graphic that moves.
-  The box is 952x540 with 64–78 px writing since he asked for it "larger" (2026-11-12); board text uses his spoken
-  words ("keep the cash"), not the brief's.
-  **He picked the no-music cut** ("2 is better"). **Chalk must not sound like typing** (his words on the first try:
-  "annoying and typing"): no click per letter; soft flowing strokes with nothing above ~1.8 kHz (the brighter second try was "scratching nails on a
-  chalkboard"; he wants it "smooth"), but loud enough to hear (about 6 dB under his voice; 14 dB under was inaudible to him). Claude cannot
-  hear the result, so say that and ask him to listen.
-  **He asked for more pop and looser brand rules (2026-11-12)**: "I would like stuff to pop a little bit more ... the
-  chalkboard, the writing ... loosen restrictions ... get more creative". `board-box.html#...&pop` is that board: wood
-  frame, dusty slate, bright white / orange (cost) / mint (savings) chalk with a glow, falling dust, eraser ghost, a
-  taped paper note, a wobble on landing. For talking heads Coastal Money is now a starting palette, not a fence:
-  texture, extra accent colours and physical props are welcome; full-screen navy and emoji clutter still are not.
-  **The ending** is a heap of cut-paper cash rising on "keep the cash" with a bell ding (`cash.html`, `ding` in
-  `chalk.py`), over the unused smile at the end of the take. When he asks to "bring up" a thing, show one clear object
-  ("a lot of cash and then go ding"), not a particle storm across the frame, and draw it in the reel's cut-paper style
-  ("sharpen it up to match the rest of the video"), detailed enough to read as the real thing (he asked for the
-  bills "a little more realistic"), and **below his face**, never over it. Round nine got "perfect and so much better".
-  **Use a real recording for real-world sounds.** Three synthesised chalk sounds missed; he then picked a CC0 clip
-  (`src/music/samples/chalk-on-chalkboard.ogg`, credits beside it) and `chalk.py --sample` cuts it to each line,
-  about 15 dB under his voice (he asked for "a little bit further" down from 12). Wikimedia Commons has CC0 audio; plain curl to upload.wikimedia.org gets a 429, the web
-  fetch tool works. freesound and pixabay are blocked. Only CC0 / public-domain samples go in this public repo.
-- `src/music/underbed.py` (2026-11-11) — a quiet bed for under a talking head (electric-piano chords, round sub, felt
-  kick, brushed hat, low-passed), with a pad-only intro the length of the hook slide and a beat chosen so whole bars
-  fill the footage (`--intro 2.35 --beat 0.77 --bars 10`). Mixed by `assemble-box.sh` at -8 dB on the silent hook,
-  sliding to -18 dB (about 16 dB under his voice) before he speaks. Kyle: "willing to try that if you think that's an
-  improvement"; deliver with-music and voice-only side by side until he picks.
-- `src/music/beds.py` (2026-10-30) — synthesised music beds (numpy + scipy, no samples) composed on a beat
-  grid. **Kyle's Instagram account cannot add songs** (business account), so music is baked into the MP4 and
-  Instagram labels it "Original audio". Never embed a commercial track. Build the picture on the bed's grid
-  (80 BPM = 0.75 s per cut) so every hard cut lands on a kick; the first home can hold two beats. Give him
-  two or three styles to choose from; deep house was the recommendation for the price-cuts format. Sound design
-  follows the picture: a tick per typed letter under a typewriter line, a hit when the last character lands.
-  **He will ask for a real song anyway** (2026-10-30, Dua Lipa, then Calvin Harris "Feel So Close"). Never bake
-  a commercial track into the file, even if he says he is not worried. Do this instead: preview songs for him
-  with Spotify links (the connector finds tracks; he does not want to dig through the app), then render the
-  reel silent at the song's tempo with `comp.html#bpm=128&hook=8&first=3&home=2&tail=8` (beats) so he posts
-  it from a creator account with the song from Instagram's picker, business account tagged as collaborator.
-  Give him one and two beats per home; tell him to drag the song start to the drop.
 - **Instagram Reels safe zone, every reel (Kyle, 2026-10-29, "Cuts off on the IG preview"):** on 1080x1920
   keep all type and anything that must be read below y=250 (back button, "Preview"), above y=1450 (username,
   audio, caption) and left of x=940 (like/comment/share column). Probe stills with those zones drawn in red
   before rendering. A three-line hook does not fit between the chrome and his head in a full-bleed selfie,
   so put the photo lower on a navy ground with a scrim blending the join (see `graphics/price-cuts/`).
-- `.claude/skills/clipforge-graphics/` — the step-by-step workflow for a new graphics video in Kyle's style.
 - `.agents/skills/` — the 20 HyperFrames skills (symlinked into `.claude/skills/`), installed with
   `npx skills add heygen-com/hyperframes`. The ones that matter here: `talking-head-recut` (timed graphic
   cards over a clip that plays untouched, synced to the transcript, which is exactly the b-roll job),
@@ -293,189 +72,27 @@ his standing brief. Read it before touching anything.
   but Kyle's look and tone in this file win over any skill's defaults. HyperFrames skills want to update
   themselves on first use; ask before letting them.
 
-- `graphics/rmv-special/` (2026-11-17) — a five-slide Coastal Money graphics reel with **hard cuts** (3/4/5/3/3 s), built
-  from a Project brief; `comp.html#zones` paints the Reels safe zone for probes. **Never name a loan program after a
-  neighborhood** (Kyle: "RMV special" looks like a special discount for one area, a fair-lending problem); the program
-  got a neutral name ("The Address Advantage" in the first cut, his pick pending). Check a brief's program names for this.
+## The four jobs (skills, 2026-11-21)
 
-## Talking-head rules from 2026-11-12 (Kyle approved the rate-buydown reel: "I approve this message")
+The rules for each kind of work live in a skill under `.claude/skills/`, not in this file. **Load the matching skill
+with the Skill tool before doing that work**; each has a `SKILL.md` (the current rules and steps) and a `history.md`
+(every past post of that kind, what Kyle said, which files to start from).
 
-He wants the rules "a little bit loose" while the brand image stays. These win over the older, stricter Coastal Money
-rules for talking-head reels (carousels and graphics-only posts still follow the guide).
+| When | Skill |
+|---|---|
+| A new post with no premise yet, ideas, a script, a skit, a caption, a Threads post | `clipforge-premise` |
+| His footage of himself talking, for the lender account | `clipforge-talking-head` |
+| Personal account: Broncos, family stories, screenshot jokes | `clipforge-meme` |
+| A graphics-only post, carousel or Project brief (Coastal Money) | `clipforge-graphics` |
+| Before he sees any stills or cut, and after every change | `clipforge-review` |
 
-- **Fixed: the brand image.** Navy, sand, terracotta as the base; Sora for big words, Playfair italic for small ones,
-  Caveat for handwriting; his plain first-person voice; no logo, no emoji, no DM/NMLS card in a talking head.
-- **Loose: everything that makes it pop.** Extra accent colours with a meaning (orange = cost, mint = savings/cash),
-  texture, props that look like real things (a framed chalkboard, a taped note, a stamp, strapped hundreds, a fake
-  app window with a slider and a rolling number, a flow diagram whose boxes light on his words), glow,
-  dust, wobble, punch-ins. One prop at a time, each tied to what he is saying at that moment.
-- **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
-- **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
-- **Every graphic that moves makes a sound**, under his voice (about 15 dB under for a running sound like chalk).
-  Real-world sounds come from real CC0 recordings; only abstract ones (whoosh, thud, ding) are synthesised.
-- **One clear object beats a storm** ("a lot of cash and then go ding", not bills everywhere), drawn crisp and
-  detailed enough to read as the real thing.
-- **Board and caption use his spoken words**, not the brief's.
-- **End with a payoff** on his last line (a prop and a sound), over the unused second of smile after he stops talking.
-- **No music** unless he asks; he picked the voice-only cut.
-- **Leaving his face is allowed when it fits (Kyle, 2026-11-21, after the duncanrogoff Skool ad):** "I'm not opposed to
-  the video leaving my face shot … I don't have to be in the video the entire time. Just depends on what we're trying
-  to do." He liked the cards floating out from behind the head and spinning. So a full-screen graphic beat is fine
-  where the words call for it (a list, a count, a comparison), on sand or paper, never a flat navy ground; "open on
-  his face" still holds. Breakdown of that ad in the 2026-11-21 log.
-- **How he reviews:** he reacts to one thing per message and sees stills mid-build. Ship a cut, expect five to ten
-  small rounds, change only what he named, and say plainly that Claude cannot hear audio.
+The order for a new post: premise → build (talking head, meme or graphics) → review → deliver → log.
 
-- `graphics/winter-buyers/` (2026-11-17) — the **template for a Project-brief type reel**: each line has a `data-at`
-  time, one `seek` loop, hard cuts; `#move` adds the push-up transition, `#zones` paints the Reels chrome, `#car` lays
-  the same scenes out for 1080x1350 carousel stills (`still.mjs --size 1080x1350`). When a brief says "flat, hard cuts"
-  ship that and the `#move` version side by side until he picks one for the series.
+**Keeping them current.** When Kyle states a standing preference, change the rule in that skill's `SKILL.md` (replace
+the old rule, do not stack a "superseded" note on top), add the post and his verdict to its `history.md`, and add
+anything he caught to the checklist in `clipforge-review`. This file only holds what applies to every job.
 
-- `graphics/bye-week-baby/` (2026-11-16) — the **AI-frame story meme** for the personal account: his daughter born on
-  the Broncos' bye weekend, told with four Canva-generated frames of a "bronco dad" and a schedule card whose BYE gets
-  flexed to "Dad vs. Baby Girl". **No heart-rate monitor twice in a row** (Kyle: "I'm not trying to do the exact same
-  video over and over"); a repeat device from the last meme is a reason to find a new gag. He gives a storyboard in
-  beats (relax, the line from his wife, "What?", the baby); follow it. For motion he has Grok and ChatGPT: put each
-  frame on the page with a Save button and an image-to-video prompt, he sends the clips back, clipforge cuts them.
-  **Type on a character piece (Kyle, same day): "you're covering the face … make it look more natural like an actual
-  commercial."** Nothing over a face; dialogue as clean subtitles (Inter 700, ~56 px, white, soft shadow, no stroke) in
-  the lower third, one small tracked super up top, graphics as a compact lower third. The stroked meme type is for
-  photo memes, not for a story with a character.
-  **Expression (Kyle, same day): "make them look more happy or animated."** Prompt every character frame for one big,
-  readable emotion (bliss / shock / joy), not a neutral face. Canva's generate-image quota runs out after about eight
-  images in a session; run jobs one at a time, and when it closes hand him `docs/handoff-bye-week-baby.md`-style briefs.
-  **Other tools (2026-11-16):** ChatGPT's image tool, given our reference frames, returned the best still (real team
-  gear, big expression, same character); plain ChatGPT chat cannot make video. Grok given a multi-shot brief returned
-  storyboard sheets with baked-in text and a different character per panel ("Grok is awful"); only ever give it one
-  picture and one "animate this exact image" line per clip.
-  **What he approved in the end:** his own premise (Broncos stress → bye → "my water broke" → next Sunday), a
-  **broadcast-style score bug** with real scores per beat ("like CBS or Fox, not so generic"), **smooth transitions**
-  (whip, dissolves, one smash cut; `comp.html`'s scene list is the template for stills-as-video), a bigger fright
-  (tight on the face, jump punch-ins, snap wide), effects-only sound with a very soft ending, song from the picker.
-  My side gags (the flex, "Mom vs. Husband") he hated: build his premise, do not decorate it with a second joke.
-  **Recap beats use the real clips** (his Logan screen recording for KC, the 2026-11-09 strip-sack reel for Carolina,
-  pulled from that session's page with Artifact read-by-path) as preloaded frame sequences inside the comp; a TTS
-  announcer over a still got "Absolutely not, we had a better one". **No TTS voices at all**: the Kokoro line for his
-  wife was "such a machine thing"; her line is words on screen. Never clone a real announcer. The character has to
-  **react** (arms up on the win, sat back on the bye), not hold one pose.
-  **Smooth means the baby scene (round 13):** slow dissolves, slow pushes, quiet sound. He called reaction cut-ins,
-  jump punch-ins, shake and thumps "too intense … terrible". Game footage goes **on the TV in the room** with its call
-  as the sound (`.tv` inside `.room`), not full screen.
-  **Flow (round 18, "very choppy"):** overlap the sound across picture changes (each call runs on 2 s under the next
-  shot, one room tone under everything), dissolves of about a second, graphics fade in place. The punchline setup is
-  short on purpose: the calm bye-week frame holds 1.3 s before "Honey… my water broke." The missing poses (fist pump,
-  eyes-closed chill) came from one saved frame plus one pasted message to ChatGPT; do that first, not stand-ins.
-  **The reaction follows the call (round 20):** a calm character under a rising announcer is "why it's terrible".
-  Stage each game beat on the call's word onsets (room → eyes-wide close-up → fist pump) and caption the announcer's
-  own words. His running order, verbatim: "Being a Broncos fan…" → game one → reaction → game two → reaction → calm
-  bye week with a cup → "Honey, my water broke" → the ending. The room must read as a home, not a hotel lobby.
-  **Rhythm he asked for (round 22):** tension → win → he sits back and breathes → again → calm → the interruption.
-  Transitions "director, all swoosh": dissolve + a small sideways glide + a soft air sound. Voices for people in his
-  life come from his own voice memos, never TTS.
-  **Round 38:** "timing is still off with the announcer" meant the win pose was on the wrong word. Measure the call
-  (speech-band energy per 0.1 s; whisper stamps can be a second off on crowd-heavy clips) and land the pose on the
-  loudest word ("FIVE!", "FREE!"). He wants about 20 s: trim holds before trimming beats.
-  **Round 35–36:** he disliked the first piano phrase and picked **the lullaby** from three labelled options (always
-  give music as options to hear). A game beat needs at least three poses (sat back → nervous → win → sat back); one
-  still held for a whole beat reads as "just sitting there". The win pose lands on the peak word of the call.
-  **Round 33, the ending's sound:** soft original piano (`piano()` in `src/music/byeweek_flex.py`, C–G/B–Am–F then a held
-  C) under the baby shot, a few dB under the calls; he heard the noise "room tone" there as "static". An emotional
-  pay-off gets a warm tone even on a personal meme; noise beds are for under speech only.
-  **Round 32, final timing:** the calm before the interruption holds about 2.6 s ("I want that to really marinate"),
-  then her note flies in from the frame edge ("like it just came in from the other room") and holds 2 s. Earlier
-  notes saying 1.3 s or "as soon as he sits down" are superseded.
-  **Round 31, the score bug:** he wants "the actual score chips from the networks". `.bug2` now copies the real CBS bug
-  cropped from his Panthers recording (dotted near-black bar, logo + huge white score, timeout dashes, team in focus
-  on its colour, status in the centre); team logo SVGs come from upload.wikimedia.org into a gitignored `logos/`.
-  Final running order and length he approved: 22 s, no Raiders line, her note big and held 2 s.
-  **Round 27, where it landed:** type is the paper-cut strip (`paper()` in `comp.html`: torn sand strip, Playfair italic
-  small words, Sora 800 big words, one orange key word, wiping on with words rising), her line a taped handwritten
-  note in Caveat, the broadcast bug for scores. Plain captions "felt like reverting". Never crop a frame made for
-  another moment into a new shot (the arms-up crop of the falling picture was "the one that really sucks"); if a beat
-  has no frame of its own, hold the room shot and let the type carry it. Nunito captions from round 26 are superseded.
-  **Round 26:** no pulsing or bumping on a still ("the freeze screen on his face that pulses" was wrong): a pose frame
-  holds with one slow push. Captions in a character piece are **Nunito ExtraBold, white, soft shadow** (his reel
-  caption look), not Inter. The pay-off shot (the baby) is "a peaceful, long lasting moment": 8 s or more, slow
-  dissolve in, slow push, two unhurried lines, no score bug. This supersedes the `kick()` note below.
-  **Round 24:** the excitement stays, but it moves with the call: he sits up as the announcer gets going and pumps on
-  each yard line (`kick()` bumps the pose frame on the word onsets), a different pose for the second game, then the
-  breath. "Don't be sitting there the entire time."
-  **Round 23, the commercial rule:** one room, one camera angle, and a new pose for each turn of the story (leaning
-  in and biting his nails when they are behind, sitting back when it is won, eyes closed on the bye). Never reuse one
-  victory frame, never cut to a face from another angle ("randomized shots of the face, terrible"). List the poses the
-  story needs and get them all from ChatGPT in one message **before** building the cut.
-  Full-size Canva images come out through a scratch design + `export-design` (log 2026-11-16). When two chats are on
-  the same job, find the other with `list_sessions`, read its page, and merge into one cut rather than showing two.
-
-- **Parlay Derby weekly recap (2026-11-19)** — the pool's site (`kyle11melvin/Parlay-Derby`, private; parlayderby.com) now
-  carries a clipforge-style composition, `public/recap.js`: the week as a 35 s kart race (race → podium and margin → hit
-  of the week → Big Bozo → parlays → season table), played at `/recap` and exported to MP4 on the phone for the group
-  text. Work on it in that repo, never here: the riders' photos are private and this repo is public. Offline render:
-  `node tools/render-recap.mjs out.mp4 --data <season.json>` there. The session cannot log in to the site, so a real
-  week needs the branch live or the data pasted in. Log 2026-11-19.
-  **Kyle's direction:** the first cut (flat lanes, results as chips) was "not bad, do better": he wants the 64-bit kart
-  racer feel with the betting turned into play, so each pick is an item (horseshoe, nitro, seashell from the rider
-  behind, bomb for the parlay killer), plus a ramp, stamps, punch-ins. He said "good" to that and asked for more of it.
-  Round four (red/green shells, banana peel and shield, lightning shrink, a three-stretch course) he called "worse than
-  what was before" and it was reverted: piling on items and scenery made it worse, not better. Change one thing per round.
-  **Reference (Drive `Clipforge/Parlay derby`):** his recording of the N64 game. Use it for structure: camera behind one
-  kart, portrait rank column, item window top centre, clock, course map, big place number. When ChatGPT's art arrives
-  (white kart poses, item sheet, backdrop, drivers) build it into `recap.js` in place of the drawn ones.
-  **Art (round eight):** ChatGPT's sheets are cut into `public/recap-art/` (kart-with-driver per rider id, busts, items,
-  backdrop); a new rider needs a new sprite from ChatGPT or falls back to the drawn kart. Its turtle shells and eyed bomb
-  were copies of Nintendo's items and were left out. Anything he must paste elsewhere goes in a code block in chat.
-  **Round ten:** told "you know what I like, just do it", the race became rider by rider (last place to winner) with the
-  taped paper call card and the cartoon busts in every scene, 37 s. All six library tracks were "garbage": do not pick
-  music for him by description again. He generates a track in a music tool (Suno) from a prompt and sends the MP3.
-  **Round twelve:** Suno wanted payment and he would not pay; do not send him to a paid tool again. The kart game he
-  wants it to feel like has funk / jazz-fusion music, so look there (MacLeod: Funk Game Loop, Fast Talkin, Vivacity), not 8-bit.
-  **Music picked (round thirteen):** "Funkorama" (Kevin MacLeod, CC BY 3.0), "closest" of four funk tracks; it is the
-  site's recap theme now.
-  **Live (round fourteen):** `/recap` is on parlayderby.com (PR #9). He then asked for a red shell and lightning by name,
-  one item per kind of result; those two are in on the branch. After a merge restart the branch from main and push
-  normally; force pushes are blocked. He has asked for the real game music three times; the answer stays no.
-  **Round sixteen:** the first video he made on his iPhone and sent to the group was silent. Anything the riders will
-  receive must be tried by him on his own phone first; say "send it to yourself before the group" every time the export changes.
-  **Sound (round nine):** synthesised engine drone, hiss and whoosh beds are "absolutely terrible" to him; never put a
-  continuous synthesised noise under anything. Theme recording plus a few short quiet hits only.
-  **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
-  Wikimedia Commons, CC BY, fetched with the web-fetch tool) and give him labelled options against the picture.
-  Items, karts and sound stay original drawings; never Nintendo's characters, art or music.
-
-## The look Kyle approved (use it unless he asks for something else)
-
-- 1080x1920, 30 fps, 9:16. Navy background `#0E1A2B`, gold accent `#C9A96A`, off-white text `#F3EFE6`,
-  muted grey `#9AA4B4`. These are the Rev Mortgage flyer colours; the brand should feel consistent.
-- Type: Inter Display ExtraBold for headlines, Inter for chat bubbles and small labels. Headlines are big
-  (90–130 px), 3–5 words per line, left-aligned for statements, centred for punchlines. White headline with the
-  key phrase or the second line in gold.
-- Motion: words rise in one by one; icons pop in with overshoot (`back` easing) and a counter ticking in the
-  headline; screenshots slide up with a slow drift; stamps ("NO CODE") slam in from large to small, rotated;
-  chat bubbles type out with a blinking cursor; scenes cross-fade over 0.25 s. One beat of nothing before a
-  punchline lands. Total length around 20 s.
-- Evidence on screen: real screenshots, real app icons cropped from his home screen, his real dictation
-  errors. Never staged examples. When a URL matters, show it as a gold pill on screen and also put it in the
-  caption, since video posts have no clickable links.
-- No invented handles, taglines or sources. If a tag line is needed, ask or leave it out.
-
-## Tone and content rules
-
-- Comedic, not corporate. The Siri video is a joke about a trillion-dollar company's assistant failing at
-  dictation while a self-described "normal person" ships apps and a website with zero code. He rejected a
-  "Siri launched in 2011, it's 2026 Apple" timeline as preachy. He liked "Who is Morgan?" and ending with a
-  question to the audience ("Does anyone else's Siri do this?", "Tag the friend whose Siri needs help").
-- His real dictation fails, usable as evidence: he said "Sorry about your Oregon loss", Siri typed
-  "Sorry about Morgan's loss" (use this exact wording, it matches his screenshot); he said "voice-to-text",
-  Siri typed "voice to talk".
-- Facts he wants stated: knows zero code; built six apps (ANVIL, Ledger, The Edge, Markup, Switchboard,
-  Huddle); built the website defenditownit.com (VA home-buying site "powered by Rev Mortgage").
-- For a mortgage explainer with b-roll: when he says a number or a trend ("housing prices in 2008 went
-  down"), cut to a chart of that exact thing with real data and a visible source. Full-screen cutaway for
-  charts, picture-in-picture for small stat callouts. He asked Claude to make that call per graphic.
-- Math posts (approved 2026-10-11, "Wow. Good work."): hook question → assumption cards with counters and
-  a visible source (Freddie Mac for rates) → to-scale chart → buy-now vs wait table → stamp → punchline →
-  a question back to the audience ("Still waiting?"). Round example price ($1,000,000), P&I only, with an
-  on-screen "example, not a quote" footer. Spell out any assumption made from a garbled brief in the report.
+Parlay Derby (the pool's weekly recap) is a different repo; its notes are in `docs/parlay-derby.md`.
 
 ## How to work with him
 
@@ -494,41 +111,11 @@ rules for talking-head reels (carousels and graphics-only posts still follow the
   so a reel CTA can point there instead of a DM keyword.
 - Keep replies short. He said "You're getting a little smarter" when the work matched the point of the post,
   and "you nailed that" when the shooting plan was concrete: five short lines, one take each, a reaction shot.
-
-## Talking-head + graphics rules (from the first experiment, 2026-10-11)
-
-- Kyle's spoken script for the Siri post: "Listen, I have zero code experience and I built six apps and an
-  entire website. How can Siri not understand my text messages? Does anyone else have this?"
-- The graphics follow the words: icons popping while he says "six apps", the website while he says
-  "entire website", the Morgan chat while he asks about Siri. Full-frame cut for a graphic that carries its
-  own text; picture-in-picture (lower half, gold border, he stays visible) for a reaction moment.
-- **No DM / name / NMLS card inside a talking-head video** (Kyle, 2026-10-22: "get rid of the last one that
-  says DM me and gives my name and my NMLS number"). He says "message me" on camera; the caption carries
-  the ask. The Coastal Money sign-off stays for graphics-only posts.
-- Captions on while he is on screen, off during a full-frame cut (the graphic has its own text). **Caption
-  style for Instagram reels: `--caption-style rounded`** (Nunito ExtraBold, sentence case, white, soft
-  shadow, no outline), which matches the captions on his earlier reels; Kyle sent a screenshot of one
-  ("Keep saying") on 2026-10-22 and asked for the same. The uppercase Inter outline style (`classic`) is
-  the Siri-post look. **Position depends on the shot.** Outdoor selfie with sky and a high head:
-  `--caption-y 0.19` (caption bottom 19% up, on his chest; Kyle, 2026-10-22: "Move the text so it's not on
-  my face"). Indoor shot against a plain wall with his head mid-frame and a pale shirt: `--caption-y 0.66`,
-  captions above his head where the wall is darker (Kyle, 2026-10-23, agreed to the suggestion). When an
-  overlay sits above his head too, hide the captions under it with `--caption-hide a-b`.
-- Pipeline: `clipforge build` for trim + transcript + captions, `src/graphics/render.mjs` for the graphics,
-  `clipforge broll videos/<name>/cues.json --output ...` to cut them together. The HyperFrames
-  `talking-head-recut` skill is the more complete version of the broll step (cards written per moment,
-  transcript-synced); try it on the Monday footage and keep whichever gives the better result. A cue is
-  `{at, from, to, mode, says}`; `says` is the phrase the cue sits on, so timings can be re-derived from the
-  transcript once audio exists.
-- Getting footage in: Google Drive is unreachable from the session. Chat attachment is best. GitHub web
-  upload works but Safari's Photo Library picker re-encodes and strips the audio; he must Save to Files
-  first and upload from Files. A clip with no audio track cannot be captioned; say so immediately.
-
 ## Project log
 
 `docs/log/` holds one note per working session: what was built, what Kyle asked for, what he reacted to.
 Read the latest one at the start of a session. Add a new one at the end of any session that produced a
-video or changed the pipeline, and fold any new standing preference into this file.
+video or changed the pipeline, and fold any new standing preference into the matching skill.
 
 ## The Instagram brand: Coastal Money (2026-10-11)
 
@@ -558,13 +145,3 @@ phone. Its instructions are `docs/claude-project-instructions.md`; keep that fil
 when a brand or tone rule changes. The Project writes scripts, captions and carousel handoffs; it cannot
 render. A brief that arrives here starting "send this to clipforge" came from it: build the video from the
 brief, in `graphics/wait-or-buy-cm/` style, and deliver as usual.
-
-## Next planned step
-
-Monday: Kyle shoots the five lines ("Listen, I have zero code experience" / "and I built six apps" / "and an
-entire website" / "How can Siri not understand my text messages?" / "Does anyone else have this?") plus a
-three-second reaction shot, saved to Files and uploaded with audio. Run the standard job above with the
-existing `graphics/siri-post` composition: the cues are already sketched in `videos/siri-post/cues.json` and
-only need their `at` times re-derived from the real transcript. The experiment on the silent take is
-`videos/siri-post/talking-head-demo.mp4` in the log; known flaw there was a caption overlapping the
-picture-in-picture box, so keep captions off while a pip is on screen.

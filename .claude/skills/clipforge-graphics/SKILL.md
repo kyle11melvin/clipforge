@@ -5,7 +5,10 @@ description: Build a vertical motion-graphics video (animated text, screenshots,
 
 # Motion graphics video
 
-Read `CLAUDE.md` first for the approved look, tone and Kyle's working preferences.
+Read `CLAUDE.md` first for Kyle's working preferences. `history.md` beside this file has every past graphics-only
+post, the Rev flyer look the steps below describe, and the music beds. For Instagram the Coastal Money guide
+(`graphics/brand/coastal-money/GUIDELINES.md`) wins: start from `graphics/wait-or-buy-cm/`, or from
+`graphics/winter-buyers/` for a Project-brief type reel. Run `clipforge-review` before he sees it.
 
 ## Steps
 
