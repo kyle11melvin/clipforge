@@ -80,3 +80,9 @@ Misses the list found:
 
 Nothing re-rendered. Offered: fix the board position in the rate-buydown comp since it is the template for the next
 math reel.
+
+## Chalkboard fix
+
+PR #2 merged by Kyle. At his word the rate-buydown template was fixed: `board-box.html` keeps all writing and the
+taped note left of the button column (board size unchanged), with a `&zones` probe overlay. Checked on stills at
+21.3 s and 30.6 s. The delivered reel was not re-rendered.

@@ -40,7 +40,8 @@ He wants the rules "a little bit loose" while the brand image stays.
    pick one prop per beat. Find where his face sits in the frame; that decides where type and props go.
 4. **Start from the nearest past post:**
    - type above his head, torn paper, stamp: `graphics/paper-cut/`
-   - chalkboard box for math: `graphics/rate-buydown/assemble-paper.sh`, `board-box.html#...&pop`
+   - chalkboard box for math: `graphics/rate-buydown/assemble-paper.sh`, `board-box.html#...&pop` (the board may run
+     under the Reels buttons, its writing may not: lines are pulled left of x=940 automatically; probe with `&zones`)
    - fake app window, rolling counter, flow diagram: `graphics/20-down-myth/ui.html`, `assemble-ui.sh`
    - one floating widget over graded footage: `graphics/rate-wait/overlay.html`
    - cash heap ending: `graphics/rate-buydown/cash.html`

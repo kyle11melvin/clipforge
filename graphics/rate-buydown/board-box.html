@@ -43,6 +43,9 @@
       b.style.background = 'radial-gradient(120% 100% at 50% 40%, #1B4353 0%, #123441 70%, #0D2A35 100%)';
       b.style.border = '14px solid #B98A55'; b.style.borderTopColor = '#C99B63'; b.style.borderBottomColor = '#A47645';
       b.style.boxShadow = '0 26px 54px rgba(8,26,34,.5), 0 0 0 2px rgba(60,38,16,.55), inset 0 0 0 2px rgba(0,0,0,.35), inset 0 10px 26px rgba(0,0,0,.28)'; } }
+  if (FULL && /zones/.test(location.hash)) { const z = document.createElement('div');     // #zones: Reels chrome, for probes only
+    z.style.cssText = 'position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:9;pointer-events:none;background:linear-gradient(rgba(255,0,0,.28),rgba(255,0,0,.28)) 0 0/1080px 250px no-repeat,linear-gradient(rgba(255,0,0,.28),rgba(255,0,0,.28)) 0 1450px/1080px 470px no-repeat,linear-gradient(rgba(255,0,0,.28),rgba(255,0,0,.28)) 940px 0/140px 1920px no-repeat';
+    document.body.appendChild(z); }
   const ERASE_T = 23.1, ERASE_D = 0.7;     // the cut into Clip C
   // 2026-11-12: board 60 px taller and all the writing about 12% bigger (Kyle: "make it larger"); the last line
   // says "keep the cash", his words.
@@ -69,6 +72,7 @@
     for (const l of LINES) if (col[l.id]) l.color = col[l.id];
     LINES.splice(LINES.findIndex(l => l.id === 'yrs'), 1);          // the note carries it
   }
+  const SAFE_R = 940 - 64 - 18, SAFE_L = 24;   // canvas x of the Reels button column, and the left margin
   const CIRCLE = { s: 17.8, d: 0.9 };
   const UNDER  = { s: 30.3, d: 0.35 };
   const ARROWS = [ { from: 'lcost', to: 'costv_eq', s: 25.0, d: 0.25 }, { from: 'lsav', to: 'savv_eq', s: 26.05, d: 0.25 } ];
@@ -97,6 +101,18 @@
     ctx.font = font(byId.eq.size);
     const eqPos = {};
     for (const [k, s] of Object.entries({ costv_eq: '$10,000', savv_eq: '$100' })) { const i = byId.eq.text.indexOf(s); const x0 = byId.eq.x + ctx.measureText(byId.eq.text.slice(0, i)).width; eqPos[k] = { x0, x1: x0 + ctx.measureText(s).width, y: byId.eq.y }; }
+    // Reels safe zone (2026-11-21): the box sits at x=64 on the 1080 frame and Instagram's like/comment/share column
+    // starts at x=940, so nothing that has to be read may pass canvas x=SAFE_R. The board itself may run under the
+    // buttons; the writing and the note may not. Lines are pulled left to fit, a pair (`after`) moves together.
+    const fits = [];
+    for (const l of LINES) { ctx.font = font(l.size); const w = ctx.measureText(l.text).width;
+      if (l.after) { const b = byId[l.after]; ctx.font = font(b.size); const bw = ctx.measureText(b.text).width;
+        let over = b.x + bw + l.afterGap + w - SAFE_R;
+        if (over > 0) { const g = Math.min(over, Math.max(0, l.afterGap - 10)); l.afterGap -= g; over -= g; b.x = Math.max(SAFE_L, b.x - over); }
+        fits.push([l.id, Math.round(b.x + bw + l.afterGap + w)]); }
+      else if (!l.over) { if (l.x + w > SAFE_R) l.x = Math.max(SAFE_L, Math.round(SAFE_R - w)); fits.push([l.id, Math.round(l.x + w)]); } }
+    NOTE.x = Math.min(NOTE.x, SAFE_R - NOTE.w - 6);
+    window.__fits = fits.filter(f => f[1] > SAFE_R);       // anything still over, for the probe to report
     for (const l of LINES) {
       ctx.font = font(l.size); l.w = ctx.measureText(l.text).width;
       if (l.over) { const e = eqPos[l.over]; l.x = Math.round((e.x0 + e.x1) / 2 - l.w / 2); }
