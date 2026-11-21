@@ -191,4 +191,6 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   focus), and scale (graphics fill the frame). The comparison beat was rebuilt that way: the real $774,900 listing
   photo from the price-cuts reel as a tilted card over its own blurred, darkened photo, a "20% down $154,980" card
   that falls back and blurs, a "3% down" card that swings forward with the figure running down to $23,247.
-  His verdict on round two: pending.
+  **His verdict on round two: "That's a lot better and I love it and that's a good new rule going forward. I can
+  provide you with real pictures or videos."** So before a build, list the real images or clips each prop needs and
+  ask him for them.
