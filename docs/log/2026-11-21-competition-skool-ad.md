@@ -86,3 +86,12 @@ math reel.
 PR #2 merged by Kyle. At his word the rate-buydown template was fixed: `board-box.html` keeps all writing and the
 taped note left of the button column (board size unchanged), with a `&zones` probe overlay. Checked on stills at
 21.3 s and 30.6 s. The delivered reel was not re-rendered.
+
+## Rate-buydown remix (test cut)
+
+PR #3 merged. Kyle: take one existing video and use the new features, not to repost, to see the effects. Rebuilt the
+rate-buydown reel from the three Drive clips with cards from behind his head, a full-screen paper month count with
+a corner circle, and flip tiles (`remix.html`, `assemble-remix.sh`, `sfx-remix.json`). Review checklist run on
+stills: safe zones clear, nothing over his face, no navy ground, sounds on every moving graphic at about 16 dB under.
+Delivered on a new private page ("Rate Buydown Remix"). Open: the small words on the cards ("up front", "off the
+rate") are not his; six seconds off his face; the lower third of the paper beat is empty because of the caption zone.

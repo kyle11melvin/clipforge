@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  Rate-buydown remix (2026-11-21): the same footage with the props taken from the duncanrogoff Skool ad, as a test of
+  what the new kit can do. Not for posting. Replaces the chalkboard from 9.8 s on; type.html still carries 0-9.76 s.
+    remix.html#bg   three paper cards that fly out from BEHIND his head as he names each number (the cutout is laid
+                    back over this layer, so his head hides them until they clear it)
+    remix.html#fg   everything in front: the full-screen paper beat for the math (100 month tiles flipping as the
+                    counter runs, then 8 rows = 8 years and 4 left over), the "divide" strip, the two flip tiles
+    add &zones to paint the Reels chrome for probes. No hash = both layers on a probe ground.
+  Times are cut.mp4 seconds (words.js). The corner circle of him in the paper beat is laid in by assemble-remix.sh
+  at CIRCLE below; this file only draws its ring.
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  :root { --navy:#173F4F; --sand:#EFE9DE; --terra:#D2693B; --ink:#0E2A35; --mint:#9BE3C7; --mintd:#23805F; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:transparent; }
+  body.probe { background:#8d8a80; }
+  .layer { position:absolute; inset:0; }
+  .abs { position:absolute; }
+
+  /* cards */
+  .card { position:absolute; width:430px; height:230px; left:0; top:0; background:var(--sand); border:9px solid #fff; border-radius:16px;
+          box-sizing:border-box; box-shadow:0 18px 34px rgba(8,26,34,.38); padding:20px 26px; transform-origin:center; opacity:0; }
+  .card .k { font-family:"Manrope"; font-weight:800; font-size:25px; letter-spacing:.2em; text-transform:uppercase; color:#6f8a84; }
+  .card .v { font-family:"Sora"; font-weight:800; font-size:80px; letter-spacing:-.045em; line-height:1.12; margin-top:4px; }
+  .card .s { font-family:"Playfair"; font-style:italic; font-size:40px; color:var(--ink); margin-top:-6px; }
+
+  /* paper beat */
+  #paper { position:absolute; inset:0; background:var(--sand); opacity:0; }
+  #paper .grain { position:absolute; inset:0; filter:url(#grain); opacity:.5; }
+  #eq   { left:70px; top:272px; font-family:"Sora"; font-weight:700; font-size:50px; color:var(--ink); letter-spacing:-.02em; }
+  #eq b { font-weight:800; }
+  #takes{ left:72px; top:346px; font-family:"Playfair"; font-style:italic; font-size:72px; color:var(--ink); }
+  #num  { left:62px; top:424px; font-family:"Sora"; font-weight:800; font-size:250px; line-height:1; letter-spacing:-.05em; color:var(--terra); font-variant-numeric:tabular-nums; }
+  #mo   { left:560px; top:548px; font-family:"Sora"; font-weight:800; font-size:86px; letter-spacing:-.04em; color:var(--ink); }
+  #grid { left:70px; top:724px; width:832px; }
+  .tile { position:absolute; width:62px; height:42px; border-radius:7px; background:#D9D1C1; }
+  #ring { left:63px; top:1195px; width:254px; height:254px; border-radius:50%; border:7px solid var(--terra); box-sizing:border-box; background:#cfc7b6; }
+  #yrs  { left:348px; top:1262px; font-family:"Caveat"; font-weight:700; font-size:88px; color:var(--ink); white-space:nowrap; line-height:1; }
+  #yrs i { font-style:normal; color:var(--mintd); }
+  #bracket { left:44px; top:724px; width:14px; border:5px solid var(--ink); border-right:none; border-radius:8px 0 0 8px; box-sizing:border-box; }
+
+  /* divide strip */
+  #strip { left:64px; top:300px; width:850px; padding:30px 40px 40px; box-sizing:border-box; background:var(--sand); filter:url(#rough) drop-shadow(0 14px 22px rgba(8,26,34,.35)); opacity:0; }
+  #strip span { display:inline-block; }
+  #strip .s { font-family:"Playfair"; font-style:italic; font-size:70px; color:var(--ink); }
+  #strip .m { font-family:"Sora"; font-weight:800; font-size:104px; letter-spacing:-.04em; line-height:1.04; color:var(--ink); }
+
+  /* flip tiles */
+  .flip { position:absolute; left:84px; width:812px; height:206px; border-radius:18px; border:9px solid #fff; box-sizing:border-box;
+          box-shadow:0 18px 34px rgba(8,26,34,.38); display:flex; align-items:center; padding:0 44px; opacity:0; transform-origin:center; }
+  .flip div { font-family:"Sora"; font-weight:800; font-size:86px; letter-spacing:-.04em; white-space:nowrap; }
+  .flip .q { font-family:"Playfair"; font-style:italic; font-weight:400; font-size:80px; letter-spacing:0; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="7"/></filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .5 0"/></filter>
+</svg>
+
+<div class="layer" id="bg">
+  <div class="card" id="c0"><div class="k">The buydown</div><div class="v" style="color:var(--ink)">0.5%</div><div class="s">off the rate</div></div>
+  <div class="card" id="c1"><div class="k">Costs</div><div class="v" style="color:var(--terra)">$10,000</div><div class="s">up front</div></div>
+  <div class="card" id="c2"><div class="k">Saves</div><div class="v" style="color:var(--mintd)">$100</div><div class="s">a month</div></div>
+</div>
+
+<div class="layer" id="fg">
+  <div id="paper"><div class="grain"></div>
+    <div class="abs" id="eq"><b style="color:var(--terra)">$10,000</b> &divide; <b style="color:var(--mintd)">$100</b> a month</div>
+    <div class="abs" id="takes">It takes</div>
+    <div class="abs" id="num">0</div>
+    <div class="abs" id="mo">months</div>
+    <div class="abs" id="bracket"></div>
+    <div class="abs" id="grid"></div>
+    <div class="abs" id="ring"></div>
+    <div class="abs" id="yrs"><span id="y8">8 years</span><i id="y4">, 4 months</i></div>
+  </div>
+  <div class="abs" id="strip">
+    <span class="s" data-w="divide">divide the</span><br>
+    <span class="m" data-w="cost" style="color:var(--terra)">cost</span> <span class="s" data-w="by" style="margin-left:18px">by the</span><br>
+    <span class="m" data-w="monthly" style="color:var(--mintd)">monthly</span> <span class="m" data-w="savings" style="color:var(--mintd)">savings</span>
+  </div>
+  <div class="flip" id="f0"><div></div></div>
+  <div class="flip" id="f1"><div></div></div>
+</div>
+
+<script src="words.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, t0, d) => clamp((t - t0) / d);
+const outBack = (p) => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+const inCubic = (p) => p * p * p;
+const W = window.WORDS;
+const at = (word, after = 0) => W.find(w => w.start >= after && w.text.toLowerCase().replace(/[^a-z0-9$]/g, "") === word).start;
+
+// ---- timings, all from his words ----
+const T = {
+  c0: at("half", 9.8), c1: at("$10000"), c2: at("$100", 14),
+  paperIn: at("it", 16) - 0.12, count: at("hundred", 16), countD: 1.75,
+  eight: at("eight"), four: at("four", 20), paperOut: at("what", 22) - 0.1,
+  divide: at("divide"), cost: at("cost", 24), by: at("by", 24), monthly: at("monthly"), savings: at("savings", 25), stripOut: at("if", 26) - 0.08,
+  f0: at("staying"), f0flip: at("buy"), f1: at("if", 28), f1flip: at("keep"),
+};
+window.TIMES = T;
+const HEAD = { x: 440, y: 1230 };          // where the cards come from: the middle of his head in the punched footage
+const CARDS = [ { id: "c0", t: T.c0, x: 62,  y: 318, rot: -6 }, { id: "c1", t: T.c1, x: 490, y: 300, rot: 5 }, { id: "c2", t: T.c2, x: 276, y: 560, rot: -2.5 } ];
+const CIRCLE = { cx: 190, cy: 1322, r: 120 };   // assemble-remix.sh lays the footage circle here
+
+// ---- month tiles: 12 across, so 8 full rows are 8 years and 4 are left over ----
+const COLS = 12, PX = 70, PY = 50, grid = $("grid"), tiles = [];
+for (let i = 0; i < 100; i++) { const d = document.createElement("div"); d.className = "tile"; d.style.left = (i % COLS) * PX + "px"; d.style.top = Math.floor(i / COLS) * PY + "px"; grid.appendChild(d); tiles.push(d); }
+$("bracket").style.height = (8 * PY - 8) + "px";
+
+const FLIPS = [
+  { id: "f0", top: 300, in: T.f0, flip: T.f0flip, q: "Staying longer?", a: "Buy it down.", bg: "var(--navy)", fg: "var(--sand)" },
+  { id: "f1", top: 532, in: T.f1, flip: T.f1flip, q: "If you’re not?", a: "Keep the cash.", bg: "var(--mint)", fg: "var(--ink)" },
+];
+
+const mode = location.hash.replace("#", "");
+if (/\bbg\b/.test(mode)) $("fg").style.display = "none";
+if (/\bfg\b/.test(mode)) $("bg").style.display = "none";
+if (!/\b(bg|fg)\b/.test(mode)) document.body.classList.add("probe");
+if (/zones/.test(mode)) { const z = document.createElement("div"); z.style.cssText = "position:absolute;inset:0;z-index:9;background:linear-gradient(rgba(255,0,0,.25),rgba(255,0,0,.25)) 0 0/1080px 250px no-repeat,linear-gradient(rgba(255,0,0,.25),rgba(255,0,0,.25)) 0 1450px/1080px 470px no-repeat,linear-gradient(rgba(255,0,0,.25),rgba(255,0,0,.25)) 940px 0/140px 1920px no-repeat"; document.body.appendChild(z); }
+
+window.seek = (t) => {
+  // cards: out from behind his head with one spin, then a slow float; they dive back as the paper comes up
+  for (const [i, c] of CARDS.entries()) {
+    const el = $(c.id), p = prog(t, c.t - 0.1, 0.55), out = prog(t, T.paperIn - 0.05, 0.3);
+    if (p <= 0 || out >= 1) { el.style.opacity = 0; continue; }
+    const e = outBack(p), fl = Math.sin((t - c.t) * 1.7 + i * 2.1);
+    const x = HEAD.x - 215 + (c.x - (HEAD.x - 215)) * e, y = HEAD.y - 115 + (c.y - (HEAD.y - 115)) * e + fl * 5 - inCubic(out) * 420;
+    const spin = (1 - outCubic(p)) * 360, sc = 0.3 + 0.7 * outCubic(p);
+    el.style.opacity = 1 - out;
+    el.style.transform = `translate(${x}px,${y}px) perspective(900px) rotateY(${spin}deg) rotate(${c.rot + fl * 0.7}deg) scale(${sc * (1 - 0.25 * out)})`;
+  }
+
+  // paper beat
+  const pin = prog(t, T.paperIn, 0.32), pout = prog(t, T.paperOut, 0.3), paper = $("paper");
+  if (pin <= 0 || pout >= 1) paper.style.opacity = 0;
+  else {
+    paper.style.opacity = 1;
+    paper.style.transform = `translateY(${(1 - outCubic(pin)) * 1920 - inCubic(pout) * 1920}px)`;
+    const rise = (el, t0, dy = 26) => { const p = prog(t, t0, 0.22); el.style.opacity = p; el.style.transform = `translateY(${(1 - outCubic(p)) * dy}px)`; };
+    rise($("eq"), T.paperIn + 0.2); rise($("takes"), T.paperIn + 0.3); rise($("mo"), T.count + 0.3); rise($("ring"), T.paperIn + 0.25, 0); if (pout > 0) $("ring").style.opacity = 0;
+    const cp = prog(t, T.count, T.countD), n = Math.round(100 * cp), land = prog(t, T.count + T.countD, 0.18);
+    $("num").textContent = n; $("num").style.opacity = prog(t, T.count - 0.1, 0.12);
+    $("num").style.transform = `scale(${1 + 0.07 * Math.sin(Math.PI * land)})`; $("num").style.transformOrigin = "left bottom";
+    const p4 = prog(t, T.four, 0.3);
+    tiles.forEach((d, i) => {
+      const f = prog(t, T.count + (i / 100) * T.countD, 0.2), on = f > 0.5, last4 = i >= 96;
+      const wave = Math.sin(Math.PI * prog(t, T.eight + Math.floor(i / COLS) * 0.045, 0.28));
+      const bump = last4 ? Math.sin(Math.PI * prog(t, T.four + (i - 96) * 0.05, 0.3)) : (i < 96 ? wave : 0);
+      d.style.background = on ? (last4 && p4 > 0 ? "#3FA883" : "var(--terra)") : "#D9D1C1";
+      d.style.transform = `scaleY(${Math.abs(Math.cos(Math.PI * f))}) scale(${1 + 0.16 * bump})`;
+    });
+    const b = prog(t, T.eight, 0.3); $("bracket").style.opacity = b; $("bracket").style.transform = `scaleY(${outCubic(b)})`; $("bracket").style.transformOrigin = "top";
+    const w8 = prog(t, T.eight, 0.45), w4 = prog(t, T.four, 0.5);            // handwriting wipes on left to right
+    $("y8").style.clipPath = `inset(-20% ${100 - w8 * 100}% -30% 0)`; $("y4").style.clipPath = `inset(-20% ${100 - w4 * 100}% -30% 0)`;
+    $("y8").style.display = $("y4").style.display = "inline-block";
+  }
+
+  // "divide the cost by the monthly savings"
+  const strip = $("strip"), sp = prog(t, T.divide - 0.15, 0.25), so = prog(t, T.stripOut, 0.2);
+  if (sp <= 0 || so >= 1) strip.style.opacity = 0;
+  else {
+    strip.style.opacity = 1 - so; strip.style.transform = `rotate(-1.2deg) translateY(${(1 - outCubic(sp)) * -40 - so * 30}px)`;
+    strip.style.clipPath = `inset(0 ${100 - outCubic(sp) * 100}% 0 0)`;
+    for (const s of strip.querySelectorAll("span")) { const p = prog(t, T[s.dataset.w] - 0.04, 0.16); s.style.opacity = clamp(p * 3); s.style.transform = `translateY(${(1 - outCubic(p)) * 20}px)`; }
+  }
+
+  // the two flip tiles: the question lands, the tile turns over on his answer
+  for (const f of FLIPS) {
+    const el = $(f.id), p = prog(t, f.in - 0.12, 0.3), fp = prog(t, f.flip - 0.06, 0.36);
+    if (p <= 0) { el.style.opacity = 0; continue; }
+    const back = fp > 0.5, tau = Math.max(0, t - f.flip - 0.3), wob = fp >= 1 ? 1.6 * Math.exp(-7 * tau) * Math.sin(22 * tau) : 0;
+    el.style.top = f.top + "px"; el.style.opacity = clamp(p * 3);
+    el.style.background = back ? f.bg : "var(--sand)";
+    const d = el.firstElementChild; d.textContent = back ? f.a : f.q; d.className = back ? "" : "q"; d.style.color = back ? f.fg : "var(--ink)";
+    el.style.transform = `translateY(${(1 - outBack(p)) * -60}px) rotate(${(f.id === "f0" ? -1.5 : 1.2) + wob}deg) scaleY(${Math.max(0.02, Math.abs(Math.cos(Math.PI * fp)))}) scale(${1 + 0.05 * Math.sin(Math.PI * fp)})`;
+  }
+};
+window.seek(0);
+</script>
+</body>
+</html>
