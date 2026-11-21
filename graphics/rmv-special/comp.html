@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  /* Coastal Money tokens. Reels safe zone: type inside x 64-940, y 250-1450. */
+  :root { --navy:#173F4F; --terra:#D77B52; --sand:#EFE9DE; --sage-lift:#A9C0B9; --sage:#7E9A93; --ink:#0E2A35; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--navy); }
+  body { font-family: "Manrope", sans-serif; color: var(--sand); }
+  .scene { position: absolute; inset: 0; visibility: hidden; transform-origin: 60% 45%; background: var(--navy); }
+  .scene.sandbg { background: var(--sand); color: var(--ink); }
+  .scene > * { position: absolute; left: 64px; width: 876px; }
+  .h { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .num { font-family: "Sora", sans-serif; font-weight: 700; letter-spacing: -0.03em; line-height: 0.82; font-variant-numeric: tabular-nums; }
+  .eyebrow { font-weight: 700; font-size: 28px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .body { font-weight: 500; font-size: 40px; line-height: 1.45; }
+  .note { font-family: "Caveat", cursive; font-weight: 600; font-size: 68px; line-height: 1.1; transform-origin: 0 50%; }
+  .terra { color: var(--terra); } .sand { color: var(--sand); } .sage-lift { color: var(--sage-lift); } .sage { color: var(--sage); } .ink { color: var(--ink); }
+  .mute-navy { color: rgba(239,233,222,.72); }
+  .w { display: inline-block; opacity: 0; }
+  .zone { display: none; position: absolute; background: rgba(255,0,0,.28); z-index: 9; width: auto; }
+  body.zones .zone { display: block; }
+
+  #s1 .head { top: 470px; font-size: 88px; }
+  #s1 .turn { margin-top: 44px; display: block; }
+  #s1 .cont { top: 1390px; font-size: 34px; }
+
+  #s2 .eyebrow { top: 290px; }
+  #s2 .head { top: 360px; font-size: 88px; }
+  #s2 .head span[data-words], #s4 .head span[data-words] { display: block; }
+  #s2 .body { top: 800px; width: 840px; font-size: 46px; }
+  #s2 .note { top: 1220px; font-size: 76px; }
+
+  #s3 .eyebrow { top: 280px; }
+  #s3 .rows { top: 380px; display: grid; gap: 44px; }
+  #s3 .row { transform-origin: 0 50%; display: grid; grid-template-columns: 310px 1fr; gap: 24px; align-items: center; }
+  #s3 .row .n { font-size: 220px; }
+  #s3 .row .body { font-size: 50px; line-height: 1.25; font-weight: 600; }
+  #s3 .rule { height: 1px; background: rgba(239,233,222,.20); }
+  #s3 .note { top: 1330px; font-size: 76px; }
+
+  #s4 .big { top: 330px; font-size: 520px; transform-origin: 0 100%; }
+  #s4 .head { top: 860px; font-size: 80px; }
+  #s4 .note { top: 1290px; font-size: 76px; }
+
+  #s5 .head { top: 300px; font-size: 84px; }
+  #s5 .dm { top: 700px; font-size: 156px; white-space: nowrap; transform-origin: 0 100%; }
+  #s5 .sign { top: 1200px; }
+  #s5 .rule { height: 1px; background: rgba(239,233,222,.20); }
+  #s5 .who { display: grid; grid-template-columns: 150px 1fr; gap: 28px; align-items: center; padding-top: 40px; }
+  #s5 .who img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; display: block; }
+  #s5 .name { font-family: "Sora", sans-serif; font-weight: 700; font-size: 46px; letter-spacing: -0.02em; }
+</style></head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="head h">
+    <span class="sand" data-words>Some homes in Rancho Mission Viejo come with a lower rate.</span>
+    <span class="turn terra" data-words>Is yours one of them?</span>
+  </div>
+  <div class="cont mute-navy" id="s1cont">The Address Advantage, explained &rarr;</div>
+</div>
+
+<div class="scene sandbg" id="s2">
+  <div class="eyebrow sage" id="s2eye">How it works</div>
+  <div class="head h ink"><span data-words>The address qualifies first.</span> <span data-words>Then you do.</span></div>
+  <div class="body ink" id="s2body">Certain homes carry special pricing on a conforming loan. Most buyers never get told which ones.</div>
+  <div class="note terra" id="s2note">check the address before you write the offer</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="eyebrow sage-lift" id="s3eye">The Address Advantage</div>
+  <div class="rows">
+    <div class="row" id="r1"><div class="n num sand">01</div><div class="body sand">Up to 1.5% off the rate</div></div>
+    <div class="rule" id="rl1"></div>
+    <div class="row" id="r2"><div class="n num sand">02</div><div class="body sand">As little as 3% down</div></div>
+    <div class="rule" id="rl2"></div>
+    <div class="row" id="r3"><div class="n num sand">03</div><div class="body sand">No monthly mortgage insurance</div></div>
+  </div>
+  <div class="note terra" id="s3note">all three, same loan</div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="big num terra" id="s4big">$0</div>
+  <div class="head h sand"><span data-words>Monthly mortgage insurance.</span> <span data-words>With 3% down.</span></div>
+  <div class="note sand" id="s4note">that part never happens</div>
+</div>
+
+<div class="scene" id="s5">
+  <div class="head h sand"><span data-words>Which RMV address are you looking at?</span></div>
+  <div class="dm num terra" id="dm">DM &ldquo;RMV&rdquo;</div>
+  <div class="sign" id="s5sign">
+    <div class="rule"></div>
+    <div class="who"><img src="portrait.png"><div class="name sand">Kyle Melvin</div></div>
+  </div>
+</div>
+
+<div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
+<div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
+<div class="zone" style="left:940px;top:250px;width:140px;height:1200px"></div>
+
+<script>
+  if (location.hash.includes('zones')) document.body.classList.add('zones');
+  const $ = id => document.getElementById(id);
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const back = x => { const c = 1.70158, k = c + 1; return 1 + k*Math.pow(x-1,3) + c*Math.pow(x-1,2); };
+  const p = (t, s, d) => clamp((t - s) / d);
+  // Brief: 3 / 4 / 5 / 3 / 3 s, hard cuts.
+  // v2 (2026-11-17): Kyle wanted it to move like a video. Scenes push up over each other, each drifts in slowly.
+  const S = { s1:[0,3.4], s2:[3.4,7.2], s3:[7.2,12.4], s4:[12.4,15.2], s5:[15.2,18.5] };
+  const PUSH = 0.42; const easeIO = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3)/2;
+  document.querySelectorAll('[data-words]').forEach(el => {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(' ');
+  });
+  const pop = (el, q) => { el.style.opacity = clamp(q*2.5); el.style.transform = `translateX(${-60*(1-easeOut(q))}px) scale(${0.92 + 0.08*back(q)})`; };
+  const rise = (el, q, d = 26) => { el.style.opacity = q; el.style.transform = `translateY(${d*(1-q)}px)`; };
+  const words = sel => Array.from(document.querySelectorAll(sel + ' .w'));
+  const stagger = (ws, t, start, gap, hold = () => 0) => ws.forEach((w, i) => rise(w, easeOut(p(t, start + i*gap + hold(i), 0.35))));
+  const scrawl = (el, t, at) => { const q = p(t, at, 0.35); el.style.opacity = clamp(q*2); el.style.transform = `rotate(${-3 + 1.5*easeOut(q)}deg) scale(${0.9 + 0.1*back(q)})`; };
+  const W = { s1: words('#s1'), s2: words('#s2'), s4: words('#s4'), s5: words('#s5') };
+
+  window.seek = function (t) {
+    Object.keys(S).forEach((k, i) => {
+      const [st, en] = S[k], el = $(k), last = i === 4;
+      const on = t >= st && (last || t < en + PUSH);
+      el.style.visibility = on ? 'visible' : 'hidden'; el.style.zIndex = i;
+      const q = i === 0 ? 1 : easeIO(p(t, st, PUSH));
+      const drift = 1 + 0.025 * clamp((t - st) / (en - st + PUSH));
+      el.style.transform = `translateY(${1920*(1-q)}px) scale(${drift})`;
+    });
+    // s1: sand line word by word, a beat, then the terracotta turn
+    stagger(W.s1, t, 0.1, 0.07, i => i >= 11 ? 0.3 : 0);
+    rise($('s1cont'), easeOut(p(t, 1.9, 0.4)));
+    // s2
+    $('s2eye').style.opacity = p(t, 3.75, 0.25);
+    stagger(W.s2, t, 3.85, 0.08, i => i >= 4 ? 0.25 : 0);
+    rise($('s2body'), easeOut(p(t, 5.00, 0.45)));
+    scrawl($('s2note'), t, 6.00);
+    // s3
+    $('s3eye').style.opacity = p(t, 7.60, 0.25);
+    pop($('r1'), p(t, 7.75, 0.45)); $('rl1').style.opacity = p(t, 8.55, 0.3);
+    pop($('r2'), p(t, 8.75, 0.45)); $('rl2').style.opacity = p(t, 9.55, 0.3);
+    pop($('r3'), p(t, 9.75, 0.45));
+    scrawl($('s3note'), t, 10.85);
+    // s4
+    const bq = p(t, 12.80, 0.4); $('s4big').style.opacity = clamp(bq*2); $('s4big').style.transform = `scale(${0.85 + 0.15*back(bq)})`;
+    stagger(W.s4, t, 13.35, 0.08, i => i >= 3 ? 0.2 : 0);
+    scrawl($('s4note'), t, 14.55);
+    // s5
+    stagger(W.s5, t, 15.65, 0.08);
+    const dq = p(t, 16.45, 0.4); $('dm').style.opacity = clamp(dq*2); $('dm').style.transform = `scale(${0.85 + 0.15*back(dq)})`;
+    rise($('s5sign'), easeOut(p(t, 17.05, 0.45)));
+  };
+  window.seek(0);
+</script>
+</body></html>

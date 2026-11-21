@@ -1,0 +1,6 @@
+[
+ {"type":"whoosh","t":3.35,"d":0.5},{"type":"whoosh","t":7.15,"d":0.5},{"type":"whoosh","t":12.35,"d":0.5},{"type":"whoosh","t":15.15,"d":0.5},
+ {"type":"pop","t":7.8},{"type":"pop","t":8.8},{"type":"pop","t":9.8},
+ {"type":"thud","t":12.9,"gain":1.0},{"type":"ding","t":13.0},
+ {"type":"thud","t":16.55,"gain":0.8}
+]
