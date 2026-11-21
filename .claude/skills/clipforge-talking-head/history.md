@@ -152,3 +152,8 @@ existing `graphics/siri-post` composition: the cues are already sketched in `vid
 only need their `at` times re-derived from the real transcript. The experiment on the silent take is
 `videos/siri-post/talking-head-demo.mp4` in the log; known flaw there was a caption overlapping the
 picture-in-picture box, so keep captions off while a pip is on screen.
+
+- **Chalkboard safe zone (2026-11-21).** The review run found the rate-buydown board's "keep the cash" and the taped
+  "8 years, 4 months" note under Instagram's button column. `board-box.html` now pulls any line (and the note) left of
+  canvas x=858 (frame x=922) and `#...&full&zones` paints the Reels chrome for probes. The board keeps its size. The
+  posted reel was not re-rendered (footage is not kept in the session).

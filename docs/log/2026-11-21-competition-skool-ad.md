@@ -56,3 +56,33 @@ current rules and steps; the first three and `clipforge-graphics` also got a `hi
 moved word for word out of CLAUDE.md. Parlay Derby notes went to `docs/parlay-derby.md`. No rule was changed; a
 line-by-line check found the only lines not carried verbatim were the 2026-11-12 talking-head rules, which are
 restated in that skill. Not yet tried on a real post.
+
+## The review checklist run over twelve delivered cuts
+
+Kyle merged nothing yet (direct push to main is blocked in the session; PR #2 is open) and asked to run
+`clipforge-review` over past videos "to check out any differences". The cuts were pulled from their artifact pages
+(Artifact read-by-path), one frame every ~1/24 of the length with the Reels safe zone drawn. Positions are read off
+small stills, so within about 20 px. Sound was not checked.
+
+Clean: rate-wait v2, SiriusXM, "he got it" (16 straight), bye-week-baby (20 s cut on the page; its baby shot runs
+about 5 s against the 8 s rule, and it may not be the last round).
+
+Misses the list found:
+- **Right-hand button column (x > 940)** in five: rate-buydown v3 (board runs to about x=1026; the taped "8 years,
+  4 months" note and "keep the cash" sit under the buttons), 20-down app props (cash figure to ~970, flow diagram to
+  ~1010), price-cuts (address tails to ~967, one zip clipped by the card edge), strip-sack hook ("driving..." to
+  ~990), and nothing else. This is the most common miss.
+- 20-down app props: "earlier this week" touches his hair at 11 s.
+- broncos-4q: 16 s (list says under ~12), and the last question's bottom line sits below y=1450 and across Asher's chin.
+- winter-buyers: closing slide carries a headline, a body line and a Caveat note (list says one headline).
+- address-advantage: program renamed, but the hook still names Rancho Mission Viejo and the ask is DM "RMV".
+- family-growing: passes the review list; it is the premise formula it misses (a pitch with a CTA in the post).
+
+Nothing re-rendered. Offered: fix the board position in the rate-buydown comp since it is the template for the next
+math reel.
+
+## Chalkboard fix
+
+PR #2 merged by Kyle. At his word the rate-buydown template was fixed: `board-box.html` keeps all writing and the
+taped note left of the button column (board size unchanged), with a `&zones` probe overlay. Checked on stills at
+21.3 s and 30.6 s. The delivered reel was not re-rendered.
