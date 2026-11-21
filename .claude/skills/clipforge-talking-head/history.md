@@ -169,4 +169,6 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   his voice. Start a cards / tiles / corner-circle reel from these two files. Notes: his head is left of centre in
   this take (x≈440), so measure it before placing the card origin; `remove-background` needs
   `onnxruntime-node` installed with `--onnxruntime-node-install-cuda=skip` here; the Parakeet timings in `words.js`
-  differ from a fresh whisper transcript by up to half a second, so keep using `words.js`. His verdict: pending.
+  differ from a fresh whisper transcript by up to half a second, so keep using `words.js`. **His verdict: "Looks good!!!"**, with one steer: "I do want to kind of keep my brand
+  image look and feel. It's fine to not always do the exact colors though." So cards from behind the head, the paper
+  count with a corner circle and flip tiles are approved props.

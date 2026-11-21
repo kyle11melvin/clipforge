@@ -12,11 +12,15 @@ Read the entry for the nearest past post before copying its files. Run `clipforg
 
 He wants the rules "a little bit loose" while the brand image stays.
 
+- **The look and feel is the brand, not the hex codes** (Kyle, 2026-11-21: "keep my brand image look and feel. It's
+  fine to not always do the exact colors"). A piece should read as his at a glance: the paper and sand feel, the type
+  pairing, calm navy and warm terracotta as the family. Shades and accent colours can move within that.
 - **Fixed: the brand image.** Navy, sand, terracotta as the base; Sora for big words, Playfair italic for small
   ones, Caveat for handwriting; his plain first-person voice; no logo, no emoji, no DM/NMLS card in a talking head.
 - **Loose: everything that makes it pop.** Extra accent colours with a meaning (orange = cost, mint = savings),
   texture, props that look like real things (framed chalkboard, taped note, stamp, strapped hundreds, a fake app
-  window with a slider and a rolling number, a flow diagram whose boxes light on his words), glow, dust, wobble,
+  window with a slider and a rolling number, a flow diagram whose boxes light on his words, paper cards spinning
+  out from behind his head, month or count tiles that flip, tiles that flip from a question to his answer), glow, dust, wobble,
   punch-ins. One prop at a time, each tied to what he is saying at that moment.
 - **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
 - **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
