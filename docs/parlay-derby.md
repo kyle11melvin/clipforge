@@ -64,3 +64,28 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
 - The real game's theme (he sent a screen recording of a YouTube upload) was declined; he accepted a sound-alike he made.
 - The session cannot reach parlayderby.com or sign in, so a live check is his: board, My Picks, Commish on his phone.
 
+## 2026-11-22 to 11-23: films, the recap, new riders, grading
+
+- **Films are compositions in the Parlay-Derby repo** (`tools/trailer/comp2.html`, `tools/promo/`, `tools/heist/`), rendered
+  with this repo's `src/graphics/render.mjs`. Timing trick that held up: every move is a CSS animation whose delay is its
+  time in the film, and `seek(t)` pauses and sets them all. Cuts go on the track's beats (hit at 2.0 s, then every 0.5 s).
+  Giant CSS 3D planes glitched in the renderer; the driving scene is drawn on a canvas with plain perspective maths.
+- **What he reacted to:** "that's so fucking money" for the trailer with the painted car, pop-up billboards (his idea:
+  each rider's card springs up on the beat and slams flat) and the chase. A line-up of full figures packed shoulder to
+  shoulder read badly to him: give each rider his own framed tile. He wants heist wording ("Eight on the job. One score."),
+  cars, racing and loud endings. A 30 s edit cut from three films with mixed voices needed a re-cut "with one voice for a
+  marketer": a caption layer with a clear window over the footage (`tools/promo/ad.html`, rendered with `--alpha`).
+- **Art handoff that works every time:** a ChatGPT prompt for one object on a flat bright green ground, side view; key the
+  green, crop off the ground shadow. Car, patrol car and cash bag all came this way. A portrait on a gradient ground
+  needed a grow-from-the-edges cut.
+- **The Heist recap is live at /recap** and replaced the kart race. On his iPhone it killed the tab until three things
+  changed: one scene in the page at a time, the stage fitted with `zoom` (not `transform: scale`), and no drop shadows,
+  spinning sunburst or blur on phones. He found it by noticing it only died with the music on: memory, not audio.
+- **Weekly opener:** he tried the trailer film there, then chose his personal "Welcome back" page: "it changes every week".
+- **Riders:** Caleb (p9), Dana (p10), Jonny (p11) added; Eric and Grant's logins deleted. He creates logins himself in
+  Supabase from direct links and copy-paste blocks, one step per message. He said "one at a time, I hate hopping all over".
+- **Pool rules learned:** there is no pot. The only money is what the two weekly parlays pay if they hit, split evenly;
+  the header badge shows that payout and nothing per person. A pick saved after the lock counts for points but is not a
+  parlay leg. Grading: results fill in from final scores when he opens Commish (2 credits a call, two-hour throttle).
+- **Still unverified by him:** auto-grading against a real week.
+
