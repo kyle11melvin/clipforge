@@ -53,4 +53,14 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   side-by-side options (A/B/C) quickly.
 - Two riders are benched in code (`lib/roster.ts`), hidden everywhere, nothing deleted. The board's kart race box is
   switched off in the new look and `/recap` is still the kart race: he said the race replay can wait.
+- **Live 2026-11-22 (Parlay-Derby PR #13).** After the look he asked for "graphics": a clipforge-style welcome intro
+  (3D spinning title, flash, sunburst, character pop, season tiles flipping in), once per pool week per phone, with Skip.
+  Everything kart-themed is off the pages (race box hidden, `/recap` redirects); he wants nothing on the site that does
+  not match the new look.
+- **Music, again:** a library track picked by measurement ("Voltaic") was "fucking terrible", like every library pick
+  before it. What worked: a written prompt he ran in Suno himself, then the share link. `suno.com` and `cdn1.suno.ai`
+  are allowed on his Default environment now; the share page's `cdn1.suno.ai/<id>.mp4` downloads with plain curl (the
+  `.mp3` needs a login). Do not pick a track for him; hand him the prompt.
+- The real game's theme (he sent a screen recording of a YouTube upload) was declined; he accepted a sound-alike he made.
+- The session cannot reach parlayderby.com or sign in, so a live check is his: board, My Picks, Commish on his phone.
 
