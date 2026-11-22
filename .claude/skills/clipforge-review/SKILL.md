@@ -18,6 +18,8 @@ report, say what was checked and anything that could not be (sound, always).
       "20%") and against their source.
 - [ ] **No invented handles, taglines, sources or facts.**
 - [ ] **Not a repeat.** Different device and shape from his last post of this kind (check the newest logs).
+- [ ] **Looks made, not drawn.** Each prop has a real image in it, depth and size; no flat tiles or line drawings
+      standing in for real things.
 - [ ] **One thing at a time.** One prop or idea on screen per beat; no clutter, no particle storms.
 - [ ] **Private things.** Account numbers, names, emails redacted; family photos and raw screenshots not committed.
 - [ ] **No commercial music** in the file. No TTS voices.

@@ -172,3 +172,25 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   differ from a fresh whisper transcript by up to half a second, so keep using `words.js`. **His verdict: "Looks good!!!"**, with one steer: "I do want to kind of keep my brand
   image look and feel. It's fine to not always do the exact colors though." So cards from behind the head, the paper
   count with a corner circle and flip tiles are approved props.
+
+- **20% down myth remix (2026-11-21), a second test cut, not posted.** Kyle asked for one more past video redone.
+  `graphics/20-down-myth/remix.html` + `assemble-remix.sh` + `sfx-remix.json`, one alpha layer over the same take
+  (no cutout: it is a walking selfie): a paper "20% down" tag that lands on "20%" and snaps in two (two copies of
+  the tag clipped along one jagged line, swinging apart and dropping), a full-screen paper beat with the corner
+  circle where twenty blocks (one per 1% of the $800,000 example) flip on, seventeen fall away on "3%", the label
+  tile turns from "20% down" to "3% down" and the cash rolls $160,000 → $24,000, then two paper cards joined by a
+  drawn arrow for "seller credit → buys your rate down". `ui.html` still supplies the word-by-word type; its app
+  window and flow are gated out in the overlay's `enable`. Start a "thing that breaks" or a block comparison from
+  here.
+  **Round two.** The first pass reused the flipping tiles from the rate-buydown remix for the comparison. Kyle: "It's
+  good but I don't like how you did the same chips as the previous post", then, on the graphics in general: "Maybe
+  you're not capable of putting the graphics together. We might need to get them from ChatGPT ... Can you do better
+  image graphics? Look again at the graphics I recorded on that last video, they are very high quality." A flat
+  line-drawn house was tried and thrown away before he saw it. What the Skool ad has that the first pass lacked:
+  real images inside the cards, depth (3D tilt, stacked layers, heavy soft shadows, a card out of focus behind one in
+  focus), and scale (graphics fill the frame). The comparison beat was rebuilt that way: the real $774,900 listing
+  photo from the price-cuts reel as a tilted card over its own blurred, darkened photo, a "20% down $154,980" card
+  that falls back and blurs, a "3% down" card that swings forward with the figure running down to $23,247.
+  **His verdict on round two: "That's a lot better and I love it and that's a good new rule going forward. I can
+  provide you with real pictures or videos."** So before a build, list the real images or clips each prop needs and
+  ask him for them.

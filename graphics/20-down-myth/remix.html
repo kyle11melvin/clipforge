@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  20% down myth, remix (2026-11-21): a second test of the props from the Skool ad on old footage. Not for posting.
+  ui.html still carries the word-by-word type; this layer replaces its app window and flow diagram with
+    1. a paper "20% down" tag that lands on "20%" and snaps in two (the thing that breaks),
+    2. a full-screen paper beat: a paper house fills from the floor to 20% of its area, then drains to 3% on "3%"
+       while the cash figure rolls $160,000 -> $24,000 and the label tile turns over to "3% down" (the first pass
+       used a grid of blocks; Kyle: "I don't like how you did the same chips as the previous post"),
+    3. two paper cards for the seller credit, joined by a drawn arrow.
+  Times are cut.mp4 seconds (words-ui.js). assemble-remix.sh lays the corner circle of him at CIRCLE.
+  Add #zones to paint the Reels chrome; no hash paints a probe ground as well.
+-->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  :root { --navy:#173F4F; --sand:#EFE9DE; --terra:#D2693B; --ink:#0E2A35; --mint:#9BE3C7; --mintd:#23805F; }
+  html, body { margin:0; width:1080px; height:1920px; overflow:hidden; background:transparent; }
+  body.probe { background:#3f7fd0; }
+  .abs { position:absolute; }
+  .paper { background:var(--sand); border:9px solid #fff; border-radius:16px; box-sizing:border-box; box-shadow:0 18px 34px rgba(8,26,34,.4); }
+
+  /* 1. the tag that snaps */
+  .half { position:absolute; left:110px; top:318px; width:700px; height:250px; opacity:0; transform-origin:center; }
+  .half .paper { position:absolute; inset:0; display:flex; align-items:baseline; justify-content:center; gap:26px; padding-top:22px; }
+  .half b { font-family:"Sora"; font-weight:800; font-size:170px; letter-spacing:-.05em; color:var(--terra); line-height:1; }
+  .half i { font-family:"Sora"; font-style:normal; font-weight:800; font-size:104px; letter-spacing:-.04em; color:var(--ink); }
+
+  /* 2. the comparison beat: a real listing, blurred behind and sharp in front, with two cash cards stacked on it */
+  #sheet { position:absolute; inset:0; opacity:0; overflow:hidden; background:#10303c; }
+  #sheet .bgimg { position:absolute; inset:-120px; background:url(listing.jpg) center/cover; filter:blur(38px) saturate(1.15) brightness(.62); }
+  #sheet .wash { position:absolute; inset:0; background:radial-gradient(120% 80% at 30% 35%, rgba(23,63,79,.25) 0%, rgba(10,32,41,.82) 100%); }
+  #ttl1 { left:70px; top:270px; font-family:"Playfair"; font-style:italic; font-size:84px; color:var(--sand); text-shadow:0 6px 30px rgba(0,0,0,.45); }
+  #ttl2 { left:62px; top:352px; font-family:"Sora"; font-weight:800; font-size:176px; letter-spacing:-.05em; line-height:1; color:var(--sand); white-space:nowrap; text-shadow:0 10px 40px rgba(0,0,0,.45); }
+  #ttl2 b { color:var(--mint); font-weight:800; }
+  #stage { left:0; top:0; width:1080px; height:1920px; perspective:1600px; }
+  #list { position:absolute; left:74px; top:560px; width:600px; border-radius:26px; overflow:hidden; background:#fff; transform-origin:center;
+          box-shadow:0 60px 90px rgba(0,0,0,.5), 0 18px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.6); }
+  #list img { display:block; width:600px; height:435px; object-fit:cover; }
+  #list .row { padding:20px 28px 26px; }
+  #list .k { font-family:"Manrope"; font-weight:800; font-size:21px; letter-spacing:.2em; color:#7b8c92; }
+  #list .v { font-family:"Sora"; font-weight:800; font-size:74px; letter-spacing:-.04em; color:var(--ink); line-height:1.05; }
+  #list .shine { position:absolute; inset:0; background:linear-gradient(115deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 60%); }
+  .due { position:absolute; width:470px; border-radius:24px; overflow:hidden; transform-origin:center; opacity:0;
+         box-shadow:0 50px 80px rgba(0,0,0,.5), 0 14px 26px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.35); }
+  .due .top { height:74px; display:flex; align-items:center; justify-content:space-between; padding:0 26px; font-family:"Manrope"; font-weight:800; font-size:22px; letter-spacing:.18em; }
+  .due .body { padding:16px 26px 26px; }
+  .due .pct { font-family:"Sora"; font-weight:800; font-size:62px; letter-spacing:-.04em; line-height:1; }
+  .due .amt { font-family:"Sora"; font-weight:800; font-size:92px; letter-spacing:-.05em; line-height:1.08; font-variant-numeric:tabular-nums; }
+  #d20 { left:410px; top:1085px; background:#F6F1E7; color:var(--ink); } #d20 .top { background:var(--terra); color:#fff; } #d20 .amt { color:var(--terra); }
+  #d3  { left:384px; top:1118px; background:#0F2E3A; color:var(--sand); } #d3 .top { background:var(--mint); color:var(--ink); } #d3 .amt { color:var(--mint); text-shadow:0 0 34px rgba(155,227,199,.45); }
+  #ring { left:60px; top:1192px; width:260px; height:260px; border-radius:50%; border:8px solid #fff; box-sizing:border-box; background:#26424d; box-shadow:0 24px 40px rgba(0,0,0,.45); }
+  #foot { left:352px; top:1396px; font-family:"Manrope"; font-weight:800; font-size:22px; letter-spacing:.18em; color:rgba(239,233,222,.7); }
+
+  /* 3. seller credit */
+  .sc { position:absolute; height:150px; display:flex; align-items:center; padding:0 38px; opacity:0; transform-origin:center; }
+  .sc div { font-family:"Sora"; font-weight:800; font-size:68px; letter-spacing:-.04em; white-space:nowrap; color:var(--ink); }
+  #arrow { left:0; top:0; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .5 0"/></filter>
+</svg>
+
+<div class="half" id="hl"><div class="paper"><b>20%</b><i>down</i></div></div>
+<div class="half" id="hr"><div class="paper"><b>20%</b><i>down</i></div></div>
+
+<div id="sheet"><div class="bgimg"></div><div class="wash"></div>
+  <div class="abs" id="ttl1">as little as</div>
+  <div class="abs" id="ttl2"><b>3%</b> down</div>
+  <div class="abs" id="stage">
+    <div id="list"><img src="listing.jpg"><div class="shine" id="shine"></div><div class="row"><div class="k">LISTED AT</div><div class="v">$774,900</div></div></div>
+    <div class="due" id="d20"><div class="top"><span>CASH DOWN</span><span>20%</span></div><div class="body"><div class="pct">20% down</div><div class="amt">$154,980</div></div></div>
+    <div class="due" id="d3"><div class="top"><span>CASH DOWN</span><span>3%</span></div><div class="body"><div class="pct">3% down</div><div class="amt" id="amt3">$154,980</div></div></div>
+  </div>
+  <div class="abs" id="ring"></div>
+  <div class="abs" id="foot">EXAMPLE, NOT A QUOTE</div>
+</div>
+
+<div class="sc paper" id="s0" style="left:70px; top:286px;"><div>Seller credit</div></div>
+<svg class="abs" id="arrow" width="1080" height="1920"><path id="ap" d="M 215 444 C 190 458, 236 470, 214 486" fill="none" stroke="#EFE9DE" stroke-width="9" stroke-linecap="round"/><path id="ah" d="M 197 471 L 213 489 L 231 473" fill="none" stroke="#EFE9DE" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div class="sc paper" id="s1" style="left:90px; top:492px; background:var(--mint)"><div>buys your <span style="color:var(--mintd)">rate down</span></div></div>
+
+<script src="words-ui.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, t0, d) => clamp((t - t0) / d);
+const outBack = (p) => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const outCubic = (p) => 1 - Math.pow(1 - p, 3), inCubic = (p) => p * p * p;
+const W = window.WORDS;
+const at = (word, after = 0) => W.find(w => w.start >= after && w.text.toLowerCase().replace(/[^a-z0-9%]/g, "") === word).start;
+
+const T = {
+  tag: at("20%"), snap: at("to", 14),
+  in: at("youre", 17) - 0.14, blocks: at("youre", 17) + 0.12, three: at("3%"), know: at("a", 20), out: at("and", 21.5) - 0.12,
+  seller: at("seller"), buy: at("buy", 27), scOut: at("message") - 0.16,
+};
+window.TIMES = T;
+const CIRCLE = { cx: 190, cy: 1322, r: 122 };
+
+// the tag is two copies cut along one jagged line
+const ZIG = [[52,0],[47,18],[55,34],[45,52],[54,70],[46,86],[52,100]];
+$("hl").style.clipPath = `polygon(-5% -20%, ${ZIG.map(([x, y]) => `${x}% ${y === 0 ? -20 : y === 100 ? 120 : y}%`).join(", ")}, -5% 120%)`;
+$("hr").style.clipPath = `polygon(105% -20%, ${ZIG.map(([x, y]) => `${x}% ${y === 0 ? -20 : y === 100 ? 120 : y}%`).join(", ")}, 105% 120%)`;
+
+const money = (n) => "$" + Math.round(n / 1000).toLocaleString("en-US") + ",000";
+
+const mode = location.hash;
+if (!mode) document.body.classList.add("probe");
+if (/zones/.test(mode)) { document.body.classList.add("probe"); const z = document.createElement("div"); z.style.cssText = "position:absolute;inset:0;z-index:9;background:linear-gradient(rgba(255,0,0,.25),rgba(255,0,0,.25)) 0 0/1080px 250px no-repeat,linear-gradient(rgba(255,0,0,.25),rgba(255,0,0,.25)) 0 1450px/1080px 470px no-repeat,linear-gradient(rgba(255,0,0,.25),rgba(255,0,0,.25)) 940px 0/140px 1920px no-repeat"; document.body.appendChild(z); }
+
+window.seek = (t) => {
+  // 1. tag: slams in, holds, snaps; the halves swing apart and drop
+  const p = prog(t, T.tag - 0.05, 0.2), s = Math.max(0, t - T.snap);
+  for (const [el, dir] of [[$("hl"), -1], [$("hr"), 1]]) {
+    if (p <= 0 || s > 1.2) { el.style.opacity = 0; continue; }
+    const jolt = s > 0 ? 0 : 1.5 * Math.exp(-9 * Math.max(0, t - T.tag - 0.15)) * Math.sin(30 * (t - T.tag));
+    el.style.opacity = s > 0.75 ? 1 - (s - 0.75) / 0.45 : clamp(p * 3);
+    el.style.transform = `translate(${dir * (s > 0 ? 26 + 150 * s : 0)}px, ${1500 * s * s - (s > 0 ? 120 * s : 0)}px) rotate(${-3 + jolt + dir * (s > 0 ? 8 + 70 * s * s : 0)}deg) scale(${2.2 - 1.2 * outCubic(p)})`;
+  }
+
+  // 2. the comparison beat. The listing is real (the Rancho Mission Viejo one from the price-cuts reel, $774,900):
+  // 20% of it is $154,980, 3% is $23,247. The 20% card sits on the listing; on "3%" it falls back out of focus and
+  // the 3% card swings forward while its figure runs down.
+  const pin = prog(t, T.in, 0.36), pout = prog(t, T.out, 0.3), sheet = $("sheet");
+  if (pin <= 0 || pout >= 1) sheet.style.opacity = 0;
+  else {
+    sheet.style.opacity = 1; sheet.style.transform = `translateY(${(1 - outCubic(pin)) * 1920 - inCubic(pout) * 1920}px)`;
+    const dt = t - T.in, fl = Math.sin(dt * 1.3), turn = prog(t, T.three - 0.08, 0.5), e = outCubic(turn);
+    $("list").style.transform = `translateY(${(1 - outBack(prog(t, T.in + 0.12, 0.5))) * 260 + fl * 6}px) rotateY(${-15 + dt * 1.2}deg) rotateX(${7 + fl}deg) rotateZ(-2deg)`;
+    $("shine").style.transform = `translateX(${-110 + prog(t, T.in + 0.5, 1.1) * 220}%)`;
+    const a = prog(t, T.in + 0.45, 0.4), d20 = $("d20"), d3 = $("d3");
+    d20.style.opacity = a <= 0 ? 0 : clamp(a * 3) * (1 - 0.45 * e); d20.style.filter = `blur(${7 * e}px)`;
+    d20.style.transform = `translate(${(1 - outBack(a)) * 300 + 150 * e}px, ${-330 * e + fl * 4}px) translateZ(${-260 * e}px) rotateY(${12 - 6 * e}deg) rotateZ(${5 + 4 * e}deg) scale(${1 - 0.3 * e})`;
+    d3.style.opacity = clamp(turn * 3);
+    d3.style.transform = `translate(${(1 - outBack(turn)) * 420}px, ${(1 - e) * 120 - fl * 5}px) rotateY(${10 - dt * 0.8}deg) rotateZ(${-4 + 9 * (1 - e)}deg) scale(${0.85 + 0.25 * outBack(turn)})`;
+    const roll = prog(t, T.three + 0.1, 0.8); $("amt3").textContent = "$" + Math.round(154980 - (154980 - 23247) * outCubic(roll)).toLocaleString("en-US");
+    const w1 = prog(t, at("as", 18) - 0.05, 0.25), w2 = prog(t, T.three - 0.05, 0.22);
+    $("ttl1").style.opacity = w1; $("ttl1").style.transform = `translateY(${(1 - outCubic(w1)) * 24}px)`;
+    $("ttl2").style.opacity = clamp(w2 * 3); $("ttl2").style.transformOrigin = "left bottom"; $("ttl2").style.transform = `scale(${1.25 - 0.25 * outBack(w2)})`;
+    $("ring").style.opacity = pout > 0 ? 0 : prog(t, T.in + 0.25, 0.2); $("foot").style.opacity = prog(t, T.in + 0.5, 0.3);
+  }
+
+  // 3. seller credit -> buys your rate down
+  const so = prog(t, T.scOut, 0.2);
+  const a = prog(t, T.seller - 0.1, 0.3), b = prog(t, T.buy - 0.1, 0.3), ar = prog(t, T.seller + 0.5, 0.45);
+  $("s0").style.opacity = a <= 0 ? 0 : clamp(a * 3) * (1 - so); $("s0").style.transform = `translateY(${(1 - outBack(a)) * -70 - so * 30}px) rotate(-2.5deg)`;
+  $("s1").style.opacity = b <= 0 ? 0 : clamp(b * 3) * (1 - so); $("s1").style.transform = `translateY(${-so * 30}px) rotate(1.8deg) scaleY(${Math.max(0.02, outBack(b))})`;
+  const len = 60; $("ap").style.strokeDasharray = len; $("ap").style.strokeDashoffset = len * (1 - ar);
+  $("arrow").style.opacity = ar <= 0 ? 0 : 1 - so; $("ah").style.opacity = ar >= 1 ? 1 : 0;
+};
+window.seek(0);
+</script>
+</body>
+</html>

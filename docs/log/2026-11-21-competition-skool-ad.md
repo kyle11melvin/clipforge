@@ -95,3 +95,17 @@ a corner circle, and flip tiles (`remix.html`, `assemble-remix.sh`, `sfx-remix.j
 stills: safe zones clear, nothing over his face, no navy ground, sounds on every moving graphic at about 16 dB under.
 Delivered on a new private page ("Rate Buydown Remix"). Open: the small words on the cards ("up front", "off the
 rate") are not his; six seconds off his face; the lower third of the paper beat is empty because of the caption zone.
+
+## Second remix and a reminder
+
+PR #4 merged. Kyle asked for three premises next week (a scheduled message is set for Monday 2026-11-23, 10:00
+Pacific, into this session) and one more past video redone. Rebuilt the 20% down myth reel from the Drive clip:
+snapping tag, block comparison on paper with the corner circle, seller-credit cards (see the talking-head history).
+Review checklist on stills: zones clear, nothing over his face. Sounds about 16 dB under his voice. Delivered on a
+new private page ("20 Down Remix").
+
+## 20% down remix, round two
+
+Kyle rejected the repeated tile device and questioned the graphics quality against the Skool ad. The comparison
+beat was rebuilt around a real listing photo with depth (see the talking-head history); the quality bar and the
+no-repeat rule were added to the talking-head skill and the review checklist. Page republished at the same link.
