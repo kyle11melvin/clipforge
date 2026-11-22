@@ -36,3 +36,21 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   **Music:** the synthesised chip loop was "fucking terrible"; use a real recording (Kevin MacLeod's 8-bit tracks on
   Wikimedia Commons, CC BY, fetched with the web-fetch tool) and give him labelled options against the picture.
   Items, karts and sound stay original drawings; never Nintendo's characters, art or music.
+
+## Site reskin: Vice Coast Parlay (2026-11-22)
+
+- Kyle asked for the pool site repainted in the style of a neon beach-city crime game, back end untouched. It is built on
+  the `claude/admiring-volta-kgyu83` branch of the Parlay-Derby repo (see its README, "The look"); not live until he says go.
+- **The line that held:** the feel (palette, poster portraits, menu furniture) is fine; the real game's name, logo,
+  characters, screenshots and music stay out. He accepted that once he saw how close the feel gets.
+- **What worked:** a rough mock first on a private artifact page, then his ChatGPT art dropped into it piece by piece.
+  ChatGPT makes the art (one portrait per rider on a flat colour ground, one backdrop with no text or people); it is never
+  the board itself, because it invents names and numbers. Portraits: one photo per message in one chat, his finished
+  portrait attached as the style reference. Flat grounds cut out cleanly with a flood fill from the edges.
+- **His calls:** name "Vice Coast Parlay" (URL unchanged); see-through scoreboard so the car, yacht and cash case show,
+  darkness "B"; the big figure is the signed-in rider (he does not want to be the main image without a reason), leader
+  when signed out; tap a rider for his full poster; a welcome character screen after login. He picks from lettered
+  side-by-side options (A/B/C) quickly.
+- Two riders are benched in code (`lib/roster.ts`), hidden everywhere, nothing deleted. The board's kart race box is
+  switched off in the new look and `/recap` is still the kart race: he said the race replay can wait.
+
