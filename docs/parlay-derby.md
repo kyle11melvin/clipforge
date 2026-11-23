@@ -89,3 +89,20 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   parlay leg. Grading: results fill in from final scores when he opens Commish (2 credits a call, two-hour throttle).
 - **Still unverified by him:** auto-grading against a real week.
 
+
+## 2026-11-23: soft style, ten riders, hands-off grading
+
+- **The whole site was redrawn in a softer flat cel-shaded look** (characters, four scenes, car, patrol car, bag). Sources
+  and the green-key cutter are in the Parlay-Derby repo under `tools/soft/`.
+- **Redrawing a face from an earlier drawing drifts ("copy of a copy").** What held the likeness: a fresh ChatGPT chat,
+  the real photo cropped to the face plus one soft-style picture as the style reference, and the outfit described in
+  words. When the old bold style came back, a short correction prompt naming the differences fixed it. Smoke and other
+  wisps key badly off green: paint them in afterwards.
+- **Ten riders now**, each with his own card colour (he asked that no two match): twelve colours in `public/derby.js`.
+- **Promo for his boss:** he pulled "built by / one person / three days" lines, and any phone-mockup scene ("don't turn it
+  into a phone thing"); cars zipping off screen, spinning rings and a bag drop stayed. He treats these as a job audition.
+- **Hands-off grading:** grading now runs on the server when anyone opens the board and nightly, once the Supabase
+  service key is in Vercel as `SUPABASE_SERVICE_ROLE_KEY`. He adds secrets himself, straight from Supabase to Vercel,
+  never through chat; a new env var needs a deploy before it applies. Commish shows an ON/OFF line so he can check it
+  without me, since a session cannot reach the live site.
+- **Still unverified by him:** lock-in car on a real save, a late pick not adding a parlay leg, server grading on a real week.
