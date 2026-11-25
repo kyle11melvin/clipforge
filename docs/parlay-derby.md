@@ -122,3 +122,8 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
 - **His call:** nothing from this goes on the site. Next week's trailer may use Grok for moving background shots; five
   face-free frames (skyline push, street rush, marina car pulling away, side-on chase, cash bag) are on a page for him.
   **When the clips come back:** cut them under the riders' pop-up cards, on the track's beats.
+- **Next-week trailer (same day):** he ran the five face-free frames (the bag never came back) and asked for a generic
+  "normal week" trailer with all ten rider cards, no theme. `tools/trailer/next-week.html` in the Parlay-Derby repo is the
+  overlay (type and cards on a transparent ground, rendered with `--alpha`), laid over a cut of the Grok clips on
+  `trailer.wav`. The Grok clips are not in either repo; he has them. Grok notes: the side-on chase holds both cars exactly
+  as drawn and loops; the street rush comes out glossy 3D, so use it in one- or two-second bursts. Open: his verdict.
