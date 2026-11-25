@@ -127,3 +127,7 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   overlay (type and cards on a transparent ground, rendered with `--alpha`), laid over a cut of the Grok clips on
   `trailer.wav`. The Grok clips are not in either repo; he has them. Grok notes: the side-on chase holds both cars exactly
   as drawn and loops; the street rush comes out glossy 3D, so use it in one- or two-second bursts. Open: his verdict.
+- **Verdict and music:** "Absolutely love it." He wants the music varied week to week but "very similar". Three other
+  20 s stretches of `vice-theme.mp3` were lined up to the half-second grid by measurement (the song runs at 120 BPM) and
+  shown as A/B/C on the same picture; **he picked B, starting at 113.06 s** (goes quiet near 14 s). A was 134.05 s, C 85.08 s.
+  He is also making a sister track in Suno from a prompt (120 BPM, quiet two seconds, hit, second hit near 12 s).
