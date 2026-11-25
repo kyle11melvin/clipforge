@@ -16,5 +16,12 @@ copy himself. Flagged that it repeats the 2026-11-17 winter reel; he went ahead.
   the page says so.
 - Page: "Winter Swipe Carousel" (swipe preview, save button per slide, caption draft with a copy button).
 
-Open: confirm the 53; his portraits are daylight shots on navy (a dark-wall portrait would sit better); slides 6 and 7
-are Claude's wording; the guide says no portrait on a hook, and this format puts one there at his request.
+## Third pass
+
+Kyle: does not want his picture in twice ("or the same headshot", even in a different outfit), and asked what a
+marketer would change about the look, copy and items. Rebuilt: one portrait only, on the 7|8 seam; a wreath on 1|2
+(Unsplash, Spencer Imbrock) so each object sits beside the line it illustrates (holidays, moving, keys); hook is type
+plus object, no face; copy rewritten ("Nobody house hunts in December. Good."); the unconfirmed 53 removed.
+
+Open: his verdict on the rewritten copy; a real figure from one of his own deals; the objects come from three
+different photographers and do not share lighting.
