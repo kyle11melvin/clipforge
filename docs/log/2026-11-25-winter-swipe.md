@@ -25,3 +25,11 @@ plus object, no face; copy rewritten ("Nobody house hunts in December. Good."); 
 
 Open: his verdict on the rewritten copy; a real figure from one of his own deals; the objects come from three
 different photographers and do not share lighting.
+
+## Object set B
+
+Kyle: "Good for now but I want to see another. Find a better matched Unsplash set." `comp-b.html` swaps in a twig
+wreath (Mel Poole), an open kraft box with an orange edge (Giorgio Trovato) and a single key (Kelly Sikkema, tinted
+brass with PIL `colorize` so all three sit in one kraft/brass family). Searching Unsplash for "dark background" objects
+returned nothing usable; white-background studio shots cut out cleanly and match once graded. The page has a set A / set B
+switch. Open: his pick; the key is stamped "Duplication prohibited".
