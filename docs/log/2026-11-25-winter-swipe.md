@@ -33,3 +33,8 @@ wreath (Mel Poole), an open kraft box with an orange edge (Giorgio Trovato) and 
 brass with PIL `colorize` so all three sit in one kraft/brass family). Searching Unsplash for "dark background" objects
 returned nothing usable; white-background studio shots cut out cleanly and match once graded. The page has a set A / set B
 switch. Open: his pick; the key is stamped "Duplication prohibited".
+
+## His pick
+
+Kyle: the wreath from set A, the box and key from set B. `comp.html` is now that combination (wreath Spencer Imbrock,
+box Giorgio Trovato, key Kelly Sikkema tinted brass); `comp-b.html` and the unused cutouts are gone.
