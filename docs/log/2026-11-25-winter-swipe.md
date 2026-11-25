@@ -38,3 +38,5 @@ switch. Open: his pick; the key is stamped "Duplication prohibited".
 
 Kyle: the wreath from set A, the box and key from set B. `comp.html` is now that combination (wreath Spencer Imbrock,
 box Giorgio Trovato, key Kelly Sikkema tinted brass); `comp-b.html` and the unused cutouts are gone.
+
+Kyle asked for the key's "Duplication prohibited" stamp to be blurred; done in `key.png` (feathered blur with grain).
