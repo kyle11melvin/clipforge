@@ -106,3 +106,19 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   never through chat; a new env var needs a deploy before it applies. Commish shows an ON/OFF line so he can check it
   without me, since a session cannot reach the live site.
 - **Still unverified by him:** lock-in car on a real save, a late pick not adding a parlay leg, server grading on a real week.
+
+## 2026-11-25: Grok image-to-video on the soft-style art
+
+- Kyle asked "just for fun" what Grok would do with the characters and scenes. Five composed 1080x1920 frames (rider plus
+  scene) went on a private page, each with a Save button and a one-line "Animate this exact image…" prompt. He ran four.
+- **What Grok returns:** 10 s, 704x1280, with its own audio. One picture and one line works every time; it holds the
+  style, outfits and props, follows the motion asked for, and invents what the frame lacks (legs for riders cut off at
+  the thigh, a corridor when the camera tracks off the vault). Glitches: a second pair of sunglasses, lasers vanishing,
+  lane lines changing.
+- **Kyle: "Grok changed the characters' faces."** Never use it for a shot where a rider must be recognised. Use it for
+  face-free shots (road, cars, cash, skyline, the turkey); the riders stay as the drawn art on top.
+- The four clips were cut to `tools/trailer/trailer.wav` (20 s, cuts on the beats, Grok's audio dropped): "actually
+  pretty good". It was not sent anywhere; this week's trailer had already gone out.
+- **His call:** nothing from this goes on the site. Next week's trailer may use Grok for moving background shots; five
+  face-free frames (skyline push, street rush, marina car pulling away, side-on chase, cash bag) are on a page for him.
+  **When the clips come back:** cut them under the riders' pop-up cards, on the track's beats.
