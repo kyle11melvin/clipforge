@@ -47,6 +47,10 @@ said, and which file to start from. Where an entry and SKILL.md disagree, SKILL.
   from a Project brief; `comp.html#zones` paints the Reels safe zone for probes. **Never name a loan program after a
   neighborhood** (Kyle: "RMV special" looks like a special discount for one area, a fair-lending problem); the program
   got a neutral name ("The Address Advantage" in the first cut, his pick pending). Check a brief's program names for this.
+- `graphics/winter-swipe/` (2026-11-25) — the **template for a seamless swipe carousel**: one 8640x1350 strip sliced
+  into eight slides, with a portrait or object centred on every other seam and two short lines per slide. Kyle on the
+  first pass (numerals on the middle seams): keep the brand colours, but use **actual objects** (Unsplash photos, cut
+  out with `rembg`), not type standing in for them.
 - `graphics/winter-buyers/` (2026-11-17) — the **template for a Project-brief type reel**: each line has a `data-at`
   time, one `seek` loop, hard cuts; `#move` adds the push-up transition, `#zones` paints the Reels chrome, `#car` lays
   the same scenes out for 1080x1350 carousel stills (`still.mjs --size 1080x1350`). When a brief says "flat, hard cuts"
