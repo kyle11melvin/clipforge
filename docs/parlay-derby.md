@@ -131,3 +131,6 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   20 s stretches of `vice-theme.mp3` were lined up to the half-second grid by measurement (the song runs at 120 BPM) and
   shown as A/B/C on the same picture; **he picked B, starting at 113.06 s** (goes quiet near 14 s). A was 134.05 s, C 85.08 s.
   He is also making a sister track in Suno from a prompt (120 BPM, quiet two seconds, hit, second hit near 12 s).
+- **Music settled:** B over his new Suno track "Neon Heist" ("I think the B"). Suno share links no longer download from
+  here (cdn1 refuses, the other copy is scrambled) and Download is paid; what worked was a phone screen recording of the
+  song playing. Neon Heist came out at about 123 BPM and was slowed 2.7% to fit; its file is not in either repo.
