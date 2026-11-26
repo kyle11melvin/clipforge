@@ -134,3 +134,9 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
 - **Music settled:** B over his new Suno track "Neon Heist" ("I think the B"). Suno share links no longer download from
   here (cdn1 refuses, the other copy is scrambled) and Download is paid; what worked was a phone screen recording of the
   song playing. Neon Heist came out at about 123 BPM and was slowed 2.7% to fit; its file is not in either repo.
+- **Picks-are-in hype video (2026-11-25 evening):** his idea, once both slips were placed: the same Grok shots with each
+  rider's card and two picks (a second each), then what each slip pays. `tools/trailer/hype.html` (27 s overlay); music is
+  the B stretch run on to its drop at 23 s. He sends board screenshots plus the Novig slips; use the slips for payouts
+  and for any line that differs (this week the board had BYU -15.5 and Packers +2.5, the slips -14.5 and +3.5, and the
+  board's "legs multiplied" payout was far above what Novig actually paid). Open: his verdict; whether the board should
+  show the slip's real numbers.
