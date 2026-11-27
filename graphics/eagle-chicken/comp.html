@@ -1,0 +1,132 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- "Live like a chicken or soar like an eagle". Photo + type short, 23 s, silent. Not a Coastal Money post:
+     the words are from a graphic Kyle was sent (typos fixed), the photos are generated plates with no text.
+     The chicken's thoughts flash fast and speed up; the eagle's arrive slowly, one at a time.
+     comp.html#zones paints the Reels chrome in red for probes. -->
+<style>
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  :root { --sky:#245976; --ink:#2B1B10; --cream:#F6F1E7; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+  body { font-family: "Sora", sans-serif; }
+  .scene { position: absolute; inset: 0; visibility: hidden; overflow: hidden; }
+  .zone { display: none; position: absolute; background: rgba(255,0,0,.28); z-index: 9; }
+  body.zones .zone { display: block; }
+  .label { position: absolute; left: 80px; width: 860px; top: 300px; text-align: center; font-family: "Manrope", sans-serif;
+           font-weight: 800; font-size: 34px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .phrase { position: absolute; left: 70px; width: 880px; top: 400px; height: 380px; display: flex; align-items: center; justify-content: center;
+            text-align: center; font-weight: 800; font-size: 124px; line-height: 1.06; letter-spacing: -0.03em; opacity: 0; }
+
+  /* hook: eagle above, chicken below, title band between */
+  #hook { background: var(--sky); }
+  #hook .top { position: absolute; left: 0; top: 0; width: 1080px; height: 840px; overflow: hidden; background: var(--sky); }
+  #hook .top img { position: absolute; left: 250px; top: -70px; width: 860px;
+                   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 90px); mask-image: linear-gradient(90deg, transparent 0, #000 90px); }
+  #hook .bot { position: absolute; left: 0; top: 1080px; width: 1080px; height: 840px; overflow: hidden; }
+  #hook .bot img { position: absolute; left: 0; top: -470px; width: 1080px; }
+  #hook .band { position: absolute; left: 0; top: 840px; width: 1080px; height: 240px; background: #14110F; color: var(--cream);
+                display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 60px; }
+  #hook .band div { font-weight: 800; font-size: 66px; line-height: 1.22; letter-spacing: -0.02em; white-space: nowrap; }
+  #hook .band span { display: inline-block; opacity: 0; }
+
+  #chicken img { position: absolute; top: 0; left: -457px; height: 1920px; transform-origin: 78% 68%; }
+  #chicken .label, #chicken .phrase { color: var(--ink); }
+
+  #eagle { background: var(--sky); }
+  #eagle img { position: absolute; left: 0; top: 600px; width: 1080px; transform-origin: 25% 50%;
+               -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 220px); mask-image: linear-gradient(180deg, transparent 0, #000 220px); }
+  #eagle .label { color: #BFD9E6; }
+  #eagle .phrase { color: var(--cream); font-size: 116px; }
+</style></head>
+<body>
+
+<div class="scene" id="hook">
+  <div class="top"><img src="eagle.jpg"></div>
+  <div class="bot"><img src="chicken.jpg"></div>
+  <div class="band">
+    <div><span>Live</span> <span>like</span> <span>a</span> <span>chicken</span></div>
+    <div><span>or</span> <span>soar</span> <span>like</span> <span>an</span> <span>eagle?</span></div>
+  </div>
+</div>
+
+<div class="scene" id="chicken">
+  <img src="chicken.jpg">
+  <div class="label">What does a chicken think?</div>
+</div>
+
+<div class="scene" id="eagle">
+  <img src="eagle.jpg">
+  <div class="label">What does an eagle think?</div>
+</div>
+
+<div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
+<div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
+<div class="zone" style="left:940px;top:250px;width:140px;height:1200px"></div>
+
+<script>
+  if (location.hash.includes('zones')) document.body.classList.add('zones');
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const easeOut = x => 1 - Math.pow(1 - x, 3);
+  const p = (t, s, d) => clamp((t - s) / d);
+  const $ = s => document.querySelector(s);
+
+  const T_CHICKEN = 2.9;
+  // [phrase, seconds on screen]: starts unhurried, speeds up, the last one sticks
+  const CHICKEN = [["What if?", .62], ["My issues.", .52], ["My worries.", .48], ["My problems.", .44], ["I&rsquo;m stuck.", .42],
+    ["My outcome.", .38], ["I want.", .34], ["I must have.", .34], ["I&rsquo;m angry.", .32], ["I can&rsquo;t sleep.", .34],
+    ["I need results.", .32], ["I need more.", .32], ["I can&rsquo;t see beyond my beak.", .95], ["Following my worries.", .6], ["Hard to breathe.", 1.3]];
+  const C_START = T_CHICKEN + 0.95;
+  let acc = C_START; CHICKEN.forEach(c => { c.push(acc); acc += c[1]; });
+  const T_EAGLE = acc;                       // hard cut to open sky
+  const E_START = T_EAGLE + 1.5;             // a beat of nothing, then the label, then the first thought
+  const E_STEP = 0.95;
+  const EAGLE = ["No beginning.<br>No end.", "No right<br>or wrong.", "Carefree.<br>No limits.", "See the universe.", "Follow my instincts.",
+    "Live in the moment.", "Trust the higher power.", "Creative.", "Breathe freely."];
+  const T_END = E_START + EAGLE.length * E_STEP + 1.6;
+  window.DURATION = T_END;
+
+  const mk = (parent, html) => { const d = document.createElement('div'); d.className = 'phrase'; d.innerHTML = html; $(parent).appendChild(d); return d; };
+  const cEls = CHICKEN.map(c => mk('#chicken', c[0]));
+  const eEls = EAGLE.map(e => mk('#eagle', e));
+  const hookWords = Array.from(document.querySelectorAll('#hook .band span'));
+
+  window.seek = function (t) {
+    const sc = t < T_CHICKEN ? 'hook' : t < T_EAGLE ? 'chicken' : 'eagle';
+    document.querySelectorAll('.scene').forEach(el => el.style.visibility = el.id === sc ? 'visible' : 'hidden');
+
+    // hook: slow push on both photos, words rise in
+    const k = p(t, 0, T_CHICKEN);
+    $('#hook .top img').style.transform = `translate(${-18 * k}px, ${-10 * k}px) scale(${1 + 0.05 * k})`;
+    $('#hook .bot img').style.transform = `scale(${1 + 0.05 * k})`;
+    hookWords.forEach((w, i) => {
+      const a = easeOut(p(t, 0.25 + i * 0.11 + (i > 3 ? 0.35 : 0), 0.32));
+      w.style.opacity = a; w.style.transform = `translateY(${(1 - a) * 26}px)`;
+    });
+
+    // chicken: push in toward the beak, thoughts swap with a hard cut
+    const ck = p(t, T_CHICKEN, T_EAGLE - T_CHICKEN);
+    $('#chicken img').style.transform = `scale(${1 + 0.09 * ck})`;
+    $('#chicken .label').style.opacity = easeOut(p(t, T_CHICKEN + 0.2, 0.3));
+    CHICKEN.forEach((c, i) => {
+      const on = t >= c[2] && t < c[2] + c[1];
+      const a = easeOut(p(t, c[2], 0.09));
+      cEls[i].style.opacity = on ? 1 : 0;
+      cEls[i].style.transform = `scale(${0.94 + 0.06 * a})`;
+    });
+
+    // eagle: glides up and to the right, thoughts fade in and out slowly
+    const ek = p(t, T_EAGLE, T_END - T_EAGLE);
+    $('#eagle img').style.transform = `translate(${34 * ek}px, ${-46 * ek}px) scale(${1 + 0.04 * ek})`;
+    $('#eagle .label').style.opacity = easeOut(p(t, T_EAGLE + 0.7, 0.5));
+    EAGLE.forEach((e, i) => {
+      const s = E_START + i * E_STEP, last = i === EAGLE.length - 1;
+      const a = easeOut(p(t, s, 0.38)) * (last ? 1 : 1 - p(t, s + E_STEP - 0.2, 0.2));
+      eEls[i].style.opacity = a;
+      eEls[i].style.transform = `translateY(${(1 - easeOut(p(t, s, 0.5))) * 22}px)`;
+    });
+  };
+  window.seek(0);
+</script>
+</body></html>

@@ -71,3 +71,6 @@ said, and which file to start from. Where an entry and SKILL.md disagree, SKILL.
   errors. Never staged examples. When a URL matters, show it as a gold pill on screen and also put it in the
   caption, since video posts have no clickable links.
 - No invented handles, taglines or sources. If a tag line is needed, ask or leave it out.
+- `graphics/eagle-chicken/` (2026-11-27) — a **photo + type short from someone else's text graphic**: ChatGPT makes
+  text-free photo plates from a prompt written here, the type is set in the composition. Fast hard-swapped phrases for
+  the anxious half, slow fades for the calm half. Verdict pending.
