@@ -1,6 +1,6 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<!-- "Live like a chicken or soar like an eagle". Photo + type short, 23 s, silent. Not a Coastal Money post:
+<!-- "Live like a chicken or soar like an eagle". Photo + type short, 17.6 s; music from src/music/eagle.py. Not a Coastal Money post:
      the words are from a graphic Kyle was sent (typos fixed), the photos are generated plates with no text.
      The chicken's thoughts flash fast and speed up; the eagle's arrive slowly, one at a time.
      comp.html#zones paints the Reels chrome in red for probes. -->
@@ -72,16 +72,16 @@
   const p = (t, s, d) => clamp((t - s) / d);
   const $ = s => document.querySelector(s);
 
-  const T_CHICKEN = 2.9;
+  const T_CHICKEN = 2.2;
   // [phrase, seconds on screen]: starts unhurried, speeds up, the last one sticks
-  const CHICKEN = [["What if?", .62], ["My issues.", .52], ["My worries.", .48], ["My problems.", .44], ["I&rsquo;m stuck.", .42],
-    ["My outcome.", .38], ["I want.", .34], ["I must have.", .34], ["I&rsquo;m angry.", .32], ["I can&rsquo;t sleep.", .34],
-    ["I need results.", .32], ["I need more.", .32], ["I can&rsquo;t see beyond my beak.", .95], ["Following my worries.", .6], ["Hard to breathe.", 1.3]];
-  const C_START = T_CHICKEN + 0.95;
+  const CHICKEN = [["What if?", .45], ["My issues.", .4], ["My worries.", .36], ["My problems.", .33], ["I&rsquo;m stuck.", .3],
+    ["My outcome.", .28], ["I want.", .26], ["I must have.", .26], ["I&rsquo;m angry.", .25], ["I can&rsquo;t sleep.", .26],
+    ["I need results.", .25], ["I need more.", .25], ["I can&rsquo;t see beyond my beak.", .7], ["Following my worries.", .45], ["Hard to breathe.", 1.0]];
+  const C_START = T_CHICKEN + 0.7;
   let acc = C_START; CHICKEN.forEach(c => { c.push(acc); acc += c[1]; });
   const T_EAGLE = acc;                       // hard cut to open sky
-  const E_START = T_EAGLE + 1.5;             // a beat of nothing, then the label, then the first thought
-  const E_STEP = 0.95;
+  const E_START = T_EAGLE + 1.0;             // a beat of nothing, then the label, then the first thought
+  const E_STEP = 0.7;
   const EAGLE = ["No beginning.<br>No end.", "No right<br>or wrong.", "Carefree.<br>No limits.", "See the universe.", "Follow my instincts.",
     "Live in the moment.", "Trust the higher power.", "Creative.", "Breathe freely."];
   const T_END = E_START + EAGLE.length * E_STEP + 1.6;
@@ -101,7 +101,7 @@
     $('#hook .top img').style.transform = `translate(${-18 * k}px, ${-10 * k}px) scale(${1 + 0.05 * k})`;
     $('#hook .bot img').style.transform = `scale(${1 + 0.05 * k})`;
     hookWords.forEach((w, i) => {
-      const a = easeOut(p(t, 0.25 + i * 0.11 + (i > 3 ? 0.35 : 0), 0.32));
+      const a = easeOut(p(t, 0.15 + i * 0.09 + (i > 3 ? 0.25 : 0), 0.28));
       w.style.opacity = a; w.style.transform = `translateY(${(1 - a) * 26}px)`;
     });
 
@@ -119,12 +119,12 @@
     // eagle: glides up and to the right, thoughts fade in and out slowly
     const ek = p(t, T_EAGLE, T_END - T_EAGLE);
     $('#eagle img').style.transform = `translate(${34 * ek}px, ${-46 * ek}px) scale(${1 + 0.04 * ek})`;
-    $('#eagle .label').style.opacity = easeOut(p(t, T_EAGLE + 0.7, 0.5));
+    $('#eagle .label').style.opacity = easeOut(p(t, T_EAGLE + 0.4, 0.4));
     EAGLE.forEach((e, i) => {
       const s = E_START + i * E_STEP, last = i === EAGLE.length - 1;
-      const a = easeOut(p(t, s, 0.38)) * (last ? 1 : 1 - p(t, s + E_STEP - 0.2, 0.2));
+      const a = easeOut(p(t, s, 0.3)) * (last ? 1 : 1 - p(t, s + E_STEP - 0.15, 0.15));
       eEls[i].style.opacity = a;
-      eEls[i].style.transform = `translateY(${(1 - easeOut(p(t, s, 0.5))) * 22}px)`;
+      eEls[i].style.transform = `translateY(${(1 - easeOut(p(t, s, 0.4))) * 22}px)`;
     });
   };
   window.seek(0);

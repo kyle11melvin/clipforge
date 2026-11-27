@@ -13,3 +13,14 @@ ocean analogy) and asked to make them better. He wanted a prompt for ChatGPT fir
 - Page: "Eagle or Chicken Short" (Save MP4, cover, stills, caption draft).
 
 Open: his verdict; the glass and ocean plates for the murky-water half; music; which account.
+
+## Second pass: faster, with music
+
+Kyle: "Speed up the content but otherwise great", and music: once the eagle hits it should be uplifting, "like someone
+just saw the sunset in the sky for the first time in their entire life".
+
+- Timings cut from 23.2 s to 17.6 s: hook 2.2 s, chicken thoughts 0.45 s down to 0.25 s, eagle thoughts 0.7 s each.
+- `src/music/eagle.py` (numpy only): an A pedal with a Bb rubbing on it and a tick plus thud on every chicken thought,
+  0.28 s of silence before the cut, then D major (D, Bm7, G, A, D) with a wide pad, low D and a bell on every eagle
+  thought, in a 3 s hall. Timings are duplicated from the comp. Mean level -17 dB under the chicken, -11 dB under the eagle.
+- `videos/eagle-chicken/final.mp4` is the muxed file. Not heard by Claude.
