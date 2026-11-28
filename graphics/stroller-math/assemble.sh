@@ -4,16 +4,15 @@
 # Order (see docs/log/2026-11-28-stroller-math.md):
 #   1. npx hyperframes models install parakeet; npx hyperframes transcribe <the 45 s cut> -e parakeet   (word edges)
 #   2. python3 -I graphics/stroller-math/tight-cut.py <that transcript.json>      -> cut.mp4, transcript.json
-#   3. clipforge build footage/stroller-math/sdr --name stroller-math --caption-style rounded --caption-y 0.19 \
-#        --caption-hide 4.6-20.4,23.44-26.8                               -> final.mp4 (captions)
-#   4. this script                                                                -> final-graphics.mp4
+#   3. this script                                                                -> final-graphics.mp4
+# Round six has no burned-in captions: the type and the paper beats carry every line, so it composites over cut.mp4.
 set -e
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"; G="$ROOT/graphics/stroller-math"
 cd "$ROOT/videos/stroller-math"
-DUR=26.5; SFX=${SFX:-0.5}
+DUR=20.6; SFX=${SFX:-0.5}
 [ -f overlay.mov ] && [ -z "$FORCE" ] || node "$ROOT/src/graphics/render.mjs" "$G/overlay.html" overlay.mov --alpha --duration $DUR
 python3 "$ROOT/src/music/chalk.py" sfx.wav "$G/sfx.json" --dur $DUR
-ffmpeg -v error -y -i final.mp4 -i overlay.mov -i sfx.wav -filter_complex "\
+ffmpeg -v error -y -i cut.mp4 -i overlay.mov -i sfx.wav -filter_complex "\
 [0:v][1:v]overlay=eof_action=pass,format=yuv420p[v];\
 [0:a]aformat=sample_rates=48000:channel_layouts=stereo[vo];[2:a]volume=$SFX[fx];\
 [vo][fx]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[au]" \

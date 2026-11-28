@@ -1,8 +1,8 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <style>
-  /* Stroller math (2026-11-28), round four: the 26.7 s cut (tight-cut.py). The number is on screen from the first
-     frame, it ends on his question and the smile, type is Sora and Playfair only, the house is a SoCal one. No corner
+  /* Stroller math (2026-11-28), round six: the 20.6 s cut (tight-cut.py). His face for the first line and the question only; the math and
+     the home are full-screen paper beats. Type is Sora and Playfair only, the house is a SoCal one. No corner
      circle; an arrow and a percent climb with the growth. Round two notes still hold: one alpha layer over a walking selfie (cap top is
      y>=795 in cut.mp4), everything big is real 3D:
        type      extruded letters (stacked copies in Z) that sway in perspective
@@ -36,36 +36,25 @@
   #foot { position: absolute; left: 76px; top: 1410px; font-size: 24px; font-weight: 600; color: rgba(14,42,53,.6); white-space: nowrap; }
   #plab { position: absolute; left: 82px; top: 846px; font-family: "Playfair", serif; font-style: italic; font-size: 42px; color: var(--ink); opacity: 0; }
 
-  #photo, #photoBack { position: absolute; left: 150px; top: 272px; width: 640px; height: 480px; background: url(house.jpg) center/cover; border-radius: 20px; }
+  #photo, #photoBack { position: absolute; left: 120px; top: 470px; width: 760px; height: 570px; background: url(house.jpg) center/cover; border-radius: 20px; }
   #photo { border: 14px solid #fff; box-shadow: 0 70px 100px rgba(4,18,26,.6), 0 20px 34px rgba(4,18,26,.4); }
   #photoBack { filter: blur(24px) brightness(.6) saturate(1.1); border-radius: 28px; }
-  #tag { position: absolute; left: 262px; top: 666px; background: #F6F1E7; color: var(--ink); font-family: "Playfair", serif; font-style: italic; font-size: 60px; line-height: 1; padding: 20px 34px 24px; border-radius: 10px; white-space: nowrap;
+  #tag, #tag2 { position: absolute; left: 250px; top: 960px; background: #F6F1E7; color: var(--ink); font-family: "Playfair", serif; font-style: italic; font-size: 68px; line-height: 1; padding: 22px 38px 28px; border-radius: 10px; white-space: nowrap;
          box-shadow: 0 28px 44px rgba(4,18,26,.55), 0 6px 10px rgba(4,18,26,.3); }
+  #tag2 { left: 110px; top: 1150px; }
   #under { position: absolute; left: 66px; top: 716px; }
   .zone { position: absolute; background: rgba(255,0,0,.28); display: none; z-index: 99; }
 </style></head>
 <body>
 <div id="scrim"></div>
 
-<!-- 1: the hook, on screen from the first frame (round four: the number first, not the walk line) -->
-<div class="sm" id="s1" style="top:286px;font-size:60px" data-w="-1,-1,-1">for my son,</div>
-<div class="persp"><div class="rot" id="r1" style="left:72px;top:346px;font-size:104px">
-  <span class="xw" data-t="-1" data-c="#EFE9DE" data-d="#143746">$250</span><span class="xw" data-t="-1" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="-1" data-c="#EFE9DE" data-d="#143746">month.</span>
-</div></div>
-<div class="persp"><div class="rot" id="r1b" style="left:68px;top:474px;font-size:150px">
-  <span class="xw" data-t="-1" data-c="#D77B52" data-d="#7E3D22" data-n="34" style="display:block">$120,000</span>
-</div></div>
-<div class="persp"><div class="rot" id="r1c" style="left:74px;top:640px;font-size:86px">
-  <span class="xw" data-t="-1" data-c="#D77B52" data-d="#7E3D22">by 18?</span>
-</div></div>
-
 <!-- 2: $250 a month -->
-<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="4.97,5.13,5.13">I'm putting in</div>
+<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="0.03,0.19,0.43,0.59">right now I'm putting</div>
 <div class="persp"><div class="rot" id="r2" style="left:60px;top:350px;font-size:330px">
-  <span class="xw" id="big" data-t="5.61" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
+  <span class="xw" id="big" data-t="1.05" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
 </div></div>
 <div class="persp"><div class="rot" id="r2b" style="left:76px;top:694px;font-size:108px">
-  <span class="xw" data-t="6.40" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="6.48" data-c="#EFE9DE" data-d="#143746">month</span><span class="xw" data-t="8.41" data-c="#A9D8C8" data-d="#1F5E50" style="font-size:.8em;margin-left:.2em">→ ETF</span>
+  <span class="xw" data-t="2.03" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="2.11" data-c="#EFE9DE" data-d="#143746">month</span><span class="xw" data-t="3.39" data-c="#A9D8C8" data-d="#1F5E50" style="font-size:.8em;margin-left:.2em">→ ETF</span>
 </div></div>
 
 <!-- 3: the math, full screen on paper -->
@@ -77,27 +66,27 @@
   <div id="foot">Example: $250 a month for 18 years, compounded monthly. Not a promise.</div>
 </div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3" style="left:72px;top:366px;font-size:176px">
-  <span class="xw" id="n1" data-t="10.56" data-p="10.95" data-c="#173F4F" data-d="#0A1E27" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
+  <span class="xw" id="n1" data-t="6.28" data-p="6.68" data-c="#173F4F" data-d="#0A1E27" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
 </div></div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3p" style="left:72px;top:364px;font-size:194px">
-  <span class="xw" data-t="12.89" data-c="#2E8571" data-d="#143E35" data-n="34">5–8%</span><span class="xw" data-t="13.37" data-c="#173F4F" data-d="#0A1E27" style="font-size:.42em">a year</span>
+  <span class="xw" data-t="8.57" data-c="#2E8571" data-d="#143E35" data-n="34">5–8%</span><span class="xw" data-t="9.07" data-c="#173F4F" data-d="#0A1E27" style="font-size:.42em">a year</span>
 </div></div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3b" style="left:72px;top:368px;font-size:110px">
-  <span class="xw" id="n2" data-t="16.26" data-p="16.62" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="18.06" data-p="18.47" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
+  <span class="xw" id="n2" data-t="11.96" data-p="12.34" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="13.74" data-p="14.16" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
 </div></div>
 <div class="persp" style="perspective-origin:300px 760px"><div class="rot" id="r3c" style="left:72px;top:672px;font-size:140px">
-  <span class="xw" id="pct" data-t="16.3" data-p="18.5" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
+  <span class="xw" id="pct" data-t="12.0" data-p="14.2" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
 </div></div>
 
 <!-- 4: the home -->
-<div class="persp" style="perspective-origin:480px 500px"><div class="rot" id="r4" style="left:0;top:0;width:1080px;height:1000px">
-  <div id="photoBack"></div><div id="photo"></div><div id="tag">his down payment</div>
+<div class="persp" style="perspective-origin:500px 800px"><div class="rot" id="r4" style="left:0;top:0;width:1080px;height:1500px">
+  <div id="photoBack"></div><div id="photo"></div><div id="tag">his down payment</div><div id="tag2">or at least his education</div>
 </div></div>
 
 <!-- 5: his question -->
-<div class="sm" id="s5" style="top:296px;font-size:70px" data-w="23.49,23.73,23.89,24.05">what are you doing</div>
+<div class="sm" id="s5" style="top:296px;font-size:70px" data-w="19.19,19.43,19.59,19.75">what are you doing</div>
 <div class="persp"><div class="rot" id="r5" style="left:72px;top:392px;font-size:150px">
-  <span class="xw" data-t="24.29" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="24.37" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="24.53" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
+  <span class="xw" data-t="19.99" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="20.07" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="20.23" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
 </div></div>
 <svg id="under" width="860" height="40"><path id="up" d="M8 22 C 180 6, 420 34, 560 16 S 800 10, 850 24" fill="none" stroke="#D77B52" stroke-width="12" stroke-linecap="round"/></svg>
 
@@ -106,12 +95,14 @@
 <div class="zone" style="left:940px;top:0;width:140px;height:1920px"></div>
 
 <script>
-// Round five (Kyle: "timing is off with the numbers and then the ending"): a number is fully on screen within a third of
-// a second of the word starting (no slow count that only arrives as he finishes saying it), the paper beat holds
-// through "I hope that helps for his" so $120,000 and 122% get over two seconds, and the take ends on a slowed smile.
-const T = { t1Out: 4.42, in2: 4.75, out2: 8.97, paperIn: 9.07, lineA: 9.1, lineB: 10.25, roll1: 10.58, pct: 12.89,
-            num: 15.32, roll2: 16.28, loA: 16.3, loB: 17.5, roll3: 18.13, hiA: 18.13, hiB: 19.1, paperOut: 20.45,
-            home: 20.45, homeOut: 23.25, q: 23.44, last: 24.85 };
+// Round six (Kyle: "not a clean cut ... you already have numbers up that I haven't even said yet ... if there's a math
+// moment where I have a video just take the video away and put a graphic up ... clip the end of it to leave hanging"):
+// his face is on screen for two unbroken shots only, the first line (0-4.77) and the question (19.17-20.6). Everything
+// between is full-screen paper, so no jump cut shows. Nothing appears before he says it. A number is fully on screen
+// within a third of a second of the word starting.
+const T = { out2: 4.62, paperIn: 4.77, lineA: 4.8, lineB: 5.9, roll1: 6.3, pct: 8.57,
+            num: 11.02, roll2: 11.98, loA: 12.0, loB: 13.3, roll3: 13.8, hiA: 13.8, hiB: 14.8, chartOut: 16.28,
+            home: 16.28, tag1: 16.47, tag2: 17.78, paperOut: 19.17, q: 19.17, last: 20.33 };
 const $ = (id) => document.getElementById(id);
 const cl = (x) => Math.max(0, Math.min(1, x));
 const p = (t, a, d) => cl((t - a) / d);
@@ -227,30 +218,33 @@ function chart(t) {
 }
 
 window.seek = (t) => {
-  $("scrim").style.opacity = Math.max(1 - p(t, T.t1Out, .3), p(t, T.in2, .3) * (1 - p(t, T.out2, .2)), p(t, T.q, .3)) * .9;
-  flat("s1", t, T.t1Out); ext("r1", t, T.t1Out, .6); ext("r1b", t, T.t1Out, .7); ext("r1c", t, T.t1Out, .6);
+  $("scrim").style.opacity = (t < T.paperIn ? 1 - p(t, T.out2, .15) : p(t, T.q, .12)) * .9;
+
   flat("s2", t, T.out2); ext("r2", t, T.out2, .8, 90); ext("r2b", t, T.out2);
 
   // paper beat: a hard cut in and out, on the picture cuts
   const on = t >= T.paperIn && t < T.paperOut;
   $("paper").style.opacity = on ? 1 : 0;
-  if (on) chart(t);
-  $("lab").textContent = t < T.pct ? "what I put in by the time he’s 18" : t < T.num ? "and I expect" : "so somewhere between";
+  const chartOn = on && t < T.chartOut + .2;
+  if (chartOn) chart(t); else ctx.clearRect(0, 0, 1080, 1920);
+  cv.style.opacity = 1 - p(t, T.chartOut, .18); $("foot").style.opacity = 1 - p(t, T.chartOut, .18);
+  $("lab").textContent = t < T.pct ? "by the time he’s 18, I’ve put in" : t < T.num ? "and I expect" : t < T.chartOut ? "so somewhere between" : "I hope that helps for";
   setText($("n1"), usd(54000 * out3(p(t, T.roll1, .36))));
   setText($("n2"), usd(54000 + (87500 - 54000) * out3(p(t, T.roll2, .34))));
   setText($("n3"), "and " + usd(87500 + (120000 - 87500) * out3(p(t, T.roll3, .34))));
   const pc = 62 * out3(p(t, T.roll2, .4)) + 60 * out3(p(t, T.roll3, .4));
   setText($("pct"), "▲ " + Math.round(pc) + "%");
-  $("plab").style.opacity = on ? p(t, T.loA, .3) : 0;
+  $("plab").style.opacity = on ? p(t, T.loA, .3) * (1 - p(t, T.chartOut, .18)) : 0;
   const end3 = on ? T.paperOut + 9 : T.paperOut - .01;      // extruded lines vanish with the paper
-  ext("r3", t, Math.min(T.pct - .12, end3), .55); ext("r3p", t, Math.min(T.num - .1, end3), .6); ext("r3b", t, end3, .5); ext("r3c", t, end3, .6);
+  ext("r3", t, Math.min(T.pct - .12, end3), .55); ext("r3p", t, Math.min(T.num - .1, end3), .6); ext("r3b", t, Math.min(T.chartOut - .06, end3), .5); ext("r3c", t, Math.min(T.chartOut - .06, end3), .6);
 
-  // the home: photo card swings in over its blurred copy
-  const hin = p(t, T.home, .5), hout = out3(p(t, T.homeOut, .22)), k = back(hin), fl = Math.sin(t * 1.6);
-  $("r4").style.transform = `translate(${(1 - out3(hin)) * 760}px, ${hout * -500}px)`;
-  $("photo").style.transform = `rotateY(${-18 + (1 - k) * -70 + fl * 5}deg) rotateX(${7 + fl * 2}deg) rotateZ(${-3 + (1 - k) * 12}deg) scale(${hin > 0 ? (.6 + .4 * k) * (1 - hout) : 0})`;
-  $("photoBack").style.transform = `translate(${-100 + fl * -10}px, -34px) translateZ(-280px) rotateY(${-10 + fl * 2}deg) rotateZ(5deg) scale(${hin > 0 ? 1.05 * (1 - hout) : 0})`;
-  const tg = back(p(t, T.home + .3, .3)); $("tag").style.transform = `translateZ(180px) rotate(-6deg) scale(${tg * (1 - hout)})`;
+  // the home, full screen on the paper: the photo card swings in over its blurred copy, then two paper tags
+  const hin = p(t, T.home, .45), hv = on ? 1 : 0, k = back(hin), fl = Math.sin(t * 1.6);
+  $("r4").style.transform = `translate(${(1 - out3(hin)) * 820}px, 0px)`;
+  $("photo").style.transform = `rotateY(${-16 + (1 - k) * -70 + fl * 5}deg) rotateX(${7 + fl * 2}deg) rotateZ(${-3 + (1 - k) * 12}deg) scale(${hin > 0 ? (.6 + .4 * k) * hv : 0})`;
+  $("photoBack").style.transform = `translate(${-90 + fl * -10}px, -40px) translateZ(-280px) rotateY(${-10 + fl * 2}deg) rotateZ(5deg) scale(${hin > 0 ? 1.05 * hv : 0})`;
+  $("tag").style.transform = `translateZ(170px) rotate(-5deg) scale(${back(p(t, T.tag1, .3)) * hv})`;
+  $("tag2").style.transform = `translateZ(120px) rotate(3deg) scale(${back(p(t, T.tag2, .3)) * hv})`;
 
   flat("s5", t, 999); ext("r5", t, 999, .7);
   const up = $("up"), L = up.getTotalLength(), u = out3(p(t, T.last, .4));

@@ -34,9 +34,9 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] Each graphic lands on the word it belongs to (start and end from `transcript.json`).
 - [ ] Tight: no ums, false starts, repeated phrases or dead air left in. Word times from Parakeet, not whisper.
 - [ ] No corner circle of him over a full-screen beat.
-- [ ] A number on screen in the first frame. Ends on his question, no ask after it.
+- [ ] Nothing on screen before he says it. Ends on his question, on the word.
+- [ ] No jump cut visible on his face: every edit point sits under a full-screen graphic.
 - [ ] Every spoken number is complete on screen within 0.4 s of the word starting and stays up 2 s or more.
-- [ ] The ending has room: at least a second and a half on his face after the last word, audio faded, not chopped.
 - [ ] Any house, street or place shown looks like Orange County, not the East Coast. Street numbers painted out.
 - [ ] Captions hidden under overlays and during full-frame cuts; right position for the shot.
 - [ ] No DM / name / NMLS card. No emoji, chat bubbles, overshoot slides, 01/02/03 numbering.

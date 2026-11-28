@@ -204,4 +204,6 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   the dead space and the ums, no small picture of him, "tighten and clip a lot", more pop, and "an arrow and % going up"
   on the chart. Round three is `tight-cut.py` (45 s to 32 s) plus the arrow and the counting percent. Round four, after he asked for a
   director's critique and said "Go, definitely no reshoot": number on screen from frame one, ends on his question and the
-  smile (25.7 s), captions hidden under matching type, two type faces, a SoCal house. Verdict: pending.
+  smile (25.7 s), captions hidden under matching type, two type faces, a SoCal house. He rejected the number-first hook and the visible
+  jump cuts ("not a clean cut whatsoever ... actually pretty good but we could do a little bit better"). Round six: his
+  face in two unbroken shots only, the math and the house as full-screen paper beats, ends on "kids?". Verdict: pending.

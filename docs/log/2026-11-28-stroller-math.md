@@ -106,3 +106,19 @@ Kyle on round four: "Timing is off with the numbers and then the ending is as we
   over the last half second. 26.7 s.
 - The smile: after 44.8 s of the take he is lowering the phone and the frame blurs, so the last segment is 44.30–44.80
   at half speed (motion-interpolated, not blended, which ghosted) and its last sharp frame is held 0.5 s. 26.5 s.
+
+## Round six: clean it up
+
+Kyle on round five: "this is not a clean cut whatsoever ... You can cut the very beginning of the video. You already
+have numbers up that I haven't even said yet. What are you doing for your kids, cut it, clip the end of it to leave
+hanging ... it's actually pretty good but we could do a little bit better ... cut away the stall moments, the math
+moments ... if there's a math moment where I have a video just take the video away and put a graphic up."
+
+- The walk line and the first-frame number hook are gone (round four's "number on screen from frame one" was wrong for
+  him: nothing appears before he says it). It opens on "Right now I'm putting about $250 a month into a Vanguard ETF",
+  one unbroken shot.
+- Every cut now sits under a full-screen paper beat: the chart from "By the time he's 18" through "$120,000", then the
+  house as its own paper beat for "I hope that helps for his down payment on his home, or at least with his
+  education" (photo card, two paper tags). No jump cut is visible on his face anywhere.
+- His face returns for "What are you doing for your kids?", one unbroken shot, and it ends on the word. No smile tail.
+- No burned-in captions: the type and the paper beats carry every line. 20.6 s.

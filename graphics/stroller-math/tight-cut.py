@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Stroller math, the tight cut (2026-11-28, Kyle: "tighten and clip a lot. Make it tight", ums out).
-Round four (his "Go" on the director's notes): the "quick math" clause is out and it ends on his question, then the smile.
+Round six: his face only for the first line and the question, each one unbroken shot; everything between is under
+graphics. Round four (his "Go" on the director's notes): the "quick math" clause is out and it ends on his question, then the smile.
 
   python3 -I graphics/stroller-math/tight-cut.py <parakeet transcript of the 45 s cut> 
 
@@ -11,13 +12,12 @@ KEEP times are Parakeet word edges in the 45 s cut. Whisper's were up to 0.7 s l
 import json, subprocess, sys
 OFF = 5.58
 # (from, to, zoom)  zoom 1 = as shot, 1.08 = punched in
-KEEP = [(1.58, 2.80, 1), (2.96, 4.00, 1), (6.22, 8.52, 1),                             # I'm on a walk with my / son and my dog / just thinking about what I'm doing for his future
-        (8.70, 10.52, 1.08), (10.70, 11.70, 1.08), (11.74, 13.46, 1.08),               # Right now I'm putting about $250 / a month into / a Vanguard ETF
-        (15.02, 16.24, 1), (16.80, 18.22, 1), (18.30, 19.42, 1),                       # By the time he's 18 / that's $54,000 / of my money
-        (21.26, 22.22, 1), (22.38, 22.98, 1), (23.06, 23.92, 1),                       # 5 to 8% / I expect / to return
+KEEP = [(8.70, 13.46, 1),                                                              # Right now I'm putting about $250 a month into a Vanguard ETF (one unbroken shot of him)
+        (15.02, 16.24, 1), (16.80, 18.22, 1), (18.30, 19.42, 1),                       # By the time he's 18 / that's $54,000 / of my money      (graphics over all of these,
+        (21.26, 22.22, 1), (22.38, 22.98, 1), (23.06, 23.92, 1),                       # 5 to 8% / I expect / to return                           so no cut shows on his face)
         (24.22, 24.64, 1), (24.80, 26.86, 1), (26.94, 28.62, 1),                       # somewhere / between $87,500 / and $120,000
-        (31.42, 34.02, 1), (34.02, 34.88, 1.08), (35.04, 35.58, 1.08),                 # I hope that helps for his down payment on his home / or at least with his / education
-        (38.86, 40.30, 1), (44.30, 44.80, 1)]                                          # What are you doing for your kids? / the smile after his last word (no speech)
+        (31.42, 34.02, 1), (34.02, 34.88, 1), (35.04, 35.58, 1),                       # I hope that helps for his down payment on his home / or at least with his / education
+        (38.86, 40.30, 1)]                                                             # What are you doing for your kids?  (one unbroken shot, ends on the word)
 DROP = {"um", "uh"}
 FIX = {"it": "to", "$120,000": "$120,000."}   # "I expect it return" is "to return"
 src = "videos/stroller-math/cut-full.mp4"
@@ -27,15 +27,15 @@ FPS = 30
 # Every edge sits on a source frame, so picture and sound segments are the same length and the times printed below
 # are the real times in cut.mp4 (unsnapped, the concat drifted 0.07 s by the end).
 KEEP = [(round((a + OFF) * FPS) / FPS - OFF, round((b + OFF) * FPS) / FPS - OFF, z) for a, b, z in KEEP]
-SLOW = len(KEEP) - 1            # the last segment is the smile: half speed, so the ending has room
+SLOW = -1                       # round six: no slowed smile, it ends on his last word
 HOLD = 0.5                      # then its last sharp frame is held (after 44.8 s he is lowering the phone and it blurs)
 for i, (a, b, z) in enumerate(KEEP):
     v = f"[0:v]trim={a+OFF:.4f}:{b+OFF:.4f},setpts={'2*' if i == SLOW else ''}(PTS-STARTPTS)"
     if z != 1: v += f",scale={round(1080*z/2)*2}:{round(1920*z/2)*2}:flags=bicubic,crop=1080:1920:(iw-1080)/2:0"
     d = (b - a) * 2 + HOLD if i == SLOW else b - a
     fc.append(v + (f",minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,tpad=stop_mode=clone:stop_duration={HOLD}" if i == SLOW else "") + f",fps=30,setsar=1[v{i}]")
-    fo = 0.5 if i == SLOW else 0.07 if i == SLOW - 1 else 0.014      # soft tail on his last word, slow fade at the very end
-    fc.append(f"[0:a]atrim={a+OFF:.4f}:{b+OFF:.4f},asetpts=PTS-STARTPTS" + (f",atempo=0.5,apad=pad_dur={HOLD}" if i == SLOW else "") + f",afade=t=in:d=0.012,afade=t=out:st={d-fo:.3f}:d={fo}[a{i}]")
+    fo = 0.06 if i == len(KEEP) - 1 else 0.022      # soft tail on his last word, slow fade at the very end
+    fc.append(f"[0:a]atrim={a+OFF:.4f}:{b+OFF:.4f},asetpts=PTS-STARTPTS" + (f",atempo=0.5,apad=pad_dur={HOLD}" if i == SLOW else "") + f",afade=t=in:d=0.02,afade=t=out:st={d-fo:.3f}:d={fo}[a{i}]")
     labels.append(f"[v{i}][a{i}]"); starts.append(t); t += d
 fc.append("".join(labels) + f"concat=n={len(KEEP)}:v=1:a=1[v][a]")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-filter_complex", ";".join(fc), "-map", "[v]", "-map", "[a]",
@@ -55,7 +55,6 @@ for w in json.load(open(sys.argv[1])):
     words.append({"text": FIX.get(w["text"], w["text"]), "start": s, "end": e2, "id": f"w{len(words)}"})
 # caption text: he says "I'm on a walk" (heard as "am"), sentence starts get capitals, the cut-off "And" goes
 words = [w for w in words if w["text"] != "And"]
-words[0]["text"], words[0]["start"] = "I'm", 0.02
 for w in words:
     w["text"] = {"by": "By", "what": "What", "education,": "education."}.get(w["text"], w["text"]) if w["start"] > 9 or w["text"] != "what" else w["text"]
 json.dump(words, open("videos/stroller-math/transcript.json", "w"), indent=2)
