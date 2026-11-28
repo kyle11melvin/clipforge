@@ -50,3 +50,7 @@ screenshot with `omitBackground`, composited over footage frames at full size) w
 
 Open: his verdict; sound levels; the two guessed caption lines; whether the Thanksgiving opener goes back; the second
 clip.
+
+Delivered: page "Stroller Math Reel" (video, Save MP4, stills, cover, caption draft) and the master in chat. The alpha
+render took about 22 minutes, most of it in the paper beat (full-canvas blur on every frame); speed that up before
+the next round. Measured levels: his voice mean -20.8 dB, sound effects mean -32.4 dB at `SFX=0.5`.
