@@ -5,7 +5,7 @@
 #   1. npx hyperframes models install parakeet; npx hyperframes transcribe <the 45 s cut> -e parakeet   (word edges)
 #   2. python3 -I graphics/stroller-math/tight-cut.py <that transcript.json>      -> cut.mp4, transcript.json
 #   3. clipforge build footage/stroller-math/sdr --name stroller-math --caption-style rounded --caption-y 0.19 \
-#        --caption-hide 4.56-19.44,23.44-25.8                               -> final.mp4 (captions)
+#        --caption-hide 4.6-19.44,23.44-25.8                               -> final.mp4 (captions)
 #   4. this script                                                                -> final-graphics.mp4
 set -e
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"; G="$ROOT/graphics/stroller-math"
