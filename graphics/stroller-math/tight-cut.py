@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Stroller math, the tight cut (2026-11-28, Kyle: "tighten and clip a lot. Make it tight", ums out).
+Round four (his "Go" on the director's notes): the "quick math" clause is out and it ends on his question, then the smile.
 
   python3 -I graphics/stroller-math/tight-cut.py <parakeet transcript of the 45 s cut> 
 
@@ -10,13 +11,13 @@ KEEP times are Parakeet word edges in the 45 s cut. Whisper's were up to 0.7 s l
 import json, subprocess, sys
 OFF = 5.58
 # (from, to, zoom)  zoom 1 = as shot, 1.08 = punched in
-KEEP = [(1.58, 2.80, 1), (2.96, 5.94, 1), (6.22, 8.52, 1),          # I'm on a walk with my / son ... quick math / just thinking ... his future
+KEEP = [(1.58, 2.80, 1), (2.96, 4.00, 1), (6.22, 8.52, 1),                             # I'm on a walk with my / son and my dog / just thinking about what I'm doing for his future
         (8.70, 10.52, 1.08), (10.70, 11.70, 1.08), (11.74, 13.46, 1.08),               # Right now I'm putting about $250 / a month into / a Vanguard ETF
         (15.02, 16.24, 1), (16.80, 18.22, 1), (18.30, 19.42, 1),                       # By the time he's 18 / that's $54,000 / of my money
         (21.26, 22.22, 1), (22.38, 22.98, 1), (23.06, 23.92, 1),                       # 5 to 8% / I expect / to return
         (24.22, 24.64, 1), (24.80, 26.86, 1), (26.94, 28.62, 1),                       # somewhere / between $87,500 / and $120,000
-        (31.42, 34.02, 1), (34.02, 34.88, 1.08), (35.04, 35.64, 1.08),                 # I hope that helps for his down payment on his home / or at least with his / education
-        (38.86, 40.26, 1), (40.26, 41.70, 1), (41.90, 45.20, 1.08)]                    # What are you doing for your kids / And I'd love to hear more about it / drop your comments below
+        (31.42, 34.02, 1), (34.02, 34.88, 1.08), (35.04, 35.58, 1.08),                 # I hope that helps for his down payment on his home / or at least with his / education
+        (38.86, 40.25, 1), (44.30, 45.20, 1)]                                          # What are you doing for your kids? / the smile after his last word (no speech)
 DROP = {"um", "uh"}
 FIX = {"it": "to", "$120,000": "$120,000."}   # "I expect it return" is "to return"
 src = "videos/stroller-math/cut-full.mp4"
@@ -45,6 +46,11 @@ for w in json.load(open(sys.argv[1])):
     s, e = remap(max(w["start"], [a for a, b, _ in KEEP if a - .03 <= mid <= b + .03][0])), remap(mid)
     e2 = remap(min(w["end"], [b for a, b, _ in KEEP if a - .03 <= mid <= b + .03][0]))
     words.append({"text": FIX.get(w["text"], w["text"]), "start": s, "end": e2, "id": f"w{len(words)}"})
+# caption text: he says "I'm on a walk" (heard as "am"), sentence starts get capitals, the cut-off "And" goes
+words = [w for w in words if w["text"] != "And"]
+words[0]["text"], words[0]["start"] = "I'm", 0.02
+for w in words:
+    w["text"] = {"by": "By", "what": "What", "education,": "education."}.get(w["text"], w["text"]) if w["start"] > 9 or w["text"] != "what" else w["text"]
 json.dump(words, open("videos/stroller-math/transcript.json", "w"), indent=2)
 print("length", round(t, 2), "cuts at", [round(s, 2) for s in starts])
 print(" | ".join(f"{w['start']:.2f} {w['text']}" for w in words))

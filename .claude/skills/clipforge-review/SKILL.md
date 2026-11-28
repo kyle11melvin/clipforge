@@ -34,6 +34,8 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] Each graphic lands on the word it belongs to (start and end from `transcript.json`).
 - [ ] Tight: no ums, false starts, repeated phrases or dead air left in. Word times from Parakeet, not whisper.
 - [ ] No corner circle of him over a full-screen beat.
+- [ ] A number on screen in the first frame. Ends on his question, no ask after it.
+- [ ] Any house, street or place shown looks like Orange County, not the East Coast. Street numbers painted out.
 - [ ] Captions hidden under overlays and during full-frame cuts; right position for the shot.
 - [ ] No DM / name / NMLS card. No emoji, chat bubbles, overshoot slides, 01/02/03 numbering.
 - [ ] Every moving graphic has a sound event; running sounds about 15 dB under his voice (measure with ffmpeg

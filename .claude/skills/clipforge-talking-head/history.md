@@ -202,4 +202,6 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   perspective), a giant extruded numeral, a full-screen paper beat with 18 columns on a stage drawn by an orbiting
   perspective camera, and a real photo card over its own blurred copy. His verdict on round two: "Not bad!!", then: cut
   the dead space and the ums, no small picture of him, "tighten and clip a lot", more pop, and "an arrow and % going up"
-  on the chart. Round three is `tight-cut.py` (45 s to 32 s) plus the arrow and the counting percent.
+  on the chart. Round three is `tight-cut.py` (45 s to 32 s) plus the arrow and the counting percent. Round four, after he asked for a
+  director's critique and said "Go, definitely no reshoot": number on screen from frame one, ends on his question and the
+  smile (25.7 s), captions hidden under matching type, two type faces, a SoCal house. Verdict: pending.

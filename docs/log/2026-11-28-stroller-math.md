@@ -76,3 +76,18 @@ picture of him ("I don't need to be in the entire thing"), "tighten and clip a l
   starts close and pulls back as the columns grow. Words slam in with more overshoot and pulse when a number lands.
 - **Render speed.** `ctx.filter = blur` on the full canvas and the SVG turbulence grain were the 22 minutes. Shadows are
   now drawn on a 135x240 canvas and scaled up; the grain is one seeded data-URL tile.
+
+## Round four: the director's notes
+
+Kyle asked for a director's critique of round three, then "Go" on the fixes that need no reshoot ("definitely no
+reshoot"). What changed, 31.6 → 25.7 s:
+
+- **The number is on screen from frame one**: "for my son, $250 a month. $120,000 by 18?" over the walk line. This
+  breaks the "his own first line as type" rule on purpose, at his go; the captions carry his words under it.
+- "and I was just doing some quick math" is out. It **ends on "What are you doing for your kids?"** and 0.9 s of his
+  smile from the end of the take; "I'd love to hear more about it" and "drop your comments below" are out.
+- Captions hidden whenever type says the same words (the $250 beat, the paper beat, the question).
+- Type is Sora and Playfair only (Caveat tag and line removed).
+- The Tudor stock house is replaced by a Spanish-style stucco house (Unsplash, ubeyonroad, free licence), street number
+  painted out. He offered to make an image or video in ChatGPT; two prompts are on the page with Copy buttons.
+- Not changed: the shot itself, the 122% arrow (his request; flagged that it reads louder than "I expect").

@@ -23,6 +23,8 @@ He wants the rules "a little bit loose" while the brand image stays.
   out from behind his head, month or count tiles that flip, tiles that flip from a question to his answer), glow, dust, wobble,
   punch-ins. One prop at a time, each tied to what he is saying at that moment.
 - **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
+  When his first line has no number in it, put the post's number on screen from the first frame over his face
+  (stroller math, 2026-11-28: "$250 a month. $120,000 by 18?") and let the captions carry his words.
 - **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
 - **No corner circle of him during a full-screen beat** (2026-11-28: "I don't need to be in the entire thing").
 - **Leaving his face is allowed when it fits** (2026-11-21): a full-screen graphic beat where the words call for it
@@ -42,6 +44,7 @@ He wants the rules "a little bit loose" while the brand image stays.
 - **One clear object beats a storm**, drawn crisp and detailed enough to read as the real thing.
 - **Board and caption use his spoken words**, not the brief's.
 - **End with a payoff** on his last line (a prop and a sound), over the unused second of smile.
+  End on his question. Cut any ask that follows it ("drop your comments below"), 2026-11-28.
 - **No music** unless he asks. No emojis, chat bubbles or overshoot slides ("too busy and gimmicky").
 
 ## Steps

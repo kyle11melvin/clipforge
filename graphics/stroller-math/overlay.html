@@ -1,8 +1,9 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <style>
-  /* Stroller math (2026-11-28), round three: the tight 31.6 s cut (tight-cut.py), no corner circle, an arrow and a
-     percent that climb with the growth. Round two notes still hold: one alpha layer over a walking selfie (cap top is
+  /* Stroller math (2026-11-28), round four: the 25.7 s cut (tight-cut.py). The number is on screen from the first
+     frame, it ends on his question and the smile, type is Sora and Playfair only, the house is a SoCal one. No corner
+     circle; an arrow and a percent climb with the growth. Round two notes still hold: one alpha layer over a walking selfie (cap top is
      y>=795 in cut.mp4), everything big is real 3D:
        type      extruded letters (stacked copies in Z) that sway in perspective
        $250      a giant extruded numeral that spins in
@@ -14,7 +15,6 @@
   @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
   @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
   @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
-  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
   :root { --navy:#173F4F; --ink:#0E2A35; --sand:#EFE9DE; --terra:#D77B52; --grow:#2E8571; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
@@ -33,34 +33,39 @@
   #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, rgba(255,255,255,.6), rgba(255,255,255,0) 55%), radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 58%, rgba(60,40,20,.18)); }
   #chart { position: absolute; left: 0; top: 0; }
   #lab { position: absolute; left: 76px; top: 282px; font-family: "Playfair", serif; font-style: italic; font-size: 60px; color: var(--ink); }
-  #foot { position: absolute; left: 76px; top: 1412px; font-size: 23px; font-weight: 600; color: rgba(14,42,53,.6); white-space: nowrap; }
+  #foot { position: absolute; left: 76px; top: 1410px; font-size: 24px; font-weight: 600; color: rgba(14,42,53,.6); white-space: nowrap; }
   #plab { position: absolute; left: 82px; top: 846px; font-family: "Playfair", serif; font-style: italic; font-size: 42px; color: var(--ink); opacity: 0; }
 
   #photo, #photoBack { position: absolute; left: 150px; top: 272px; width: 640px; height: 480px; background: url(house.jpg) center/cover; border-radius: 20px; }
   #photo { border: 14px solid #fff; box-shadow: 0 70px 100px rgba(4,18,26,.6), 0 20px 34px rgba(4,18,26,.4); }
   #photoBack { filter: blur(24px) brightness(.6) saturate(1.1); border-radius: 28px; }
-  #tag { position: absolute; left: 262px; top: 666px; background: #F6F1E7; color: var(--ink); font-family: "Caveat", cursive; font-weight: 700; font-size: 82px; line-height: 1; padding: 16px 36px 26px; border-radius: 10px; white-space: nowrap;
+  #tag { position: absolute; left: 262px; top: 666px; background: #F6F1E7; color: var(--ink); font-family: "Playfair", serif; font-style: italic; font-size: 60px; line-height: 1; padding: 20px 34px 24px; border-radius: 10px; white-space: nowrap;
          box-shadow: 0 28px 44px rgba(4,18,26,.55), 0 6px 10px rgba(4,18,26,.3); }
   #under { position: absolute; left: 66px; top: 716px; }
-  #drop { position: absolute; left: 80px; top: 752px; font-family: "Caveat", cursive; font-weight: 700; font-size: 78px; color: var(--sand); text-shadow: 0 4px 22px rgba(14,42,53,.7); opacity: 0; }
   .zone { position: absolute; background: rgba(255,0,0,.28); display: none; z-index: 99; }
 </style></head>
 <body>
 <div id="scrim"></div>
 
-<!-- 1: his first line -->
-<div class="sm" id="s1" style="top:300px;font-size:55px" data-w="0.34,0.50,0.58,0.82,0.98,1.22,1.46,1.70,1.86">on a walk with my son and my dog,</div>
-<div class="persp"><div class="rot" id="r1" style="left:72px;top:392px;font-size:144px">
-  <span class="xw" data-t="3.38" data-c="#EFE9DE" data-d="#143746">quick</span><span class="xw" data-t="3.70" data-c="#D77B52" data-d="#7E3D22">math.</span>
+<!-- 1: the hook, on screen from the first frame (round four: the number first, not the walk line) -->
+<div class="sm" id="s1" style="top:286px;font-size:60px" data-w="-1,-1,-1">for my son,</div>
+<div class="persp"><div class="rot" id="r1" style="left:72px;top:346px;font-size:104px">
+  <span class="xw" data-t="-1" data-c="#EFE9DE" data-d="#143746">$250</span><span class="xw" data-t="-1" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="-1" data-c="#EFE9DE" data-d="#143746">month.</span>
+</div></div>
+<div class="persp"><div class="rot" id="r1b" style="left:68px;top:474px;font-size:150px">
+  <span class="xw" data-t="-1" data-c="#D77B52" data-d="#7E3D22" data-n="34" style="display:block">$120,000</span>
+</div></div>
+<div class="persp"><div class="rot" id="r1c" style="left:74px;top:640px;font-size:86px">
+  <span class="xw" data-t="-1" data-c="#D77B52" data-d="#7E3D22">by 18?</span>
 </div></div>
 
 <!-- 2: $250 a month -->
-<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="6.92,7.08,7.08">I'm putting in</div>
+<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="4.98,5.14,5.14">I'm putting in</div>
 <div class="persp"><div class="rot" id="r2" style="left:60px;top:350px;font-size:330px">
-  <span class="xw" id="big" data-t="7.56" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
+  <span class="xw" id="big" data-t="5.62" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
 </div></div>
 <div class="persp"><div class="rot" id="r2b" style="left:76px;top:694px;font-size:108px">
-  <span class="xw" data-t="8.34" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="8.42" data-c="#EFE9DE" data-d="#143746">month</span><span class="xw" data-t="10.38" data-c="#A9D8C8" data-d="#1F5E50" style="font-size:.8em;margin-left:.2em">→ ETF</span>
+  <span class="xw" data-t="6.40" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="6.48" data-c="#EFE9DE" data-d="#143746">month</span><span class="xw" data-t="8.44" data-c="#A9D8C8" data-d="#1F5E50" style="font-size:.8em;margin-left:.2em">→ ETF</span>
 </div></div>
 
 <!-- 3: the math, full screen on paper -->
@@ -72,16 +77,16 @@
   <div id="foot">Example: $250 a month for 18 years, compounded monthly. Not a promise.</div>
 </div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3" style="left:72px;top:366px;font-size:176px">
-  <span class="xw" id="n1" data-t="11.10" data-p="13.62" data-c="#173F4F" data-d="#0A1E27" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
+  <span class="xw" id="n1" data-t="9.15" data-p="11.62" data-c="#173F4F" data-d="#0A1E27" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
 </div></div>
-<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3p" style="left:72px;top:360px;font-size:210px">
-  <span class="xw" data-t="14.82" data-c="#2E8571" data-d="#143E35" data-n="34">5–8%</span><span class="xw" data-t="15.30" data-c="#173F4F" data-d="#0A1E27" style="font-size:.42em">a year</span>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3p" style="left:72px;top:364px;font-size:194px">
+  <span class="xw" data-t="12.88" data-c="#2E8571" data-d="#143E35" data-n="34">5–8%</span><span class="xw" data-t="13.36" data-c="#173F4F" data-d="#0A1E27" style="font-size:.42em">a year</span>
 </div></div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3b" style="left:72px;top:368px;font-size:110px">
-  <span class="xw" id="n2" data-t="17.64" data-p="19.5" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="19.80" data-p="21.1" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
+  <span class="xw" id="n2" data-t="15.70" data-p="17.6" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="17.86" data-p="19.2" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
 </div></div>
 <div class="persp" style="perspective-origin:300px 760px"><div class="rot" id="r3c" style="left:72px;top:672px;font-size:140px">
-  <span class="xw" id="pct" data-t="17.3" data-p="21.1" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
+  <span class="xw" id="pct" data-t="15.4" data-p="19.2" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
 </div></div>
 
 <!-- 4: the home -->
@@ -90,20 +95,19 @@
 </div></div>
 
 <!-- 5: his question -->
-<div class="sm" id="s5" style="top:296px;font-size:70px" data-w="25.46,25.70,25.86,26.02">what are you doing</div>
+<div class="sm" id="s5" style="top:296px;font-size:70px" data-w="23.52,23.76,23.92,24.08">what are you doing</div>
 <div class="persp"><div class="rot" id="r5" style="left:72px;top:392px;font-size:150px">
-  <span class="xw" data-t="26.26" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="26.34" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="26.50" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
+  <span class="xw" data-t="24.32" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="24.40" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="24.56" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
 </div></div>
 <svg id="under" width="860" height="40"><path id="up" d="M8 22 C 180 6, 420 34, 560 16 S 800 10, 850 24" fill="none" stroke="#D77B52" stroke-width="12" stroke-linecap="round"/></svg>
-<div id="drop">drop your comments below ↓</div>
 
 <div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
 <div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
 <div class="zone" style="left:940px;top:0;width:140px;height:1920px"></div>
 
 <script>
-const T = { t1Out: 6.3, out2: 10.9, paperIn: 11.0, lineA: 11.1, lineB: 12.3, landA: 13.6, pct: 14.82,
-            num: 17.24, loA: 17.6, loB: 19.5, hiA: 20.0, hiB: 21.1, paperOut: 21.38, home: 22.5, homeOut: 25.2, q: 25.4, last: 28.3 };
+const T = { t1Out: 4.42, in2: 4.75, out2: 9.0, paperIn: 9.1, lineA: 9.15, lineB: 10.3, landA: 11.6, pct: 12.88,
+            num: 15.26, loA: 15.7, loB: 17.6, hiA: 18.1, hiB: 19.2, paperOut: 19.44, home: 20.55, homeOut: 23.25, q: 23.44, last: 24.78 };
 const $ = (id) => document.getElementById(id);
 const cl = (x) => Math.max(0, Math.min(1, x));
 const p = (t, a, d) => cl((t - a) / d);
@@ -219,8 +223,8 @@ function chart(t) {
 }
 
 window.seek = (t) => {
-  $("scrim").style.opacity = Math.max(p(t, .1, .4) * (1 - p(t, T.t1Out, .3)), p(t, 6.8, .3) * (1 - p(t, T.out2, .2)), p(t, T.q, .3)) * .9;
-  flat("s1", t, T.t1Out); ext("r1", t, T.t1Out);
+  $("scrim").style.opacity = Math.max(1 - p(t, T.t1Out, .3), p(t, T.in2, .3) * (1 - p(t, T.out2, .2)), p(t, T.q, .3)) * .9;
+  flat("s1", t, T.t1Out); ext("r1", t, T.t1Out, .6); ext("r1b", t, T.t1Out, .7); ext("r1c", t, T.t1Out, .6);
   flat("s2", t, T.out2); ext("r2", t, T.out2, .8, 90); ext("r2b", t, T.out2);
 
   // paper beat: a hard cut in and out, on the picture cuts
@@ -247,7 +251,6 @@ window.seek = (t) => {
   flat("s5", t, 999); ext("r5", t, 999, .7);
   const up = $("up"), L = up.getTotalLength(), u = out3(p(t, T.last, .4));
   up.style.strokeDasharray = L; up.style.strokeDashoffset = L * (1 - u); $("under").style.opacity = u > 0 ? 1 : 0;
-  const d = out3(p(t, T.last + .25, .35)); $("drop").style.opacity = d; $("drop").style.transform = `translateY(${(1 - d) * 26}px) rotate(-2deg)`;
 };
 if (location.hash.includes("zones")) document.querySelectorAll(".zone").forEach((z) => z.style.display = "block");
 window.seek(0);
