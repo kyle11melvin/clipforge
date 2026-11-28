@@ -24,6 +24,7 @@ He wants the rules "a little bit loose" while the brand image stays.
   punch-ins. One prop at a time, each tied to what he is saying at that moment.
 - **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
 - **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
+- **No corner circle of him during a full-screen beat** (2026-11-28: "I don't need to be in the entire thing").
 - **Leaving his face is allowed when it fits** (2026-11-21): a full-screen graphic beat where the words call for it
   (a list, a count, a comparison), on sand or paper, never flat navy. He liked cards flying out from behind the
   head. No 01/02/03 numbering on cards or rows.
@@ -49,6 +50,13 @@ He wants the rules "a little bit loose" while the brand image stays.
    each 4K HLG clip to 1080x1920 SDR 30 fps on its own into `footage/<post>/sdr/` (three in one graph get killed).
 2. **Build.** `node bin/clipforge.mjs build footage/<post>/sdr --name <post> --caption-style rounded`. Read
    `transcript.json` for misheard numbers before going on.
+   **Word times:** install Parakeet first (`npx hyperframes models install parakeet`); whisper's word times were up
+   to 0.7 s late on a walking take (2026-11-28), which lands every graphic late. Parakeet also writes "um" and "uh"
+   as words.
+   **Cut it tight** (Kyle, 2026-11-28: "tighten and clip a lot"): take out every um, false start, repeated phrase
+   and throat-clearing lead-in ("So I was thinking like"), not only silence. `graphics/stroller-math/tight-cut.py`
+   is the keep-list tool: Parakeet word edges in, `cut.mp4` and a remapped transcript out, alternating punch-ins on
+   the face segments. Re-transcribe the result to check no word was clipped.
 3. **Plan the beats.** List each phrase that calls for a visual with its start and end from the transcript, and
    pick one prop per beat. Find where his face sits in the frame; that decides where type and props go.
 4. **Start from the nearest past post:**

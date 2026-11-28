@@ -54,3 +54,25 @@ clip.
 Delivered: page "Stroller Math Reel" (video, Save MP4, stills, cover, caption draft) and the master in chat. The alpha
 render took about 22 minutes, most of it in the paper beat (full-canvas blur on every frame); speed that up before
 the next round. Measured levels: his voice mean -20.8 dB, sound effects mean -32.4 dB at `SFX=0.5`.
+
+## Round three: the tight cut
+
+Kyle on round two: "Not bad!!" Then: cut the dead space and the ums, make the graphics pop more, get rid of the small
+picture of him ("I don't need to be in the entire thing"), "tighten and clip a lot. Make it tight", and on the chart
+"give me an arrow and % going up".
+
+- **Word timing.** Whisper's word times on this take were up to 0.7 s late (round two's graphics were landing late).
+  Checked by transcribing short slices: `hyperframes transcribe -e parakeet` (after `npx hyperframes models install
+  parakeet`, 640 MB) is right, and it writes the ums as words. An energy-based pause detector was useless outdoors.
+  Parakeet also heard "I hope that helps for his down payment on his home, or at least with his education".
+- **`graphics/stroller-math/tight-cut.py`** holds the keep-list (Parakeet word edges), writes `cut.mp4` (45.2 → 31.6 s),
+  the remapped `transcript.json` and prints the new word times. Out: every um and uh, "at an 8%" (a false start),
+  "So I was thinking like", the second "by the time he's 18 years old", "obviously", and "but I was just thinking about
+  that and". Face segments alternate 1.0 / 1.08 zoom so jump cuts read as punch-ins. After each change the result was
+  re-transcribed to check no word was clipped.
+- **Overlay.** Corner circle gone; the paper beat is a hard cut in and out on picture cuts. Header steps through
+  "$54,000" → "5–8% a year" → "$87,500 and $120,000". A terracotta arrow rides the column tops as the green stacks on,
+  and an extruded "▲ 122%" counts up beside it (62% at $87,500, 122% at $120,000, both against his $54,000). Camera
+  starts close and pulls back as the columns grow. Words slam in with more overshoot and pulse when a number lands.
+- **Render speed.** `ctx.filter = blur` on the full canvas and the SVG turbulence grain were the 22 minutes. Shadows are
+  now drawn on a 135x240 canvas and scaled up; the grain is one seeded data-URL tile.

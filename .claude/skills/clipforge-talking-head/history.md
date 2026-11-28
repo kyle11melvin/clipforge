@@ -200,4 +200,6 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   "You're already repeating some of the same graphics with the key. I want cool looking things ... a 3-D kind of
   look ... they pop." Round two is the file to start a 3D reel from: extruded type (stacked copies in Z, swaying in
   perspective), a giant extruded numeral, a full-screen paper beat with 18 columns on a stage drawn by an orbiting
-  perspective camera (him in the corner circle), and a real photo card over its own blurred copy. Verdict: pending.
+  perspective camera, and a real photo card over its own blurred copy. His verdict on round two: "Not bad!!", then: cut
+  the dead space and the ums, no small picture of him, "tighten and clip a lot", more pop, and "an arrow and % going up"
+  on the chart. Round three is `tight-cut.py` (45 s to 32 s) plus the arrow and the counting percent.
