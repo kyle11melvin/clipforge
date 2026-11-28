@@ -157,3 +157,31 @@ do." (His "my face is not flattering" was about the mismatched cuts, not about b
 - **Sound:** new `steps` event in `chalk.py`, n mallet notes walking up a pentatonic scale. Four notes under the ETF
   line, five under the climb to $87,500, five higher under the climb to $120,000, each ending on a ding. The `riser`
   pad is not used. Not heard by Claude.
+
+## Round nine: the walk opening goes back
+
+Kyle on round eight: "This is much better, but you're missing the entire point of the entire clip. You cut off the
+entire thing of I'm going on a walk with my son, my dog. I am also just thinking about helping him buy a home later
+or education." His earlier "you can cut the very beginning of the video" meant the "um, I just, uh" before it, not the
+walk line.
+
+- Take A is now one 11.9 s unbroken take from 1.58 s of the 45 s cut: "I'm on a walk with my son and my dog, and I was
+  just doing some quick math, just thinking about what I'm doing for his future. Right now I'm putting about $250 a
+  month", then the ETF cutaway. Nothing inside it is cut. 27.9 s.
+- Type over it, all his words on his words: "on a walk with my son and my dog," then "quick math.", then "what I'm
+  doing for his future." `OFF = 7.1` in `overlay.html`: every other cue keeps its time on an inner clock.
+
+## Round ten: make it look expensive
+
+He stopped the round-nine render: "Make it look really good, like full graphics, like hey I just paid [someone] $5,000
+to get some kind of ETF, some kind of graphics." The paper cutaways read as homemade.
+
+- **No paper.** `assemble.sh` blurs and darkens his own footage under each cutaway (`CUTAWAYS`), so every graphic sits
+  over a real moving image with depth. The overlay adds a navy tint and vignette.
+- **One frosted glass panel** that tilts in 3D with the chart inside it, a rim highlight, a heavy shadow and a sheen
+  that crosses it once per cutaway.
+- **ETF cutaway is a trading-app screen:** an "Auto-invest" row with a "$250 / month" pill, a glowing line with a
+  bright core and a pulsing end dot, an area fill, range pills with ALL lit. Still no fund name, price or return.
+- **Columns** are cream (what he puts in) with glowing mint growth on a glass stage; the arrow glows; the figures are
+  cream and mint extruded type. The stage and the arrowhead break the edge of the glass on purpose.
+- Probe stills now blur the footage frame the same way, or the glass looks wrong against a sharp face.

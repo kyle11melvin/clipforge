@@ -29,12 +29,20 @@
   .xw i { position: absolute; left: 0; top: 0; font-style: normal; }
   .xw b { position: relative; font-weight: 800; display: block; }
 
-  #paper { position: absolute; inset: 0; background-color: #EFE9DE; opacity: 0; overflow: hidden; }
-  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, rgba(255,255,255,.6), rgba(255,255,255,0) 55%), radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 58%, rgba(60,40,20,.18)); }
+  /* Round ten (Kyle: "make it look really good ... like I just paid someone $5,000"): no paper. assemble.sh blurs and
+     darkens his own footage under each cutaway; this layer adds a navy tint, one frosted glass panel that tilts in 3D
+     with the chart inside it, glowing lines, and a sheen that crosses the glass once. */
+  #paper { position: absolute; inset: 0; background: linear-gradient(rgba(6,22,30,.66), rgba(6,22,30,.50) 45%, rgba(6,22,30,.72)); opacity: 0; overflow: hidden; }
+  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,.5)); }
+  #glass { position: absolute; left: 52px; top: 620px; width: 876px; height: 772px; border-radius: 54px; overflow: hidden; transform-origin: 488px 390px;
+           background: linear-gradient(155deg, rgba(255,255,255,.20), rgba(255,255,255,.06) 38%, rgba(255,255,255,.10));
+           box-shadow: inset 0 0 0 2px rgba(255,255,255,.20), inset 0 3px 0 rgba(255,255,255,.38), 0 70px 130px rgba(0,0,0,.55), 0 20px 40px rgba(0,0,0,.3); }
+  #sheen { position: absolute; top: -200px; left: 0; width: 240px; height: 1300px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.20), rgba(255,255,255,0)); transform: rotate(18deg); }
+  #chart { transform-origin: 540px 1010px; }
   #chart { position: absolute; left: 0; top: 0; }
-  #lab { position: absolute; left: 76px; top: 282px; font-family: "Playfair", serif; font-style: italic; font-size: 60px; color: var(--ink); }
-  #foot { position: absolute; left: 76px; top: 1410px; font-size: 24px; font-weight: 600; color: rgba(14,42,53,.6); white-space: nowrap; }
-  #plab { position: absolute; left: 82px; top: 846px; font-family: "Playfair", serif; font-style: italic; font-size: 42px; color: var(--ink); opacity: 0; }
+  #lab { position: absolute; left: 76px; top: 282px; font-family: "Playfair", serif; font-style: italic; font-size: 60px; color: var(--sand); text-shadow: 0 4px 24px rgba(0,0,0,.5); }
+  #foot { position: absolute; left: 76px; top: 1412px; font-size: 22px; font-weight: 600; color: rgba(239,233,222,.62); white-space: nowrap; }
+  #plab { position: absolute; left: 82px; top: 846px; font-family: "Playfair", serif; font-style: italic; font-size: 42px; color: var(--sand); opacity: 0; text-shadow: 0 3px 18px rgba(0,0,0,.5); }
 
   #photo, #photoBack { position: absolute; left: 120px; top: 470px; width: 760px; height: 570px; background: url(house.jpg) center/cover; border-radius: 20px; }
   #photo { border: 14px solid #fff; box-shadow: 0 70px 100px rgba(4,18,26,.6), 0 20px 34px rgba(4,18,26,.4); }
@@ -50,6 +58,15 @@
 <div id="scrim"></div>
 
 <!-- 2: $250 a month -->
+<!-- the walk opening (round nine). Times here and everywhere below are on the inner clock: 0 = "Right now", OFF s into the video -->
+<div class="sm" id="s1" style="top:300px;font-size:55px" data-w="-6.78,-6.62,-6.54,-6.30,-6.14,-5.74,-5.50,-5.26,-5.10">on a walk with my son and my dog,</div>
+<div class="persp"><div class="rot" id="r1" style="left:72px;top:392px;font-size:144px">
+  <span class="xw" data-t="-3.58" data-c="#EFE9DE" data-d="#143746">quick</span><span class="xw" data-t="-3.26" data-c="#D77B52" data-d="#7E3D22">math.</span>
+</div></div>
+<div class="sm" id="s1b" style="top:300px;font-size:60px" data-w="-1.66,-1.50,-1.26,-1.02">what I'm doing for</div>
+<div class="persp"><div class="rot" id="r1b" style="left:72px;top:384px;font-size:150px">
+  <span class="xw" data-t="-0.86" data-c="#EFE9DE" data-d="#143746">his</span><span class="xw" data-t="-0.70" data-c="#D77B52" data-d="#7E3D22">future.</span>
+</div></div>
 <div class="sm" id="s2" style="top:284px;font-size:64px" data-w="0.03,0.19,0.43,0.59">right now I'm putting</div>
 <div class="persp"><div class="rot" id="r2" style="left:60px;top:350px;font-size:330px">
   <span class="xw" id="big" data-t="1.05" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
@@ -61,16 +78,17 @@
 <!-- 3: the math, full screen on paper -->
 <div id="paper">
   <div id="vig"></div>
+  <div id="glass"><div id="sheen"></div></div>
   <canvas id="chart" width="1080" height="1920"></canvas>
   <div id="lab"></div>
   <div id="plab">more than I put in</div>
   <div id="foot">Example: $250 a month for 18 years, compounded monthly. Not a promise.</div>
 </div>
-<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r0" style="left:72px;top:360px;font-size:300px">
-  <span class="xw" data-t="4.08" data-c="#2E8571" data-d="#143E35" data-n="46">ETF</span>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r0" style="left:72px;top:366px;font-size:226px">
+  <span class="xw" data-t="4.08" data-c="#6FE3C1" data-d="#17705A" data-n="46">ETF</span>
 </div></div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3" style="left:72px;top:366px;font-size:176px">
-  <span class="xw" id="n1" data-t="6.28" data-p="6.68" data-c="#173F4F" data-d="#0A1E27" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
+  <span class="xw" id="n1" data-t="6.28" data-p="6.68" data-c="#F4EFE4" data-d="#8C8676" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
 </div></div>
 <div class="persp"><div class="rot" id="r3p" style="left:72px;top:330px;font-size:190px">
   <span class="xw" data-t="8.57" data-c="#9BE3CD" data-d="#1F5E50" data-n="34">5–8%</span><span class="xw" data-t="9.07" data-c="#EFE9DE" data-d="#143746" style="font-size:.42em">a year</span>
@@ -78,10 +96,10 @@
 <div class="sm" id="s3" style="top:566px;font-size:66px" data-w="9.71,9.95,10.43,10.67">I expect to return</div>
 <div class="sm" id="s4" style="top:262px;font-size:58px" data-w="15.42,15.58,15.90,16.06,16.38">I hope that helps for</div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3b" style="left:72px;top:368px;font-size:110px">
-  <span class="xw" id="n2" data-t="12.2" data-p="12.6" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="14.0" data-p="14.42" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
+  <span class="xw" id="n2" data-t="12.2" data-p="12.6" data-c="#6FE3C1" data-d="#17705A" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="14.0" data-p="14.42" data-c="#6FE3C1" data-d="#17705A" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
 </div></div>
 <div class="persp" style="perspective-origin:300px 760px"><div class="rot" id="r3c" style="left:72px;top:672px;font-size:140px">
-  <span class="xw" id="pct" data-t="11.4" data-p="14.45" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
+  <span class="xw" id="pct" data-t="11.4" data-p="14.45" data-c="#F08A5D" data-d="#8A4425" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
 </div></div>
 
 <!-- 4: the home -->
@@ -121,12 +139,6 @@ const out3 = (x) => 1 - Math.pow(1 - x, 3);
 const io = (x) => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 const back = (x) => { const c = 2.6; return x <= 0 ? 0 : 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
 const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
-
-// paper grain, drawn once from a seeded generator (an SVG turbulence filter re-rasterises on every frame)
-{ const c = document.createElement("canvas"); c.width = 270; c.height = 480; const g = c.getContext("2d"), im = g.createImageData(270, 480);
-  let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
-  for (let i = 0; i < im.data.length; i += 4) { const v = rnd(); im.data[i] = 120; im.data[i + 1] = 100; im.data[i + 2] = 78; im.data[i + 3] = v * v * 46; }
-  g.putImageData(im, 0, 0); $("paper").style.backgroundImage = `url(${c.toDataURL()})`; $("paper").style.backgroundSize = "540px 960px"; }
 
 // flat word-by-word lines
 document.querySelectorAll(".sm").forEach((row) => {
@@ -180,25 +192,38 @@ function box(x, y0, y1, c) {
   poly([[a, y0, n], [a, y1, n], [a + 5, y1, n], [a + 5, y0, n]].reverse(), "rgba(255,255,255,.22)");   // a lit edge
   poly([[a, y1, n], [a, y1, f], [b, y1, f], [b, y1, n]].reverse(), c.top);
 }
-const NAVY = { front: ["#2F7692", "#173F4F"], side: "#0E2A35", top: "#4C9DBB" };
-const GROW = { front: ["#43B299", "#2A7C69"], side: "#1A5547", top: "#6FD3B9" };
-const RANGE = { front: ["#C9EEE3", "#93D3C0"], side: "#69AE9A", top: "#EAF9F4" };
+const NAVY = { front: ["#FFFDF7", "#C4BBA7"], side: "#8F8775", top: "#FFFFFF" };     // what he puts in (cream on the dark glass)
+const GROW = { front: ["#5BE8C0", "#22A07E"], side: "#17745B", top: "#9BF7DC" };
+const RANGE = { front: ["#D2FFF3", "#8CE6CD"], side: "#5DB9A0", top: "#F2FFFB" };
 const STOCK = (() => { let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647; const N = 46, pts = []; let w = 0;
-  for (let i = 0; i <= N; i++) { w = w * .55 + (rnd() - .5) * 120; const u = i / N; pts.push([110 + 770 * u, 1270 - 560 * Math.pow(u, 1.12) + (i && i < N ? w : 0)]); }
+  for (let i = 0; i <= N; i++) { w = w * .55 + (rnd() - .5) * 104; const u = i / N; pts.push([110 + 770 * u, 1262 - 440 * Math.pow(u, 1.12) + (i && i < N ? w : 0)]); }
   return pts; })();
+function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+// The ETF cutaway: a trading-app panel on the glass. An auto-invest row, a glowing line that climbs, range pills.
+// No fund name, price or return figure: he names the fund out loud, the screen does not.
 function stock(t) {
   ctx.clearRect(0, 0, 1080, 1920);
-  ctx.strokeStyle = "rgba(14,42,53,.10)"; ctx.lineWidth = 3;
-  for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.moveTo(90, 1290 - k * 150); ctx.lineTo(905, 1290 - k * 150); ctx.stroke(); }
-  const g = io(p(t, T.paperIn + .03, 1.25)) * (STOCK.length - 1), fi = Math.floor(g), fr = g - fi, pts = STOCK.slice(0, fi + 1);
+  const a = p(t, T.paperIn, .25);
+  ctx.globalAlpha = a;
+  ctx.font = "700 32px Manrope"; ctx.textAlign = "left"; ctx.fillStyle = "rgba(239,233,222,.78)"; ctx.fillText("Auto-invest", 104, 706);
+  rr(590, 664, 290, 62, 31); ctx.fillStyle = "#6FE3C1"; ctx.fill();
+  ctx.font = "800 30px Manrope"; ctx.textAlign = "center"; ctx.fillStyle = "#0B2A22"; ctx.fillText("$250 / month", 735, 706);
+  ctx.strokeStyle = "rgba(255,255,255,.09)"; ctx.lineWidth = 2;
+  for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.moveTo(100, 1276 - k * 118); ctx.lineTo(884, 1276 - k * 118); ctx.stroke(); }
+  ["1M", "6M", "1Y", "5Y", "ALL"].forEach((s, k) => { const x = 170 + k * 162;
+    if (s === "ALL") { rr(x - 62, 1322, 124, 54, 27); ctx.fillStyle = "rgba(111,227,193,.22)"; ctx.fill(); }
+    ctx.font = "800 26px Manrope"; ctx.fillStyle = s === "ALL" ? "#8CF5D6" : "rgba(239,233,222,.55)"; ctx.fillText(s, x, 1358); });
+  ctx.globalAlpha = 1;
+  const g = io(p(t, T.paperIn + .05, 1.2)) * (STOCK.length - 1), fi = Math.floor(g), fr = g - fi, pts = STOCK.slice(0, fi + 1);
   if (fi < STOCK.length - 1) pts.push([STOCK[fi][0] + (STOCK[fi + 1][0] - STOCK[fi][0]) * fr, STOCK[fi][1] + (STOCK[fi + 1][1] - STOCK[fi][1]) * fr]);
   const [ex, ey] = pts[pts.length - 1];
-  const fill = ctx.createLinearGradient(0, 700, 0, 1300); fill.addColorStop(0, "rgba(46,133,113,.34)"); fill.addColorStop(1, "rgba(46,133,113,0)");
-  ctx.beginPath(); ctx.moveTo(pts[0][0], 1300); pts.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(ex, 1300); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
-  const line = (dy, col, w) => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y + dy) : ctx.moveTo(x, y + dy)); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.stroke(); };
-  line(22, "rgba(40,30,14,.14)", 18); line(9, "#1A5547", 18); line(0, "#3FAE94", 18);
-  ctx.beginPath(); ctx.arc(ex, ey, 30, 0, 7); ctx.fillStyle = "rgba(63,174,148,.28)"; ctx.fill();
-  ctx.beginPath(); ctx.arc(ex, ey, 17, 0, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.beginPath(); ctx.arc(ex, ey, 11, 0, 7); ctx.fillStyle = "#2E8571"; ctx.fill();
+  const fill = ctx.createLinearGradient(0, 780, 0, 1280); fill.addColorStop(0, "rgba(91,240,196,.42)"); fill.addColorStop(1, "rgba(91,240,196,0)");
+  ctx.beginPath(); ctx.moveTo(pts[0][0], 1280); pts.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(ex, 1280); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+  const line = (col, w) => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.stroke(); };
+  ctx.shadowColor = "#3FE0B0"; ctx.shadowBlur = 34; line("#5BF0C4", 13); ctx.shadowBlur = 0; line("#C9FFF0", 4);
+  const pulse = 1 + .25 * Math.sin(t * 14);
+  ctx.beginPath(); ctx.arc(ex, ey, 34 * pulse, 0, 7); ctx.fillStyle = "rgba(91,240,196,.25)"; ctx.fill();
+  ctx.shadowColor = "#3FE0B0"; ctx.shadowBlur = 30; ctx.beginPath(); ctx.arc(ex, ey, 15, 0, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.shadowBlur = 0;
 }
 function chart(t) {
   ctx.clearRect(0, 0, 1080, 1920);
@@ -215,18 +240,18 @@ function chart(t) {
   }
   // soft shadows: the stage on the paper, the columns on the stage
   sctx.clearRect(0, 0, 135, 240);
-  sctx.save(); sctx.translate(0, 7); poly(plate(-26, 26).reverse(), "rgba(60,40,20,.5)", sctx, .125); sctx.restore();
+  sctx.save(); sctx.translate(0, 7); poly(plate(-26, 26).reverse(), "rgba(0,0,0,.55)", sctx, .125); sctx.restore();
   ctx.imageSmoothingQuality = "high"; ctx.drawImage(soft, 0, 0, 1080, 1920);
-  poly(plate(0, 0).reverse(), "#FBF8F2");
-  poly([[-470, -26, -150], [-470, 0, -150], [470, 0, -150], [470, -26, -150]].reverse(), "#CFC5B2");
-  poly([[470, -26, -150], [470, 0, -150], [470, 0, 170], [470, -26, 170]].reverse(), "#BDB29D");
-  poly([[-470, -26, -150], [-470, -26, 170], [-470, 0, 170], [-470, 0, -150]].reverse(), "#BDB29D");
+  poly(plate(0, 0).reverse(), "rgba(255,255,255,.16)");
+  poly([[-470, -26, -150], [-470, 0, -150], [470, 0, -150], [470, -26, -150]].reverse(), "rgba(255,255,255,.10)");
+  poly([[470, -26, -150], [470, 0, -150], [470, 0, 170], [470, -26, 170]].reverse(), "rgba(255,255,255,.06)");
+  poly([[-470, -26, -150], [-470, -26, 170], [-470, 0, 170], [-470, 0, -150]].reverse(), "rgba(255,255,255,.06)");
   sctx.clearRect(0, 0, 135, 240);
-  cols.forEach((o) => { if (o.h > 1) { const s = 30 + o.h * .2; poly([[o.x - W / 2, .5, -DEPTH / 2], [o.x - W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2, .5, -DEPTH / 2]].reverse(), "rgba(40,30,14,.5)", sctx, .125); } });
+  cols.forEach((o) => { if (o.h > 1) { const s = 30 + o.h * .2; poly([[o.x - W / 2, .5, -DEPTH / 2], [o.x - W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2, .5, -DEPTH / 2]].reverse(), "rgba(0,0,0,.5)", sctx, .125); } });
   ctx.drawImage(soft, 0, 0, 1080, 1920);
   [...cols].sort((a, b) => b.z - a.z).forEach((o) => { box(o.x, 0, o.c, NAVY); box(o.x, o.c, o.l, GROW); box(o.x, o.l, o.h, RANGE); });
   // age marks on the front lip of the stage
-  ctx.font = "800 30px Manrope"; ctx.fillStyle = "rgba(14,42,53,.72)";
+  ctx.font = "800 30px Manrope"; ctx.fillStyle = "rgba(239,233,222,.86)";
   [["today", -1], ["age 9", 8], ["age 18", 17]].forEach(([s, i]) => { const [x, y] = proj([X0 + i * PITCH, 0, -118]); ctx.textAlign = i === 17 ? "right" : "center"; ctx.fillText(s, x + (i === 17 ? 26 : 0), y + 10); });
   // the arrow: rides the tops of the columns, climbing as the growth stacks on
   const g = p(t, T.loA, T.hiB - T.loA);
@@ -242,7 +267,7 @@ function chart(t) {
     const draw = (dy, col) => { ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 20; ctx.lineCap = "round"; ctx.lineJoin = "round";
       ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y + dy) : ctx.moveTo(x, y + dy)); ctx.stroke();
       ctx.save(); ctx.translate(ex, ey + dy); ctx.rotate(ang); ctx.beginPath(); ctx.moveTo(58, 0); ctx.lineTo(-14, -40); ctx.lineTo(-14, 40); ctx.closePath(); ctx.fill(); ctx.restore(); };
-    draw(26, "rgba(40,30,14,.16)"); draw(9, "#8A4425"); draw(0, "#E0835A");
+    draw(26, "rgba(0,0,0,.28)"); draw(9, "#8A4425"); ctx.shadowColor = "#FF9D6E"; ctx.shadowBlur = 26; draw(0, "#F58F62"); ctx.shadowBlur = 0;
   }
 }
 
@@ -251,7 +276,9 @@ function house(full) {            // over his head in take D, then the same card
   [$("photo"), $("photoBack")].forEach((e) => { e.style.left = g[0] + "px"; e.style.top = g[1] + "px"; e.style.width = g[2] + "px"; e.style.height = g[3] + "px"; });
   const tg = $("tag"); tg.style.left = (full ? 250 : 286) + "px"; tg.style.top = (full ? 960 : 664) + "px"; tg.style.fontSize = (full ? 68 : 54) + "px";
 }
-window.seek = (t) => {
+const OFF = 7.1;                  // the walk opening runs before the inner clock's zero
+window.seek = (t0) => { const t = t0 - OFF;
+  flat("s1", t, -2.45); ext("r1", t, -2.45); flat("s1b", t, -.22); ext("r1b", t, -.22, .7);
   const on = PAPER.some(([a, b]) => t >= a && t < b), inP = (k) => t >= PAPER[k][0] && t < PAPER[k][1];
   $("paper").style.opacity = on ? 1 : 0;
   $("scrim").style.opacity = on ? 0 : .9;
@@ -266,6 +293,10 @@ window.seek = (t) => {
   // cutaways: the ETF line, then the columns (twice, from a different camera angle the second time)
   const chartOn = (t >= T.chartIn && inP(0)) || inP(1);
   if (chartOn) chart(t); else if (inP(0)) stock(t); else ctx.clearRect(0, 0, 1080, 1920);
+  const panel = chartOn || inP(0), w0 = inP(0) ? (t < T.chartIn ? PAPER[0][0] : T.chartIn) : PAPER[1][0];
+  const tilt = `perspective(1700px) rotateY(${-5 + Math.sin(t * 1.1) * 3.2}deg) rotateX(${3 + Math.cos(t * .9) * 1.4}deg)`;
+  $("glass").style.opacity = panel ? 1 : 0; $("glass").style.transform = tilt; cv.style.transform = tilt;
+  $("sheen").style.left = (-420 + 1700 * p(t, w0 + .15, 1.2)) + "px";
   cv.style.opacity = 1; $("foot").style.opacity = chartOn ? 1 : 0;
   $("lab").textContent = !on ? "" : inP(0) ? (t < T.chartIn ? "into an" : "by the time he’s 18, I’ve put in") : inP(1) ? "so somewhere between" : "I hope that helps for";
   setText($("n1"), usd(54000 * out3(p(t, T.roll1, .36))));

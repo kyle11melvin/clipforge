@@ -212,4 +212,7 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   stopped: he wanted his face, with graphics only where the light or setting changes at a cut ("imagine you're a
   Hollywood director"), and notes walking up under the growth. Round eight: four unbroken takes, three paper cutaways
   (`PAPER` in overlay.html), takes graded to match, `steps` sounds. Start a cutaway-style reel from this version.
-  Verdict: pending.
+  His verdict: "much better, but you're missing the entire point of the entire clip": the walk opening had been cut.
+  Round nine puts it back inside one 11.9 s opening take (27.9 s total). Round ten, on "make it look really good ...
+  like I just paid someone $5,000": the paper cutaways became glass panels over his blurred footage, with a
+  trading-app screen for the ETF. Verdict: pending.

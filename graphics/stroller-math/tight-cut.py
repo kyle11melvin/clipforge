@@ -15,7 +15,9 @@ OFF = 5.58
 # Round eight (Kyle: "I was trying to do my face, but when I'm in a different light or tone or setting then do the graphic
 # ... imagine you're a Hollywood director"): he is the main shot, in four unbroken takes (FACE below). Every edit point
 # sits under a graphic cutaway, so the light never jumps on screen. Each take is graded toward the first one's exposure.
-KEEP = [(8.70, 13.46, 1),                                                              # FACE A  Right now I'm putting about $250 a month | cutaway: into a Vanguard ETF
+KEEP = [(1.58, 13.46, 1),    # FACE A  one take, 11.9 s: I'm on a walk with my son and my dog, and I was just doing some quick math, just thinking about
+                             #         what I'm doing for his future. Right now I'm putting about $250 a month | cutaway: into a Vanguard ETF
+                             #         (round nine: the walk opening is the point of the clip; only the "um, I just, uh" before it is cut)
         (15.02, 16.24, 1), (16.80, 18.22, 1), (18.30, 19.42, 1),                       # cutaway  By the time he's 18 / that's $54,000 / of my money
         (21.26, 23.92, 1.08),                                                          # FACE C  5 to 8% I expect to return (his pauses left in, so it is one take)
         (24.22, 24.64, 1), (24.80, 26.86, 1), (26.94, 28.62, 1),                       # cutaway  somewhere / between $87,500 / and $120,000

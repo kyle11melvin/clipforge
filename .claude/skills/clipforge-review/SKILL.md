@@ -33,6 +33,8 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] A full-screen graphic beat only where his words call for it, on sand or paper.
 - [ ] Each graphic lands on the word it belongs to (start and end from `transcript.json`).
 - [ ] Tight: no ums, false starts, repeated phrases or dead air left in. Word times from Parakeet, not whisper.
+- [ ] The personal setup and the reason he gives are still in. Nothing he would call the point of the clip is cut.
+- [ ] Each cutaway looks bought: a real image behind it (his blurred footage), glass, glow, depth. No flat paper charts.
 - [ ] No corner circle of him over a full-screen beat.
 - [ ] Nothing on screen before he says it. Ends on his question, on the word.
 - [ ] No jump cut visible on his face: every edit point sits under a full-screen graphic.

@@ -42,6 +42,10 @@ He wants the rules "a little bit loose" while the brand image stays.
   a real image in it (a listing photo, a real screenshot, a document), depth (3D tilt, layers, a heavy soft shadow,
   something out of focus behind something sharp) and size (it fills the frame). Never a line drawing standing in
   for a real thing. If the real image does not exist, ask him for it or for one from ChatGPT before building.
+- **A cutaway should look bought, not made** (2026-11-28: "like I just paid someone $5,000"). Sand paper with a chart
+  on it read as homemade. The look that cleared the bar: his own footage blurred and darkened behind the graphic, one
+  frosted glass panel tilting in 3D, glowing lines with a bright core, a sheen, and for a fund or a rate a trading-app
+  screen (rows, pills, a range selector). Start from `graphics/stroller-math/overlay.html` and its `assemble.sh`.
 - **Never the same device two videos running**, test cuts included ("the same chips as the previous post"). That covers
   images too: an object used in any earlier post (the winter-swipe key) is a repeat (2026-11-28).
 - **Depth is real, not a tilt** (2026-11-28: "a 3-D kind of look ... they pop"). Big type is extruded and moves in
@@ -68,6 +72,9 @@ He wants the rules "a little bit loose" while the brand image stays.
    **Word times:** install Parakeet first (`npx hyperframes models install parakeet`); whisper's word times were up
    to 0.7 s late on a walking take (2026-11-28), which lands every graphic late. Parakeet also writes "um" and "uh"
    as words.
+   **Tight does not mean cutting the story** (2026-11-28: "you're missing the entire point of the entire clip" when
+   the personal opening, a walk with his son and dog, was cut for a faster hook). The personal setup and the why are
+   the post; cut the ums and repeats around them, never them. When he says "cut the beginning", ask which words.
    **Cut it tight** (Kyle, 2026-11-28: "tighten and clip a lot"): take out every um, false start, repeated phrase
    and throat-clearing lead-in ("So I was thinking like"), not only silence. `graphics/stroller-math/tight-cut.py`
    is the keep-list tool: Parakeet word edges in, `cut.mp4` and a remapped transcript out, alternating punch-ins on
