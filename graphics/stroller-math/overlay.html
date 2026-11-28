@@ -1,0 +1,220 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Stroller math (2026-11-28), round two after Kyle: "I want cool looking things ... a 3-D kind of look ... they pop".
+     One alpha layer over a walking selfie (cap top is y>=795 in cut.mp4). Everything big is real 3D:
+       type      extruded letters (stacked copies in Z) that sway in perspective
+       $250      a giant extruded numeral that spins in
+       the math  a full-screen paper beat: 18 columns on a stage, drawn with a perspective camera that orbits
+                 (he sits in a corner circle, composited by assemble.sh at CIRCLE)
+       the home  a real photo as a tilted card over its own blurred copy
+     #zones paints the Reels chrome. No opacity on anything extruded: opacity flattens preserve-3d. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  @font-face { font-family: "Caveat"; src: url("../fonts/Caveat.ttf"); font-weight: 400 700; }
+  :root { --navy:#173F4F; --ink:#0E2A35; --sand:#EFE9DE; --terra:#D77B52; --grow:#2E8571; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  body { position: relative; font-family: "Manrope", sans-serif; }
+  #scrim { position: absolute; inset: 0 0 auto 0; height: 1000px; background: linear-gradient(rgba(14,42,53,.6), rgba(14,42,53,0)); opacity: 0; }
+  .sm { position: absolute; left: 72px; font-family: "Playfair", serif; font-style: italic; color: var(--sand); white-space: nowrap;
+        text-shadow: 0 4px 26px rgba(14,42,53,.65), 0 1px 3px rgba(14,42,53,.5); }
+  .sm span { display: inline-block; opacity: 0; white-space: pre; }
+  .persp { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; perspective: 1500px; perspective-origin: 500px 520px; pointer-events: none; }
+  .rot { position: absolute; transform-style: preserve-3d; white-space: nowrap; }
+  .xw { display: inline-block; position: relative; transform-style: preserve-3d; font-family: "Sora", sans-serif; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-right: .22em; transform: scale(0); }
+  .xw i { position: absolute; left: 0; top: 0; font-style: normal; }
+  .xw b { position: relative; font-weight: 800; display: block; }
+
+  #paper { position: absolute; inset: 0; background: #EFE9DE; opacity: 0; overflow: hidden; }
+  #paper svg { position: absolute; inset: 0; mix-blend-mode: multiply; opacity: .55; }
+  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 42%, rgba(255,255,255,.55), rgba(255,255,255,0) 55%), radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 60%, rgba(60,40,20,.16)); }
+  #chart { position: absolute; left: 0; top: 0; }
+  #lab { position: absolute; left: 76px; top: 286px; font-family: "Playfair", serif; font-style: italic; font-size: 58px; color: var(--ink); }
+  #foot { position: absolute; left: 350px; top: 1272px; width: 570px; font-size: 25px; font-weight: 600; line-height: 1.4; color: rgba(14,42,53,.6); }
+  #ring { position: absolute; left: 62px; top: 1194px; width: 256px; height: 256px; border-radius: 50%; border: 8px solid #fff; background: #26424d; box-shadow: 0 26px 44px rgba(40,28,14,.42); }
+
+  #photo, #photoBack { position: absolute; left: 170px; top: 286px; width: 580px; height: 435px; background: url(house.jpg) center/cover; border-radius: 18px; }
+  #photo { border: 13px solid #fff; box-shadow: 0 60px 90px rgba(4,18,26,.55), 0 18px 30px rgba(4,18,26,.38); }
+  #photoBack { filter: blur(22px) brightness(.6) saturate(1.1); border-radius: 26px; }
+  #tag { position: absolute; left: 318px; top: 632px; background: #F6F1E7; color: var(--ink); font-family: "Caveat", cursive; font-weight: 700; font-size: 76px; line-height: 1; padding: 16px 34px 24px; border-radius: 10px; white-space: nowrap;
+         box-shadow: 0 26px 40px rgba(4,18,26,.5), 0 6px 10px rgba(4,18,26,.3); }
+  #under { position: absolute; left: 66px; top: 708px; }
+  #drop { position: absolute; left: 80px; top: 744px; font-family: "Caveat", cursive; font-weight: 700; font-size: 76px; color: var(--sand); text-shadow: 0 4px 22px rgba(14,42,53,.7); opacity: 0; }
+  .zone { position: absolute; background: rgba(255,0,0,.28); display: none; z-index: 99; }
+</style></head>
+<body>
+<div id="scrim"></div>
+
+<!-- 1: his first line -->
+<div class="sm" id="s1" style="top:300px;font-size:55px" data-w="0.63,1.16,1.29,1.8,2.31,2.58,2.95,3.38,3.69">on a walk with my son and my dog,</div>
+<div class="persp"><div class="rot" id="r1" style="left:72px;top:392px;font-size:158px">
+  <span class="xw" data-t="5.06" data-c="#EFE9DE" data-d="#143746">quick</span><span class="xw" data-t="5.26" data-c="#D77B52" data-d="#7E3D22">math.</span>
+</div></div>
+
+<!-- 2: $250 a month -->
+<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="9.69,9.93">I'm putting in</div>
+<div class="persp"><div class="rot" id="r2" style="left:66px;top:352px;font-size:318px">
+  <span class="xw" id="big" data-t="10.93" data-c="#D77B52" data-d="#7E3D22" data-n="46" style="letter-spacing:-0.05em">$250</span>
+</div></div>
+<div class="persp"><div class="rot" id="r2b" style="left:76px;top:692px;font-size:104px">
+  <span class="xw" data-t="11.76" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="11.84" data-c="#EFE9DE" data-d="#143746">month</span><span class="xw" data-t="13.34" data-c="#A9D8C8" data-d="#1F5E50" style="font-size:.8em;margin-left:.2em">→ ETF</span>
+</div></div>
+
+<!-- 3: the math, full screen on paper -->
+<div id="paper">
+  <svg width="1080" height="1920"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .44  0 0 0 0 .36  0 0 0 .2 0"/></filter><rect width="1080" height="1920" filter="url(#n)"/></svg>
+  <div id="vig"></div>
+  <canvas id="chart" width="1080" height="1920"></canvas>
+  <div id="lab"></div>
+  <div id="foot">Example: $250 a month for 18 years, compounded monthly. Not a promise.</div>
+  <div id="ring"></div>
+</div>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3" style="left:72px;top:366px;font-size:168px">
+  <span class="xw" id="n1" data-t="15.55" data-c="#173F4F" data-d="#0A1E27" data-n="30" style="font-variant-numeric:tabular-nums">$0</span>
+</div></div>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3b" style="left:72px;top:372px;font-size:106px">
+  <span class="xw" id="n2" data-t="23.9" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="27.1" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
+</div></div>
+
+<!-- 4: the home -->
+<div class="persp" style="perspective-origin:480px 500px"><div class="rot" id="r4" style="left:0;top:0;width:1080px;height:1000px">
+  <div id="photoBack"></div><div id="photo"></div><div id="tag">his down payment</div>
+</div></div>
+
+<!-- 5: his question -->
+<div class="sm" id="s5" style="top:296px;font-size:68px" data-w="38.6,38.84,39.02,39.2">what are you doing</div>
+<div class="persp"><div class="rot" id="r5" style="left:72px;top:390px;font-size:142px">
+  <span class="xw" data-t="39.5" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="39.68" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="40.01" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
+</div></div>
+<svg id="under" width="860" height="40"><path id="up" d="M8 22 C 180 6, 420 34, 560 16 S 800 10, 850 24" fill="none" stroke="#D77B52" stroke-width="11" stroke-linecap="round"/></svg>
+<div id="drop">drop your comments below ↓</div>
+
+<div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
+<div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
+<div class="zone" style="left:940px;top:0;width:140px;height:1920px"></div>
+
+<script>
+const T = { t1Out: 6.75, in2: 9.6, out2: 14.95, paperIn: 15.35, lineA: 15.55, lineB: 17.43, landA: 19.4, pct: 21.54,
+            loA: 23.9, loB: 26.3, hiA: 27.1, hiB: 28.9, paperOut: 31.75, home: 33.0, homeOut: 36.55, q: 38.5, last: 41.92 };
+const CIRCLE = { cx: 190, cy: 1322, r: 120 };   // assemble.sh puts his face here during the paper beat
+const $ = (id) => document.getElementById(id);
+const cl = (x) => Math.max(0, Math.min(1, x));
+const p = (t, a, d) => cl((t - a) / d);
+const out3 = (x) => 1 - Math.pow(1 - x, 3);
+const io = (x) => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const back = (x) => { const c = 1.9; return x <= 0 ? 0 : 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
+
+// flat word-by-word lines
+document.querySelectorAll(".sm").forEach((row) => {
+  const times = row.dataset.w.split(",").map(Number), ws = row.textContent.split(" "); row.textContent = "";
+  ws.forEach((w, i) => { const s = document.createElement("span"); s.textContent = w + (i < ws.length - 1 ? " " : ""); s.dataset.t = times[Math.min(i, times.length - 1)]; row.append(s); });
+});
+function flat(id, t, outAt) { const o = 1 - p(t, outAt, .3);
+  $(id).querySelectorAll("span").forEach((s) => { const k = out3(p(t, +s.dataset.t - .03, .28)); s.style.opacity = k * o; s.style.transform = `translateY(${(1 - k) * 30}px)`; }); }
+
+// extruded words: N copies stepped back in Z, the deepest one carrying the cast shadow
+document.querySelectorAll(".xw").forEach((w) => {
+  const txt = w.textContent, n = +(w.dataset.n || 24); w.textContent = ""; w._layers = [];
+  for (let k = n; k >= 1; k--) { const i = document.createElement("i"); i.textContent = txt; i.style.color = w.dataset.d; i.style.transform = `translateZ(${-k * 1.5}px)`;
+    if (k === n) i.style.textShadow = "0 26px 38px rgba(4,18,26,.55)"; w.append(i); w._layers.push(i); }
+  const b = document.createElement("b"); b.textContent = txt; b.style.color = w.dataset.c; w.append(b); w._layers.push(b);
+});
+const setText = (w, s) => { if (w._s === s) return; w._s = s; w._layers.forEach((l) => l.textContent = s); };
+// pop every word of a line on its own time; the whole line sways; `outAt` shrinks it away
+function ext(id, t, outAt, sway = 1, spin = 0) {
+  const r = $(id), o = 1 - out3(p(t, outAt, .28));
+  r.querySelectorAll(".xw").forEach((w) => { const k = p(t, +w.dataset.t - .04, .34); w.style.transform = `scale(${back(k) * o}) rotateY(${(1 - out3(k)) * spin}deg)`; });
+  r.style.transform = `rotateY(${-13 + Math.sin(t * 1.3 + r.offsetTop) * 7 * sway}deg) rotateX(${6 + Math.cos(t * 1.1) * 3 * sway}deg) translateY(${(1 - o) * -60}px)`;
+}
+
+// ---- the math: 18 columns on a stage, perspective camera ----
+const PAY = 250, fv = (r, m) => r === 0 ? PAY * m : PAY * (Math.pow(1 + r / 12, m) - 1) / (r / 12);
+const ctx = $("chart").getContext("2d");
+const K = 4.3 / 1000, W = 33, PITCH = 45.5, DEPTH = 64, X0 = -PITCH * 8.5;
+let cam;
+function proj([x, y, z]) {
+  const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw), cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const x1 = x * cy + z * sy, z1 = -x * sy + z * cy, y1 = y * cp + z1 * sp, z2 = -y * sp + z1 * cp, s = cam.f / (cam.dist + z2);
+  return [cam.cx + x1 * s, cam.cy - y1 * s, z2];
+}
+function poly(pts, fill) { const q = pts.map(proj); let a = 0;
+  for (let i = 0; i < q.length; i++) { const [x1, y1] = q[i], [x2, y2] = q[(i + 1) % q.length]; a += x1 * y2 - x2 * y1; }
+  if (a > 0) return;                                   // facing away
+  ctx.beginPath(); q.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath();
+  if (typeof fill === "function") fill = fill(q); ctx.fillStyle = fill; ctx.fill(); }
+function box(x, y0, y1, c) {
+  if (y1 - y0 < .5) return; const a = x - W / 2, b = x + W / 2, n = -DEPTH / 2, f = DEPTH / 2;
+  const grad = (q) => { const g = ctx.createLinearGradient(0, Math.min(...q.map((v) => v[1])), 0, Math.max(...q.map((v) => v[1]))); g.addColorStop(0, c.front[0]); g.addColorStop(1, c.front[1]); return g; };
+  poly([[a, y0, f], [b, y0, f], [b, y1, f], [a, y1, f]].reverse(), c.side);
+  poly([[a, y0, n], [a, y0, f], [a, y1, f], [a, y1, n]].reverse(), c.side);
+  poly([[b, y0, n], [b, y1, n], [b, y1, f], [b, y0, f]].reverse(), c.side);
+  poly([[a, y0, n], [a, y1, n], [b, y1, n], [b, y0, n]].reverse(), grad);
+  poly([[a, y1, n], [a, y1, f], [b, y1, f], [b, y1, n]].reverse(), c.top);
+}
+const NAVY = { front: ["#2A6880", "#173F4F"], side: "#0F2D39", top: "#3F86A1" };
+const GROW = { front: ["#3FA58D", "#2E8571"], side: "#1C5A4C", top: "#62C2AA" };
+const RANGE = { front: ["#BDE6DA", "#8FCDBB"], side: "#6CAF9C", top: "#DDF4EC" };
+function chart(t) {
+  ctx.clearRect(0, 0, 1080, 1920);
+  const u = io(p(t, T.paperIn, T.paperOut - T.paperIn));
+  cam = { yaw: (-34 + 22 * u) * Math.PI / 180, pitch: 21 * Math.PI / 180, f: 1800, dist: 2260 - 240 * u, cx: 462, cy: 1040 };
+  // stage and its shadow
+  const plate = (y, pad) => [[-470 - pad, y, -150 - pad], [-470 - pad, y, 170 + pad], [470 + pad, y, 170 + pad], [470 + pad, y, -150 - pad]];
+  ctx.save(); ctx.filter = "blur(30px)"; ctx.translate(0, 46); poly(plate(-26, 6).reverse(), "rgba(60,40,20,.38)"); ctx.restore();
+  poly(plate(0, 0).reverse(), "#F8F4EC");
+  poly([[-470, -26, -150], [-470, 0, -150], [470, 0, -150], [470, -26, -150]].reverse(), "#CFC5B2");
+  poly([[470, -26, -150], [470, 0, -150], [470, 0, 170], [470, -26, 170]].reverse(), "#BDB29D");
+  poly([[-470, -26, -150], [-470, -26, 170], [-470, 0, 170], [-470, 0, -150]].reverse(), "#BDB29D");
+  // columns: heights for each year, far to near
+  const cols = [];
+  for (let i = 0; i < 18; i++) {
+    const m = (i + 1) * 12, f = i / 17;
+    const a = back(p(t, T.lineA + f * (T.lineB - T.lineA - .25), .4));
+    const lo = out3(p(t, T.loA + f * (T.loB - T.loA - .4), .45)), hi = out3(p(t, T.hiA + f * (T.hiB - T.hiA - .4), .45));
+    const c = PAY * m * K * a, l = c + (fv(.05, m) - PAY * m) * K * lo, h = l + (fv(.08, m) - fv(.05, m)) * K * hi;
+    cols.push({ x: X0 + i * PITCH, c, l, h, z: proj([X0 + i * PITCH, 0, 0])[2] });
+  }
+  ctx.save(); ctx.filter = "blur(12px)";
+  cols.forEach((o) => { if (o.h > 1) { const s = 26 + o.h * .16; poly([[o.x - W / 2, .5, -DEPTH / 2], [o.x - W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2, .5, -DEPTH / 2]].reverse(), "rgba(40,30,14,.30)"); } });
+  ctx.restore();
+  cols.sort((a, b) => b.z - a.z).forEach((o) => { box(o.x, 0, o.c, NAVY); box(o.x, o.c, o.l, GROW); box(o.x, o.l, o.h, RANGE); });
+  // age marks on the front lip of the stage
+  ctx.font = "800 30px Manrope"; ctx.fillStyle = "rgba(14,42,53,.7)"; ctx.textAlign = "center";
+  [["today", -1], ["age 9", 8], ["age 18", 17]].forEach(([s, i]) => { const [x, y] = proj([X0 + i * PITCH, 0, -118]); ctx.textAlign = i === 17 ? "right" : "center"; ctx.fillText(s, x + (i === 17 ? 26 : 0), y + 10); });
+}
+
+window.seek = (t) => {
+  $("scrim").style.opacity = Math.max(p(t, .3, .5) * (1 - p(t, T.t1Out, .4)), p(t, T.in2 - .2, .4) * (1 - p(t, T.out2, .3)), p(t, T.q, .4)) * .9;
+  flat("s1", t, T.t1Out); ext("r1", t, T.t1Out);
+  flat("s2", t, T.out2); ext("r2", t, T.out2, .8, 80); ext("r2b", t, T.out2);
+
+  // paper beat
+  const pin = p(t, T.paperIn, .3), pout = p(t, T.paperOut, .3), on = t >= T.paperIn && t < T.paperOut + .3;
+  $("paper").style.opacity = pin * (1 - pout);
+  if (on) chart(t);
+  const second = t >= T.pct;
+  $("lab").textContent = second ? "at 5 to 8% a year, I expect" : "what I put in by the time he’s 18";
+  setText($("n1"), usd(54000 * io(p(t, T.lineA, T.landA - T.lineA))));
+  setText($("n2"), usd(54000 + (87500 - 54000) * io(p(t, T.loA, T.loB - T.loA))));
+  setText($("n3"), "to " + usd(87500 + (120000 - 87500) * io(p(t, T.hiA, T.hiB - T.hiA))));
+  ext("r3", t, T.pct - .15, .55); ext("r3b", t, T.paperOut - .1, .55);
+
+  // the home: photo card swings in over its blurred copy
+  const hin = p(t, T.home, .55), hout = out3(p(t, T.homeOut, .3)), k = back(hin), fl = Math.sin(t * 1.4);
+  $("r4").style.transform = `translate(${(1 - out3(hin)) * 700 + hout * -40}px, ${hout * -700}px)`;
+  $("photo").style.transform = `rotateY(${-17 + (1 - k) * -60 + fl * 4}deg) rotateX(${7 + fl * 1.5}deg) rotateZ(${-3 + (1 - k) * 10}deg) scale(${hin > 0 ? (.7 + .3 * k) * (1 - hout) : 0})`;
+  $("photoBack").style.transform = `translate(${-96 + fl * -8}px, ${-30}px) translateZ(-260px) rotateY(${-10 + fl * 2}deg) rotateZ(5deg) scale(${hin > 0 ? 1.05 * (1 - hout) : 0})`;
+  const tg = back(p(t, T.home + .32, .34)); $("tag").style.transform = `translateZ(170px) rotate(-6deg) scale(${tg * (1 - hout)})`;
+
+  flat("s5", t, 999); ext("r5", t, 999, .7);
+  const up = $("up"), L = up.getTotalLength(), u = out3(p(t, T.last, .45));
+  up.style.strokeDasharray = L; up.style.strokeDashoffset = L * (1 - u); $("under").style.opacity = u > 0 ? 1 : 0;
+  const d = out3(p(t, T.last + .3, .4)); $("drop").style.opacity = d; $("drop").style.transform = `translateY(${(1 - d) * 26}px) rotate(-2deg)`;
+};
+if (location.hash.includes("zones")) document.querySelectorAll(".zone").forEach((z) => z.style.display = "block");
+window.seek(0);
+</script>
+</body></html>

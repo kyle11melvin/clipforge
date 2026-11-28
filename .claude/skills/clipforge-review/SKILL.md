@@ -17,7 +17,8 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] **Wording.** On-screen words match what he said or wrote. Numbers checked against the transcript ("2%" vs
       "20%") and against their source.
 - [ ] **No invented handles, taglines, sources or facts.**
-- [ ] **Not a repeat.** Different device and shape from his last post of this kind (check the newest logs).
+- [ ] **Not a repeat.** Different device and shape from his last post of this kind (check the newest logs). No
+      object or photo reused from any earlier post.
 - [ ] **Looks made, not drawn.** Each prop has a real image in it, depth and size; no flat tiles or line drawings
       standing in for real things.
 - [ ] **One thing at a time.** One prop or idea on screen per beat; no clutter, no particle storms.

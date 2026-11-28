@@ -33,7 +33,11 @@ He wants the rules "a little bit loose" while the brand image stays.
   a real image in it (a listing photo, a real screenshot, a document), depth (3D tilt, layers, a heavy soft shadow,
   something out of focus behind something sharp) and size (it fills the frame). Never a line drawing standing in
   for a real thing. If the real image does not exist, ask him for it or for one from ChatGPT before building.
-- **Never the same device two videos running**, test cuts included ("the same chips as the previous post").
+- **Never the same device two videos running**, test cuts included ("the same chips as the previous post"). That covers
+  images too: an object used in any earlier post (the winter-swipe key) is a repeat (2026-11-28).
+- **Depth is real, not a tilt** (2026-11-28: "a 3-D kind of look ... they pop"). Big type is extruded and moves in
+  perspective; a chart is built from solid objects on a stage with a moving camera; a flat card with a drop shadow
+  does not count. Start from `graphics/stroller-math/overlay.html`.
 - **One clear object beats a storm**, drawn crisp and detailed enough to read as the real thing.
 - **Board and caption use his spoken words**, not the brief's.
 - **End with a payoff** on his last line (a prop and a sound), over the unused second of smile.
