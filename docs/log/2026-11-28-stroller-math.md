@@ -91,3 +91,16 @@ reshoot"). What changed, 31.6 → 25.7 s:
 - The Tudor stock house is replaced by a Spanish-style stucco house (Unsplash, ubeyonroad, free licence), street number
   painted out. He offered to make an image or video in ChatGPT; two prompts are on the page with Copy buttons.
 - Not changed: the shot itself, the 122% arrow (his request; flagged that it reads louder than "I expect").
+
+## Round five: number timing and the ending
+
+Kyle on round four: "Timing is off with the numbers and then the ending is as well."
+
+- **Numbers.** The counters rolled for the whole phrase and only reached the figure as he finished saying it, and
+  "$120,000" was on screen 0.24 s before the cut back to his face. Now each figure is complete within about a third of
+  a second of the word starting (`roll1/2/3` in `T`), the columns and arrow still grow underneath, and the paper beat
+  holds through "I hope that helps for his" (to 20.45 s), so the final numbers and 122% get over two seconds.
+- **Frame-exact cut.** `tight-cut.py` now snaps every edge to a source frame. Unsnapped, picture and sound segments
+  differed by fractions of a frame and the concat ran 0.07 s long by the end, so late cues drifted.
+- **Ending.** "kids?" gets a 70 ms tail and a softer fade, the smile plays at half speed (1.8 s), and the audio fades
+  over the last half second. 26.7 s.

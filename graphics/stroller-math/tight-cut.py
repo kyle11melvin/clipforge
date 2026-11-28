@@ -17,18 +17,24 @@ KEEP = [(1.58, 2.80, 1), (2.96, 4.00, 1), (6.22, 8.52, 1),                      
         (21.26, 22.22, 1), (22.38, 22.98, 1), (23.06, 23.92, 1),                       # 5 to 8% / I expect / to return
         (24.22, 24.64, 1), (24.80, 26.86, 1), (26.94, 28.62, 1),                       # somewhere / between $87,500 / and $120,000
         (31.42, 34.02, 1), (34.02, 34.88, 1.08), (35.04, 35.58, 1.08),                 # I hope that helps for his down payment on his home / or at least with his / education
-        (38.86, 40.25, 1), (44.30, 45.20, 1)]                                          # What are you doing for your kids? / the smile after his last word (no speech)
+        (38.86, 40.30, 1), (44.30, 45.20, 1)]                                          # What are you doing for your kids? / the smile after his last word (no speech)
 DROP = {"um", "uh"}
 FIX = {"it": "to", "$120,000": "$120,000."}   # "I expect it return" is "to return"
 src = "videos/stroller-math/cut-full.mp4"
 fc, labels, t = [], [], 0.0
 starts = []
+FPS = 30
+# Every edge sits on a source frame, so picture and sound segments are the same length and the times printed below
+# are the real times in cut.mp4 (unsnapped, the concat drifted 0.07 s by the end).
+KEEP = [(round((a + OFF) * FPS) / FPS - OFF, round((b + OFF) * FPS) / FPS - OFF, z) for a, b, z in KEEP]
+SLOW = len(KEEP) - 1            # the last segment is the smile: half speed, so the ending has room
 for i, (a, b, z) in enumerate(KEEP):
-    v = f"[0:v]trim={a+OFF:.3f}:{b+OFF:.3f},setpts=PTS-STARTPTS"
+    v = f"[0:v]trim={a+OFF:.4f}:{b+OFF:.4f},setpts={'2*' if i == SLOW else ''}(PTS-STARTPTS)"
     if z != 1: v += f",scale={round(1080*z/2)*2}:{round(1920*z/2)*2}:flags=bicubic,crop=1080:1920:(iw-1080)/2:0"
-    d = b - a
-    fc.append(v + f",setsar=1[v{i}]")
-    fc.append(f"[0:a]atrim={a+OFF:.3f}:{b+OFF:.3f},asetpts=PTS-STARTPTS,afade=t=in:d=0.012,afade=t=out:st={d-0.014:.3f}:d=0.014[a{i}]")
+    d = (b - a) * (2 if i == SLOW else 1)
+    fc.append(v + (",minterpolate=fps=30:mi_mode=blend" if i == SLOW else "") + f",fps=30,setsar=1[v{i}]")
+    fo = 0.5 if i == SLOW else 0.07 if i == SLOW - 1 else 0.014      # soft tail on his last word, slow fade at the very end
+    fc.append(f"[0:a]atrim={a+OFF:.4f}:{b+OFF:.4f},asetpts=PTS-STARTPTS" + (",atempo=0.5" if i == SLOW else "") + f",afade=t=in:d=0.012,afade=t=out:st={d-fo:.3f}:d={fo}[a{i}]")
     labels.append(f"[v{i}][a{i}]"); starts.append(t); t += d
 fc.append("".join(labels) + f"concat=n={len(KEEP)}:v=1:a=1[v][a]")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-filter_complex", ";".join(fc), "-map", "[v]", "-map", "[a]",

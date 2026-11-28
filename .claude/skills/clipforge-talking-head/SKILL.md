@@ -43,6 +43,9 @@ He wants the rules "a little bit loose" while the brand image stays.
   does not count. Start from `graphics/stroller-math/overlay.html`.
 - **One clear object beats a storm**, drawn crisp and detailed enough to read as the real thing.
 - **Board and caption use his spoken words**, not the brief's.
+- **A spoken number is fully on screen as he starts saying it** (2026-11-28: "timing is off with the numbers"). No
+  slow count that arrives as he finishes; roll it in under 0.4 s, let the chart keep moving underneath, and hold the
+  final figure at least two seconds before cutting away.
 - **End with a payoff** on his last line (a prop and a sound), over the unused second of smile.
   End on his question. Cut any ask that follows it ("drop your comments below"), 2026-11-28.
 - **No music** unless he asks. No emojis, chat bubbles or overshoot slides ("too busy and gimmicky").

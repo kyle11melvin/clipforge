@@ -5,12 +5,12 @@
 #   1. npx hyperframes models install parakeet; npx hyperframes transcribe <the 45 s cut> -e parakeet   (word edges)
 #   2. python3 -I graphics/stroller-math/tight-cut.py <that transcript.json>      -> cut.mp4, transcript.json
 #   3. clipforge build footage/stroller-math/sdr --name stroller-math --caption-style rounded --caption-y 0.19 \
-#        --caption-hide 4.6-19.44,23.44-25.8                               -> final.mp4 (captions)
+#        --caption-hide 4.6-20.4,23.44-26.8                               -> final.mp4 (captions)
 #   4. this script                                                                -> final-graphics.mp4
 set -e
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"; G="$ROOT/graphics/stroller-math"
 cd "$ROOT/videos/stroller-math"
-DUR=25.73; SFX=${SFX:-0.5}
+DUR=26.7; SFX=${SFX:-0.5}
 [ -f overlay.mov ] && [ -z "$FORCE" ] || node "$ROOT/src/graphics/render.mjs" "$G/overlay.html" overlay.mov --alpha --duration $DUR
 python3 "$ROOT/src/music/chalk.py" sfx.wav "$G/sfx.json" --dur $DUR
 ffmpeg -v error -y -i final.mp4 -i overlay.mov -i sfx.wav -filter_complex "\
