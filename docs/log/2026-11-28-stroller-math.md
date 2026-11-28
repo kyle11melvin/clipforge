@@ -104,3 +104,5 @@ Kyle on round four: "Timing is off with the numbers and then the ending is as we
   differed by fractions of a frame and the concat ran 0.07 s long by the end, so late cues drifted.
 - **Ending.** "kids?" gets a 70 ms tail and a softer fade, the smile plays at half speed (1.8 s), and the audio fades
   over the last half second. 26.7 s.
+- The smile: after 44.8 s of the take he is lowering the phone and the frame blurs, so the last segment is 44.30–44.80
+  at half speed (motion-interpolated, not blended, which ghosted) and its last sharp frame is held 0.5 s. 26.5 s.

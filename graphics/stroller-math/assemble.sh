@@ -10,7 +10,7 @@
 set -e
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"; G="$ROOT/graphics/stroller-math"
 cd "$ROOT/videos/stroller-math"
-DUR=26.7; SFX=${SFX:-0.5}
+DUR=26.5; SFX=${SFX:-0.5}
 [ -f overlay.mov ] && [ -z "$FORCE" ] || node "$ROOT/src/graphics/render.mjs" "$G/overlay.html" overlay.mov --alpha --duration $DUR
 python3 "$ROOT/src/music/chalk.py" sfx.wav "$G/sfx.json" --dur $DUR
 ffmpeg -v error -y -i final.mp4 -i overlay.mov -i sfx.wav -filter_complex "\
