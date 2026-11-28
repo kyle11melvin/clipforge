@@ -31,10 +31,11 @@ He wants the rules "a little bit loose" while the brand image stays.
   (a list, a count, a comparison), on sand or paper, never flat navy. He liked cards flying out from behind the
   head. No 01/02/03 numbering on cards or rows.
 - **Growth is shown climbing** (2026-11-28): a percent or a balance that grows counts up over the whole phrase and
-  gets bigger as it goes, a line or arrow climbs with it, and a `riser` sound (chalk.py) rises under it. A spoken
+  gets bigger as it goes, a line or arrow climbs with it, and notes walk up under it ("do do do do do": the `steps` event in chalk.py). A spoken
   dollar figure still lands on its word.
-- **He may not want his face in it** (2026-11-28, a hat-and-sunglasses walking selfie: "not flattering"). Ask before
-  building around a shot like that; an all-graphics cut over his voice is an accepted shape.
+- **He stays the main shot** (2026-11-28). "My face is not flattering" meant the mismatched cuts, not being on
+  screen: an all-graphics version was a misread. Direct it like a film: his face in unbroken takes, a graphic cutaway
+  wherever the light, tone or setting would jump, back to his face on the next clean take. Grade the takes to match.
 - **Every graphic that moves makes a sound**, about 15 dB under his voice for a running sound. Real-world sounds
   come from real CC0 recordings (`src/music/samples/`); only whoosh, thud and ding are synthesised.
 - **The quality bar for a graphic (2026-11-21).** Flat shapes with a number on them read as cheap to him. A prop needs

@@ -139,3 +139,21 @@ we cut that out and use some kind of graphic."
 - **Sound.** New `riser` event in `src/music/chalk.py`: a soft pad gliding up under counter ticks that speed up. Three
   of them: under the stock line, under the 5% climb, under the 8% climb, each ending on a ding. Not heard by Claude.
 - Cover is now a still of the 122% frame (no face).
+
+## Round eight: the director's cut (face in, cutaways over the edits)
+
+The all-graphics version was a misread and never finished rendering. Kyle: "I wasn't trying to do all graphics ... I
+was trying to do my face, but then when I'm in a different light or a different tone or setting then do the graphic
+... imagine you're a Hollywood director." And: "when I mention the growth I want some kind of sound to go do do do do
+do." (His "my face is not flattering" was about the mismatched cuts, not about being on screen.)
+
+- **Four unbroken takes of him** (A "Right now I'm putting about $250 a month", C "5 to 8% I expect to return" with his
+  pauses left in so it is one take, D "I hope that helps for his down payment on his home", E the question), each with
+  type above his head. Take C was a stop darker than the others, so takes are graded toward take A (`GAMMA` in
+  `tight-cut.py`, from measured face luma).
+- **Three paper cutaways** (`PAPER` in `overlay.html`), each starting inside a take and ending on an edit point, so
+  the light never jumps on screen: the ETF stock line and the $54,000 columns; the growth to $87,500 and $120,000 with
+  the climbing percent and arrow; the house, large, for "or at least with his education". 20.8 s.
+- **Sound:** new `steps` event in `chalk.py`, n mallet notes walking up a pentatonic scale. Four notes under the ETF
+  line, five under the climb to $87,500, five higher under the climb to $120,000, each ending on a ding. The `riser`
+  pad is not used. Not heard by Claude.

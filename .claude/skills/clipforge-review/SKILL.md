@@ -36,6 +36,7 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] No corner circle of him over a full-screen beat.
 - [ ] Nothing on screen before he says it. Ends on his question, on the word.
 - [ ] No jump cut visible on his face: every edit point sits under a full-screen graphic.
+- [ ] He is still the main shot (about half the running time or more), and the takes match in exposure.
 - [ ] Every spoken number is complete on screen within 0.4 s of the word starting and stays up 2 s or more.
 - [ ] Any house, street or place shown looks like Orange County, not the East Coast. Street numbers painted out.
 - [ ] Captions hidden under overlays and during full-frame cuts; right position for the shot.

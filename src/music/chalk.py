@@ -10,6 +10,7 @@ events.json is a list of {"type", "t", "d", ...} in seconds of the picture:
   whoosh   air, for something flying in
   thud     a soft knock, for the board landing or a stamp hitting
   ding     a counter bell
+  steps    n notes walking up a scale over d seconds (do do do do do), for growth
   riser    a number climbing: a pad gliding up under ticks that speed up (d seconds, optional f0, f1)
 
 Kyle, 2026-11-12: "writing on the chalkboard to make sounds like you're writing on a chalkboard, and the eraser to
@@ -142,6 +143,18 @@ def ev_riser(e):
     put(e["t"], x, 0.3 * e.get("gain", 1.0))
 
 
+def ev_steps(e):
+    """Notes walking up: n mallet notes climbing a major pentatonic scale from f0 over d seconds.
+    Kyle, 2026-11-28: "when I mention the growth I want a sound to go do do do do do"."""
+    n_notes, d, f0 = int(e.get("n", 5)), e["d"], e.get("f0", 392.0)
+    scale = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24]
+    for k in range(n_notes):
+        f = f0 * 2 ** (scale[k % len(scale)] / 12)
+        m = int(0.55 * SR); t = np.arange(m) / SR
+        x = (np.sin(2 * np.pi * f * t) + 0.28 * np.sin(2 * np.pi * 4 * f * t) * np.exp(-t * 14)) * np.exp(-t * 7.5) * np.minimum(1, t / 0.003)
+        put(e["t"] + k * d / n_notes, x, (0.36 + 0.1 * k / max(1, n_notes - 1)) * e.get("gain", 1.0))
+
+
 # ---- a real chalk recording (--sample file) replaces the synthesised writing ----
 # Three synthesised tries all missed (typing, nails on a chalkboard, too loud), so Kyle picked a real one
 # (2026-11-12): src/music/samples/chalk-on-chalkboard.ogg, CC0, see samples/CREDITS.md. Each write/stroke event plays
@@ -174,7 +187,7 @@ if SAMPLE:
     ev_write = ev_stroke = from_sample
 
 for e in json.load(open(ev_path)):
-    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding, "pop": ev_pop, "riser": ev_riser}[e["type"]](e)
+    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding, "pop": ev_pop, "riser": ev_riser, "steps": ev_steps}[e["type"]](e)
 
 x = mix[:N]
 x = x / max(1e-9, np.abs(x).max()) * 0.7 + chalk[:N]

@@ -208,5 +208,8 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   jump cuts ("not a clean cut whatsoever ... actually pretty good but we could do a little bit better"). Round six: his
   face in two unbroken shots only, the math and the house as full-screen paper beats, ends on "kids?". On those stills:
   "you're getting better", then he asked for the ETF and the percent to be seen climbing and scaling with a rising sound,
-  and for his face to come out ("not flattering ... use some kind of graphic"). Round seven is all graphics over his voice,
-  with a stock-line beat and `riser` sounds. Verdict: pending.
+  and for his face to come out ("not flattering ... use some kind of graphic"). Round seven (all graphics over his voice) was a misread and was
+  stopped: he wanted his face, with graphics only where the light or setting changes at a cut ("imagine you're a
+  Hollywood director"), and notes walking up under the growth. Round eight: four unbroken takes, three paper cutaways
+  (`PAPER` in overlay.html), takes graded to match, `steps` sounds. Start a cutaway-style reel from this version.
+  Verdict: pending.

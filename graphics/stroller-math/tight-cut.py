@@ -12,12 +12,17 @@ KEEP times are Parakeet word edges in the 45 s cut. Whisper's were up to 0.7 s l
 import json, subprocess, sys
 OFF = 5.58
 # (from, to, zoom)  zoom 1 = as shot, 1.08 = punched in
-KEEP = [(8.70, 13.46, 1),                                                              # Right now I'm putting about $250 a month into a Vanguard ETF (one unbroken shot of him)
-        (15.02, 16.24, 1), (16.80, 18.22, 1), (18.30, 19.42, 1),                       # By the time he's 18 / that's $54,000 / of my money      (graphics over all of these,
-        (21.26, 22.22, 1), (22.38, 22.98, 1), (23.06, 23.92, 1),                       # 5 to 8% / I expect / to return                           so no cut shows on his face)
-        (24.22, 24.64, 1), (24.80, 26.86, 1), (26.94, 28.62, 1),                       # somewhere / between $87,500 / and $120,000
-        (31.42, 34.02, 1), (34.02, 34.88, 1), (35.04, 35.58, 1),                       # I hope that helps for his down payment on his home / or at least with his / education
-        (38.86, 40.30, 1)]                                                             # What are you doing for your kids?  (one unbroken shot, ends on the word)
+# Round eight (Kyle: "I was trying to do my face, but when I'm in a different light or tone or setting then do the graphic
+# ... imagine you're a Hollywood director"): he is the main shot, in four unbroken takes (FACE below). Every edit point
+# sits under a graphic cutaway, so the light never jumps on screen. Each take is graded toward the first one's exposure.
+KEEP = [(8.70, 13.46, 1),                                                              # FACE A  Right now I'm putting about $250 a month | cutaway: into a Vanguard ETF
+        (15.02, 16.24, 1), (16.80, 18.22, 1), (18.30, 19.42, 1),                       # cutaway  By the time he's 18 / that's $54,000 / of my money
+        (21.26, 23.92, 1.08),                                                          # FACE C  5 to 8% I expect to return (his pauses left in, so it is one take)
+        (24.22, 24.64, 1), (24.80, 26.86, 1), (26.94, 28.62, 1),                       # cutaway  somewhere / between $87,500 / and $120,000
+        (31.42, 34.02, 1),                                                             # FACE D  I hope that helps for his down payment on his home
+        (34.02, 34.88, 1), (35.04, 35.58, 1),                                          # cutaway  or at least with his / education
+        (38.86, 40.30, 1.08)]                                                          # FACE E  What are you doing for your kids?  (ends on the word)
+GAMMA = {4: 1.2, 11: 0.94}      # face luma measured per take: A 121, C 94, D 121, E 131
 DROP = {"um", "uh"}
 FIX = {"it": "to", "$120,000": "$120,000."}   # "I expect it return" is "to return"
 src = "videos/stroller-math/cut-full.mp4"
@@ -32,6 +37,7 @@ HOLD = 0.5                      # then its last sharp frame is held (after 44.8 
 for i, (a, b, z) in enumerate(KEEP):
     v = f"[0:v]trim={a+OFF:.4f}:{b+OFF:.4f},setpts={'2*' if i == SLOW else ''}(PTS-STARTPTS)"
     if z != 1: v += f",scale={round(1080*z/2)*2}:{round(1920*z/2)*2}:flags=bicubic,crop=1080:1920:(iw-1080)/2:0"
+    if i in GAMMA: v += f",eq=gamma={GAMMA[i]}"
     d = (b - a) * 2 + HOLD if i == SLOW else b - a
     fc.append(v + (f",minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,tpad=stop_mode=clone:stop_duration={HOLD}" if i == SLOW else "") + f",fps=30,setsar=1[v{i}]")
     fo = 0.06 if i == len(KEEP) - 1 else 0.022      # soft tail on his last word, slow fade at the very end
