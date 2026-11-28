@@ -223,4 +223,6 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   five unbroken takes of him, four cutaways over his blurred footage. New devices, none reused: photo cards for the two
   counties with figures rolling 2026 to 2027, a glass settings panel whose limit slider runs off the glass for "no
   limit", a house card with a "$0 down" tag. Start a "numbers by place" or a "setting that changes" reel from here.
-  Verdict: pending.
+  **His verdict on the first pass: "Damn, you did an excellent job editing that with everything, the graphics, the
+  chart."** He is reshooting only because he looked tired in the take ("I didn't expect it to turn out that good") and
+  wants the same edit and script on the new footage: retime `tight-cut.py` KEEP and the cue times, keep everything else.
