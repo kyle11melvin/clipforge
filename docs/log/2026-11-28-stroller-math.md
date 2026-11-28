@@ -185,3 +185,10 @@ to get some kind of ETF, some kind of graphics." The paper cutaways read as home
 - **Columns** are cream (what he puts in) with glowing mint growth on a glass stage; the arrow glows; the figures are
   cream and mint extruded type. The stage and the arrowhead break the edge of the glass on purpose.
 - Probe stills now blur the footage frame the same way, or the glass looks wrong against a sharp face.
+
+## Verdict
+
+Kyle on round ten: "Nice! Our videos are getting a lot better." He asked for a memory note; two were saved (the
+approved shape, and the three dictated notes that were read as bigger cuts than he meant). Not posted yet; he said at
+the start he might not post it. Open: the stock house photo (ChatGPT prompts are on the page), sound levels, merge to
+main.

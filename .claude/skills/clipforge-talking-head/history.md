@@ -215,4 +215,5 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   His verdict: "much better, but you're missing the entire point of the entire clip": the walk opening had been cut.
   Round nine puts it back inside one 11.9 s opening take (27.9 s total). Round ten, on "make it look really good ...
   like I just paid someone $5,000": the paper cutaways became glass panels over his blurred footage, with a
-  trading-app screen for the ETF. Verdict: pending.
+  trading-app screen for the ETF. **His verdict on round ten: "Nice! Our videos are getting a lot better."** This is
+  the version to start the next talking head from.
