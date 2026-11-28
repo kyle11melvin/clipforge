@@ -10,6 +10,7 @@ events.json is a list of {"type", "t", "d", ...} in seconds of the picture:
   whoosh   air, for something flying in
   thud     a soft knock, for the board landing or a stamp hitting
   ding     a counter bell
+  riser    a number climbing: a pad gliding up under ticks that speed up (d seconds, optional f0, f1)
 
 Kyle, 2026-11-12: "writing on the chalkboard to make sounds like you're writing on a chalkboard, and the eraser to
 make a noise."
@@ -124,6 +125,23 @@ def ev_ding(e):
     put(e["t"], x, 0.5 * e.get("gain", 1.0))
 
 
+def ev_riser(e):
+    """A number climbing: a soft pad gliding up (f0 to f1) under counter ticks that speed up and rise with it.
+    For a percent or a chart that climbs for d seconds (Kyle, 2026-11-28: "I want climbing ... an audio")."""
+    d = e["d"]; n = int(d * SR); t = np.arange(n) / SR; u = t / d
+    f0, f1 = e.get("f0", 220.0), e.get("f1", 660.0)
+    f = f0 * (f1 / f0) ** u; ph = 2 * np.pi * np.cumsum(f) / SR
+    env = np.minimum(1, t / 0.12) * np.minimum(1, (d - t) / 0.1)
+    x = (np.sin(ph) + 0.45 * np.sin(1.5 * ph) + 0.2 * np.sin(2 * ph)) * (0.2 + 0.8 * u) ** 1.5 * env * 0.22
+    tk = 0.0
+    while tk < d - 0.06:
+        m = int(0.07 * SR); tt = np.arange(m) / SR; i = int(tk * SR); fb = 2 * f0 * (f1 / f0) ** (tk / d)
+        b = np.sin(2 * np.pi * fb * tt) * np.exp(-tt * 55) * np.minimum(1, tt / 0.003) * (0.35 + 0.4 * tk / d)
+        x[i:i + m] += b[: n - i]
+        tk += 1.0 / (7 + 9 * tk / d)
+    put(e["t"], x, 0.3 * e.get("gain", 1.0))
+
+
 # ---- a real chalk recording (--sample file) replaces the synthesised writing ----
 # Three synthesised tries all missed (typing, nails on a chalkboard, too loud), so Kyle picked a real one
 # (2026-11-12): src/music/samples/chalk-on-chalkboard.ogg, CC0, see samples/CREDITS.md. Each write/stroke event plays
@@ -156,7 +174,7 @@ if SAMPLE:
     ev_write = ev_stroke = from_sample
 
 for e in json.load(open(ev_path)):
-    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding, "pop": ev_pop}[e["type"]](e)
+    {"write": ev_write, "stroke": ev_stroke, "erase": ev_erase, "whoosh": ev_whoosh, "thud": ev_thud, "ding": ev_ding, "pop": ev_pop, "riser": ev_riser}[e["type"]](e)
 
 x = mix[:N]
 x = x / max(1e-9, np.abs(x).max()) * 0.7 + chalk[:N]

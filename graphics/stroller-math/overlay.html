@@ -42,19 +42,21 @@
   #tag, #tag2 { position: absolute; left: 250px; top: 960px; background: #F6F1E7; color: var(--ink); font-family: "Playfair", serif; font-style: italic; font-size: 68px; line-height: 1; padding: 22px 38px 28px; border-radius: 10px; white-space: nowrap;
          box-shadow: 0 28px 44px rgba(4,18,26,.55), 0 6px 10px rgba(4,18,26,.3); }
   #tag2 { left: 110px; top: 1150px; }
-  #under { position: absolute; left: 66px; top: 716px; }
+  #under { position: absolute; left: 66px; top: 962px; }
+  /* round seven: the paper is on for the whole video, so the two lines that used to sit over his face are set in ink */
+  #paper { z-index: 1; } .sm, .persp, #under { z-index: 2; } .sm { color: var(--ink); text-shadow: none; }
   .zone { position: absolute; background: rgba(255,0,0,.28); display: none; z-index: 99; }
 </style></head>
 <body>
 <div id="scrim"></div>
 
 <!-- 2: $250 a month -->
-<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="0.03,0.19,0.43,0.59">right now I'm putting</div>
-<div class="persp"><div class="rot" id="r2" style="left:60px;top:350px;font-size:330px">
+<div class="sm" id="s2" style="top:470px;font-size:72px" data-w="0.03,0.19,0.43,0.59">right now I'm putting</div>
+<div class="persp"><div class="rot" id="r2" style="left:60px;top:556px;font-size:316px">
   <span class="xw" id="big" data-t="1.05" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
 </div></div>
-<div class="persp"><div class="rot" id="r2b" style="left:76px;top:694px;font-size:108px">
-  <span class="xw" data-t="2.03" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="2.11" data-c="#EFE9DE" data-d="#143746">month</span><span class="xw" data-t="3.39" data-c="#A9D8C8" data-d="#1F5E50" style="font-size:.8em;margin-left:.2em">→ ETF</span>
+<div class="persp"><div class="rot" id="r2b" style="left:72px;top:928px;font-size:128px">
+  <span class="xw" data-t="2.03" data-c="#173F4F" data-d="#0A1E27">a</span><span class="xw" data-t="2.11" data-c="#173F4F" data-d="#0A1E27">month</span>
 </div></div>
 
 <!-- 3: the math, full screen on paper -->
@@ -65,6 +67,9 @@
   <div id="plab">more than I put in</div>
   <div id="foot">Example: $250 a month for 18 years, compounded monthly. Not a promise.</div>
 </div>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r0" style="left:72px;top:360px;font-size:300px">
+  <span class="xw" data-t="4.08" data-c="#2E8571" data-d="#143E35" data-n="46">ETF</span>
+</div></div>
 <div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3" style="left:72px;top:366px;font-size:176px">
   <span class="xw" id="n1" data-t="6.28" data-p="6.68" data-c="#173F4F" data-d="#0A1E27" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
 </div></div>
@@ -75,7 +80,7 @@
   <span class="xw" id="n2" data-t="11.96" data-p="12.34" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="13.74" data-p="14.16" data-c="#2E8571" data-d="#143E35" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
 </div></div>
 <div class="persp" style="perspective-origin:300px 760px"><div class="rot" id="r3c" style="left:72px;top:672px;font-size:140px">
-  <span class="xw" id="pct" data-t="12.0" data-p="14.2" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
+  <span class="xw" id="pct" data-t="8.95" data-p="14.3" data-c="#D77B52" data-d="#7E3D22" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
 </div></div>
 
 <!-- 4: the home -->
@@ -84,9 +89,9 @@
 </div></div>
 
 <!-- 5: his question -->
-<div class="sm" id="s5" style="top:296px;font-size:70px" data-w="19.19,19.43,19.59,19.75">what are you doing</div>
-<div class="persp"><div class="rot" id="r5" style="left:72px;top:392px;font-size:150px">
-  <span class="xw" data-t="19.99" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="20.07" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="20.23" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
+<div class="sm" id="s5" style="top:520px;font-size:76px" data-w="19.19,19.43,19.59,19.75">what are you doing</div>
+<div class="persp"><div class="rot" id="r5" style="left:72px;top:624px;font-size:164px">
+  <span class="xw" data-t="19.99" data-c="#173F4F" data-d="#0A1E27">for</span><span class="xw" data-t="20.07" data-c="#173F4F" data-d="#0A1E27">your</span><span class="xw" data-t="20.23" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
 </div></div>
 <svg id="under" width="860" height="40"><path id="up" d="M8 22 C 180 6, 420 34, 560 16 S 800 10, 850 24" fill="none" stroke="#D77B52" stroke-width="12" stroke-linecap="round"/></svg>
 
@@ -100,9 +105,13 @@
 // his face is on screen for two unbroken shots only, the first line (0-4.77) and the question (19.17-20.6). Everything
 // between is full-screen paper, so no jump cut shows. Nothing appears before he says it. A number is fully on screen
 // within a third of a second of the word starting.
-const T = { out2: 4.62, paperIn: 4.77, lineA: 4.8, lineB: 5.9, roll1: 6.3, pct: 8.57,
-            num: 11.02, roll2: 11.98, loA: 12.0, loB: 13.3, roll3: 13.8, hiA: 13.8, hiB: 14.8, chartOut: 16.28,
+const T = { out2: 3.18, paperIn: 3.3, etf: 4.08, etfOut: 4.7, chartIn: 4.77, lineA: 4.8, lineB: 5.9, roll1: 6.3, pct: 8.57,
+            num: 11.02, roll2: 11.98, loA: 8.7, loB: 12.3, roll3: 13.8, hiA: 12.4, hiB: 14.3, chartOut: 16.28,
             home: 16.28, tag1: 16.47, tag2: 17.78, paperOut: 19.17, q: 19.17, last: 20.33 };
+// Round seven (Kyle: "the Vanguard ETF and the stock going up as far as a percentage, I want climbing, I wanna scale,
+// I want an audio"): "into a Vanguard ETF" is its own paper beat with a stock line climbing; from "5 to 8%" the green
+// grows steadily, the arrow zigzags up like a ticker, and the percent counts up and grows in size the whole way,
+// with a rising sound (riser events in sfx.json). The dollar figures still land on his words.
 const $ = (id) => document.getElementById(id);
 const cl = (x) => Math.max(0, Math.min(1, x));
 const p = (t, a, d) => cl((t - a) / d);
@@ -172,10 +181,27 @@ function box(x, y0, y1, c) {
 const NAVY = { front: ["#2F7692", "#173F4F"], side: "#0E2A35", top: "#4C9DBB" };
 const GROW = { front: ["#43B299", "#2A7C69"], side: "#1A5547", top: "#6FD3B9" };
 const RANGE = { front: ["#C9EEE3", "#93D3C0"], side: "#69AE9A", top: "#EAF9F4" };
+const STOCK = (() => { let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647; const N = 46, pts = []; let w = 0;
+  for (let i = 0; i <= N; i++) { w = w * .55 + (rnd() - .5) * 120; const u = i / N; pts.push([110 + 770 * u, 1270 - 560 * Math.pow(u, 1.12) + (i && i < N ? w : 0)]); }
+  return pts; })();
+function stock(t) {
+  ctx.clearRect(0, 0, 1080, 1920);
+  ctx.strokeStyle = "rgba(14,42,53,.10)"; ctx.lineWidth = 3;
+  for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.moveTo(90, 1290 - k * 150); ctx.lineTo(905, 1290 - k * 150); ctx.stroke(); }
+  const g = io(p(t, T.paperIn + .03, 1.25)) * (STOCK.length - 1), fi = Math.floor(g), fr = g - fi, pts = STOCK.slice(0, fi + 1);
+  if (fi < STOCK.length - 1) pts.push([STOCK[fi][0] + (STOCK[fi + 1][0] - STOCK[fi][0]) * fr, STOCK[fi][1] + (STOCK[fi + 1][1] - STOCK[fi][1]) * fr]);
+  const [ex, ey] = pts[pts.length - 1];
+  const fill = ctx.createLinearGradient(0, 700, 0, 1300); fill.addColorStop(0, "rgba(46,133,113,.34)"); fill.addColorStop(1, "rgba(46,133,113,0)");
+  ctx.beginPath(); ctx.moveTo(pts[0][0], 1300); pts.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(ex, 1300); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+  const line = (dy, col, w) => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y + dy) : ctx.moveTo(x, y + dy)); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.stroke(); };
+  line(22, "rgba(40,30,14,.14)", 18); line(9, "#1A5547", 18); line(0, "#3FAE94", 18);
+  ctx.beginPath(); ctx.arc(ex, ey, 30, 0, 7); ctx.fillStyle = "rgba(63,174,148,.28)"; ctx.fill();
+  ctx.beginPath(); ctx.arc(ex, ey, 17, 0, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.beginPath(); ctx.arc(ex, ey, 11, 0, 7); ctx.fillStyle = "#2E8571"; ctx.fill();
+}
 function chart(t) {
   ctx.clearRect(0, 0, 1080, 1920);
-  const u = io(p(t, T.paperIn, T.paperOut - T.paperIn));
-  cam = { yaw: (-38 + 28 * u) * Math.PI / 180, pitch: (24 - 5 * u) * Math.PI / 180, f: 1850, dist: 1800 + 260 * io(p(t, T.loA - .4, T.hiB - T.loA)), cx: 478, cy: 1195 };
+  const u = io(p(t, T.chartIn, T.chartOut - T.chartIn));
+  cam = { yaw: (-38 + 28 * u) * Math.PI / 180, pitch: (24 - 5 * u) * Math.PI / 180, f: 1850, dist: 1800 + 260 * io(p(t, T.loA, T.hiB - T.loA)), cx: 478, cy: 1195 };
   const plate = (y, pad) => [[-470 - pad, y, -150 - pad], [-470 - pad, y, 170 + pad], [470 + pad, y, 170 + pad], [470 + pad, y, -150 - pad]];
   const cols = [];
   for (let i = 0; i < 18; i++) {
@@ -201,15 +227,16 @@ function chart(t) {
   ctx.font = "800 30px Manrope"; ctx.fillStyle = "rgba(14,42,53,.72)";
   [["today", -1], ["age 9", 8], ["age 18", 17]].forEach(([s, i]) => { const [x, y] = proj([X0 + i * PITCH, 0, -118]); ctx.textAlign = i === 17 ? "right" : "center"; ctx.fillText(s, x + (i === 17 ? 26 : 0), y + 10); });
   // the arrow: rides the tops of the columns, climbing as the growth stacks on
-  const g = p(t, T.loA - .2, T.hiB - T.loA + .2);
+  const g = p(t, T.loA, T.hiB - T.loA);
   if (g > 0) {
-    const reach = 2 + out3(g) * 15, pts = [];
+    const reach = 1 + io(g) * 16, pts = [];
     const gl = io(p(t, T.loA, T.loB - T.loA)), gh = io(p(t, T.hiA, T.hiB - T.hiA));   // one smooth curve, not the staggered tops
     const top = (i) => { const m = (i + 1) * 12; return (PAY * m + (fv(.05, m) - PAY * m) * gl + (fv(.08, m) - fv(.05, m)) * gh) * K + 46; };
-    for (let i = 0; i <= Math.floor(reach); i++) pts.push(proj([cols[i].x, top(i), -DEPTH / 2]));
+    const zig = (i) => i ? (((i * 37) % 7) - 3) * 7 : 0;       // a ticker's wobble on the way up
+    for (let i = 0; i <= Math.floor(reach); i++) { const q = proj([cols[i].x, top(i), -DEPTH / 2]); pts.push([q[0], q[1] + zig(i)]); }
     const fi = Math.floor(reach), fr = reach - fi;
-    if (fi < 17) { const a = proj([cols[fi].x, top(fi), -DEPTH / 2]), b = proj([cols[fi + 1].x, top(fi + 1), -DEPTH / 2]); pts.push([a[0] + (b[0] - a[0]) * fr, a[1] + (b[1] - a[1]) * fr]); }
-    const n = pts.length, [ex, ey] = pts[n - 1], [qx, qy] = pts[Math.max(0, n - 3)], ang = Math.atan2(ey - qy, ex - qx);
+    if (fi < 17) { const a = pts[fi], b0 = proj([cols[fi + 1].x, top(fi + 1), -DEPTH / 2]), b = [b0[0], b0[1] + zig(fi + 1)]; pts.push([a[0] + (b[0] - a[0]) * fr, a[1] + (b[1] - a[1]) * fr]); }
+    const n = pts.length, [ex, ey] = pts[n - 1], [qx, qy] = pts[Math.max(0, n - 4)], ang = Math.atan2(ey - qy, ex - qx);
     const draw = (dy, col) => { ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 20; ctx.lineCap = "round"; ctx.lineJoin = "round";
       ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y + dy) : ctx.moveTo(x, y + dy)); ctx.stroke();
       ctx.save(); ctx.translate(ex, ey + dy); ctx.rotate(ang); ctx.beginPath(); ctx.moveTo(58, 0); ctx.lineTo(-14, -40); ctx.lineTo(-14, 40); ctx.closePath(); ctx.fill(); ctx.restore(); };
@@ -218,28 +245,29 @@ function chart(t) {
 }
 
 window.seek = (t) => {
-  $("scrim").style.opacity = (t < T.paperIn ? 1 - p(t, T.out2, .15) : p(t, T.q, .12)) * .9;
+  $("scrim").style.opacity = 0;
 
   flat("s2", t, T.out2); ext("r2", t, T.out2, .8, 90); ext("r2b", t, T.out2);
 
   // paper beat: a hard cut in and out, on the picture cuts
-  const on = t >= T.paperIn && t < T.paperOut;
+  const on = true;                                   // the paper is the whole video now; his voice runs under it
   $("paper").style.opacity = on ? 1 : 0;
-  const chartOn = on && t < T.chartOut + .2;
-  if (chartOn) chart(t); else ctx.clearRect(0, 0, 1080, 1920);
-  cv.style.opacity = 1 - p(t, T.chartOut, .18); $("foot").style.opacity = 1 - p(t, T.chartOut, .18);
-  $("lab").textContent = t < T.pct ? "by the time he’s 18, I’ve put in" : t < T.num ? "and I expect" : t < T.chartOut ? "so somewhere between" : "I hope that helps for";
+  const chartOn = on && t >= T.chartIn && t < T.chartOut + .2;
+  if (chartOn) chart(t); else if (t >= T.paperIn && t < T.chartIn) stock(t); else ctx.clearRect(0, 0, 1080, 1920);
+  cv.style.opacity = 1 - p(t, T.chartOut, .18); $("foot").style.opacity = t < T.chartIn ? 0 : 1 - p(t, T.chartOut, .18);
+  $("lab").textContent = t < T.paperIn || t >= T.q ? "" : t < T.chartIn ? "into an" : t < T.pct ? "by the time he’s 18, I’ve put in" : t < T.num ? "and I expect" : t < T.chartOut ? "so somewhere between" : "I hope that helps for";
   setText($("n1"), usd(54000 * out3(p(t, T.roll1, .36))));
   setText($("n2"), usd(54000 + (87500 - 54000) * out3(p(t, T.roll2, .34))));
   setText($("n3"), "and " + usd(87500 + (120000 - 87500) * out3(p(t, T.roll3, .34))));
-  const pc = 62 * out3(p(t, T.roll2, .4)) + 60 * out3(p(t, T.roll3, .4));
+  const pc = 62 * io(p(t, T.loA, T.loB - T.loA)) + 60 * io(p(t, T.hiA, T.hiB - T.hiA));     // climbs the whole way, and grows as it climbs
+  $("r3c").style.fontSize = (92 + 50 * pc / 122) + "px";
   setText($("pct"), "▲ " + Math.round(pc) + "%");
-  $("plab").style.opacity = on ? p(t, T.loA, .3) * (1 - p(t, T.chartOut, .18)) : 0;
+  $("plab").style.opacity = on ? p(t, 9.0, .3) * (1 - p(t, T.chartOut, .18)) : 0; $("plab").style.top = (672 + (92 + 50 * pc / 122) * 1.14) + "px";
   const end3 = on ? T.paperOut + 9 : T.paperOut - .01;      // extruded lines vanish with the paper
-  ext("r3", t, Math.min(T.pct - .12, end3), .55); ext("r3p", t, Math.min(T.num - .1, end3), .6); ext("r3b", t, Math.min(T.chartOut - .06, end3), .5); ext("r3c", t, Math.min(T.chartOut - .06, end3), .6);
+  ext("r0", t, Math.min(T.etfOut, end3), .6); ext("r3", t, Math.min(T.pct - .12, end3), .55); ext("r3p", t, Math.min(T.num - .1, end3), .6); ext("r3b", t, Math.min(T.chartOut - .06, end3), .5); ext("r3c", t, Math.min(T.chartOut - .06, end3), .6);
 
   // the home, full screen on the paper: the photo card swings in over its blurred copy, then two paper tags
-  const hin = p(t, T.home, .45), hv = on ? 1 : 0, k = back(hin), fl = Math.sin(t * 1.6);
+  const hin = p(t, T.home, .45), hv = 1 - out3(p(t, T.q - .14, .14)), k = back(hin), fl = Math.sin(t * 1.6);
   $("r4").style.transform = `translate(${(1 - out3(hin)) * 820}px, 0px)`;
   $("photo").style.transform = `rotateY(${-16 + (1 - k) * -70 + fl * 5}deg) rotateX(${7 + fl * 2}deg) rotateZ(${-3 + (1 - k) * 12}deg) scale(${hin > 0 ? (.6 + .4 * k) * hv : 0})`;
   $("photoBack").style.transform = `translate(${-90 + fl * -10}px, -40px) translateZ(-280px) rotateY(${-10 + fl * 2}deg) rotateZ(5deg) scale(${hin > 0 ? 1.05 * hv : 0})`;

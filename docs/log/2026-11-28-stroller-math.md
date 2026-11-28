@@ -122,3 +122,20 @@ moments ... if there's a math moment where I have a video just take the video aw
   education" (photo card, two paper tags). No jump cut is visible on his face anywhere.
 - His face returns for "What are you doing for your kids?", one unbroken shot, and it ends on the word. No smile tail.
 - No burned-in captions: the type and the paper beats carry every line. 20.6 s.
+
+## Round seven: climbing, sound, and no face
+
+Kyle on the round-six stills: "You're getting better ... room for improvement. The Vanguard ETF and the stock going
+[up] as far as a percentage, I want climbing, I wanna scale, I want an audio." Then: "my face is not flattering. Maybe
+we cut that out and use some kind of graphic."
+
+- **All graphics, his voice over.** The paper is on for the whole 20.6 s; `cut.mp4` now only supplies the audio. The
+  first line ("right now I'm putting $250 a month") and the question are extruded type on paper, set in ink and navy.
+- **ETF beat** (3.3–4.77 s, "into a Vanguard ETF"): a seeded stock line climbs across the paper with an area fill and a
+  live end dot, and "ETF" slams in on the word. No fund name or return figure on screen.
+- **Climbing.** From "5 to 8%" the green grows steadily, the arrow zigzags up like a ticker, and the percent counts
+  the whole way (0 → 62% by "$87,500" → 122% by "$120,000") while growing from 92 to 142 px. Dollar figures still land
+  on his words.
+- **Sound.** New `riser` event in `src/music/chalk.py`: a soft pad gliding up under counter ticks that speed up. Three
+  of them: under the stock line, under the 5% climb, under the 8% climb, each ending on a ding. Not heard by Claude.
+- Cover is now a still of the 122% frame (no face).

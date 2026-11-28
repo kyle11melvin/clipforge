@@ -30,6 +30,11 @@ He wants the rules "a little bit loose" while the brand image stays.
 - **Leaving his face is allowed when it fits** (2026-11-21): a full-screen graphic beat where the words call for it
   (a list, a count, a comparison), on sand or paper, never flat navy. He liked cards flying out from behind the
   head. No 01/02/03 numbering on cards or rows.
+- **Growth is shown climbing** (2026-11-28): a percent or a balance that grows counts up over the whole phrase and
+  gets bigger as it goes, a line or arrow climbs with it, and a `riser` sound (chalk.py) rises under it. A spoken
+  dollar figure still lands on its word.
+- **He may not want his face in it** (2026-11-28, a hat-and-sunglasses walking selfie: "not flattering"). Ask before
+  building around a shot like that; an all-graphics cut over his voice is an accepted shape.
 - **Every graphic that moves makes a sound**, about 15 dB under his voice for a running sound. Real-world sounds
   come from real CC0 recordings (`src/music/samples/`); only whoosh, thud and ding are synthesised.
 - **The quality bar for a graphic (2026-11-21).** Flat shapes with a number on them read as cheap to him. A prop needs

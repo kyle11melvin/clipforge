@@ -206,4 +206,7 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   director's critique and said "Go, definitely no reshoot": number on screen from frame one, ends on his question and the
   smile (25.7 s), captions hidden under matching type, two type faces, a SoCal house. He rejected the number-first hook and the visible
   jump cuts ("not a clean cut whatsoever ... actually pretty good but we could do a little bit better"). Round six: his
-  face in two unbroken shots only, the math and the house as full-screen paper beats, ends on "kids?". Verdict: pending.
+  face in two unbroken shots only, the math and the house as full-screen paper beats, ends on "kids?". On those stills:
+  "you're getting better", then he asked for the ETF and the percent to be seen climbing and scaling with a rising sound,
+  and for his face to come out ("not flattering ... use some kind of graphic"). Round seven is all graphics over his voice,
+  with a stock-line beat and `riser` sounds. Verdict: pending.
