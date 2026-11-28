@@ -18,7 +18,7 @@ KEEP = [(1.58, 2.80, 1), (2.96, 5.94, 1), (6.22, 8.52, 1),          # I'm on a w
         (31.42, 34.02, 1), (34.02, 34.88, 1.08), (35.04, 35.64, 1.08),                 # I hope that helps for his down payment on his home / or at least with his / education
         (38.86, 40.26, 1), (40.26, 41.70, 1), (41.90, 45.20, 1.08)]                    # What are you doing for your kids / And I'd love to hear more about it / drop your comments below
 DROP = {"um", "uh"}
-FIX = {"it": "to"}   # "I expect it return" is "to return"
+FIX = {"it": "to", "$120,000": "$120,000."}   # "I expect it return" is "to return"
 src = "videos/stroller-math/cut-full.mp4"
 fc, labels, t = [], [], 0.0
 starts = []
