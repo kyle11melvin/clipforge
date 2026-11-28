@@ -23,20 +23,44 @@ He wants the rules "a little bit loose" while the brand image stays.
   out from behind his head, month or count tiles that flip, tiles that flip from a question to his answer), glow, dust, wobble,
   punch-ins. One prop at a time, each tied to what he is saying at that moment.
 - **Open on his face** with his own first line as word-by-word type. No hook slide, no full-screen navy, ever.
+  **Nothing goes on screen before he says it** (2026-11-28, after a number-first hook was tried: "you already have
+  numbers up that I haven't even said yet"). If his opening is slow, cut to where the number is, do not pre-show it.
 - **His face stays clear.** Type above his head (or beside it in a wide shot); props above or below, never across.
+- **No corner circle of him during a full-screen beat** (2026-11-28: "I don't need to be in the entire thing").
 - **Leaving his face is allowed when it fits** (2026-11-21): a full-screen graphic beat where the words call for it
   (a list, a count, a comparison), on sand or paper, never flat navy. He liked cards flying out from behind the
   head. No 01/02/03 numbering on cards or rows.
+- **Growth is shown climbing** (2026-11-28): a percent or a balance that grows counts up over the whole phrase and
+  gets bigger as it goes, a line or arrow climbs with it, and notes walk up under it ("do do do do do": the `steps` event in chalk.py). A spoken
+  dollar figure still lands on its word.
+- **He stays the main shot** (2026-11-28). "My face is not flattering" meant the mismatched cuts, not being on
+  screen: an all-graphics version was a misread. Direct it like a film: his face in unbroken takes, a graphic cutaway
+  wherever the light, tone or setting would jump, back to his face on the next clean take. Grade the takes to match.
 - **Every graphic that moves makes a sound**, about 15 dB under his voice for a running sound. Real-world sounds
   come from real CC0 recordings (`src/music/samples/`); only whoosh, thud and ding are synthesised.
 - **The quality bar for a graphic (2026-11-21).** Flat shapes with a number on them read as cheap to him. A prop needs
   a real image in it (a listing photo, a real screenshot, a document), depth (3D tilt, layers, a heavy soft shadow,
   something out of focus behind something sharp) and size (it fills the frame). Never a line drawing standing in
   for a real thing. If the real image does not exist, ask him for it or for one from ChatGPT before building.
-- **Never the same device two videos running**, test cuts included ("the same chips as the previous post").
+- **A cutaway should look bought, not made** (2026-11-28: "like I just paid someone $5,000"). Sand paper with a chart
+  on it read as homemade. The look that cleared the bar: his own footage blurred and darkened behind the graphic, one
+  frosted glass panel tilting in 3D, glowing lines with a bright core, a sheen, and for a fund or a rate a trading-app
+  screen (rows, pills, a range selector). Start from `graphics/stroller-math/overlay.html` and its `assemble.sh`.
+- **Never the same device two videos running**, test cuts included ("the same chips as the previous post"). That covers
+  images too: an object used in any earlier post (the winter-swipe key) is a repeat (2026-11-28).
+- **Depth is real, not a tilt** (2026-11-28: "a 3-D kind of look ... they pop"). Big type is extruded and moves in
+  perspective; a chart is built from solid objects on a stage with a moving camera; a flat card with a drop shadow
+  does not count. Start from `graphics/stroller-math/overlay.html`.
 - **One clear object beats a storm**, drawn crisp and detailed enough to read as the real thing.
 - **Board and caption use his spoken words**, not the brief's.
+- **A spoken number is fully on screen as he starts saying it** (2026-11-28: "timing is off with the numbers"). No
+  slow count that arrives as he finishes; roll it in under 0.4 s, let the chart keep moving underneath, and hold the
+  final figure at least two seconds before cutting away.
 - **End with a payoff** on his last line (a prop and a sound), over the unused second of smile.
+  End on his question, on the word, and leave it hanging (2026-11-28). No ask after it, no smile tail.
+- **No visible jump cuts on his face** (2026-11-28: "not a clean cut whatsoever"). His face is on screen only in
+  unbroken shots. Wherever the take is cut (ums, stalls, the math), cover it with a full-screen graphic beat: "if
+  there's a math moment where I have a video just take the video away and put a graphic up".
 - **No music** unless he asks. No emojis, chat bubbles or overshoot slides ("too busy and gimmicky").
 
 ## Steps
@@ -45,6 +69,16 @@ He wants the rules "a little bit loose" while the brand image stays.
    each 4K HLG clip to 1080x1920 SDR 30 fps on its own into `footage/<post>/sdr/` (three in one graph get killed).
 2. **Build.** `node bin/clipforge.mjs build footage/<post>/sdr --name <post> --caption-style rounded`. Read
    `transcript.json` for misheard numbers before going on.
+   **Word times:** install Parakeet first (`npx hyperframes models install parakeet`); whisper's word times were up
+   to 0.7 s late on a walking take (2026-11-28), which lands every graphic late. Parakeet also writes "um" and "uh"
+   as words.
+   **Tight does not mean cutting the story** (2026-11-28: "you're missing the entire point of the entire clip" when
+   the personal opening, a walk with his son and dog, was cut for a faster hook). The personal setup and the why are
+   the post; cut the ums and repeats around them, never them. When he says "cut the beginning", ask which words.
+   **Cut it tight** (Kyle, 2026-11-28: "tighten and clip a lot"): take out every um, false start, repeated phrase
+   and throat-clearing lead-in ("So I was thinking like"), not only silence. `graphics/stroller-math/tight-cut.py`
+   is the keep-list tool: Parakeet word edges in, `cut.mp4` and a remapped transcript out, alternating punch-ins on
+   the face segments. Re-transcribe the result to check no word was clipped.
 3. **Plan the beats.** List each phrase that calls for a visual with its start and end from the transcript, and
    pick one prop per beat. Find where his face sits in the frame; that decides where type and props go.
 4. **Start from the nearest past post:**

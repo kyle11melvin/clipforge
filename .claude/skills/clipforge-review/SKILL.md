@@ -17,7 +17,8 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] **Wording.** On-screen words match what he said or wrote. Numbers checked against the transcript ("2%" vs
       "20%") and against their source.
 - [ ] **No invented handles, taglines, sources or facts.**
-- [ ] **Not a repeat.** Different device and shape from his last post of this kind (check the newest logs).
+- [ ] **Not a repeat.** Different device and shape from his last post of this kind (check the newest logs). No
+      object or photo reused from any earlier post.
 - [ ] **Looks made, not drawn.** Each prop has a real image in it, depth and size; no flat tiles or line drawings
       standing in for real things.
 - [ ] **One thing at a time.** One prop or idea on screen per beat; no clutter, no particle storms.
@@ -31,6 +32,15 @@ report, say what was checked and anything that could not be (sound, always).
 - [ ] Opens on his face with his first line as type. No hook slide. No full-screen navy anywhere.
 - [ ] A full-screen graphic beat only where his words call for it, on sand or paper.
 - [ ] Each graphic lands on the word it belongs to (start and end from `transcript.json`).
+- [ ] Tight: no ums, false starts, repeated phrases or dead air left in. Word times from Parakeet, not whisper.
+- [ ] The personal setup and the reason he gives are still in. Nothing he would call the point of the clip is cut.
+- [ ] Each cutaway looks bought: a real image behind it (his blurred footage), glass, glow, depth. No flat paper charts.
+- [ ] No corner circle of him over a full-screen beat.
+- [ ] Nothing on screen before he says it. Ends on his question, on the word.
+- [ ] No jump cut visible on his face: every edit point sits under a full-screen graphic.
+- [ ] He is still the main shot (about half the running time or more), and the takes match in exposure.
+- [ ] Every spoken number is complete on screen within 0.4 s of the word starting and stays up 2 s or more.
+- [ ] Any house, street or place shown looks like Orange County, not the East Coast. Street numbers painted out.
 - [ ] Captions hidden under overlays and during full-frame cuts; right position for the shot.
 - [ ] No DM / name / NMLS card. No emoji, chat bubbles, overshoot slides, 01/02/03 numbering.
 - [ ] Every moving graphic has a sound event; running sounds about 15 dB under his voice (measure with ffmpeg

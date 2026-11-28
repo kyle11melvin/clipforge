@@ -194,3 +194,26 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   **His verdict on round two: "That's a lot better and I love it and that's a good new rule going forward. I can
   provide you with real pictures or videos."** So before a build, list the real images or clips each prop needs and
   ask him for them.
+
+- **Stroller math (2026-11-28), walking selfie.** `graphics/stroller-math/overlay.html` + `assemble.sh` + `sfx.json`.
+  Round one (flat sand app card, line chart, the winter-swipe key) was thrown out on his word before he saw a cut:
+  "You're already repeating some of the same graphics with the key. I want cool looking things ... a 3-D kind of
+  look ... they pop." Round two is the file to start a 3D reel from: extruded type (stacked copies in Z, swaying in
+  perspective), a giant extruded numeral, a full-screen paper beat with 18 columns on a stage drawn by an orbiting
+  perspective camera, and a real photo card over its own blurred copy. His verdict on round two: "Not bad!!", then: cut
+  the dead space and the ums, no small picture of him, "tighten and clip a lot", more pop, and "an arrow and % going up"
+  on the chart. Round three is `tight-cut.py` (45 s to 32 s) plus the arrow and the counting percent. Round four, after he asked for a
+  director's critique and said "Go, definitely no reshoot": number on screen from frame one, ends on his question and the
+  smile (25.7 s), captions hidden under matching type, two type faces, a SoCal house. He rejected the number-first hook and the visible
+  jump cuts ("not a clean cut whatsoever ... actually pretty good but we could do a little bit better"). Round six: his
+  face in two unbroken shots only, the math and the house as full-screen paper beats, ends on "kids?". On those stills:
+  "you're getting better", then he asked for the ETF and the percent to be seen climbing and scaling with a rising sound,
+  and for his face to come out ("not flattering ... use some kind of graphic"). Round seven (all graphics over his voice) was a misread and was
+  stopped: he wanted his face, with graphics only where the light or setting changes at a cut ("imagine you're a
+  Hollywood director"), and notes walking up under the growth. Round eight: four unbroken takes, three paper cutaways
+  (`PAPER` in overlay.html), takes graded to match, `steps` sounds. Start a cutaway-style reel from this version.
+  His verdict: "much better, but you're missing the entire point of the entire clip": the walk opening had been cut.
+  Round nine puts it back inside one 11.9 s opening take (27.9 s total). Round ten, on "make it look really good ...
+  like I just paid someone $5,000": the paper cutaways became glass panels over his blurred footage, with a
+  trading-app screen for the ETF. **His verdict on round ten: "Nice! Our videos are getting a lot better."** This is
+  the version to start the next talking head from.

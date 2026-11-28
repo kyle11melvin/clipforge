@@ -1,0 +1,329 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* Stroller math (2026-11-28), round six: the 20.6 s cut (tight-cut.py). His face for the first line and the question only; the math and
+     the home are full-screen paper beats. Type is Sora and Playfair only, the house is a SoCal one. No corner
+     circle; an arrow and a percent climb with the growth. Round two notes still hold: one alpha layer over a walking selfie (cap top is
+     y>=795 in cut.mp4), everything big is real 3D:
+       type      extruded letters (stacked copies in Z) that sway in perspective
+       $250      a giant extruded numeral that spins in
+       the math  a full-screen paper beat: 18 columns on a stage, drawn with a perspective camera that orbits
+       the home  a real photo as a tilted card over its own blurred copy
+     Times in T and data-t are Parakeet word starts on the tight cut. #zones paints the Reels chrome.
+     No opacity on anything extruded: opacity flattens preserve-3d. No ctx.filter and no SVG turbulence: both made
+     the round-two render take 22 minutes. */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  :root { --navy:#173F4F; --ink:#0E2A35; --sand:#EFE9DE; --terra:#D77B52; --grow:#2E8571; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  body { position: relative; font-family: "Manrope", sans-serif; }
+  #scrim { position: absolute; inset: 0 0 auto 0; height: 1000px; background: linear-gradient(rgba(14,42,53,.62), rgba(14,42,53,0)); opacity: 0; }
+  .sm { position: absolute; left: 72px; font-family: "Playfair", serif; font-style: italic; color: var(--sand); white-space: nowrap;
+        text-shadow: 0 4px 26px rgba(14,42,53,.65), 0 1px 3px rgba(14,42,53,.5); }
+  .sm span { display: inline-block; opacity: 0; white-space: pre; }
+  .persp { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; perspective: 1300px; perspective-origin: 500px 520px; pointer-events: none; }
+  .rot { position: absolute; transform-style: preserve-3d; white-space: nowrap; }
+  .xw { display: inline-block; position: relative; transform-style: preserve-3d; font-family: "Sora", sans-serif; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-right: .22em; transform: scale(0); }
+  .xw i { position: absolute; left: 0; top: 0; font-style: normal; }
+  .xw b { position: relative; font-weight: 800; display: block; }
+
+  /* Round ten (Kyle: "make it look really good ... like I just paid someone $5,000"): no paper. assemble.sh blurs and
+     darkens his own footage under each cutaway; this layer adds a navy tint, one frosted glass panel that tilts in 3D
+     with the chart inside it, glowing lines, and a sheen that crosses the glass once. */
+  #paper { position: absolute; inset: 0; background: linear-gradient(rgba(6,22,30,.66), rgba(6,22,30,.50) 45%, rgba(6,22,30,.72)); opacity: 0; overflow: hidden; }
+  #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,.5)); }
+  #glass { position: absolute; left: 52px; top: 620px; width: 876px; height: 772px; border-radius: 54px; overflow: hidden; transform-origin: 488px 390px;
+           background: linear-gradient(155deg, rgba(255,255,255,.20), rgba(255,255,255,.06) 38%, rgba(255,255,255,.10));
+           box-shadow: inset 0 0 0 2px rgba(255,255,255,.20), inset 0 3px 0 rgba(255,255,255,.38), 0 70px 130px rgba(0,0,0,.55), 0 20px 40px rgba(0,0,0,.3); }
+  #sheen { position: absolute; top: -200px; left: 0; width: 240px; height: 1300px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.20), rgba(255,255,255,0)); transform: rotate(18deg); }
+  #chart { transform-origin: 540px 1010px; }
+  #chart { position: absolute; left: 0; top: 0; }
+  #lab { position: absolute; left: 76px; top: 282px; font-family: "Playfair", serif; font-style: italic; font-size: 60px; color: var(--sand); text-shadow: 0 4px 24px rgba(0,0,0,.5); }
+  #foot { position: absolute; left: 76px; top: 1412px; font-size: 22px; font-weight: 600; color: rgba(239,233,222,.62); white-space: nowrap; }
+  #plab { position: absolute; left: 82px; top: 846px; font-family: "Playfair", serif; font-style: italic; font-size: 42px; color: var(--sand); opacity: 0; text-shadow: 0 3px 18px rgba(0,0,0,.5); }
+
+  #photo, #photoBack { position: absolute; left: 120px; top: 470px; width: 760px; height: 570px; background: url(house.jpg) center/cover; border-radius: 20px; }
+  #photo { border: 14px solid #fff; box-shadow: 0 70px 100px rgba(4,18,26,.6), 0 20px 34px rgba(4,18,26,.4); }
+  #photoBack { filter: blur(24px) brightness(.6) saturate(1.1); border-radius: 28px; }
+  #tag, #tag2 { position: absolute; left: 250px; top: 960px; background: #F6F1E7; color: var(--ink); font-family: "Playfair", serif; font-style: italic; font-size: 68px; line-height: 1; padding: 22px 38px 28px; border-radius: 10px; white-space: nowrap;
+         box-shadow: 0 28px 44px rgba(4,18,26,.55), 0 6px 10px rgba(4,18,26,.3); }
+  #tag2 { left: 110px; top: 1150px; }
+  #under { position: absolute; left: 66px; top: 716px; }
+  #paper { z-index: 1; } .sm, .persp, #under { z-index: 2; }
+  .zone { position: absolute; background: rgba(255,0,0,.28); display: none; z-index: 99; }
+</style></head>
+<body>
+<div id="scrim"></div>
+
+<!-- 2: $250 a month -->
+<!-- the walk opening (round nine). Times here and everywhere below are on the inner clock: 0 = "Right now", OFF s into the video -->
+<div class="sm" id="s1" style="top:300px;font-size:55px" data-w="-6.78,-6.62,-6.54,-6.30,-6.14,-5.74,-5.50,-5.26,-5.10">on a walk with my son and my dog,</div>
+<div class="persp"><div class="rot" id="r1" style="left:72px;top:392px;font-size:144px">
+  <span class="xw" data-t="-3.58" data-c="#EFE9DE" data-d="#143746">quick</span><span class="xw" data-t="-3.26" data-c="#D77B52" data-d="#7E3D22">math.</span>
+</div></div>
+<div class="sm" id="s1b" style="top:300px;font-size:60px" data-w="-1.66,-1.50,-1.26,-1.02">what I'm doing for</div>
+<div class="persp"><div class="rot" id="r1b" style="left:72px;top:384px;font-size:150px">
+  <span class="xw" data-t="-0.86" data-c="#EFE9DE" data-d="#143746">his</span><span class="xw" data-t="-0.70" data-c="#D77B52" data-d="#7E3D22">future.</span>
+</div></div>
+<div class="sm" id="s2" style="top:284px;font-size:64px" data-w="0.03,0.19,0.43,0.59">right now I'm putting</div>
+<div class="persp"><div class="rot" id="r2" style="left:60px;top:350px;font-size:330px">
+  <span class="xw" id="big" data-t="1.05" data-c="#D77B52" data-d="#7E3D22" data-n="52" style="letter-spacing:-0.05em">$250</span>
+</div></div>
+<div class="persp"><div class="rot" id="r2b" style="left:76px;top:694px;font-size:108px">
+  <span class="xw" data-t="2.03" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="2.11" data-c="#EFE9DE" data-d="#143746">month</span>
+</div></div>
+
+<!-- 3: the math, full screen on paper -->
+<div id="paper">
+  <div id="vig"></div>
+  <div id="glass"><div id="sheen"></div></div>
+  <canvas id="chart" width="1080" height="1920"></canvas>
+  <div id="lab"></div>
+  <div id="plab">more than I put in</div>
+  <div id="foot">Example: $250 a month for 18 years, compounded monthly. Not a promise.</div>
+</div>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r0" style="left:72px;top:366px;font-size:226px">
+  <span class="xw" data-t="4.08" data-c="#6FE3C1" data-d="#17705A" data-n="46">ETF</span>
+</div></div>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3" style="left:72px;top:366px;font-size:176px">
+  <span class="xw" id="n1" data-t="6.28" data-p="6.68" data-c="#F4EFE4" data-d="#8C8676" data-n="32" style="font-variant-numeric:tabular-nums">$0</span>
+</div></div>
+<div class="persp"><div class="rot" id="r3p" style="left:72px;top:330px;font-size:190px">
+  <span class="xw" data-t="8.57" data-c="#9BE3CD" data-d="#1F5E50" data-n="34">5–8%</span><span class="xw" data-t="9.07" data-c="#EFE9DE" data-d="#143746" style="font-size:.42em">a year</span>
+</div></div>
+<div class="sm" id="s3" style="top:566px;font-size:66px" data-w="9.71,9.95,10.43,10.67">I expect to return</div>
+<div class="sm" id="s4" style="top:262px;font-size:58px" data-w="15.42,15.58,15.90,16.06,16.38">I hope that helps for</div>
+<div class="persp" style="perspective-origin:500px 480px"><div class="rot" id="r3b" style="left:72px;top:368px;font-size:110px">
+  <span class="xw" id="n2" data-t="12.2" data-p="12.6" data-c="#6FE3C1" data-d="#17705A" data-n="26" style="font-variant-numeric:tabular-nums">$54,000</span><span class="xw" id="n3" data-t="14.0" data-p="14.42" data-c="#6FE3C1" data-d="#17705A" data-n="26" style="font-variant-numeric:tabular-nums;display:block;margin-top:14px">$87,500</span>
+</div></div>
+<div class="persp" style="perspective-origin:300px 760px"><div class="rot" id="r3c" style="left:72px;top:672px;font-size:140px">
+  <span class="xw" id="pct" data-t="11.4" data-p="14.45" data-c="#F08A5D" data-d="#8A4425" data-n="30" style="font-variant-numeric:tabular-nums">▲ 0%</span>
+</div></div>
+
+<!-- 4: the home -->
+<div class="persp" style="perspective-origin:500px 800px"><div class="rot" id="r4" style="left:0;top:0;width:1080px;height:1500px">
+  <div id="photoBack"></div><div id="photo"></div><div id="tag">his down payment</div><div id="tag2">or at least his education</div>
+</div></div>
+
+<!-- 5: his question -->
+<div class="sm" id="s5" style="top:296px;font-size:70px" data-w="19.43,19.67,19.83,19.99">what are you doing</div>
+<div class="persp"><div class="rot" id="r5" style="left:72px;top:392px;font-size:150px">
+  <span class="xw" data-t="20.23" data-c="#EFE9DE" data-d="#143746">for</span><span class="xw" data-t="20.31" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="20.47" data-c="#D77B52" data-d="#7E3D22" style="display:block;margin-top:6px">kids?</span>
+</div></div>
+<svg id="under" width="860" height="40"><path id="up" d="M8 22 C 180 6, 420 34, 560 16 S 800 10, 850 24" fill="none" stroke="#D77B52" stroke-width="12" stroke-linecap="round"/></svg>
+
+<div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
+<div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
+<div class="zone" style="left:940px;top:0;width:140px;height:1920px"></div>
+
+<script>
+// Round six (Kyle: "not a clean cut ... you already have numbers up that I haven't even said yet ... if there's a math
+// moment where I have a video just take the video away and put a graphic up ... clip the end of it to leave hanging"):
+// his face is on screen for two unbroken shots only, the first line (0-4.77) and the question (19.17-20.6). Everything
+// between is full-screen paper, so no jump cut shows. Nothing appears before he says it. A number is fully on screen
+// within a third of a second of the word starting.
+// Round eight (Kyle: "I was trying to do my face, but when I'm in a different light or tone or setting then do the
+// graphic ... imagine you're a Hollywood director"; and "when I mention the growth I want a sound to go do do do do do"):
+// he is the main shot in four unbroken takes (A 0-3.3, C 8.57-11.23, D 15.4-18.0, E 19.4-end) with type above his head;
+// PAPER lists the full-screen cutaways, each one starting before an edit point and ending on one, so no cut shows.
+const PAPER = [[3.3, 8.57], [11.23, 15.4], [18.0, 19.4]];
+const T = { out2: 3.18, paperIn: 3.3, etf: 4.08, etfOut: 4.7, chartIn: 4.77, lineA: 4.8, lineB: 5.9, roll1: 6.3,
+            pctOut: 11.1, roll2: 12.24, loA: 11.3, loB: 12.6, roll3: 14.06, hiA: 12.9, hiB: 14.4, chartOut: 15.4,
+            home: 16.45, tag1: 16.75, tag2: 18.1, homeOut: 19.4, q: 19.4, last: 20.6 };
+const $ = (id) => document.getElementById(id);
+const cl = (x) => Math.max(0, Math.min(1, x));
+const p = (t, a, d) => cl((t - a) / d);
+const out3 = (x) => 1 - Math.pow(1 - x, 3);
+const io = (x) => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const back = (x) => { const c = 2.6; return x <= 0 ? 0 : 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
+
+// flat word-by-word lines
+document.querySelectorAll(".sm").forEach((row) => {
+  const times = row.dataset.w.split(",").map(Number), ws = row.textContent.split(" "); row.textContent = "";
+  ws.forEach((w, i) => { const s = document.createElement("span"); s.textContent = w + (i < ws.length - 1 ? " " : ""); s.dataset.t = times[Math.min(i, times.length - 1)]; row.append(s); });
+});
+function flat(id, t, outAt) { const o = 1 - p(t, outAt, .22);
+  $(id).querySelectorAll("span").forEach((s) => { const k = out3(p(t, +s.dataset.t - .03, .24)); s.style.opacity = k * o; s.style.transform = `translateY(${(1 - k) * 30}px)`; }); }
+
+// extruded words: N copies stepped back in Z, the deepest one carrying the cast shadow
+document.querySelectorAll(".xw").forEach((w) => {
+  const txt = w.textContent, n = +(w.dataset.n || 26); w.textContent = ""; w._layers = [];
+  for (let k = n; k >= 1; k--) { const i = document.createElement("i"); i.textContent = txt; i.style.color = w.dataset.d; i.style.transform = `translateZ(${-k * 1.7}px)`;
+    if (k === n) i.style.textShadow = "0 30px 44px rgba(4,18,26,.6)"; w.append(i); w._layers.push(i); }
+  const b = document.createElement("b"); b.textContent = txt; b.style.color = w.dataset.c; w.append(b); w._layers.push(b);
+});
+const setText = (w, s) => { if (w._s === s) return; w._s = s; w._layers.forEach((l) => l.textContent = s); };
+// each word slams in on its own time (overshoot, a quarter turn), pulses when its number lands (data-p), and the
+// whole line sways; `outAt` shrinks it away
+function ext(id, t, outAt, sway = 1, spin = 28) {
+  const r = $(id), o = 1 - out3(p(t, outAt, .2));
+  r.querySelectorAll(".xw").forEach((w) => { const k = p(t, +w.dataset.t - .05, .3), pt = +w.dataset.p;
+    const pulse = pt && t >= pt ? 1 + .16 * Math.exp(-(t - pt) * 7) * Math.cos((t - pt) * 16) : 1;
+    w.style.transform = `scale(${back(k) * o * pulse}) rotateY(${(1 - out3(k)) * spin}deg) rotateX(${(1 - out3(k)) * -40}deg)`; });
+  r.style.transform = `rotateY(${-14 + Math.sin(t * 1.5 + r.offsetTop) * 8 * sway}deg) rotateX(${6 + Math.cos(t * 1.2) * 3.5 * sway}deg) translateY(${(1 - o) * -60}px)`;
+}
+
+// ---- the math: 18 columns on a stage, perspective camera ----
+const PAY = 250, fv = (r, m) => r === 0 ? PAY * m : PAY * (Math.pow(1 + r / 12, m) - 1) / (r / 12);
+const cv = $("chart"), ctx = cv.getContext("2d");
+const soft = document.createElement("canvas"); soft.width = 135; soft.height = 240; const sctx = soft.getContext("2d");   // shadows at 1/8 size, scaled up = blurred
+const K = 4.6 / 1000, W = 34, PITCH = 45.5, DEPTH = 66, X0 = -PITCH * 8.5;
+let cam;
+function proj([x, y, z]) {
+  const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw), cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const x1 = x * cy + z * sy, z1 = -x * sy + z * cy, y1 = y * cp + z1 * sp, z2 = -y * sp + z1 * cp, s = cam.f / (cam.dist + z2);
+  return [cam.cx + x1 * s, cam.cy - y1 * s, z2];
+}
+function poly(pts, fill, c = ctx, k = 1) { const q = pts.map(proj); let a = 0;
+  for (let i = 0; i < q.length; i++) { const [x1, y1] = q[i], [x2, y2] = q[(i + 1) % q.length]; a += x1 * y2 - x2 * y1; }
+  if (a > 0) return;                                   // facing away
+  c.beginPath(); q.forEach(([x, y], i) => i ? c.lineTo(x * k, y * k) : c.moveTo(x * k, y * k)); c.closePath();
+  if (typeof fill === "function") fill = fill(q); c.fillStyle = fill; c.fill(); }
+function box(x, y0, y1, c) {
+  if (y1 - y0 < .5) return; const a = x - W / 2, b = x + W / 2, n = -DEPTH / 2, f = DEPTH / 2;
+  const grad = (q) => { const g = ctx.createLinearGradient(0, Math.min(...q.map((v) => v[1])), 0, Math.max(...q.map((v) => v[1]))); g.addColorStop(0, c.front[0]); g.addColorStop(1, c.front[1]); return g; };
+  poly([[a, y0, f], [b, y0, f], [b, y1, f], [a, y1, f]].reverse(), c.side);
+  poly([[a, y0, n], [a, y0, f], [a, y1, f], [a, y1, n]].reverse(), c.side);
+  poly([[b, y0, n], [b, y1, n], [b, y1, f], [b, y0, f]].reverse(), c.side);
+  poly([[a, y0, n], [a, y1, n], [b, y1, n], [b, y0, n]].reverse(), grad);
+  poly([[a, y0, n], [a, y1, n], [a + 5, y1, n], [a + 5, y0, n]].reverse(), "rgba(255,255,255,.22)");   // a lit edge
+  poly([[a, y1, n], [a, y1, f], [b, y1, f], [b, y1, n]].reverse(), c.top);
+}
+const NAVY = { front: ["#FFFDF7", "#C4BBA7"], side: "#8F8775", top: "#FFFFFF" };     // what he puts in (cream on the dark glass)
+const GROW = { front: ["#5BE8C0", "#22A07E"], side: "#17745B", top: "#9BF7DC" };
+const RANGE = { front: ["#D2FFF3", "#8CE6CD"], side: "#5DB9A0", top: "#F2FFFB" };
+const STOCK = (() => { let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647; const N = 46, pts = []; let w = 0;
+  for (let i = 0; i <= N; i++) { w = w * .55 + (rnd() - .5) * 104; const u = i / N; pts.push([110 + 770 * u, 1262 - 440 * Math.pow(u, 1.12) + (i && i < N ? w : 0)]); }
+  return pts; })();
+function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+// The ETF cutaway: a trading-app panel on the glass. An auto-invest row, a glowing line that climbs, range pills.
+// No fund name, price or return figure: he names the fund out loud, the screen does not.
+function stock(t) {
+  ctx.clearRect(0, 0, 1080, 1920);
+  const a = p(t, T.paperIn, .25);
+  ctx.globalAlpha = a;
+  ctx.font = "700 32px Manrope"; ctx.textAlign = "left"; ctx.fillStyle = "rgba(239,233,222,.78)"; ctx.fillText("Auto-invest", 104, 706);
+  rr(590, 664, 290, 62, 31); ctx.fillStyle = "#6FE3C1"; ctx.fill();
+  ctx.font = "800 30px Manrope"; ctx.textAlign = "center"; ctx.fillStyle = "#0B2A22"; ctx.fillText("$250 / month", 735, 706);
+  ctx.strokeStyle = "rgba(255,255,255,.09)"; ctx.lineWidth = 2;
+  for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.moveTo(100, 1276 - k * 118); ctx.lineTo(884, 1276 - k * 118); ctx.stroke(); }
+  ["1M", "6M", "1Y", "5Y", "ALL"].forEach((s, k) => { const x = 170 + k * 162;
+    if (s === "ALL") { rr(x - 62, 1322, 124, 54, 27); ctx.fillStyle = "rgba(111,227,193,.22)"; ctx.fill(); }
+    ctx.font = "800 26px Manrope"; ctx.fillStyle = s === "ALL" ? "#8CF5D6" : "rgba(239,233,222,.55)"; ctx.fillText(s, x, 1358); });
+  ctx.globalAlpha = 1;
+  const g = io(p(t, T.paperIn + .05, 1.2)) * (STOCK.length - 1), fi = Math.floor(g), fr = g - fi, pts = STOCK.slice(0, fi + 1);
+  if (fi < STOCK.length - 1) pts.push([STOCK[fi][0] + (STOCK[fi + 1][0] - STOCK[fi][0]) * fr, STOCK[fi][1] + (STOCK[fi + 1][1] - STOCK[fi][1]) * fr]);
+  const [ex, ey] = pts[pts.length - 1];
+  const fill = ctx.createLinearGradient(0, 780, 0, 1280); fill.addColorStop(0, "rgba(91,240,196,.42)"); fill.addColorStop(1, "rgba(91,240,196,0)");
+  ctx.beginPath(); ctx.moveTo(pts[0][0], 1280); pts.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(ex, 1280); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+  const line = (col, w) => { ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.stroke(); };
+  ctx.shadowColor = "#3FE0B0"; ctx.shadowBlur = 34; line("#5BF0C4", 13); ctx.shadowBlur = 0; line("#C9FFF0", 4);
+  const pulse = 1 + .25 * Math.sin(t * 14);
+  ctx.beginPath(); ctx.arc(ex, ey, 34 * pulse, 0, 7); ctx.fillStyle = "rgba(91,240,196,.25)"; ctx.fill();
+  ctx.shadowColor = "#3FE0B0"; ctx.shadowBlur = 30; ctx.beginPath(); ctx.arc(ex, ey, 15, 0, 7); ctx.fillStyle = "#fff"; ctx.fill(); ctx.shadowBlur = 0;
+}
+function chart(t) {
+  ctx.clearRect(0, 0, 1080, 1920);
+  const u = io(p(t, T.chartIn, T.chartOut - T.chartIn));
+  cam = { yaw: (-38 + 28 * u) * Math.PI / 180, pitch: (24 - 5 * u) * Math.PI / 180, f: 1850, dist: 1800 + 260 * io(p(t, T.loA, T.hiB - T.loA)), cx: 478, cy: 1195 };
+  const plate = (y, pad) => [[-470 - pad, y, -150 - pad], [-470 - pad, y, 170 + pad], [470 + pad, y, 170 + pad], [470 + pad, y, -150 - pad]];
+  const cols = [];
+  for (let i = 0; i < 18; i++) {
+    const m = (i + 1) * 12, f = i / 17;
+    const a = back(p(t, T.lineA + f * (T.lineB - T.lineA - .3), .42));
+    const lo = out3(p(t, T.loA + f * (T.loB - T.loA - .4), .45)), hi = out3(p(t, T.hiA + f * (T.hiB - T.hiA - .4), .45));
+    const c = PAY * m * K * a, l = c + (fv(.05, m) - PAY * m) * K * lo, h = l + (fv(.08, m) - fv(.05, m)) * K * hi;
+    cols.push({ i, x: X0 + i * PITCH, c, l, h, z: proj([X0 + i * PITCH, 0, 0])[2] });
+  }
+  // soft shadows: the stage on the paper, the columns on the stage
+  sctx.clearRect(0, 0, 135, 240);
+  sctx.save(); sctx.translate(0, 7); poly(plate(-26, 26).reverse(), "rgba(0,0,0,.55)", sctx, .125); sctx.restore();
+  ctx.imageSmoothingQuality = "high"; ctx.drawImage(soft, 0, 0, 1080, 1920);
+  poly(plate(0, 0).reverse(), "rgba(255,255,255,.16)");
+  poly([[-470, -26, -150], [-470, 0, -150], [470, 0, -150], [470, -26, -150]].reverse(), "rgba(255,255,255,.10)");
+  poly([[470, -26, -150], [470, 0, -150], [470, 0, 170], [470, -26, 170]].reverse(), "rgba(255,255,255,.06)");
+  poly([[-470, -26, -150], [-470, -26, 170], [-470, 0, 170], [-470, 0, -150]].reverse(), "rgba(255,255,255,.06)");
+  sctx.clearRect(0, 0, 135, 240);
+  cols.forEach((o) => { if (o.h > 1) { const s = 30 + o.h * .2; poly([[o.x - W / 2, .5, -DEPTH / 2], [o.x - W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2 + s, .5, DEPTH / 2 + s * .9], [o.x + W / 2, .5, -DEPTH / 2]].reverse(), "rgba(0,0,0,.5)", sctx, .125); } });
+  ctx.drawImage(soft, 0, 0, 1080, 1920);
+  [...cols].sort((a, b) => b.z - a.z).forEach((o) => { box(o.x, 0, o.c, NAVY); box(o.x, o.c, o.l, GROW); box(o.x, o.l, o.h, RANGE); });
+  // age marks on the front lip of the stage
+  ctx.font = "800 30px Manrope"; ctx.fillStyle = "rgba(239,233,222,.86)";
+  [["today", -1], ["age 9", 8], ["age 18", 17]].forEach(([s, i]) => { const [x, y] = proj([X0 + i * PITCH, 0, -118]); ctx.textAlign = i === 17 ? "right" : "center"; ctx.fillText(s, x + (i === 17 ? 26 : 0), y + 10); });
+  // the arrow: rides the tops of the columns, climbing as the growth stacks on
+  const g = p(t, T.loA, T.hiB - T.loA);
+  if (g > 0) {
+    const reach = 1 + io(g) * 16, pts = [];
+    const gl = io(p(t, T.loA, T.loB - T.loA)), gh = io(p(t, T.hiA, T.hiB - T.hiA));   // one smooth curve, not the staggered tops
+    const top = (i) => { const m = (i + 1) * 12; return (PAY * m + (fv(.05, m) - PAY * m) * gl + (fv(.08, m) - fv(.05, m)) * gh) * K + 46; };
+    const zig = (i) => i ? (((i * 37) % 7) - 3) * 7 : 0;       // a ticker's wobble on the way up
+    for (let i = 0; i <= Math.floor(reach); i++) { const q = proj([cols[i].x, top(i), -DEPTH / 2]); pts.push([q[0], q[1] + zig(i)]); }
+    const fi = Math.floor(reach), fr = reach - fi;
+    if (fi < 17) { const a = pts[fi], b0 = proj([cols[fi + 1].x, top(fi + 1), -DEPTH / 2]), b = [b0[0], b0[1] + zig(fi + 1)]; pts.push([a[0] + (b[0] - a[0]) * fr, a[1] + (b[1] - a[1]) * fr]); }
+    const n = pts.length, [ex, ey] = pts[n - 1], [qx, qy] = pts[Math.max(0, n - 4)], ang = Math.atan2(ey - qy, ex - qx);
+    const draw = (dy, col) => { ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 20; ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y + dy) : ctx.moveTo(x, y + dy)); ctx.stroke();
+      ctx.save(); ctx.translate(ex, ey + dy); ctx.rotate(ang); ctx.beginPath(); ctx.moveTo(58, 0); ctx.lineTo(-14, -40); ctx.lineTo(-14, 40); ctx.closePath(); ctx.fill(); ctx.restore(); };
+    draw(26, "rgba(0,0,0,.28)"); draw(9, "#8A4425"); ctx.shadowColor = "#FF9D6E"; ctx.shadowBlur = 26; draw(0, "#F58F62"); ctx.shadowBlur = 0;
+  }
+}
+
+function house(full) {            // over his head in take D, then the same card large on the paper
+  const g = full ? [120, 470, 760, 570] : [200, 346, 540, 405];
+  [$("photo"), $("photoBack")].forEach((e) => { e.style.left = g[0] + "px"; e.style.top = g[1] + "px"; e.style.width = g[2] + "px"; e.style.height = g[3] + "px"; });
+  const tg = $("tag"); tg.style.left = (full ? 250 : 286) + "px"; tg.style.top = (full ? 960 : 664) + "px"; tg.style.fontSize = (full ? 68 : 54) + "px";
+}
+const OFF = 7.1;                  // the walk opening runs before the inner clock's zero
+window.seek = (t0) => { const t = t0 - OFF;
+  flat("s1", t, -2.45); ext("r1", t, -2.45); flat("s1b", t, -.22); ext("r1b", t, -.22, .7);
+  const on = PAPER.some(([a, b]) => t >= a && t < b), inP = (k) => t >= PAPER[k][0] && t < PAPER[k][1];
+  $("paper").style.opacity = on ? 1 : 0;
+  $("scrim").style.opacity = on ? 0 : .9;
+
+  // take A: right now I'm putting $250 a month
+  flat("s2", t, T.out2); ext("r2", t, T.out2, .8, 90); ext("r2b", t, T.out2);
+  // take C: 5 to 8%, I expect to return
+  ext("r3p", t, T.pctOut, .7); flat("s3", t, T.pctOut);
+  // take D: I hope that helps for (the house card is below)
+  flat("s4", t, PAPER[2][0] - .1);
+
+  // cutaways: the ETF line, then the columns (twice, from a different camera angle the second time)
+  const chartOn = (t >= T.chartIn && inP(0)) || inP(1);
+  if (chartOn) chart(t); else if (inP(0)) stock(t); else ctx.clearRect(0, 0, 1080, 1920);
+  const panel = chartOn || inP(0), w0 = inP(0) ? (t < T.chartIn ? PAPER[0][0] : T.chartIn) : PAPER[1][0];
+  const tilt = `perspective(1700px) rotateY(${-5 + Math.sin(t * 1.1) * 3.2}deg) rotateX(${3 + Math.cos(t * .9) * 1.4}deg)`;
+  $("glass").style.opacity = panel ? 1 : 0; $("glass").style.transform = tilt; cv.style.transform = tilt;
+  $("sheen").style.left = (-420 + 1700 * p(t, w0 + .15, 1.2)) + "px";
+  cv.style.opacity = 1; $("foot").style.opacity = chartOn ? 1 : 0;
+  $("lab").textContent = !on ? "" : inP(0) ? (t < T.chartIn ? "into an" : "by the time he’s 18, I’ve put in") : inP(1) ? "so somewhere between" : "I hope that helps for";
+  setText($("n1"), usd(54000 * out3(p(t, T.roll1, .36))));
+  setText($("n2"), usd(54000 + (87500 - 54000) * out3(p(t, T.roll2, .34))));
+  setText($("n3"), "and " + usd(87500 + (120000 - 87500) * out3(p(t, T.roll3, .34))));
+  const pc = 62 * io(p(t, T.loA, T.loB - T.loA)) + 60 * io(p(t, T.hiA, T.hiB - T.hiA));     // climbs the whole way, and grows as it climbs
+  $("r3c").style.fontSize = (92 + 50 * pc / 122) + "px";
+  setText($("pct"), "▲ " + Math.round(pc) + "%");
+  $("plab").style.opacity = inP(1) ? p(t, 11.55, .25) : 0; $("plab").style.top = (672 + (92 + 50 * pc / 122) * 1.14) + "px";
+  ext("r0", t, T.etfOut, .6); ext("r3", t, PAPER[0][1] - .04, .55);
+  ext("r3b", t, PAPER[1][1] - .04, .5); ext("r3c", t, PAPER[1][1] - .04, .6);
+
+  // the home: a card over his head on "down payment", then the same card large on the paper for "or at least his education"
+  house(t >= PAPER[2][0]);
+  const hin = p(t, T.home, .45), hv = t < T.homeOut ? 1 : 0, k = back(hin), fl = Math.sin(t * 1.6);
+  $("r4").style.transform = `translate(${(1 - out3(hin)) * 820}px, 0px)`;
+  $("photo").style.transform = `rotateY(${-16 + (1 - k) * -70 + fl * 5}deg) rotateX(${7 + fl * 2}deg) rotateZ(${-3 + (1 - k) * 12}deg) scale(${hin > 0 ? (.6 + .4 * k) * hv : 0})`;
+  $("photoBack").style.transform = `translate(${-90 + fl * -10}px, -40px) translateZ(-280px) rotateY(${-10 + fl * 2}deg) rotateZ(5deg) scale(${hin > 0 ? 1.05 * hv : 0})`;
+  $("tag").style.transform = `translateZ(170px) rotate(-5deg) scale(${back(p(t, T.tag1, .3)) * hv})`;
+  $("tag2").style.transform = `translateZ(120px) rotate(3deg) scale(${back(p(t, T.tag2, .3)) * hv})`;
+
+  // take E: his question, cut on the word
+  flat("s5", t, 999); ext("r5", t, 999, .7);
+  const up = $("up"), L = up.getTotalLength(), u = out3(p(t, T.last, .2));
+  up.style.strokeDasharray = L; up.style.strokeDashoffset = L * (1 - u); $("under").style.opacity = u > 0 ? 1 : 0;
+};
+if (location.hash.includes("zones")) document.querySelectorAll(".zone").forEach((z) => z.style.display = "block");
+window.seek(0);
+</script>
+</body></html>

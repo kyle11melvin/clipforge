@@ -106,3 +106,37 @@ Moved from CLAUDE.md on 2026-11-21. Work on this in the `kyle11melvin/Parlay-Der
   never through chat; a new env var needs a deploy before it applies. Commish shows an ON/OFF line so he can check it
   without me, since a session cannot reach the live site.
 - **Still unverified by him:** lock-in car on a real save, a late pick not adding a parlay leg, server grading on a real week.
+
+## 2026-11-25: Grok image-to-video on the soft-style art
+
+- Kyle asked "just for fun" what Grok would do with the characters and scenes. Five composed 1080x1920 frames (rider plus
+  scene) went on a private page, each with a Save button and a one-line "Animate this exact image…" prompt. He ran four.
+- **What Grok returns:** 10 s, 704x1280, with its own audio. One picture and one line works every time; it holds the
+  style, outfits and props, follows the motion asked for, and invents what the frame lacks (legs for riders cut off at
+  the thigh, a corridor when the camera tracks off the vault). Glitches: a second pair of sunglasses, lasers vanishing,
+  lane lines changing.
+- **Kyle: "Grok changed the characters' faces."** Never use it for a shot where a rider must be recognised. Use it for
+  face-free shots (road, cars, cash, skyline, the turkey); the riders stay as the drawn art on top.
+- The four clips were cut to `tools/trailer/trailer.wav` (20 s, cuts on the beats, Grok's audio dropped): "actually
+  pretty good". It was not sent anywhere; this week's trailer had already gone out.
+- **His call:** nothing from this goes on the site. Next week's trailer may use Grok for moving background shots; five
+  face-free frames (skyline push, street rush, marina car pulling away, side-on chase, cash bag) are on a page for him.
+  **When the clips come back:** cut them under the riders' pop-up cards, on the track's beats.
+- **Next-week trailer (same day):** he ran the five face-free frames (the bag never came back) and asked for a generic
+  "normal week" trailer with all ten rider cards, no theme. `tools/trailer/next-week.html` in the Parlay-Derby repo is the
+  overlay (type and cards on a transparent ground, rendered with `--alpha`), laid over a cut of the Grok clips on
+  `trailer.wav`. The Grok clips are not in either repo; he has them. Grok notes: the side-on chase holds both cars exactly
+  as drawn and loops; the street rush comes out glossy 3D, so use it in one- or two-second bursts. Open: his verdict.
+- **Verdict and music:** "Absolutely love it." He wants the music varied week to week but "very similar". Three other
+  20 s stretches of `vice-theme.mp3` were lined up to the half-second grid by measurement (the song runs at 120 BPM) and
+  shown as A/B/C on the same picture; **he picked B, starting at 113.06 s** (goes quiet near 14 s). A was 134.05 s, C 85.08 s.
+  He is also making a sister track in Suno from a prompt (120 BPM, quiet two seconds, hit, second hit near 12 s).
+- **Music settled:** B over his new Suno track "Neon Heist" ("I think the B"). Suno share links no longer download from
+  here (cdn1 refuses, the other copy is scrambled) and Download is paid; what worked was a phone screen recording of the
+  song playing. Neon Heist came out at about 123 BPM and was slowed 2.7% to fit; its file is not in either repo.
+- **Picks-are-in hype video (2026-11-25 evening):** his idea, once both slips were placed: the same Grok shots with each
+  rider's card and two picks (a second each), then what each slip pays. `tools/trailer/hype.html` (27 s overlay); music is
+  the B stretch run on to its drop at 23 s. He sends board screenshots plus the Novig slips; use the slips for payouts
+  and for any line that differs (this week the board had BYU -15.5 and Packers +2.5, the slips -14.5 and +3.5, and the
+  board's "legs multiplied" payout was far above what Novig actually paid). Open: his verdict; whether the board should
+  show the slip's real numbers.
