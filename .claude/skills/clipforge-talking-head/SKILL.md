@@ -90,7 +90,7 @@ He wants the rules "a little bit loose" while the brand image stays.
    - cash heap ending: `graphics/rate-buydown/cash.html`
    - cutout (cards behind his head, live screen): `npx hyperframes remove-background`, seated still shots only
 5. **Probe stills** with the Reels safe zone drawn, run `clipforge-review`, and show him a contact sheet.
-6. **Render** overlays with `--alpha`, composite with ffmpeg, add sounds from `sfx-events.json` via
+6. **Render** overlays with `--alpha --workers 3` (three browser pages at once), composite with ffmpeg, add sounds from `sfx-events.json` via
    `src/music/chalk.py`. Punch in about 7% at each turn of the script.
 7. **Captions:** Nunito ExtraBold, sentence case, white, soft shadow. On his chest in an outdoor selfie
    (`--caption-y 0.19`), above his head against a plain indoor wall (`--caption-y 0.66`), hidden under any overlay

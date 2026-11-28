@@ -1,0 +1,241 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  /* VA county loan limit 2027 (2026-11-28). One alpha layer over a walking selfie (overcast sky, his head top is
+     y>=650 in cut.mp4, so type lives in y 262-620). Built the way the stroller-math reel ended up, with new devices:
+       his five takes     Playfair line of his words, then an extruded 3D line, above his head
+       CUT[0] went up     a glowing arrow and "2027"
+       CUT[1] the numbers two photo cards (Laguna coast, San Diego skyline), each number rolling 2026 -> 2027
+       CUT[2] entitlement a glass settings panel: a switch, a limit slider that runs off the panel, "No limit", "0% down"
+       CUT[3] the home    a photo card, "+$34,000", "$0 down"
+     assemble.sh blurs and darkens his footage under each cutaway (CUT below). #zones paints the Reels chrome.
+     No opacity on anything extruded: opacity flattens preserve-3d. Screen figures are the exact FHFA numbers; he
+     rounds them out loud ("1,283,000", "1.143"). */
+  @font-face { font-family: "Sora"; src: url("../fonts/Sora.ttf"); font-weight: 100 800; }
+  @font-face { font-family: "Manrope"; src: url("../fonts/Manrope.ttf"); font-weight: 200 800; }
+  @font-face { font-family: "Playfair"; src: url("../fonts/PlayfairDisplay-Italic.ttf"); font-style: italic; }
+  :root { --navy:#173F4F; --ink:#0E2A35; --sand:#EFE9DE; --terra:#F08A5D; --mint:#6FE3C1; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+  body { position: relative; font-family: "Manrope", sans-serif; color: var(--sand); }
+  #scrim { position: absolute; inset: 0 0 auto 0; height: 1050px; background: linear-gradient(rgba(10,32,42,.78), rgba(10,32,42,.42) 55%, rgba(10,32,42,0)); opacity: 0; }
+  #tint { position: absolute; inset: 0; background: linear-gradient(rgba(6,22,30,.66), rgba(6,22,30,.50) 45%, rgba(6,22,30,.72)), radial-gradient(ellipse at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,.5)); opacity: 0; }
+  .sm { position: absolute; left: 72px; font-family: "Playfair", serif; font-style: italic; color: var(--sand); white-space: nowrap; text-shadow: 0 4px 26px rgba(6,22,30,.75), 0 1px 3px rgba(6,22,30,.6); }
+  .sm span { display: inline-block; opacity: 0; white-space: pre; }
+  .persp { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; perspective: 1300px; perspective-origin: 500px 520px; pointer-events: none; }
+  .rot { position: absolute; transform-style: preserve-3d; white-space: nowrap; }
+  .xw { display: inline-block; position: relative; transform-style: preserve-3d; font-family: "Sora", sans-serif; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-right: .22em; transform: scale(0); }
+  .xw i { position: absolute; left: 0; top: 0; font-style: normal; }
+  .xw b { position: relative; font-weight: 800; display: block; }
+  .xl { display: block; }
+
+  /* CUT[0] */
+  #arrow { position: absolute; left: 0; top: 0; filter: drop-shadow(0 0 22px rgba(91,240,196,.75)); }
+  /* CUT[1]: county cards */
+  .eyebrow { position: absolute; left: 76px; font-weight: 800; font-size: 26px; letter-spacing: .16em; color: rgba(239,233,222,.82); text-shadow: 0 2px 14px rgba(0,0,0,.6); opacity: 0; }
+  .card { position: absolute; left: 64px; width: 876px; height: 500px; border-radius: 46px; overflow: hidden; transform-origin: 50% 50%; background-size: cover; background-position: center;
+          box-shadow: inset 0 0 0 2px rgba(255,255,255,.28), 0 60px 110px rgba(0,0,0,.6), 0 18px 34px rgba(0,0,0,.35); }
+  .card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(6,22,30,.88), rgba(6,22,30,.55) 55%, rgba(6,22,30,.12)), linear-gradient(rgba(6,22,30,0) 50%, rgba(6,22,30,.55)); }
+  .card::after { content: ""; position: absolute; inset: 0; border-radius: 46px; box-shadow: inset 0 3px 0 rgba(255,255,255,.4); }
+  .card .co { position: absolute; left: 44px; top: 40px; font-weight: 800; font-size: 30px; letter-spacing: .16em; color: var(--mint); }
+  .card .num { position: absolute; left: 40px; top: 104px; font-family: "Sora", sans-serif; font-weight: 800; font-size: 134px; letter-spacing: -0.045em; line-height: 1; color: #FBF7EE; font-variant-numeric: tabular-nums; text-shadow: 0 8px 30px rgba(0,0,0,.55); transform-origin: 0 60%; }
+  .card .was { position: absolute; left: 46px; top: 276px; font-size: 32px; font-weight: 700; color: rgba(239,233,222,.72); font-variant-numeric: tabular-nums; }
+  .card .was s { text-decoration-thickness: 3px; text-decoration-color: rgba(240,138,93,.9); }
+  .card .up { position: absolute; left: 42px; top: 352px; height: 92px; line-height: 92px; padding: 0 38px; border-radius: 46px; background: var(--mint); color: #0B2A22; font-family: "Sora", sans-serif; font-weight: 800; font-size: 58px; letter-spacing: -0.03em; transform-origin: 0 50%; box-shadow: 0 0 44px rgba(91,240,196,.55); font-variant-numeric: tabular-nums; }
+  .sheen { position: absolute; top: -200px; left: -400px; width: 220px; height: 1100px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.22), rgba(255,255,255,0)); transform: rotate(18deg); }
+  #foot { position: absolute; left: 76px; top: 1402px; font-size: 22px; font-weight: 600; color: rgba(239,233,222,.66); white-space: nowrap; opacity: 0; }
+  /* CUT[2]: the entitlement panel */
+  #panel { position: absolute; left: 64px; top: 430px; width: 876px; height: 470px; border-radius: 50px; transform-origin: 50% 50%;
+           background: linear-gradient(155deg, rgba(255,255,255,.22), rgba(255,255,255,.07) 38%, rgba(255,255,255,.11));
+           box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), inset 0 3px 0 rgba(255,255,255,.4), 0 70px 130px rgba(0,0,0,.55), 0 20px 40px rgba(0,0,0,.3); }
+  #panel .row { position: absolute; left: 48px; right: 48px; font-weight: 700; font-size: 48px; color: #FBF7EE; }
+  #sw { position: absolute; right: 0; top: -8px; width: 132px; height: 72px; border-radius: 36px; background: rgba(255,255,255,.22); }
+  #knob { position: absolute; top: 8px; left: 8px; width: 56px; height: 56px; border-radius: 50%; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+  #track { position: absolute; left: 48px; top: 318px; height: 18px; border-radius: 9px; background: rgba(255,255,255,.22); width: 780px; }
+  #fill { position: absolute; left: 0; top: 0; height: 18px; border-radius: 9px; background: var(--mint); box-shadow: 0 0 30px rgba(91,240,196,.8); }
+  #thumb { position: absolute; top: -23px; width: 64px; height: 64px; border-radius: 50%; background: #fff; box-shadow: 0 0 34px rgba(91,240,196,.9), 0 6px 14px rgba(0,0,0,.4); }
+  #cap { position: absolute; top: 366px; font-size: 44px; font-weight: 800; color: rgba(239,233,222,.8); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  #cap s { text-decoration-thickness: 3px; text-decoration-color: var(--terra); }
+  /* CUT[3]: the home */
+  #photo, #photoBack { position: absolute; left: 160px; top: 290px; width: 620px; height: 576px; background: url(house.jpg) center/cover; border-radius: 22px; }
+  #photo { border: 14px solid #fff; box-shadow: 0 70px 100px rgba(0,0,0,.6), 0 20px 34px rgba(0,0,0,.4); }
+  #photoBack { filter: blur(24px) brightness(.6) saturate(1.1); border-radius: 28px; }
+  #zero { position: absolute; left: 556px; top: 790px; height: 104px; line-height: 104px; padding: 0 44px; border-radius: 52px; background: var(--terra); color: #2A120A; font-family: "Sora", sans-serif; font-weight: 800; font-size: 64px; letter-spacing: -0.03em; transform-origin: 0 50%; box-shadow: 0 0 44px rgba(240,138,93,.55); }
+  #under { position: absolute; left: 66px; top: 596px; }
+  .zone { position: absolute; background: rgba(255,0,0,.28); display: none; z-index: 99; }
+</style></head>
+<body>
+<div id="scrim"></div>
+<div id="tint"></div>
+
+<!-- FACE A: just released this week, the VA County loan limit -->
+<div class="sm" id="sA" style="top:262px;font-size:56px" data-w="0.02,0.34,0.98,1.14">just released this week,</div>
+<div class="persp"><div class="rot" id="rA" style="left:72px;top:338px;font-size:128px">
+  <span class="xl"><span class="xw" data-t="1.46" data-c="#EFE9DE" data-d="#143746">the</span><span class="xw" data-t="1.70" data-c="#EFE9DE" data-d="#143746">VA</span><span class="xw" data-t="2.58" data-c="#EFE9DE" data-d="#143746">loan</span></span>
+  <span class="xl" style="margin-top:6px"><span class="xw" data-t="2.82" data-c="#F08A5D" data-d="#7E3D22">limit</span></span>
+</div></div>
+
+<!-- CUT[0]: went up for 2027 -->
+<svg id="arrow" width="1080" height="1920"><path id="ap" d="M120 1250 C 300 1210, 420 1120, 520 1010 S 720 860, 860 700" fill="none" stroke="#5BF0C4" stroke-width="26" stroke-linecap="round"/><polygon id="ah" points="0,-46 78,0 0,46" fill="#5BF0C4"/></svg>
+<div class="sm" id="s0" style="top:300px;font-size:60px" data-w="3.0,3.0,3.0,3.0,3.0">the VA county loan limit</div>
+<div class="persp"><div class="rot" id="r0" style="left:72px;top:384px;font-size:188px">
+  <span class="xl"><span class="xw" data-t="3.13" data-c="#6FE3C1" data-d="#17705A">went</span><span class="xw" data-t="3.37" data-c="#6FE3C1" data-d="#17705A">up</span></span>
+  <span class="xl" style="margin-top:14px"><span class="xw" data-t="3.58" data-c="#F4EFE4" data-d="#8C8676" style="font-size:.5em">for</span><span class="xw" data-t="3.80" data-c="#F4EFE4" data-d="#8C8676" data-n="40" style="font-size:1.25em">2027</span></span>
+</div></div>
+
+<!-- FACE B: here's the new numbers for Orange County and San Diego -->
+<div class="sm" id="sB" style="top:262px;font-size:56px" data-w="5.00,5.24,5.32,5.48,5.80">here's the new numbers for</div>
+<div class="persp"><div class="rot" id="rB" style="left:72px;top:338px;font-size:108px">
+  <span class="xl"><span class="xw" data-t="5.96" data-c="#EFE9DE" data-d="#143746">Orange</span><span class="xw" data-t="6.60" data-c="#EFE9DE" data-d="#143746">County</span></span>
+  <span class="xl" style="margin-top:6px"><span class="xw" data-t="6.92" data-c="#F08A5D" data-d="#7E3D22">&amp;</span><span class="xw" data-t="7.08" data-c="#F08A5D" data-d="#7E3D22">San</span><span class="xw" data-t="7.32" data-c="#F08A5D" data-d="#7E3D22">Diego</span></span>
+</div></div>
+
+<!-- CUT[1]: the two numbers -->
+<div class="eyebrow" id="eb" style="top:266px">2027 VA COUNTY LOAN LIMIT</div>
+<div class="persp" style="perspective-origin:500px 800px"><div class="rot" id="rc1" style="left:0;top:0;width:1080px;height:1920px">
+  <div class="card" id="c1" style="top:322px;background-image:url(oc.jpg)"><div class="sheen" id="sh1"></div><div class="co">ORANGE COUNTY</div><div class="num" id="n1">$1,249,125</div><div class="was" id="w1">2026: <s>$1,249,125</s></div><div class="up" id="u1">▲ $33,975</div></div>
+  <div class="card" id="c2" style="top:862px;background-image:url(sd.jpg)"><div class="sheen" id="sh2"></div><div class="co">SAN DIEGO COUNTY</div><div class="num" id="n2">$1,104,000</div><div class="was" id="w2">2026: <s>$1,104,000</s></div><div class="up" id="u2">▲ $39,100</div></div>
+</div></div>
+<div id="foot">One-unit limits, effective January 1, 2027. Source: FHFA, announced November 24, 2026.</div>
+
+<!-- FACE C: But here's the thing most veterans don't know -->
+<div class="sm" id="sC" style="top:262px;font-size:58px" data-w="19.97,20.23,20.55,20.63">but here's the thing</div>
+<div class="persp"><div class="rot" id="rC" style="left:72px;top:338px;font-size:114px">
+  <span class="xl"><span class="xw" data-t="20.87" data-c="#EFE9DE" data-d="#143746">most</span><span class="xw" data-t="21.11" data-c="#EFE9DE" data-d="#143746">veterans</span></span>
+  <span class="xl" style="margin-top:6px"><span class="xw" data-t="21.51" data-c="#F08A5D" data-d="#7E3D22">don't</span><span class="xw" data-t="21.67" data-c="#F08A5D" data-d="#7E3D22">know</span></span>
+</div></div>
+
+<!-- CUT[2]: full entitlement, no limit, 0% down -->
+<div class="sm" id="s2" style="top:300px;font-size:60px" data-w="24.15,24.47,24.63,24.79">if you have your</div>
+<div class="persp" style="perspective-origin:500px 700px"><div class="rot" id="rp" style="left:0;top:0;width:1080px;height:1920px">
+  <div id="panel">
+    <div class="row" style="top:62px">Full entitlement<div id="sw"><div id="knob"></div></div></div>
+    <div class="row" style="top:206px;font-size:38px;color:rgba(239,233,222,.82)">County loan limit</div>
+    <div id="track"><div id="fill"></div><div id="thumb"></div></div>
+    <div id="cap"></div>
+  </div>
+</div></div>
+<div class="persp" style="perspective-origin:500px 1100px"><div class="rot" id="r2" style="left:72px;top:960px;font-size:176px">
+  <span class="xl"><span class="xw" data-t="27.2" data-c="#6FE3C1" data-d="#17705A" data-n="34">No</span><span class="xw" data-t="27.32" data-c="#6FE3C1" data-d="#17705A" data-n="34">limit.</span></span>
+  <span class="xl" style="margin-top:18px"><span class="xw" data-t="28.24" data-c="#F4EFE4" data-d="#8C8676">0%</span><span class="xw" data-t="28.71" data-c="#F08A5D" data-d="#7E3D22">down</span></span>
+</div></div>
+
+<!-- FACE D: the limit only matters if you have a VA loan out there and you kept your first one -->
+<div class="sm" id="sD" style="top:262px;font-size:56px" data-w="30.24,30.39,30.79,31.03,31.51">the limit only matters if</div>
+<div class="persp"><div class="rot" id="rD" style="left:72px;top:338px;font-size:106px">
+  <span class="xl"><span class="xw" data-t="31.75" data-c="#EFE9DE" data-d="#143746">you</span><span class="xw" data-t="31.99" data-c="#EFE9DE" data-d="#143746">have</span><span class="xw" data-t="32.31" data-c="#EFE9DE" data-d="#143746">a</span><span class="xw" data-t="32.47" data-c="#EFE9DE" data-d="#143746">VA</span></span>
+  <span class="xl" style="margin-top:6px"><span class="xw" data-t="32.95" data-c="#F08A5D" data-d="#7E3D22">loan</span><span class="xw" data-t="33.27" data-c="#F08A5D" data-d="#7E3D22">out</span><span class="xw" data-t="33.51" data-c="#F08A5D" data-d="#7E3D22">there</span></span>
+</div></div>
+
+<!-- CUT[3]: an extra $34,000 more house with nothing down -->
+<div class="sm" id="s3" style="top:210px;font-size:1px" data-w="0">.</div>
+<div class="persp" style="perspective-origin:480px 600px"><div class="rot" id="r4" style="left:0;top:0;width:1080px;height:1500px"><div id="photoBack"></div><div id="photo"></div></div></div>
+<div class="persp" style="perspective-origin:500px 1100px"><div class="rot" id="r3" style="left:72px;top:912px;font-size:164px">
+  <span class="xl"><span class="xw" data-t="37.6" data-c="#6FE3C1" data-d="#17705A" data-n="34">+$34,000</span></span>
+  <span class="xl" style="margin-top:14px"><span class="xw" data-t="38.54" data-c="#F4EFE4" data-d="#8C8676" style="font-size:.62em">more</span><span class="xw" data-t="38.77" data-c="#F4EFE4" data-d="#8C8676" style="font-size:.62em">house</span></span>
+</div></div>
+<div id="zero">$0 down</div>
+<div id="foot2" style="position:absolute;left:76px;top:1380px;font-size:22px;font-weight:600;line-height:1.4;color:rgba(239,233,222,.66);opacity:0">Example, Orange County: a $400,000 VA loan still out.<br>Zero-down price goes from $849,125 to $883,100.</div>
+
+<!-- FACE E: Veterans, did you know you can use your loan twice? -->
+<div class="sm" id="sE" style="top:262px;font-size:54px" data-w="40.85,41.49,41.65,41.73,41.89,41.97">veterans, did you know you can</div>
+<div class="persp"><div class="rot" id="rE" style="left:72px;top:338px;font-size:112px">
+  <span class="xl"><span class="xw" data-t="42.05" data-c="#EFE9DE" data-d="#143746">use</span><span class="xw" data-t="42.21" data-c="#EFE9DE" data-d="#143746">your</span><span class="xw" data-t="42.37" data-c="#EFE9DE" data-d="#143746">loan</span></span>
+  <span class="xl" style="margin-top:6px"><span class="xw" data-t="42.69" data-c="#F08A5D" data-d="#7E3D22" style="font-size:1.2em">twice?</span></span>
+</div></div>
+<svg id="under" width="700" height="40"><path id="up" d="M8 22 C 150 6, 330 34, 450 16 S 620 10, 680 24" fill="none" stroke="#F08A5D" stroke-width="12" stroke-linecap="round"/></svg>
+
+<div class="zone" style="left:0;top:0;width:1080px;height:250px"></div>
+<div class="zone" style="left:0;top:1450px;width:1080px;height:470px"></div>
+<div class="zone" style="left:940px;top:0;width:140px;height:1920px"></div>
+
+<script>
+// Times are Parakeet word starts on videos/va-limit/cut.mp4 (graphics/va-limit/tight-cut.py prints them).
+const CUT = [[3.13, 4.97], [8.10, 19.97], [24.13, 30.23], [36.87, 40.83]];   // full-screen cutaways; keep assemble.sh CUTAWAYS in step
+const T = { ocIn: 8.11, ocRoll: 9.44, ocUp: 12.9, sdIn: 14.37, sdRoll: 15.62, sdUp: 18.12,
+            sw: 25.19, lim: 25.6, off: 26.63, home: 36.9, zero: 40.3, last: 42.95 };
+const $ = (id) => document.getElementById(id);
+const cl = (x) => Math.max(0, Math.min(1, x));
+const p = (t, a, d) => cl((t - a) / d);
+const out3 = (x) => 1 - Math.pow(1 - x, 3);
+const io = (x) => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const back = (x) => { const c = 2.6; return x <= 0 ? 0 : 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const usd = (n) => "$" + Math.round(n).toLocaleString("en-US");
+const pulse = (t, at) => t >= at ? 1 + .14 * Math.exp(-(t - at) * 7) * Math.cos((t - at) * 16) : 1;
+
+document.querySelectorAll(".sm").forEach((row) => {
+  const times = row.dataset.w.split(",").map(Number), ws = row.textContent.split(" "); row.textContent = "";
+  ws.forEach((w, i) => { const s = document.createElement("span"); s.textContent = w + (i < ws.length - 1 ? " " : ""); s.dataset.t = times[Math.min(i, times.length - 1)]; row.append(s); });
+});
+function flat(id, t, outAt) { const o = 1 - p(t, outAt, .18);
+  $(id).querySelectorAll("span").forEach((s) => { const k = out3(p(t, +s.dataset.t - .03, .24)); s.style.opacity = k * o; s.style.transform = `translateY(${(1 - k) * 30}px)`; }); }
+document.querySelectorAll(".xw").forEach((w) => {
+  const txt = w.textContent, n = +(w.dataset.n || 24); w.textContent = ""; w._layers = [];
+  for (let k = n; k >= 1; k--) { const i = document.createElement("i"); i.textContent = txt; i.style.color = w.dataset.d; i.style.transform = `translateZ(${-k * 1.7}px)`;
+    if (k === n) i.style.textShadow = "0 30px 44px rgba(4,18,26,.6)"; w.append(i); w._layers.push(i); }
+  const b = document.createElement("b"); b.textContent = txt; b.style.color = w.dataset.c; w.append(b); w._layers.push(b);
+});
+function ext(id, t, outAt, sway = 1, spin = 28) {
+  const r = $(id), o = 1 - out3(p(t, outAt, .18));
+  r.querySelectorAll(".xw").forEach((w) => { const k = p(t, +w.dataset.t - .05, .3);
+    w.style.transform = `scale(${back(k) * o}) rotateY(${(1 - out3(k)) * spin}deg) rotateX(${(1 - out3(k)) * -40}deg)`; });
+  r.style.transform = `rotateY(${-13 + Math.sin(t * 1.5 + r.offsetTop) * 7 * sway}deg) rotateX(${6 + Math.cos(t * 1.2) * 3 * sway}deg)`;
+}
+const AP = $("ap"), AL = AP.getTotalLength();
+
+window.seek = (t) => {
+  const inC = (k) => t >= CUT[k][0] && t < CUT[k][1], on = CUT.some((_, k) => inC(k));
+  $("tint").style.opacity = on ? 1 : 0; $("scrim").style.opacity = on ? 0 : 1;
+
+  // his five takes
+  flat("sA", t, CUT[0][0] - .12); ext("rA", t, CUT[0][0] - .12);
+  flat("sB", t, CUT[1][0] - .12); ext("rB", t, CUT[1][0] - .12);
+  flat("sC", t, CUT[2][0] - .5); ext("rC", t, CUT[2][0] - .5);
+  flat("sD", t, CUT[3][0] - .5); ext("rD", t, CUT[3][0] - .5);
+  flat("sE", t, 999); ext("rE", t, 999, .7);
+  const up = $("up"), UL = up.getTotalLength(), u = out3(p(t, T.last, .2));
+  up.style.strokeDasharray = UL; up.style.strokeDashoffset = UL * (1 - u); $("under").style.opacity = u > 0 ? 1 : 0;
+
+  // CUT[0]: went up for 2027
+  flat("s0", t, CUT[0][1] - .05); $("s0").style.visibility = inC(0) ? "visible" : "hidden"; ext("r0", t, CUT[0][1] - .05, .7);
+  const ag = io(p(t, CUT[0][0], 1.0)); $("arrow").style.opacity = inC(0) ? 1 : 0;
+  AP.style.strokeDasharray = AL; AP.style.strokeDashoffset = AL * (1 - ag);
+  const a1 = AP.getPointAtLength(AL * ag), a0 = AP.getPointAtLength(Math.max(0, AL * ag - 30));
+  $("ah").setAttribute("transform", `translate(${a1.x},${a1.y}) rotate(${Math.atan2(a1.y - a0.y, a1.x - a0.x) * 180 / Math.PI})`);
+
+  // CUT[1]: the two county cards; each number rolls from the 2026 limit to the 2027 one as he starts saying it
+  const c = inC(1);
+  $("eb").style.opacity = c ? p(t, CUT[1][0], .25) : 0; $("foot").style.opacity = c ? p(t, CUT[1][0] + .3, .3) : 0;
+  [["c1", "n1", "w1", "u1", "sh1", T.ocIn, T.ocRoll, T.ocUp, 1249125, 1283100, -1], ["c2", "n2", "w2", "u2", "sh2", T.sdIn, T.sdRoll, T.sdUp, 1104000, 1143100, 1]].forEach(([cid, nid, wid, uid, sid, tin, troll, tup, a, b, dir]) => {
+    const k = back(p(t, tin, .5)), fl = Math.sin(t * 1.3 + dir);
+    $(cid).style.transform = c ? `translateX(${(1 - out3(p(t, tin, .5))) * 900 * -dir}px) rotateY(${dir * -7 + (1 - k) * 60 * dir + fl * 3}deg) rotateX(${3 + fl}deg) scale(${p(t, tin, .5) > 0 ? .7 + .3 * k : 0})` : "scale(0)";
+    const r = out3(p(t, troll, .36));
+    $(nid).textContent = usd(a + (b - a) * r); $(nid).style.transform = `scale(${pulse(t, troll + .36)})`; $(nid).style.color = r > .02 ? "#FBF7EE" : "rgba(251,247,238,.82)";
+    $(wid).style.opacity = p(t, troll + .2, .3);
+    $(uid).style.transform = `scale(${back(p(t, tup, .3)) * pulse(t, tup + .3)})`;
+    $(sid).style.left = (-400 + 1700 * p(t, tin + .2, 1.1)) + "px";
+  });
+
+  // CUT[2]: the switch flips on "entitlement", the limit marker is struck and the slider runs off the glass on "doesn't matter"
+  const e = inC(2), fl2 = Math.sin(t * 1.2);
+  flat("s2", t, CUT[2][1] - .05); $("s2").style.visibility = e ? "visible" : "hidden";
+  $("panel").style.transform = e ? `translateY(${(1 - out3(p(t, CUT[2][0], .4))) * 500}px) rotateY(${-6 + fl2 * 3}deg) rotateX(${4 + fl2}deg) scale(${.8 + .2 * back(p(t, CUT[2][0], .4))})` : "scale(0)";
+  const s = out3(p(t, T.sw, .25)); $("knob").style.left = (8 + 60 * s) + "px"; $("sw").style.background = s > .5 ? "#6FE3C1" : "rgba(255,255,255,.22)"; $("sw").style.boxShadow = s > .5 ? "0 0 30px rgba(91,240,196,.7)" : "none";
+  const lim = out3(p(t, T.lim, .5)), off = io(p(t, T.off, .7)), x = 520 * lim + 900 * off;
+  $("fill").style.width = x + "px"; $("thumb").style.left = (x - 32) + "px"; $("track").style.width = (780 + 500 * off) + "px";
+  $("cap").style.left = (48 + 520 - 150) + "px"; $("cap").style.opacity = p(t, T.lim, .3); $("cap").innerHTML = off > .1 ? "<s>$1,283,100</s>" : "$1,283,100";
+  ext("r2", t, CUT[2][1] - .05, .6);
+
+  // CUT[3]: the home
+  const h = inC(3), hin = p(t, T.home, .45), k4 = back(hin), fl4 = Math.sin(t * 1.6);
+  $("r4").style.transform = `translate(${(1 - out3(hin)) * 820}px, 0px)`;
+  $("photo").style.transform = h ? `rotateY(${-15 + (1 - k4) * -70 + fl4 * 5}deg) rotateX(${7 + fl4 * 2}deg) rotateZ(${-3 + (1 - k4) * 12}deg) scale(${.6 + .4 * k4})` : "scale(0)";
+  $("photoBack").style.transform = h ? `translate(${-90 + fl4 * -10}px, -40px) translateZ(-280px) rotateY(${-10 + fl4 * 2}deg) rotateZ(5deg) scale(1.05)` : "scale(0)";
+  ext("r3", t, CUT[3][1] - .05, .6);
+  $("zero").style.transform = h ? `rotate(-5deg) scale(${back(p(t, T.zero, .3)) * pulse(t, T.zero + .3)})` : "scale(0)";
+  $("foot2").style.opacity = h ? p(t, T.home + .5, .3) : 0;
+};
+if (location.hash.includes("zones")) document.querySelectorAll(".zone").forEach((z) => z.style.display = "block");
+window.seek(0);
+</script>
+</body></html>

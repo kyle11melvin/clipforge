@@ -43,6 +43,7 @@ his standing brief. Read it before touching anything.
   the top (`y: 48`) so it sits in the sky above his head and never touches the captions.
 - `src/graphics/render.mjs` — motion graphics: an HTML composition with `window.seek(t)` rendered frame by
   frame through headless Chromium, encoded by FFmpeg. `--probe t1,t2,...` makes a contact sheet of stills.
+  `--workers 3` renders on three browser pages at once (about 2.5x faster in a 4-core session).
   `--alpha` renders a transparent background to ProRes 4444 (`.mov`) so text can float over footage with no
   panel; `comp.html#nocard` is the variant switch `graphics/20-down-myth` uses for that.
   If Playwright's own browser is missing it falls back to `CLIPFORGE_CHROMIUM` or `/opt/pw-browsers/chromium`,

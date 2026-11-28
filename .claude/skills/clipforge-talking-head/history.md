@@ -217,3 +217,10 @@ picture-in-picture box, so keep captions off while a pip is on screen.
   like I just paid someone $5,000": the paper cutaways became glass panels over his blurred footage, with a
   trading-app screen for the ETF. **His verdict on round ten: "Nice! Our videos are getting a lot better."** This is
   the version to start the next talking head from.
+
+- **VA county loan limit 2027 (2026-11-28), walking selfie, overcast.** `graphics/va-limit/` (`overlay.html`,
+  `tight-cut.py`, `assemble.sh`, `sfx.json`, `cover.html`). Built in the approved stroller-math shape on the first pass:
+  five unbroken takes of him, four cutaways over his blurred footage. New devices, none reused: photo cards for the two
+  counties with figures rolling 2026 to 2027, a glass settings panel whose limit slider runs off the glass for "no
+  limit", a house card with a "$0 down" tag. Start a "numbers by place" or a "setting that changes" reel from here.
+  Verdict: pending.

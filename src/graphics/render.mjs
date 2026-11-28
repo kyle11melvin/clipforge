@@ -3,6 +3,7 @@
 //
 //   node src/graphics/render.mjs <comp.html> <out.mp4> [--duration 20] [--fps 30] [--size 1080x1920]
 //   node src/graphics/render.mjs <comp.html> <out.mov> --alpha      (transparent background, ProRes 4444)
+//   add --workers 3 to render on three browser pages at once (about 2.5x faster on a 4-core session)
 //   node src/graphics/render.mjs <comp.html> <probe.png> --probe 1.5,6.9,9.6      (one still per time, side by side)
 //
 // The composition contract is simple: the page draws itself for any time `t` (seconds) when
@@ -28,7 +29,7 @@ function loadPlaywright() {
 }
 
 function parseArgs(argv) {
-  const opts = { duration: 20, fps: 30, width: 1080, height: 1920, probe: null, alpha: false, positional: [] };
+  const opts = { duration: 20, fps: 30, width: 1080, height: 1920, probe: null, alpha: false, workers: 1, positional: [] };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--duration") opts.duration = parseFloat(argv[++i]);
@@ -36,6 +37,7 @@ function parseArgs(argv) {
     else if (a === "--size") [opts.width, opts.height] = argv[++i].split("x").map(Number);
     else if (a === "--probe") opts.probe = argv[++i].split(",").map(Number);
     else if (a === "--alpha") opts.alpha = true;
+    else if (a === "--workers") opts.workers = Math.max(1, parseInt(argv[++i], 10));
     else opts.positional.push(a);
   }
   if (opts.positional.length < 2) {
@@ -61,7 +63,7 @@ async function launchChromium(chromium) {
   }
 }
 
-export async function render({ comp, out, duration, fps, width, height, probe, alpha = false }) {
+export async function render({ comp, out, duration, fps, width, height, probe, alpha = false, workers = 1 }) {
   const { chromium } = loadPlaywright();
   const frames = join(tmpdir(), `clipforge-frames-${process.pid}`);
   await rm(frames, { recursive: true, force: true });
@@ -92,12 +94,25 @@ export async function render({ comp, out, duration, fps, width, height, probe, a
 
     const total = Math.round(duration * fps);
     const t0 = Date.now();
-    for (let f = 0; f < total; f++) {
-      await page.evaluate((t) => window.seek(t), f / fps);
-      if (alpha) await page.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.png`), type: "png", omitBackground: true });
-      else await page.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.jpg`), type: "jpeg", quality: 94 });
-      if (f % 150 === 0) process.stderr.write(`  frame ${f}/${total}\n`);
+    // --workers N: N pages of the same composition take every Nth frame each. Safe because a composition draws any
+    // time t from scratch in seek(t); a 43 s alpha layer went from about 16 minutes to about 6 with three (2026-11-28).
+    const pages = [page];
+    for (let w = 1; w < workers; w++) {
+      const pg = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
+      await pg.goto("file://" + resolve(compPath) + (hash ? "#" + hash : ""));
+      await pg.evaluate(() => document.fonts.ready);
+      await pg.waitForTimeout(300);
+      pages.push(pg);
     }
+    let done = 0;
+    await Promise.all(pages.map(async (pg, w) => {
+      for (let f = w; f < total; f += pages.length) {
+        await pg.evaluate((t) => window.seek(t), f / fps);
+        if (alpha) await pg.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.png`), type: "png", omitBackground: true });
+        else await pg.screenshot({ path: join(frames, `f_${String(f).padStart(5, "0")}.jpg`), type: "jpeg", quality: 94 });
+        if (++done % 150 === 0) process.stderr.write(`  frame ${done}/${total}\n`);
+      }
+    }));
     process.stderr.write(`  ${total} frames in ${((Date.now() - t0) / 1000).toFixed(1)}s\n`);
     if (alpha) {
       // ProRes 4444 keeps the alpha channel; broll's pip/cut overlay honours it.
